@@ -23,7 +23,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 //  MIDDLEWARE
 const whitelist = [
   'http://localhost:3000',
-  'http://localhost:8000',
+  'http://localhost:8080',
   'https://yourplaceapp.herokuapp.com',
 ];
 const corsOptions = {
