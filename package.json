@@ -10,17 +10,10 @@
         "node": "15.x"
     },
     "main": "server.js",
-    "exports": "./modern.js",
-    "module": "./module.js",
     "scripts": {
+        "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "format": "prettier --write \"./**/*.js\"",
-        "updates": "ncu -u",
-        "start": "node server.js",
-        "dev": "concurrently \"npm run server\" \"npm run client\"",
-        "server": "node server.js",
-        "client": "node start-client.js",
-        "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+        "start": "node server.js"
     },
     "license": "MIT",
     "private": true,
