@@ -49,15 +49,6 @@ app.use('/api/v1/transactions', transactionsRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/visits', visitsRouter);
 
-// Endpoint Not Found
-app.all('*', (req, res, next) => {
-  const err = new ResponseError(httpStatus.NOT_FOUND, 'Endpoint Not Found');
-  next(err);
-});
-
-// Error middleware
-app.use(errorMiddleware);
-
 //  Serve client react instead of backend
 //  Add the follwing code to your server file on the backend
 const path = require('path');
@@ -69,5 +60,14 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
+
+// Endpoint Not Found
+app.all('/api/v1/', (req, res, next) => {
+  const err = new ResponseError(httpStatus.NOT_FOUND, 'Endpoint Not Found');
+  next(err);
+});
+
+// Error middleware
+app.use(errorMiddleware);
 
 module.exports = app;
