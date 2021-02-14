@@ -1,0 +1,33 @@
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <script src="https://unpkg.com/pdf-lib"></script>
+    </head>
+
+    <body>
+        <iframe id="pdf"
+                style="width: 100%; height: 100%;"></iframe>
+    </body>
+    <script>
+        createPdf();
+        async function createPdf() {
+            const data = await fetch('http://localhost:3000/api/v1/contracts/7271ec1f-320a-43c1-9310-42127f795651', {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRhOTQ5YmMxLWRkNGUtNDMxNi05YmRmLWY1YmQ2ODM5YmM4MyIsInZlcmlmaWVkIjoxLCJpYXQiOjE2MTI0NTUyODAsImV4cCI6MTYxMjQ1ODg4MH0.P8gX4eN2eQQCXlpweQ1PdqedX2V97rASO-aZGaRw_68"
+                    // 'Content-Type': 'application/json',
+
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+            });
+            const data2 = await data.json();
+            document.getElementById('pdf').src = data2.contract;
+        }
+    </script>
+
+</html>
