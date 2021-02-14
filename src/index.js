@@ -24,7 +24,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 const whitelist = [
   'http://localhost:3000',
   'http://localhost:8000',
-  'https://morning-journey-99255.herokuapp.com',
+  'https://yourplaceapp.herokuapp.com',
 ];
 const corsOptions = {
   origin: function (origin, callback) {
