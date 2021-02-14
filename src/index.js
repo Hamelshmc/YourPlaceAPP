@@ -23,7 +23,11 @@ app.use(cors());
 
 // # Do the same for the following code. Your main server file that is.
 //  MIDDLEWARE
-const whitelist = ['http://localhost:3000', 'http://localhost:8000'];
+const whitelist = [
+  'http://localhost:3000',
+  'http://localhost:8000',
+  'https://morning-journey-99255.herokuapp.com',
+];
 const corsOptions = {
   origin: function (origin, callback) {
     console.log('** Origin of request ' + origin);
