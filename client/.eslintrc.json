@@ -1,0 +1,76 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "prettier",
+        "standard"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "react/react-in-jsx-scope": "off",
+        "react/prop-types": "off",
+        "space-before-function-paren": "off",
+        "semi": "off",
+        "no-undef": "warn",
+        "no-magic-numbers": [
+            "warn",
+            {
+                "detectObjects": false,
+                "enforceConst": true,
+                "ignore": [
+                    0,
+                    1
+                ],
+                "ignoreArrayIndexes": true
+            }
+        ],
+        "complexity": [
+            "warn",
+            {
+                "max": 8
+            }
+        ],
+        "max-depth": [
+            "warn",
+            2
+        ],
+        "max-lines": [
+            "warn",
+            256
+        ],
+        "max-lines-per-function": [
+            "warn",
+            40
+        ],
+        "max-nested-callbacks": [
+            "warn",
+            2
+        ],
+        "max-params": [
+            "warn",
+            4
+        ],
+        "no-multiple-empty-lines": [
+            "warn",
+            {
+                "max": 2,
+                "maxEOF": 1
+            }
+        ],
+        "no-unused-vars": 0,
+        "no-nested-ternary": "warn"
+    }
+}

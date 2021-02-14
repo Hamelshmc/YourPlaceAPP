@@ -1,0 +1,56 @@
+{
+    "name": "yourplace-api",
+    "version": "0.0.1",
+    "description": "Your Place API - NodeJS",
+    "author": {
+        "name": "Team-MH",
+        "url": "https://gitlab.com/team-mh"
+    },
+    "main": "server.js",
+    "exports": "./modern.js",
+    "module": "./module.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "format": "prettier --write \"./**/*.js\"",
+        "updates": "ncu -u",
+        "start": "concurrently \"npm run server\" \"npm run client\"",
+        "server": "node server.js",
+        "client": "node start-client.js",
+        "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    },
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "@sendgrid/mail": "^7.4.2",
+        "bcryptjs": "^2.4.3",
+        "cloudinary": "^1.24.0",
+        "compression": "^1.7.4",
+        "cors": "^2.8.5",
+        "date-fns": "^2.17.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "joi": "^17.3.0",
+        "jsonwebtoken": "^8.5.1",
+        "memory-cache": "^0.2.0",
+        "mysql2": "^2.2.5",
+        "node-fetch": "^2.6.1",
+        "pdf-lib": "^1.16.0",
+        "stripe": "^8.133.0",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "concurrently": "3.1.0",
+        "dotenv": "^8.2.0",
+        "eslint": "~7.19.0",
+        "eslint-config-prettier": "~7.2.0",
+        "eslint-config-standard": "~16.0.2",
+        "eslint-plugin-import": "~2.22.1",
+        "eslint-plugin-node": "~11.1.0",
+        "eslint-plugin-prettier": "~3.3.1",
+        "eslint-plugin-promise": "~4.2.1",
+        "express-generator": "^4.16.1",
+        "nodemon": "^2.0.7",
+        "npm-check-updates": "~11.1.1",
+        "prettier": "~2.2.1"
+    }
+}
