@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "waderyan.nodejs-extension-pack",
+        "mikestead.dotenv",
+        "oderwat.indent-rainbow",
+        "ritwickdey.liveserver",
+        "pkief.material-icon-theme",
+        "esbenp.prettier-vscode",
+        "visualstudioexptteam.vscodeintellicode",
+        "jpoissonnier.vscode-styled-components"
+    ]
+}
