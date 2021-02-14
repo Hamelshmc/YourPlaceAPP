@@ -19,8 +19,6 @@ const app = express();
 app.use(compression());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(cors());
-
 // # Do the same for the following code. Your main server file that is.
 //  MIDDLEWARE
 const whitelist = [
@@ -40,7 +38,7 @@ const corsOptions = {
     }
   },
 };
-app.options('*', cors());
+app.use(cors(corsOptions));
 
 app.use('/api/v1/bookings', bookingsRouter);
 app.use('/api/v1/contracts', contractsRouter);
