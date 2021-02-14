@@ -6,6 +6,9 @@
         "name": "Team-MH",
         "url": "https://gitlab.com/team-mh"
     },
+    "engines": {
+        "node": "15.5.0"
+    },
     "main": "server.js",
     "exports": "./modern.js",
     "module": "./module.js",
@@ -13,7 +16,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --write \"./**/*.js\"",
         "updates": "ncu -u",
-        "start": "concurrently \"npm run server\" \"npm run client\"",
+        "start": "node index.js",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
         "server": "node server.js",
         "client": "node start-client.js",
         "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
