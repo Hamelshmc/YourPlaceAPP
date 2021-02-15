@@ -4,5 +4,5 @@ module.exports = {
   getPublicationSearch: require('./search.publication.controller'),
   insertRatingByPublicationId: require('./insert.rating.by.publication.id.controller'),
   updatePublication: require('./update.publication.controller'),
-  uploadImagePublication: require('./uploadImage.publication.controller'),
+  uploadImagePublication: require('./upload.image.publication.controller'),
 };

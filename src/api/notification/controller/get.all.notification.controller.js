@@ -1,13 +1,13 @@
 'use strict';
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 const notificationServices = require('../services');
 
 async function showAllNotification(request, response) {
   try {
     const { id: idUser } = request.user;
     const notifications = await notificationServices.getAllNotification(idUser);
-    return response.status(httpStatus.OK).send(notifications);
+    return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, notifications));
   } catch (error) {
     return response
       .status(error.status)

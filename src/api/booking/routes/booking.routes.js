@@ -1,7 +1,7 @@
 'use strict';
 
 const bookingRouter = require('express').Router();
-const { auth, verified } = require('../../user/middleware');
+const { auth, verified } = require('../../user/middleware/');
 const bookingControllers = require('../controller');
 
 bookingRouter

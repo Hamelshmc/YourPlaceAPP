@@ -1,6 +1,6 @@
 const notificationRouter = require('express').Router();
 const notificationController = require('../controller');
-const { auth, verified } = require('../../user/middleware');
+const { auth, verified } = require('../../user/middleware/');
 
 notificationRouter
   .route('/')

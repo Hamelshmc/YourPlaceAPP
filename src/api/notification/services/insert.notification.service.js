@@ -1,4 +1,5 @@
 'use strict';
+
 const { tableNames, idChecker } = require('../../../helpers');
 const notificationRepository = require('../../../repositories/notification.repository');
 

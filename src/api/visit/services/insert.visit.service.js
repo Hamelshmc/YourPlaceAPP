@@ -6,9 +6,12 @@ const publicationRepository = require('../../../repositories/publication.reposit
 const typeNotifications = require('../../notification/helper/type.notification');
 const visitRepository = require('../../../repositories/visit.repository');
 const visitValidator = require('../validations');
+const { id } = require('date-fns/locale');
 
-async function insertVisit(visitDate, visitHour, idPublication, idUser) {
-  if (idPublication) {
+async function insertVisit({ visitDate, visitHour, idPublication }, idUser) {
+  await visitValidator.validateInsertVisit({ visitDate, visitHour, idPublication });
+  const haveVisit = await visitRepository.haveVisit(idUser, idPublication);
+  if (!haveVisit) {
     const publication = await publicationRepository.existsPublication(idPublication);
     if (publication) {
       const visitId = await idChecker(tableNames.VISIT);
@@ -19,19 +22,15 @@ async function insertVisit(visitDate, visitHour, idPublication, idUser) {
         id_publication: idPublication,
         id_user_visitant: idUser,
       };
-      console.log({ visit });
-      await visitValidator.validateInsertVisit(visit);
-
       await notificationServices.newNotification({
         type: typeNotifications.VISIT,
         idUser: idUser,
       });
       return await visitRepository.insertVisit(visit);
     }
-
-    throw new ResponseError(httpStatus.NOT_FOUND, 'Not Found Publication');
+    throw new ResponseError(httpStatus.NOT_FOUND, 'PUBLICATION NOT FOUND');
   }
-  throw new ResponseError(httpStatus.NOT_FOUND, 'Not valid id Publication');
+  throw new ResponseError(httpStatus.CONFLICT, 'YOU CANT ADD MORE VISITS TO THIS RESERVATION');
 }
 
 module.exports = insertVisit;

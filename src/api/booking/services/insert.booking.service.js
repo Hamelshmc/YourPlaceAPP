@@ -10,7 +10,7 @@ const typeNotifications = require('../../notification/helper/type.notification')
 
 async function insertBooking({ startDate, months, idPublication }, idUser) {
   await insertBookingValidator({ startDate, months, idPublication });
-  const userHaveBooking = await bookingRepository.haveBooking(idUser);
+  const userHaveBooking = await bookingRepository.haveBooking(idUser, idPublication);
   if (!userHaveBooking) {
     const id = await idChecker(tableNames.BOOKING);
     const date = add(new Date(startDate), { months: months });

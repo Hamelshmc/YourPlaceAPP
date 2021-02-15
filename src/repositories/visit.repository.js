@@ -30,10 +30,16 @@ async function visitExists(id) {
   return await repositoryManager.valueExists(query, [id]);
 }
 
+async function haveVisit(idUser, idPublication) {
+  const query = `SELECT * FROM ${tableNames.VISIT} v WHERE v.id_user_visitant = ? AND v.id_publication = ?;`;
+  return await repositoryManager.valueExists(query, [idUser, idPublication]);
+}
+
 module.exports = {
   deleteVisit,
   getVisityById,
   insertVisit,
   updateVisit,
   visitExists,
+  haveVisit,
 };

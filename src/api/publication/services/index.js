@@ -6,5 +6,5 @@ module.exports = {
   getPublicationById: require('./get.publication.by.id.service'),
   insertRatingByPublicationId: require('./insert.rating.by.publication.id.service'),
   getPublicationSearch: require('./search.publication.service'),
-  uploadImagePublication: require('./uploadImage.publication.service'),
+  uploadImagePublication: require('./upload.image.publication.service'),
 };

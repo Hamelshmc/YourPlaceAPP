@@ -40,9 +40,9 @@ async function haveTransactions(idBooking) {
   return await repositoryManager.executeQuery(query, [idBooking]);
 }
 
-async function haveBooking(idUser) {
-  const query = `SELECT * FROM ${tableNames.BOOKING} b WHERE b.id_user_payer = ?;`;
-  return await repositoryManager.valueExists(query, [idUser]);
+async function haveBooking(idUser, idPublication) {
+  const query = `SELECT * FROM ${tableNames.BOOKING} b WHERE b.id_user_payer = ? AND b.id_publication = ?;`;
+  return await repositoryManager.valueExists(query, [idUser, idPublication]);
 }
 
 module.exports = {

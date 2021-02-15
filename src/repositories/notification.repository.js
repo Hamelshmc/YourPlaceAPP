@@ -21,8 +21,15 @@ async function deleteNotification(idNotification) {
   return await repositoryManager.executeQuery(query, value);
 }
 
+async function existNotification(idNotification) {
+  const query = `SELECT * FROM ${tableNames.NOTIFICATIONS} WHERE id = ?`;
+  const value = [idNotification];
+  return await repositoryManager.valueExists(query, value);
+}
+
 module.exports = {
   insertNotification,
   findAllNotification,
   deleteNotification,
+  existNotification,
 };

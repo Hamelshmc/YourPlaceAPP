@@ -1,7 +1,7 @@
 'use strict';
 
 const { MAPBOX_TOKEN } = process.env;
-const { ResponseError, httpStatus } = require('../../../helpers');
+const { ResponseError, httpStatus } = require('../../../helpers/');
 const fetch = require('node-fetch');
 
 const getAddressCoords = async (address, zipcode) => {

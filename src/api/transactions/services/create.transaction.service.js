@@ -1,7 +1,7 @@
 'use strict';
 
 const { idChecker, tableNames, ResponseError, httpStatus } = require('../../../helpers');
-const { insertTransactionValidator } = require('../validations');
+const { insertTransactionValidator } = require('../validations/');
 const transactionRepository = require('../../../repositories/transaction.repository');
 const bookingRepository = require('../../../repositories/booking.repository');
 const publicationRepository = require('../../../repositories/publication.repository');
@@ -11,6 +11,7 @@ const notificationServices = require('../../notification/services');
 const typeNotifications = require('../../notification/helper/type.notification');
 
 async function createTransaction(timestamp, amount, success, idBooking, idUser) {
+  await insertTransactionValidator({ timestamp, amount, success, idBooking });
   const idTransaction = await idChecker(tableNames.TRANSACTIONS);
   const [booking] = await bookingRepository.findBookingById(idBooking);
   const [publication] = await publicationRepository.findPublicationById(booking.id_publication);
@@ -27,8 +28,6 @@ async function createTransaction(timestamp, amount, success, idBooking, idUser) 
         type: typeNotifications.PAYMENT,
         idUser: idUser,
       });
-      console.log('TRANSACTION BNRO: ', transaction);
-      await insertTransactionValidator(transaction);
       await transactionRepository.createTransaction(transaction);
       if (success) {
         return await publicationRepository.updatePublication({ disabled: success }, publication.id);

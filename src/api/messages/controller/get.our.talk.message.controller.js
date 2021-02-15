@@ -1,6 +1,6 @@
 'use strict';
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 const messageServices = require('../services');
 
 async function getOurTalk(request, response) {
@@ -8,7 +8,7 @@ async function getOurTalk(request, response) {
     const { id } = request.params;
     const { id: idUser } = request.user;
     const talks = await messageServices.findOurTalk(idUser, id);
-    return response.status(httpStatus.OK).send(talks);
+    return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, talks));
   } catch (error) {
     return response
       .status(error.status)

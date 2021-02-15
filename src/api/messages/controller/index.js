@@ -1,5 +1,5 @@
 module.exports = {
-  newMessage: require('./post.new.message.controller'),
-  getMyTalks: require('./get.MyTalks.message.controller'),
-  getOurTalk: require('./get.OurTalk.message.controller'),
+  newMessage: require('./insert.message.controller'),
+  getMyTalks: require('./get.my.talks.message.controller'),
+  getOurTalk: require('./get.our.talk.message.controller'),
 };

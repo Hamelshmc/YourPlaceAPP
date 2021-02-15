@@ -4,7 +4,6 @@ const Joi = require('joi');
 const { httpStatus, ResponseError } = require('../../../helpers');
 
 const insertTransactionSchema = Joi.object({
-  id: Joi.string().required(),
   timestamp: Joi.date().required(),
   amount: Joi.number().required(),
   success: Joi.boolean().required(),

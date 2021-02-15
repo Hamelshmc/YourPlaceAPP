@@ -1,13 +1,15 @@
 'use strict';
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 const notificationServices = require('../services');
 
 async function deleteNotification(request, response) {
   try {
     const { id: idNotification } = request.params;
     await notificationServices.removeNotification(idNotification);
-    return response.status(httpStatus.OK).send('DELETE');
+    return response
+      .status(httpStatus.OK)
+      .send(new ResponseJson(httpStatus.OK, 'NOTIFICATION DELETED'));
   } catch (error) {
     return response
       .status(error.status)

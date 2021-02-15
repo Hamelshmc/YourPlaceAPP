@@ -1,6 +1,6 @@
 'use strict';
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 const transactionServices = require('../services');
 
 async function insertTransaction(request, response) {
@@ -9,10 +9,12 @@ async function insertTransaction(request, response) {
     const result = request.body;
     const { id: idUser } = request.user;
     await transactionServices.insertTransaction(result, idBooking, idUser);
-    return response.status(httpStatus.OK).send('TRANSACTION COMPLETE');
+    return response
+      .status(httpStatus.CREATED)
+      .send(new ResponseJson(httpStatus.CREATED, 'TRANSACTION COMPLETED'));
   } catch (error) {
     return response
-      .status(error.status || httpStatus.BAD_REQUEST)
+      .status(error.status)
       .send(new ResponseError(error.status, error, error.message));
   }
 }

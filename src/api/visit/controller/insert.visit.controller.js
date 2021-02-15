@@ -5,14 +5,9 @@ const visitServices = require('../services');
 
 async function insertVisit(request, response) {
   try {
-    const {
-      visit_date: visitDate,
-      visit_hour: visitHour,
-      id_publication: idPublication,
-    } = request.body;
     const idUser = request.user.id;
 
-    await visitServices.insertVisit(visitDate, visitHour, idPublication, idUser);
+    await visitServices.insertVisit(request.body, idUser);
     return response
       .status(httpStatus.CREATED)
       .send(new ResponseJson(httpStatus.CREATED, 'INSERTED VISIT'));

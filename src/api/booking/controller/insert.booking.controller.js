@@ -1,7 +1,7 @@
 'use strict';
 
 const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
-const bookingServices = require('../services');
+const bookingServices = require('../services/');
 
 async function insertBooking(request, response) {
   try {

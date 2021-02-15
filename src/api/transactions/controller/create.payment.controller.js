@@ -1,7 +1,7 @@
 'use strict';
 
 const { httpStatus, ResponseError } = require('../../../helpers');
-const transactionServices = require('../services');
+const transactionServices = require('../services/');
 
 async function createPayment(request, response) {
   try {
@@ -13,7 +13,7 @@ async function createPayment(request, response) {
     });
   } catch (error) {
     return response
-      .status(error.status || httpStatus.BAD_REQUEST)
+      .status(error.status)
       .send(new ResponseError(error.status, error, error.message));
   }
 }
