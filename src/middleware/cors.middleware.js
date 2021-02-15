@@ -1,3 +1,4 @@
+const { ResponseError, httpStatus } = require('../helpers');
 const whitelist = [
   'http://localhost:3000',
   'http://localhost:8080',
@@ -12,7 +13,7 @@ const corsOptions = {
       callback(null, true);
     } else {
       console.log('Origin rejected');
-      callback(new Error('Not allowed by CORS'));
+      callback(new ResponseError(httpStatus.BAD_REQUEST, 'Not allowed by CORS'));
     }
   },
 };
