@@ -2,6 +2,7 @@
 
 const { ResponseError, httpStatus } = require('../../../helpers');
 const { cloudinary, optionsImage } = require('../helper/cloudinary.helper');
+
 async function uploadImagePublication(files) {
   const image = {
     data: [],

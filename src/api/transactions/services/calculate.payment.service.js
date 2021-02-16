@@ -1,8 +1,9 @@
 'use strict';
 
+const { differenceInMonths } = require('date-fns');
 const bookingRepository = require('../../../repositories/booking.repository');
 const publicationRepository = require('../../../repositories/publication.repository');
-const { differenceInMonths } = require('date-fns');
+
 const CURRENCY_CENTS = 100;
 
 async function calculatePayment(idBooking, idUser) {

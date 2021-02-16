@@ -6,7 +6,7 @@
         "node": true
     },
     "extends": [
-        "standard",
+        "airbnb-base",
         "plugin:prettier/recommended"
     ],
     "plugins": [
@@ -16,6 +16,9 @@
         "ecmaVersion": 12
     },
     "rules": {
+        "no-return-await": "off",
+        "strict": "off",
+        "global-require": "off",
         "complexity": [
             "warn",
             {
@@ -62,12 +65,6 @@
             }
         ],
         "no-unused-vars": 0,
-        "no-nested-ternary": "warn",
-        "prettier/prettier": [
-            "warn",
-            {
-                "endOfLine": "auto"
-            }
-        ]
+        "no-nested-ternary": "warn"
     }
 }

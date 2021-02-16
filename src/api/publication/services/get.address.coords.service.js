@@ -1,8 +1,8 @@
 'use strict';
 
 const { MAPBOX_TOKEN } = process.env;
-const { ResponseError, httpStatus } = require('../../../helpers/');
 const fetch = require('node-fetch');
+const { ResponseError, httpStatus } = require('../../../helpers');
 
 const getAddressCoords = async (address, zipcode) => {
   console.log('getAddressCoords');
@@ -13,9 +13,8 @@ const getAddressCoords = async (address, zipcode) => {
     const latitude = data.features[0].center[1];
     const longitude = data.features[0].center[0];
     return { lat: latitude, long: longitude };
-  } else {
-    throw new ResponseError(httpStatus.BAD_REQUEST, 'MALFORMED ADDRESS OR ZIPCODE');
   }
+  throw new ResponseError(httpStatus.BAD_REQUEST, 'MALFORMED ADDRESS OR ZIPCODE');
 };
 
 module.exports = getAddressCoords;

@@ -1,4 +1,5 @@
 'use strict';
+
 const { ResponseError, httpStatus } = require('../../../helpers');
 const notificationServices = require('../../notification/services');
 const schemaValidation = require('../validations');
@@ -9,8 +10,8 @@ async function updateRating(ratingBody, idUser) {
   await schemaValidation.ratingValidation(ratingBody);
   const { rating, comment, idUserVoted } = ratingBody;
   const ratingEntity = {
-    rating: rating,
-    comment: comment,
+    rating,
+    comment,
     id_user_voted: idUserVoted,
   };
   const ratingExist = await userRatingRepository.valueExists(idUser, idUserVoted);
@@ -18,7 +19,7 @@ async function updateRating(ratingBody, idUser) {
   if (ratingExist) {
     const notification = {
       type: typeNotifications.RATING,
-      idUser: idUser,
+      idUser,
     };
 
     await notificationServices.newNotification(notification);

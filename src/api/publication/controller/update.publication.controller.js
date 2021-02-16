@@ -1,7 +1,7 @@
 'use strict';
 
 const { httpStatus, ResponseError } = require('../../../helpers');
-const publicationServices = require('../services/');
+const publicationServices = require('../services');
 
 async function updatePublication(request, response) {
   const { publication, publication_address: publicationAddress } = request.body;

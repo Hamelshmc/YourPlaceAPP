@@ -1,4 +1,5 @@
 'use strict';
+
 const { httpStatus, ResponseError } = require('../../../helpers');
 
 function verified(request, response, next) {

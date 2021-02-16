@@ -1,8 +1,8 @@
 'use strict';
 
 const visitsRouter = require('express').Router();
-const { auth, verified } = require('../../user/middleware/');
-const visitControllers = require('../controller/');
+const { auth, verified } = require('../../user/middleware');
+const visitControllers = require('../controller');
 
 visitsRouter
   .route('/')

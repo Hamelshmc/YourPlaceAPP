@@ -1,8 +1,8 @@
 'use strict';
 
 const publicationsRouter = require('express').Router();
-const publicationControllers = require('../controller/');
-const { auth, verified } = require('../../user/middleware/');
+const publicationControllers = require('../controller');
+const { auth, verified } = require('../../user/middleware');
 const cache = require('../../../middleware/cache.middleware');
 const { cacheTime } = require('../../../helpers');
 

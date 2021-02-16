@@ -9,7 +9,7 @@ async function getPublicationSearch(parametros) {
   publication = await publication.map(async (publication) => {
     const pics = await publicationRepository.findAllPicturesByPublicationId(publication.id);
     const pictures = pics.map((pic) => pic.url);
-    return { ...publication, pictures: pictures };
+    return { ...publication, pictures };
   });
 
   return await Promise.all(publication).then((completed) => completed);

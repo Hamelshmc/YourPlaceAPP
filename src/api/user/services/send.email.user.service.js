@@ -1,6 +1,7 @@
 'use strict';
 
 const sgMail = require('@sendgrid/mail');
+
 const { SENDGRID_API_KEY, SENDGRID_MAIL_TO, SENDGRID_MAIL_FROM, HTTP_SERVER_NAME } = process.env;
 
 async function sendEmail(user, token, email) {

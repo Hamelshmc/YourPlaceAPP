@@ -1,7 +1,7 @@
 'use strict';
 
 const publicationRepository = require('../../../repositories/publication.repository');
-const { ratingValidator } = require('../../publication/validations/');
+const { ratingValidator } = require('../validations');
 
 async function insertRatingByPublicationId(id, ratingParam, commentParam, idUser) {
   const rating = {

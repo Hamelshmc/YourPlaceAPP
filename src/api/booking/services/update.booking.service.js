@@ -1,4 +1,5 @@
 'use strict';
+
 const { add, format } = require('date-fns');
 const { updateBookingValidator } = require('../validations');
 const bookingRepository = require('../../../repositories/booking.repository');
@@ -11,7 +12,7 @@ async function updateBooking({ startDate, months, idBooking }, idUser) {
   const [foundBooking] = await bookingRepository.findBookingById(idBooking);
   if (foundBooking) {
     if (foundBooking.id_user_payer === idUser) {
-      const date = add(new Date(startDate), { months: months });
+      const date = add(new Date(startDate), { months });
       const endDate = format(date, 'yyyy/MM/dd');
       const booking = {
         start_date: startDate,
@@ -20,7 +21,7 @@ async function updateBooking({ startDate, months, idBooking }, idUser) {
 
       await notificationServices.newNotification({
         type: typeNotifications.BOOKING,
-        idUser: idUser,
+        idUser,
       });
 
       return await bookingRepository.updateBooking(booking, idBooking);
