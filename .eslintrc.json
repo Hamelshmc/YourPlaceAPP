@@ -19,6 +19,7 @@
         "no-return-await": "off",
         "strict": "off",
         "global-require": "off",
+        "no-restricted-syntax": "warn",
         "complexity": [
             "warn",
             {

@@ -4,18 +4,16 @@ const { ResponseError, httpStatus } = require('../../../helpers');
 const { cloudinary, optionsImage } = require('../helper/cloudinary.helper');
 
 async function uploadImagePublication(files) {
-  const image = {
-    data: [],
-  };
-  const { data } = image;
   if (files.length === 0) {
     throw new ResponseError(httpStatus.NO_CONTENT, 'There is no image');
   }
-  for (const file of files) {
+  const promises = files.map(async (file) => {
     const uploadResponse = await cloudinary.uploader.upload(file.data, optionsImage);
-    data.push(uploadResponse.url);
-  }
-  return data;
+    return { url: uploadResponse.url };
+  });
+  const data = await Promise.all(promises).then((completed) => completed);
+
+  return { data };
 }
 
 module.exports = uploadImagePublication;

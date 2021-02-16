@@ -10,7 +10,7 @@ async function uploadImagePublication(request, response) {
     response.status(httpStatus.OK).send(images);
   } catch (error) {
     return response
-      .status(error.status)
+      .status(error.status || httpStatus.BAD_REQUEST)
       .send(new ResponseError(error.status, error, error.message));
   }
 }
