@@ -1,6 +1,6 @@
 const messageRouter = require('express').Router();
 const messageController = require('../controller');
-const { auth, verified } = require('../../user/middleware/');
+const { auth, verified } = require('../../user/middleware');
 
 messageRouter
   .route('/')

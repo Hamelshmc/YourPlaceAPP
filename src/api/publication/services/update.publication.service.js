@@ -1,10 +1,11 @@
 'use strict';
 
 const publicationRepository = require('../../../repositories/publication.repository');
-const { publicationValidator, publicationAddressValidator } = require('../validations/');
+const { publicationValidator, publicationAddressValidator } = require('../validations');
 const getAddressCoords = require('./get.address.coords.service');
 
 async function updatePublication(publicationReq, address, idUser) {
+  
   const publication = {
     id: publicationReq.id,
     ...publicationReq,

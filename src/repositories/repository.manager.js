@@ -2,18 +2,20 @@
 
 const database = require('../database/database');
 
+const HttpStatusCodes = Object.freeze({
+  ER_TRUNCATED_WRONG_VALUE_FOR_FIELD: 422,
+  ER_DUP_ENTRY: 409,
+  ER_MIX_OF_GROUP_FUNC_AND_FIELDS: 420,
+  ER_TRUNCATED_WRONG_VALUE: 500,
+  ER_ACCESS_DENIED_ERROR: 280,
+});
+
 async function executeQuery(sql, values) {
   const pool = await database.getPool();
   return new Promise((resolve, reject) => {
     const query = pool.execute(sql, values);
     console.log('--->', { sql }, { values });
-    query
-      .then((data) => {
-        return resolve(data[0]);
-      })
-      .catch((error) => {
-        return reject(error);
-      });
+    query.then((data) => resolve(data[0])).catch((error) => reject(error));
   }).catch((error) => {
     console.error(error);
     const mysqlErrorList = Object.keys(HttpStatusCodes);
@@ -42,13 +44,5 @@ async function valueExists(sql, values) {
     throw error;
   });
 }
-
-const HttpStatusCodes = Object.freeze({
-  ER_TRUNCATED_WRONG_VALUE_FOR_FIELD: 422,
-  ER_DUP_ENTRY: 409,
-  ER_MIX_OF_GROUP_FUNC_AND_FIELDS: 420,
-  ER_TRUNCATED_WRONG_VALUE: 500,
-  ER_ACCESS_DENIED_ERROR: 280,
-});
 
 module.exports = { executeQuery, valueExists };

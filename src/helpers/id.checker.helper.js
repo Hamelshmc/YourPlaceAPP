@@ -1,7 +1,7 @@
 'use strict';
 
-const repositoryManager = require('../repositories/repository.manager');
 const { v4 } = require('uuid');
+const repositoryManager = require('../repositories/repository.manager');
 
 async function getValidId(tableName) {
   const id = v4();

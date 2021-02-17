@@ -1,12 +1,13 @@
 'use strict';
+
+const bcrypt = require('bcryptjs');
 const { ResponseError, httpStatus } = require('../../../helpers');
 const { tableValue } = require('../../../helpers');
-const bcrypt = require('bcryptjs');
 const schemaValidation = require('../validations');
 const userRepository = require('../../../repositories/user.repository');
 
 async function loginUser({ email, password }) {
-  const userDestructuring = { email: email, password: password };
+  const userDestructuring = { email, password };
   await schemaValidation.loginUserValidation(userDestructuring);
   await userRepository.valueExists(email, tableValue.EMAIL);
 

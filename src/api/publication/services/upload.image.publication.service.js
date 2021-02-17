@@ -13,7 +13,7 @@ async function uploadImagePublication(files) {
   });
   const data = await Promise.all(promises).then((completed) => completed);
 
-  return { data };
+  return data;
 }
 
 module.exports = uploadImagePublication;

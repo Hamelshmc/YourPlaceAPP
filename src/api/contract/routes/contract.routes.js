@@ -1,7 +1,7 @@
 'use strict';
 
 const contractRouter = require('express').Router();
-const { auth, verified } = require('../../user/middleware/');
+const { auth, verified } = require('../../user/middleware');
 const contractControllers = require('../controller');
 
 contractRouter

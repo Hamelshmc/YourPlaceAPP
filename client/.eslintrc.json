@@ -6,8 +6,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "prettier",
-        "standard"
+        "airbnb",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -20,23 +20,18 @@
         "react"
     ],
     "rules": {
-        "react/react-in-jsx-scope": "off",
-        "react/prop-types": "off",
-        "space-before-function-paren": "off",
-        "semi": "off",
-        "no-undef": "warn",
-        "no-magic-numbers": [
-            "warn",
+        "react/jsx-filename-extension": [
+            1,
             {
-                "detectObjects": false,
-                "enforceConst": true,
-                "ignore": [
-                    0,
-                    1
-                ],
-                "ignoreArrayIndexes": true
+                "extensions": [
+                    ".js"
+                ]
             }
         ],
+        "react/prop-types": "off",
+        "react/jsx-closing-bracket-location": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-one-expression-per-line": "off",
         "complexity": [
             "warn",
             {
@@ -62,6 +57,18 @@
         "max-params": [
             "warn",
             4
+        ],
+        "no-magic-numbers": [
+            "warn",
+            {
+                "detectObjects": false,
+                "enforceConst": true,
+                "ignore": [
+                    0,
+                    1
+                ],
+                "ignoreArrayIndexes": true
+            }
         ],
         "no-multiple-empty-lines": [
             "warn",

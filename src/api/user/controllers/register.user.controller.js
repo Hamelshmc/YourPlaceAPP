@@ -9,7 +9,7 @@ const { httpStatus, ResponseError } = require('../../../helpers');
 
 async function registerUser(request, response) {
   const { email, password } = request.body;
-  const user = { email: email, password: password };
+  const user = { email, password };
   try {
     const userRegistered = await userServices.registerUser(user);
 

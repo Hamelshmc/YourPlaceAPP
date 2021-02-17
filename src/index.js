@@ -2,6 +2,7 @@ const compression = require('compression');
 const cors = require('cors');
 const express = require('express');
 const path = require('path');
+const helmet = require('helmet');
 const errorMiddleware = require('./middleware/error.middleware');
 const { httpStatus, ResponseError } = require('./helpers');
 const corsOptions = require('./middleware/cors.middleware');
@@ -22,6 +23,22 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors(corsOptions));
 app.use(configureLog());
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'", 'https://checkout.stripe.com'],
+      frameSrc: ["'self'", 'https://checkout.stripe.com'],
+      childSrc: ["'self'", 'https://checkout.stripe.com'],
+      scriptSrc: ["'self'", 'https://checkout.stripe.com'],
+      styleSrc: ["'self'", 'https://fonts.googleapis.com', 'https://checkout.stripe.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      imgSrc: ["'self'", 'https://*.stripe.com', 'https://res.cloudinary.com'],
+      baseUri: ["'self'"],
+    },
+  })
+);
 
 app.use('/api/v1/bookings', bookingsRouter);
 app.use('/api/v1/contracts', contractsRouter);

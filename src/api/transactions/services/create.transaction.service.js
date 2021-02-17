@@ -1,11 +1,12 @@
 'use strict';
 
+const { fromUnixTime } = require('date-fns');
 const { idChecker, tableNames, ResponseError, httpStatus } = require('../../../helpers');
-const { insertTransactionValidator } = require('../validations/');
+const { insertTransactionValidator } = require('../validations');
 const transactionRepository = require('../../../repositories/transaction.repository');
 const bookingRepository = require('../../../repositories/booking.repository');
 const publicationRepository = require('../../../repositories/publication.repository');
-const { fromUnixTime } = require('date-fns');
+
 const CURRENCY_CENTS = 100;
 const notificationServices = require('../../notification/services');
 const typeNotifications = require('../../notification/helper/type.notification');
@@ -21,12 +22,12 @@ async function createTransaction(timestamp, amount, success, idBooking, idUser) 
         id: idTransaction,
         timestamp: fromUnixTime(timestamp),
         amount: amount / CURRENCY_CENTS,
-        success: success,
+        success,
         id_booking: idBooking,
       };
       await notificationServices.newNotification({
         type: typeNotifications.PAYMENT,
-        idUser: idUser,
+        idUser,
       });
       await transactionRepository.createTransaction(transaction);
       if (success) {

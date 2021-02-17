@@ -76,8 +76,8 @@ async function getPublicationSearch(parametros) {
   return await repositoryManager.executeQuery(query, [
     valueSearch,
     ...values,
-    page + '',
-    limit + '',
+    `${page}`,
+    `${limit}`,
   ]);
 }
 

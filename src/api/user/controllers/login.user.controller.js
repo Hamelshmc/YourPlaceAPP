@@ -7,7 +7,7 @@ const { httpStatus, ResponseError } = require('../../../helpers');
 
 async function loginUser(request, response) {
   const { email, password } = request.body;
-  const user = { email: email, password: password };
+  const user = { email, password };
   try {
     const userLogged = await userServices.loginUser(user);
     const token = jwt.sign(
