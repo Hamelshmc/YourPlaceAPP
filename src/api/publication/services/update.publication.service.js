@@ -5,6 +5,7 @@ const { publicationValidator, publicationAddressValidator } = require('../valida
 const getAddressCoords = require('./get.address.coords.service');
 
 async function updatePublication(publicationReq, address, idUser) {
+  
   const publication = {
     id: publicationReq.id,
     ...publicationReq,

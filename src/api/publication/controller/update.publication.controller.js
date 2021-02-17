@@ -7,7 +7,7 @@ async function updatePublication(request, response) {
   const { publication, publication_address: publicationAddress } = request.body;
   try {
     await publicationServices.updatePublication(publication, publicationAddress, request.user.id);
-    response.status(httpStatus.OK).send('UPDATED');
+    return response.status(httpStatus.OK).send('UPDATED');
   } catch (error) {
     return response
       .status(error.status)

@@ -1,13 +1,13 @@
 'use strict';
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 const publicationServices = require('../services');
 
 async function uploadImagePublication(request, response) {
   const { data } = request.body;
   try {
     const images = await publicationServices.uploadImagePublication(data);
-    response.status(httpStatus.OK).send(images);
+    return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, images));
   } catch (error) {
     return response
       .status(error.status || httpStatus.BAD_REQUEST)

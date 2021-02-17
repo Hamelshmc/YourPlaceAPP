@@ -8,7 +8,7 @@ async function createPublication(request, response) {
   const { id } = request.user;
   try {
     await publicationServices.createPublication(publication, publicationAddress, pictures, id);
-    response.status(httpStatus.CREATED).send('CREATED');
+    return response.status(httpStatus.CREATED).send('CREATED');
   } catch (error) {
     return response
       .status(error.status)
