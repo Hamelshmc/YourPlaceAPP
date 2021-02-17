@@ -4,6 +4,14 @@ before_script:
   - apt-get update -qy
   - apt-get install -y ruby-dev
   - gem install dpl
+  - sudo npm install -g eslint
+  - sudo npm install -g eslint-config-airbnb
+  - sudo npm install -g eslint-plugin-react
+  - sudo npm install -g eslint-plugin-import
+  - sudo npm install -g eslint-config-prettier
+  - sudo npm install -g eslint-plugin-react-hooks
+  - sudo npm install -g eslint-config-airbnb-base
+  - sudo npm install -g eslint-plugin-jsx-a11y
 
 stages:
   - staging
