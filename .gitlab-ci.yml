@@ -4,6 +4,7 @@ before_script:
   - apt-get update -qy
   - apt-get install -y ruby-dev
   - gem install dpl
+  - sudo apt -y install cmake
   - sudo npm install -g eslint
   - sudo npm install -g eslint-config-airbnb
   - sudo npm install -g eslint-plugin-react
