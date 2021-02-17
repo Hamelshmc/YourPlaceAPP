@@ -1,8 +1,6 @@
-const { auth, verified } = require('../middleware');
-const { cacheTime } = require('../../../helpers');
-const cache = require('../../../middleware/cache.middleware');
-const userController = require('../controllers');
 const userRouter = require('express').Router();
+const { auth, verified } = require('../middleware');
+const userController = require('../controllers');
 
 userRouter
   .route('/register')
