@@ -6,11 +6,11 @@ const { httpStatus, ResponseError } = require('../../../helpers');
 
 async function verifyUser(request, response) {
   const { id, secretCode } = await request.params;
-  const verified = await jwt.verify(secretCode, process.env.TOKEN_SECRET);
+  const verified = jwt.verify(secretCode, process.env.TOKEN_SECRET);
   try {
     if (verified.id === id) {
       await userServices.verifyUser(verified.id);
-      return response.status(httpStatus.OK).send('VERIFIED');
+      return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, 'VERIFIED'));
     }
   } catch (error) {
     return response
