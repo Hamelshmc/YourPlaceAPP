@@ -5,7 +5,7 @@ const userServices = require('../services');
 
 const { TOKEN_SECRET } = process.env;
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
 async function registerUser(request, response) {
   const { email, password } = request.body;
@@ -26,7 +26,7 @@ async function registerUser(request, response) {
     return response
       .header('Authorization', `Bearer ${token}`)
       .status(httpStatus.CREATED)
-      .send({ user: userRegistered, authorization: token });
+      .send(new ResponseJson(httpStatus.CREATED, { user: userRegistered, authorization: token }));
   } catch (error) {
     return response
       .status(error.status)

@@ -11,7 +11,7 @@ async function putUser(request, response) {
   try {
     await userServices.updateUser(user, address, id);
     const showUser = await userServices.getUser({ id });
-    return response.status(httpStatus.OK).send(showUser);
+    return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, showUser));
   } catch (error) {
     return response
       .status(error.status)
