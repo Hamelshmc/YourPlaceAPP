@@ -1,13 +1,13 @@
 'use strict';
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 const publicationServices = require('../services');
 
 async function getPublicationById(request, response) {
   const { id } = request.params;
   try {
     const data = await publicationServices.getPublicationById(id);
-    return response.status(httpStatus.OK).send(data);
+    return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, data));
   } catch (error) {
     return response
       .status(error.status)

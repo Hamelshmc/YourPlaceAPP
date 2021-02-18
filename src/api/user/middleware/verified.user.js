@@ -12,7 +12,9 @@ function verified(request, response, next) {
 
     next();
   } catch (error) {
-    response.status(error.status).send(new ResponseError(error.status, error, error.message));
+    return response
+      .status(error.status)
+      .send(new ResponseError(error.status, error, error.message));
   }
 }
 

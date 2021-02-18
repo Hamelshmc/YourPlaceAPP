@@ -1,6 +1,6 @@
 'use strict';
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 const publicationServices = require('../services');
 
 async function insertRatingByPublicationId(request, response) {
@@ -11,7 +11,7 @@ async function insertRatingByPublicationId(request, response) {
 
     await publicationServices.insertRatingByPublicationId(id, rating, comment, idUser);
 
-    return response.status(httpStatus.OK).send('RATED');
+    return response.status(httpStatus.CREATED).send(new ResponseJson(httpStatus.CREATED, 'RATED'));
   } catch (error) {
     return response
       .status(error.status)
