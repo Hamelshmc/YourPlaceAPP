@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
 /* Box sizing rules */
 *,
 *::before,
@@ -86,3 +89,6 @@ select {
     scroll-behavior: auto !important;
   }
 }
+`;
+
+export default GlobalStyle;
