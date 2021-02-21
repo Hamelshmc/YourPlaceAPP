@@ -23,10 +23,8 @@ const auth =
       },
     }
   )
-    .then(async function (result) {
-      return await result.json();
-    })
-    .then(async function (data) {
+    .then(async (result) => await result.json())
+    .then(async (data) => {
       const elements = await stripe.elements();
 
       const style = {
@@ -46,18 +44,18 @@ const auth =
         },
       };
 
-      const card = await elements.create('card', { style: style });
+      const card = await elements.create('card', { style });
       // Stripe injects an iframe into the DOM
       card.mount('#card-element');
 
-      card.on('change', async function (event) {
+      card.on('change', async (event) => {
         // Disable the Pay button if there are no card details in the Element
         document.querySelector('button').disabled = event.empty;
         document.querySelector('#card-error').textContent = event.error ? event.error.message : '';
       });
 
       const form = document.getElementById('payment-form');
-      form.addEventListener('submit', async function (event) {
+      form.addEventListener('submit', async (event) => {
         event.preventDefault();
         // Complete payment when the submit button is clicked
         await payWithCard(stripe, card, data.clientSecret);
@@ -73,10 +71,10 @@ const payWithCard = async function (stripe, card, clientSecret) {
   await stripe
     .confirmCardPayment(clientSecret, {
       payment_method: {
-        card: card,
+        card,
       },
     })
-    .then(async function (result) {
+    .then(async (result) => {
       console.log({ result });
       await createTransaction(result);
       if (result.error) {
@@ -115,7 +113,7 @@ const orderComplete = async function (result) {
   await loading(false);
   document
     .querySelector('.result-message a')
-    .setAttribute('href', 'https://dashboard.stripe.com/test/payments/' + paymentIntentId);
+    .setAttribute('href', `https://dashboard.stripe.com/test/payments/${paymentIntentId}`);
   document.querySelector('.result-message').classList.remove('hidden');
   document.querySelector('button').disabled = true;
 };
@@ -125,7 +123,7 @@ const showError = async function (errorMsgText) {
   await loading(false);
   const errorMsg = document.querySelector('#card-error');
   errorMsg.textContent = errorMsgText;
-  setTimeout(function () {
+  setTimeout(() => {
     errorMsg.textContent = '';
   }, 4000);
 };
