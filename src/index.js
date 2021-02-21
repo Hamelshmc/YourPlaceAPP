@@ -40,6 +40,8 @@ app.use(
   })
 );
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 app.use('/api/v1/bookings', bookingsRouter);
 app.use('/api/v1/contracts', contractsRouter);
 app.use('/api/v1/messages', messageRouter);
@@ -55,7 +57,6 @@ app.all('/api/*', (req, res, next) => {
   next(err);
 });
 
-app.use(express.static(path.join(__dirname, '../client/build')));
 // Handle React routing, return all requests to React app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
