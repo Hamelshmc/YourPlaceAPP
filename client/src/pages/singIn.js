@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-const singIn = () => (
-  <div>
+const SingIn = () => (
+  <SingInStyled>
     Iniciar Sección
     <Link to="/">Home</Link>
-  </div>
+  </SingInStyled>
 );
 
-export default singIn;
+const SingInStyled = styled.div`
+  background-color: green;
+  padding: 1rem;
+`;
+
+export default SingIn;
