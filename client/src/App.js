@@ -8,7 +8,7 @@ const SingIn = React.lazy(() => import('./pages/singIn'));
 
 function App() {
   return (
-    <div>
+    <>
       <GlobalStyle />
       <Theme>
         <Suspense fallback>
@@ -18,7 +18,7 @@ function App() {
           </Router>
         </Suspense>
       </Theme>
-    </div>
+    </>
   );
 }
 
