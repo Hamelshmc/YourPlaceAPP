@@ -7,14 +7,14 @@ const SingIn = React.lazy(() => import('./pages/SingIn'));
 
 function App() {
   return (
-    <Suspense fallback>
-      <Router>
-        <Theme>
+    <Theme>
+      <Suspense fallback>
+        <Router>
           <Route exact path="/" component={Home} />
           <Route exact path="/sign_in" component={SingIn} />
-        </Theme>
-      </Router>
-    </Suspense>
+        </Router>
+      </Suspense>
+    </Theme>
   );
 }
 
