@@ -1,12 +1,12 @@
 'use strict';
 
+const { id } = require('date-fns/locale');
 const { idChecker, tableNames, httpStatus, ResponseError } = require('../../../helpers');
 const notificationServices = require('../../notification/services');
 const publicationRepository = require('../../../repositories/publication.repository');
 const typeNotifications = require('../../notification/helper/type.notification');
 const visitRepository = require('../../../repositories/visit.repository');
 const visitValidator = require('../validations');
-const { id } = require('date-fns/locale');
 
 async function insertVisit({ visitDate, visitHour, idPublication }, idUser) {
   await visitValidator.validateInsertVisit({ visitDate, visitHour, idPublication });
@@ -24,7 +24,7 @@ async function insertVisit({ visitDate, visitHour, idPublication }, idUser) {
       };
       await notificationServices.newNotification({
         type: typeNotifications.VISIT,
-        idUser: idUser,
+        idUser,
       });
       return await visitRepository.insertVisit(visit);
     }

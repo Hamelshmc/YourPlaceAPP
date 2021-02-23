@@ -1,6 +1,7 @@
 const { ResponseError, httpStatus } = require('../../../helpers');
 const publicationRepository = require('../../../repositories/publication.repository');
 const userRepository = require('../../../repositories/user.repository');
+
 async function getUser({ id: idUser }) {
   const [user] = await userRepository.findById(idUser);
 
@@ -12,19 +13,19 @@ async function getUser({ id: idUser }) {
     publicationsUser = await publicationsUser.map(async (publication) => {
       const pics = await publicationRepository.findAllPicturesByPublicationId(publication.id);
       const pictures = pics.map((pic) => pic.url);
-      return { ...publication, pictures: pictures };
+      return { ...publication, pictures };
     });
 
     publicationsFavoritesUser = await publicationsFavoritesUser.map(async (publication) => {
       const pics = await publicationRepository.findAllPicturesByPublicationId(publication.id);
       const pictures = pics.map((pic) => pic.url);
-      return { ...publication, pictures: pictures };
+      return { ...publication, pictures };
     });
 
     publicationsHistoryUser = await publicationsHistoryUser.map(async (publication) => {
       const pics = await publicationRepository.findAllPicturesByPublicationId(publication.id);
       const pictures = pics.map((pic) => pic.url);
-      return { ...publication, pictures: pictures };
+      return { ...publication, pictures };
     });
 
     publicationsUser = await Promise.all(publicationsUser).then((completed) => completed);

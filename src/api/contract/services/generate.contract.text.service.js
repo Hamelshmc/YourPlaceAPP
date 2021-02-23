@@ -5,13 +5,19 @@ const { format } = require('date-fns');
 const pag1 = (booking, tenant, landlord) => `
                                                         CONTRATO DE ARRENDAMIENTO DE TEMPORADA
 
-        En ${booking.city}, a ${new Date().getDate()} de ${new Date().getMonth()} de ${new Date().getFullYear()}
+        En ${
+          booking.city
+        }, a ${new Date().getDate()} de ${new Date().getMonth()} de ${new Date().getFullYear()}
 
                                                                                         REUNIDOS
 
-        De una parte, D. ${tenant.fullname}, mayor de edad, con DNI ${tenant.dni}, y con domicilio en la ciudad de ${tenant.city}
+        De una parte, D. ${tenant.fullname}, mayor de edad, con DNI ${
+  tenant.dni
+}, y con domicilio en la ciudad de ${tenant.city}
         C/ ${tenant.street}.
-        De otra parte, D. ${landlord.fullname}, mayor de edad, con DNI ${landlord.dni}, y con domicilio a efecto de notificaciones
+        De otra parte, D. ${landlord.fullname}, mayor de edad, con DNI ${
+  landlord.dni
+}, y con domicilio a efecto de notificaciones
         en la ciudad de ${landlord.city}, C/ ${landlord.street}.
 
                                                                                         INTERVIENEN
@@ -23,8 +29,14 @@ const pag1 = (booking, tenant, landlord) => `
 
                                                                                         EXPONEN
 
-        PRIMERO.- Que la parte arrendadora es propietaria en pleno dominio de la vivienda ubicada en la C/ ${booking.street}.
-        de la ciudad de ${booking.city}, de ${booking.area} metros cuadrados de superficie divididos en ${booking.rooms} habitaciones, ${booking.bathrooms} cuartos de baño y cocina,
+        PRIMERO.- Que la parte arrendadora es propietaria en pleno dominio de la vivienda ubicada en la C/ ${
+          booking.street
+        }.
+        de la ciudad de ${booking.city}, de ${
+  booking.area
+} metros cuadrados de superficie divididos en ${booking.rooms} habitaciones, ${
+  booking.bathrooms
+} cuartos de baño y cocina,
         cuya superficie y composición así como demás características son perfectamente conocidas por los intervinientes.
 
         SEGUNDO.- Que interesando a la parte arrendataria tomar en arrendamiento la vivienda descrita en el expositivo primero
@@ -47,14 +59,21 @@ const pag2 = (booking, landlord) => `
         SEGUNDA.- ESTADO. El arrendatario declara recibir el inmueble en un buen estado de uso y conservación y se compromete
         a devolverlo en el mismo estado a la conclusión de la relación contractual.
 
-        TERCERA.- DURACIÓN. El presente contrato se acuerda por la temporada comprendida entre el ${format(booking.start_date, 'dd/MM/yyyy')} y el ${format(booking.end_date, 'dd/MM/yyyy')}.
+        TERCERA.- DURACIÓN. El presente contrato se acuerda por la temporada comprendida entre el ${format(
+          booking.start_date,
+          'dd/MM/yyyy'
+        )} y el ${format(booking.end_date, 'dd/MM/yyyy')}.
         El arrendatario deberá abonar al arrendador una indemnización igual a 2 meses de renta en caso de que pretenda o ejerza
         unilateralmente la finalización del contrato, independientemente de otras responsabilidades en que incurra por estas acciones.
 
-        CUARTA.- RENTA. El arrendatario abonará al arrendador, en concepto de renta, la cantidad de ${booking.price} euros mensuales,
+        CUARTA.- RENTA. El arrendatario abonará al arrendador, en concepto de renta, la cantidad de ${
+          booking.price
+        } euros mensuales,
         dentro de los cinco primeros días de cada mes, mediante ingreso o transferencia bancaria o pago en la plataforma, debiendo
         enviar justificante de la misma dentro de ese mismo plazo al arrendador a la cuenta de correo electrónico
-        ${landlord.email}. El incumplimiento de la obligación de pago o notificación del justificante del pago
+        ${
+          landlord.email
+        }. El incumplimiento de la obligación de pago o notificación del justificante del pago
         en el periodo fijado será motivo de resolución del contrato, dando derecho al arrendador a solicitar el desahucio, siendo por
         cuenta del arrendatario los gastos que estas acciones originen. Se hace entrega en este acto del primer mes de renta,
         sirviendo este documento como la más eficaz carta de pago.
@@ -87,7 +106,9 @@ const pag3 = (booking) => `
 
         NOVENA.- CLAUSULA DE PENALIZACIÓN EXPRESA. La parte arrendataria hará entrega de las llaves del inmueble en la
         fecha de finalización del presente contrato. De realizar la entrega más tarde, el arrendatario abonará al arrendador
-        la cantidad de ${booking.price * 0.03} euros por cada día de retraso en la puesta a disposición de las llaves de la vivienda, en
+        la cantidad de ${
+          booking.price * 0.03
+        } euros por cada día de retraso en la puesta a disposición de las llaves de la vivienda, en
         concepto de cláusula penal, además de todos los gastos que directos e indirectos que dicho retraso generen de cara
         a la recuperación de la vivienda.
 
@@ -96,7 +117,9 @@ const pag3 = (booking) => `
         cualquier tipo de animal en la vivienda.
 
         DÉCIMO PRIMERA.- FIANZA. A la firma de este contrato el arrendatario hace entrega al arrendador en concepto de fianza
-        de la cantidad de ${booking.deposit} euros en metálico, equivalente a las mensualidades de renta.
+        de la cantidad de ${
+          booking.deposit
+        } euros en metálico, equivalente a las mensualidades de renta.
         El saldo de la fianza en metálico que deba ser restituido al arrendatario al final del arriendo, devengará el interés
         legal, transcurrido un mes desde la entrega de las llaves por el mismo sin que se hubiere hecho efectiva dicha restitución.
 

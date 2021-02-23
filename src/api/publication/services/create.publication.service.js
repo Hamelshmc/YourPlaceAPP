@@ -4,19 +4,19 @@ const { idChecker, tableNames } = require('../../../helpers');
 const getAddressCoords = require('./get.address.coords.service');
 const insertPictures = require('./pictures.service');
 const publicationRepository = require('../../../repositories/publication.repository');
-const schemaValidator = require('../validations/');
+const schemaValidator = require('../validations');
 
 async function createPublication(publicationReq, publicationAddress, pictures, idUser) {
   const { street, door, floor, city, country, zipcode } = publicationAddress;
   const id = await idChecker(tableNames.PUBLICATION_ADDRESSES);
   const address = {
-    id: id,
-    street: street,
-    door: door,
-    floor: floor,
-    city: city,
-    country: country,
-    zipcode: zipcode,
+    id,
+    street,
+    door,
+    floor,
+    city,
+    country,
+    zipcode,
   };
   await schemaValidator.publicationAddressValidator(address);
   const { lat, long } = await getAddressCoords(street, zipcode);

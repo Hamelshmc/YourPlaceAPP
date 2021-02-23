@@ -1,12 +1,11 @@
-const { httpStatus, ResponseError } = require('./helpers');
-
 const compression = require('compression');
 const cors = require('cors');
-const errorMiddleware = require('./middleware/error.middleware');
 const express = require('express');
 const path = require('path');
+const errorMiddleware = require('./middleware/error.middleware');
+const { httpStatus, ResponseError } = require('./helpers');
 const corsOptions = require('./middleware/cors.middleware');
-
+const configureLog = require('./middleware/log.middleware');
 const bookingsRouter = require('./api/booking/routes/booking.routes');
 const contractsRouter = require('./api/contract/routes/contract.routes');
 const messageRouter = require('./api/messages/routes/message.routes');
@@ -22,6 +21,9 @@ app.use(compression());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors(corsOptions));
+app.use(configureLog());
+
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use('/api/v1/bookings', bookingsRouter);
 app.use('/api/v1/contracts', contractsRouter);
@@ -38,9 +40,8 @@ app.all('/api/*', (req, res, next) => {
   next(err);
 });
 
-app.use(express.static(path.join(__dirname, '../client/build')));
 // Handle React routing, return all requests to React app
-app.get('*', function (req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 

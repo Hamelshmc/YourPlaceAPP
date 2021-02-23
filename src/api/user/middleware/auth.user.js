@@ -1,4 +1,5 @@
 'use strict';
+
 const jwt = require('jsonwebtoken');
 
 const { httpStatus, ResponseError } = require('../../../helpers');
@@ -14,7 +15,7 @@ function auth(request, response, next) {
     request.user = verified;
     next();
   } catch (error) {
-    response
+    return response
       .status(httpStatus.UNAUTHORIZED)
       .send(new ResponseError(httpStatus.UNAUTHORIZED, error, 'Invalid Token'));
   }

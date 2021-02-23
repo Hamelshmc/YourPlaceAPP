@@ -1,4 +1,5 @@
 const memoryCache = require('memory-cache');
+
 const { CACHE_KEY } = process.env;
 
 function cache(duration) {
@@ -8,14 +9,13 @@ function cache(duration) {
 
     if (cachedBody) {
       return res.send(JSON.parse(cachedBody));
-    } else {
-      res.sendResponse = res.send;
-      res.send = (body) => {
-        memoryCache.put(key, body, duration * 1000);
-        res.sendResponse(body);
-      };
-      next();
     }
+    res.sendResponse = res.send;
+    res.send = (body) => {
+      memoryCache.put(key, body, duration * 1000);
+      res.sendResponse(body);
+    };
+    next();
   };
 }
 

@@ -1,4 +1,5 @@
 'use strict';
+
 const { idChecker, tableNames } = require('../../../helpers');
 const messageRepository = require('../../../repositories/messages.repository');
 const schemaValidation = require('../validations/message.validator');
@@ -12,7 +13,7 @@ async function insertMessage(messageBody, idUserSender) {
 
   const messageEntity = {
     id: idMessage,
-    message: message,
+    message,
     id_user_sender: idUserSender,
     id_user_receiver: idUserReceiver,
   };

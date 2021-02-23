@@ -1,4 +1,5 @@
 const { ResponseError, httpStatus } = require('../helpers');
+
 const whitelist = [
   'http://localhost:3000',
   'http://localhost:8080',
@@ -6,8 +7,8 @@ const whitelist = [
   'https://yourplaceappdev.herokuapp.com',
 ];
 const corsOptions = {
-  origin: function (origin, callback) {
-    console.log('** Origin of request ' + origin);
+  origin(origin, callback) {
+    console.log(`** Origin of request ${origin}`);
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       console.log('Origin acceptable');
       callback(null, true);

@@ -1,11 +1,11 @@
 const userServices = require('../services');
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
 async function getMeUser(request, response) {
   try {
     const getUser = await userServices.getUser(request.params);
-    response.status(httpStatus.OK).send(getUser);
+    return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, getUser));
   } catch (error) {
     return response
       .status(error.status)

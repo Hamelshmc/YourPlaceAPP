@@ -20,7 +20,7 @@ async function updateVisit(id, visitDate, visitHour, idUser) {
 
       await notificationServices.newNotification({
         type: typeNotifications.VISIT,
-        idUser: idUser,
+        idUser,
       });
       return await visitRepository.updateVisit(visit, id);
     }

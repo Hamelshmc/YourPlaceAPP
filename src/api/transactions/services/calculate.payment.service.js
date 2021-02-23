@@ -1,8 +1,10 @@
 'use strict';
 
+const { differenceInMonths } = require('date-fns');
+const { ResponseError, httpStatus } = require('../../../helpers');
 const bookingRepository = require('../../../repositories/booking.repository');
 const publicationRepository = require('../../../repositories/publication.repository');
-const { differenceInMonths } = require('date-fns');
+
 const CURRENCY_CENTS = 100;
 
 async function calculatePayment(idBooking, idUser) {
@@ -17,9 +19,9 @@ async function calculatePayment(idBooking, idUser) {
         ? (result = (publication.price * months + publication.deposit) * CURRENCY_CENTS)
         : (result = publication.price * CURRENCY_CENTS);
     }
-    throw new Error('NO TIENES PERMISO PARA EJECUTAR ESTE PAGO');
+    throw new ResponseError(httpStatus.UNAUTHORIZED, 'YOU DONT HAVE PERMISSIONS');
   }
-  throw new Error('IMPOSIBLE ACCEDER AL PAGO');
+  throw new ResponseError(httpStatus.CONFLICT, 'PAYMENT CANT BE DONE');
 }
 
 module.exports = calculatePayment;

@@ -13,10 +13,10 @@ async function insertBooking({ startDate, months, idPublication }, idUser) {
   const userHaveBooking = await bookingRepository.haveBooking(idUser, idPublication);
   if (!userHaveBooking) {
     const id = await idChecker(tableNames.BOOKING);
-    const date = add(new Date(startDate), { months: months });
+    const date = add(new Date(startDate), { months });
     const endDate = format(date, 'yyyy/MM/dd');
     const booking = {
-      id: id,
+      id,
       start_date: startDate,
       end_date: endDate,
       id_user_payer: idUser,
@@ -27,7 +27,7 @@ async function insertBooking({ startDate, months, idPublication }, idUser) {
     if (existPublication) {
       await notificationServices.newNotification({
         type: typeNotifications.BOOKING,
-        idUser: idUser,
+        idUser,
       });
 
       return await bookingRepository.insertBooking(booking);

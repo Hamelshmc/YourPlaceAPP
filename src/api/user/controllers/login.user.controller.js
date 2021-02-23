@@ -3,11 +3,11 @@
 const jwt = require('jsonwebtoken');
 const userServices = require('../services');
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
 async function loginUser(request, response) {
   const { email, password } = request.body;
-  const user = { email: email, password: password };
+  const user = { email, password };
   try {
     const userLogged = await userServices.loginUser(user);
     const token = jwt.sign(
@@ -17,10 +17,10 @@ async function loginUser(request, response) {
         expiresIn: '60m',
       }
     );
-    response
+    return response
       .header('Authorization', `Bearer ${token}`)
       .status(httpStatus.OK)
-      .send({ response: 'Logged In!', authorization: token });
+      .send(new ResponseJson(httpStatus.OK, { authorization: token }));
   } catch (error) {
     return response
       .status(error.status)

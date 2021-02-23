@@ -9,9 +9,9 @@ async function createContract(request, response) {
     const { id: idUser } = request.user;
 
     const contract = await contractServices.createContract(idBooking, idUser);
-    response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, contract));
+    return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, contract));
   } catch (error) {
-    response
+    return response
       .status(httpStatus.BAD_REQUEST)
       .send(new ResponseError(httpStatus.BAD_REQUEST, error, error.message));
   }

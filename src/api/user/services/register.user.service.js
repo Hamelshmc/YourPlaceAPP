@@ -27,7 +27,7 @@ async function registerUser(user) {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const id = await idChecker(tableNames.USER);
-  const userToCreate = { id: id, email: email, password: hashedPassword };
+  const userToCreate = { id, email, password: hashedPassword };
   await userRepository.registerUser(userToCreate);
   await insertUserAddress(id);
 
