@@ -1,6 +1,5 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import GlobalStyle from './theme/GlobalStyle';
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Theme from './theme/Theme';
 
 const Home = React.lazy(() => import('./pages/Home'));
@@ -8,15 +7,13 @@ const SingIn = React.lazy(() => import('./pages/SingIn'));
 
 function App() {
   return (
-    <Suspense fallback>
-      <Router>
-        <GlobalStyle />
-        <Theme>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/sign_in" component={SingIn} />
-        </Theme>
-      </Router>
-    </Suspense>
+    <Theme>
+      <Switch>
+        <Route path="/sign_in" component={SingIn} />
+        <Route path="/" exact component={Home} />
+        <Redirect to="/" />
+      </Switch>
+    </Theme>
   );
 }
 
