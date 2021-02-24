@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import IconLink from '../shared/IconLink';
+import Menu from '../shared/Menu';
+import MenuItem from '../shared/MenuItem';
 import Header from './styles/Header';
 import HeaderContainer from './styles/HeaderContainer';
 import HeaderIcon from './styles/HeaderIcon';
 import HeaderNavBar from './styles/HeaderNavBar';
 import HeaderTitle from './styles/HeaderTitle';
-import Menu from './styles/Menu';
-import MenuItem from './styles/MenuItem';
 import Title from './styles/Title';
 
 function HeaderNav() {
