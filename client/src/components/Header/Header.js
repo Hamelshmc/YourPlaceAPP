@@ -40,7 +40,11 @@ function HeaderNav() {
             </MenuItem>
           </Menu>
         </div>
-        <Avatar to="./user-profile.html">person</Avatar>
+        <Menu>
+          <MenuItem>
+            <Avatar to="./user-profile.html">person</Avatar>
+          </MenuItem>
+        </Menu>
       </Header>
     </HeaderContainer>
   );
