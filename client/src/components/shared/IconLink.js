@@ -17,7 +17,7 @@ const StyledLink = styled(Link)`
   height: auto;
   padding: 1rem;
   text-decoration: none;
-  text-shadow: $box-shadow-card;
+  text-shadow: ${({ theme }) => theme.boxShadow};
   width: 100%;
 
   &:link {

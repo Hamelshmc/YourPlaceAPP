@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import SingIn from '../components/Login/Login';
 import Register from '../components/Register/Register';
-import Tabs, { TabItem } from '../components/Tabs/Tabs';
+import { TabItem } from '../components/Tabs/styles/TabItem';
+import Tabs from '../components/Tabs/Tabs';
 
 const Join = () => (
   <TabSection>
@@ -28,7 +29,7 @@ const TabSection = styled.section`
   background-color: ${({ theme }) => theme.fontSizes.default};
   box-shadow: ${({ theme }) => theme.boxShadow};
   input:checked + label {
-    background-color: $color-05;
+    background-color: ${({ theme }) => theme.colors.primary.default};
     color: #fff;
     box-shadow: ${({ theme }) => theme.boxShadow};
   }
