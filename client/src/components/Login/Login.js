@@ -14,10 +14,10 @@ const Login = () => (
     <Form action="#" method="POST">
       <FormTitle>Login</FormTitle>
       <InputSection>
-        <InputLabel htmlFor="email">Email</InputLabel>
+        <InputLabel htmlFor="loginEmail">Email</InputLabel>
         <Input
-          id="email"
-          name="email"
+          id="loginEmail"
+          name="loginEmail"
           type="email"
           placeholder=" "
           autocomplete="username"
@@ -25,22 +25,22 @@ const Login = () => (
         />
       </InputSection>
       <InputSection>
-        <InputLabel htmlFor="current-password">Password</InputLabel>
+        <InputLabel htmlFor="login-password">Password</InputLabel>
         <Input
-          id="current-password"
-          name="current-password"
+          id="login-password"
+          name="login-password"
           type="password"
           autocomplete="current-password"
           aria-describedby="password-constraints"
           required
         />
         <TogglePassword
-          id="toggle-password"
+          id="toggle-password-login"
           type="button"
           aria-label="Show password as plain text. Warning: this will display your password on the screen.">
           Show password
         </TogglePassword>
-        <Constraints id="password-constraints">
+        <Constraints id="password-constraints-login">
           Eight or more characters, with at least one&nbsp;lowercase and one uppercase letter.
         </Constraints>
       </InputSection>

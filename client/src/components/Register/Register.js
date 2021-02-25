@@ -14,10 +14,10 @@ const Register = () => (
     <Form action="#" method="POST">
       <FormTitle>Join us!</FormTitle>
       <InputSection>
-        <InputLabel htmlFor="email">Email</InputLabel>
+        <InputLabel htmlFor="registerEmail">Email</InputLabel>
         <Input
-          id="email"
-          name="email"
+          id="registerEmail"
+          name="registerEmail"
           type="email"
           placeholder=" "
           autocomplete="username"
@@ -25,17 +25,17 @@ const Register = () => (
         />
       </InputSection>
       <InputSection>
-        <InputLabel htmlFor="current-password">Password</InputLabel>
+        <InputLabel htmlFor="register-password">Password</InputLabel>
         <Input
-          id="current-password"
-          name="current-password"
+          id="register-password"
+          name="register-password"
           type="password"
           autocomplete="current-password"
-          aria-describedby="password-constraints"
+          aria-describedby="password-constraints-register"
           required
         />
         <TogglePassword
-          id="toggle-password"
+          id="toggle-password-register"
           type="button"
           aria-label="Show password as plain text. Warning: this will display your password on the screen.">
           Show password
@@ -48,7 +48,7 @@ const Register = () => (
           name="confirm-password"
           type="password"
           autocomplete="confirm-password"
-          aria-describedby="password-constraints"
+          aria-describedby="password-constraints-register"
           required
         />
         <TogglePassword
@@ -57,11 +57,11 @@ const Register = () => (
           aria-label="Show password as plain text. Warning: this will display your password on the screen.">
           Show password
         </TogglePassword>
-        <Constraints id="password-constraints">
+        <Constraints id="password-constraints-register">
           Eight or more characters, with at least one&nbsp;lowercase and one uppercase letter.
         </Constraints>
       </InputSection>
-      <SubmitButton id="signin">Join our community</SubmitButton>
+      <SubmitButton id="register">Join our community</SubmitButton>
     </Form>
   </FormContainer>
 );
