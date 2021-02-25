@@ -19,23 +19,25 @@ const Tabs = ({ defaultIndex = 0, onTabClick, children }) => {
   return (
     <React.Fragment>
       <div>
-        {items.map(({ props }) => (
-          <TabContent
-            {...props}
-            className={`tab-content ${bindIndex === props.index ? 'selected' : ''}`}
-            key={`tab-content-${props.index}`}
-          />
-        ))}
+        {items &&
+          items.map(({ props }) => (
+            <TabContent
+              {...props}
+              className={`tab-content ${bindIndex === props.index ? 'selected' : ''}`}
+              key={`tab-content-${props.index}`}
+            />
+          ))}
       </div>
       <TabMenu>
-        {items.map(({ props: { index, label } }) => (
-          <TabButton
-            key={`tab-btn-${index}`}
-            onClick={() => changeTab(index)}
-            className={bindIndex === index ? 'focus' : ''}>
-            {label}
-          </TabButton>
-        ))}
+        {items &&
+          items.map(({ props: { index, label } }) => (
+            <TabButton
+              key={`tab-btn-${index}`}
+              onClick={() => changeTab(index)}
+              className={bindIndex === index ? 'focus' : ''}>
+              {label}
+            </TabButton>
+          ))}
       </TabMenu>
     </React.Fragment>
   );
