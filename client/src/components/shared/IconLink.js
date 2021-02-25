@@ -18,6 +18,7 @@ const StyledLink = styled(Link)`
   padding: 1rem;
   text-decoration: none;
   text-shadow: $box-shadow-card;
+  width: 100%;
 
   &:link {
     color: inherit;
