@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import WelcomeContainer from '../components/Welcome/Welcome';
 const Home = () => (
   <div>
-    <div> Hola</div>
-    <Link to="/sign_in"> Iniciar Sección</Link>
+    <WelcomeContainer />
   </div>
 );
 
