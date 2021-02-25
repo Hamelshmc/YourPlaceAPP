@@ -16,10 +16,10 @@ function Footer() {
             <IconLink to="./like.html">favorite</IconLink>
           </MenuItem>
           <MenuItem>
-            <IconLink to="./add-post.html">add_box</IconLink>
+            <IconLink to="/join">add_box</IconLink>
           </MenuItem>
           <MenuItem>
-            <IconLink to="./user-profile.html">person</IconLink>
+            <IconLink to="/join">person</IconLink>
           </MenuItem>
         </Menu>
       </Nav>

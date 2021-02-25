@@ -26,21 +26,21 @@ function HeaderNav() {
               <IconLink to="./like.html">favorite</IconLink>
             </MenuItem>
             <MenuItem>
-              <IconLink to="./add-post.html">add_box</IconLink>
+              <IconLink to="/join">add_box</IconLink>
             </MenuItem>
           </Menu>
         </HeaderNavBar>
         <div>
           <Menu>
             <MenuItem>
-              <IconLink to="./message.html">email</IconLink>
+              <IconLink to="/join">email</IconLink>
             </MenuItem>
             <MenuItem>
-              <IconLink to="./notifications.html">notifications</IconLink>
+              <IconLink to="/join">notifications</IconLink>
             </MenuItem>
           </Menu>
         </div>
-        <Avatar to="./user-profile.html">person</Avatar>
+        <Avatar to="/join">person</Avatar>
       </Header>
     </HeaderContainer>
   );
