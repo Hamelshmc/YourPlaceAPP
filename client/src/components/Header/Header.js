@@ -50,6 +50,7 @@ const Avatar = styled(IconLink)`
   display: none;
   @media (min-width: 768px) {
     display: initial;
+    width: auto;
   }
 `;
 
