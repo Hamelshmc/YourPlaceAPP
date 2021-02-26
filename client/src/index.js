@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
@@ -7,10 +7,12 @@ import GlobalStyle from './theme/GlobalStyle';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <GlobalStyle />
-      <App />
-    </BrowserRouter>
+    <Suspense fallback>
+      <BrowserRouter>
+        <GlobalStyle />
+        <App />
+      </BrowserRouter>
+    </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
 );

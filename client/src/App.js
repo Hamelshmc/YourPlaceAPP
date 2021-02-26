@@ -3,10 +3,11 @@ import Confetti from 'react-confetti';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import Home from './pages/Home';
-import Join from './pages/Join';
 import Theme from './theme/Theme';
 import Wrapper from './theme/Wrapper';
+
+const Home = React.lazy(() => import('./pages/Home'));
+const Join = React.lazy(() => import('./pages/Join'));
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Wrapper>
         <Header />
         <Switch>
-          <Route path="/join" exact component={Join} />
+          <Route path="/join" component={Join} />
           <Route path="/" exact component={Home} />
           <Redirect to="/" />
         </Switch>
