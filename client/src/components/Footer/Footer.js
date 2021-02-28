@@ -10,13 +10,13 @@ function Footer() {
       <Nav>
         <Menu>
           <MenuItem>
-            <IconLink to="./search.html">search</IconLink>
+            <IconLink to="/search">search</IconLink>
           </MenuItem>
           <MenuItem>
-            <IconLink to="./like.html">favorite</IconLink>
+            <IconLink to="/like">favorite</IconLink>
           </MenuItem>
           <MenuItem>
-            <IconLink to="/join">add_box</IconLink>
+            <IconLink to="/publication/add">add_box</IconLink>
           </MenuItem>
           <MenuItem>
             <IconLink to="/join">person</IconLink>
