@@ -1,16 +1,21 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from './Icon';
 
 function IconLink({ to, children, className }) {
   return (
-    <StyledLink to={to} className={className}>
+    <StyledLink
+      to={to}
+      className={className}
+      activeStyle={{
+        color: '#1679c5',
+      }}>
       <StyledIcon>{children}</StyledIcon>
     </StyledLink>
   );
 }
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -39,11 +44,6 @@ const StyledLink = styled(Link)`
 
 const StyledIcon = styled(Icon)`
   letter-spacing: 0.06rem;
-
-  &--active {
-    color: $color-03;
-    text-shadow: $box-shadow-05;
-  }
 `;
 
 export default IconLink;
