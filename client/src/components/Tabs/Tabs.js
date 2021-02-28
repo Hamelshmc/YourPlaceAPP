@@ -12,8 +12,9 @@ const Tabs = ({ defaultIndex = 0, onTabClick, children }) => {
     }
     setBindIndex(newIndex);
   };
-  const items = children.filter((item) => item.type.name === 'TabItem');
-
+  // const items = children.filter((item) => item.type.name === 'TabItem');
+  const items = children;
+  console.log({ items, children });
   return (
     <React.Fragment>
       <div>
