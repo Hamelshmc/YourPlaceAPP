@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TabMenu = styled.section`
+const TabMenu = styled.section`
   display: flex;
   padding: 0.5rem;
   border-radius: 0.2rem;
@@ -11,3 +11,5 @@ export const TabMenu = styled.section`
   background-color: #f0f0f0;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
 `;
+
+export default TabMenu;

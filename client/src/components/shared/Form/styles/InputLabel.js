@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const InputLabel = styled.label`
+const InputLabel = styled.label`
   position: absolute;
   top: -0.5rem;
   left: 1rem;
@@ -10,3 +10,5 @@ export const InputLabel = styled.label`
   font-size: ${({ theme }) => theme.fontSizes.default};
   transition: 0.3s;
 `;
+
+export default InputLabel;

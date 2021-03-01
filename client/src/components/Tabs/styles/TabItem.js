@@ -1,3 +1,8 @@
 import React from 'react';
 
-export const TabItem = (props) => <div {...props}>{props.children}</div>;
+const TabItem = (props) => {
+  const { children } = props;
+  return <div {...props}>{children}</div>;
+};
+
+export default TabItem;

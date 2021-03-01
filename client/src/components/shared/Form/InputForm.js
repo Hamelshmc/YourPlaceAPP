@@ -1,8 +1,8 @@
 import React from 'react';
-import { Constraints } from './styles/Constraints';
-import { Input } from './styles/Input';
-import { InputLabel } from './styles/InputLabel';
-import { InputSection } from './styles/InputSection';
+import Constraints from './styles/Constraints';
+import Input from './styles/Input';
+import InputLabel from './styles/InputLabel';
+import InputSection from './styles/InputSection';
 
 function InputForm({ id, name, type, error, placeholder }) {
   return (

@@ -1,7 +1,7 @@
 import React, { onItemClick } from 'react';
-import { TabButton } from './styles/TabButton';
-import { TabContent } from './styles/TabContent';
-import { TabMenu } from './styles/TabMenu';
+import TabButton from './styles/TabButton';
+import TabContent from './styles/TabContent';
+import TabMenu from './styles/TabMenu';
 
 const Tabs = ({ defaultIndex = 0, onTabClick, children }) => {
   const [bindIndex, setBindIndex] = React.useState(defaultIndex);
@@ -14,9 +14,8 @@ const Tabs = ({ defaultIndex = 0, onTabClick, children }) => {
   };
   // const items = children.filter((item) => item.type.name === 'TabItem');
   const items = children;
-  console.log({ items, children });
   return (
-    <React.Fragment>
+    <>
       <div>
         {items &&
           items.map(({ props }) => (
@@ -38,7 +37,7 @@ const Tabs = ({ defaultIndex = 0, onTabClick, children }) => {
             </TabButton>
           ))}
       </TabMenu>
-    </React.Fragment>
+    </>
   );
 };
 

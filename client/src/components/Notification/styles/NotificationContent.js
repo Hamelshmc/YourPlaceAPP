@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const NotificationContent = ({ acepted, children }) => {
-  return <Content acepted={acepted}>{children}</Content>;
-};
+const NotificationContent = ({ acepted, children }) => (
+  <Content acepted={acepted}>{children}</Content>
+);
 const Content = styled.div`
   overflow: hidden;
   min-height: 6rem;
@@ -13,3 +13,5 @@ const Content = styled.div`
   position: relative;
   border-left: 0.5rem solid ${({ acepted }) => (acepted ? 'greenyellow' : 'red')};
 `;
+
+export default NotificationContent;

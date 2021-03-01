@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SubmitButton = styled.button`
+const SubmitButton = styled.button`
   background-color: ${({ theme }) => theme.colors.primary.default};
   border: 1px solid ${({ theme }) => theme.colors.primary.default};
   border-radius: 2px;
@@ -19,3 +19,5 @@ export const SubmitButton = styled.button`
     color: black;
   }
 `;
+
+export default SubmitButton;

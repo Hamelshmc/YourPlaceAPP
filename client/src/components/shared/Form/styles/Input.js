@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Input = styled.input`
+const Input = styled.input`
   width: 100%;
   height: 100%;
   font-size: ${({ theme }) => theme.fontSizes.default};
@@ -24,3 +24,5 @@ export const Input = styled.input`
     font-size: ${({ theme }) => theme.fontSizes.smaller};
   }
 `;
+
+export default Input;

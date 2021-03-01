@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Nav = styled.nav`
+const Nav = styled.nav`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   backdrop-filter: blur(25px);
   display: flex;
@@ -8,3 +8,5 @@ export const Nav = styled.nav`
   margin: 0;
   padding: 0;
 `;
+
+export default Nav;

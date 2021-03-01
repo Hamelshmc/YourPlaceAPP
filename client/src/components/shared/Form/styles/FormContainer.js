@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+
 const expand = keyframes`
   0% {
     transform: translateY(-200px);
@@ -8,6 +9,8 @@ const expand = keyframes`
   }
 `;
 
-export const FormContainer = styled.div`
+const FormContainer = styled.div`
   animation: ${expand} 0.5s ease-in-out;
 `;
+
+export default FormContainer;

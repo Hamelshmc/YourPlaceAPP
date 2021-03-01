@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-export const TabContent = styled.section`
+const TabContent = styled.section`
   display: none;
   &.selected {
     display: block;
   }
 `;
+
+export default TabContent;
