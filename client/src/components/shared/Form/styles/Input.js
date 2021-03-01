@@ -10,6 +10,7 @@ export const Input = styled.input`
   padding: 1.25rem;
   background: none;
   transition: 0.3s;
+  box-shadow: ${({ theme }) => theme.boxShadow.default};
   &:focus {
     background: none;
     border: 0.15rem solid ${({ theme }) => theme.colors.primary.default};
@@ -19,12 +20,7 @@ export const Input = styled.input`
   }
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.primary.default};
-    font-size: ${({ theme }) => theme.fontSizes.small};
-  }
-
-  &:not(:focus):invalid {
-    color: red;
-    outline-color: red;
+    color: ${({ theme }) => theme.fontColor.emphasis};
+    font-size: ${({ theme }) => theme.fontSizes.smaller};
   }
 `;

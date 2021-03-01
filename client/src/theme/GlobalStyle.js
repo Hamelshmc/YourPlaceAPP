@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
 *::before,
 *::after {
   box-sizing: border-box;
+  /* outline:1px solid tomato; */
 }
 
 /* Remove default margin */

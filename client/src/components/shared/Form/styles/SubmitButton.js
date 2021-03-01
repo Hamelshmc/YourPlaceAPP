@@ -13,6 +13,7 @@ export const SubmitButton = styled.button`
   font-weight: 500;
   margin: 3rem 0 0 0;
   padding: 10px;
+  box-shadow: ${({ theme }) => theme.boxShadow.default};
   &:hover {
     background-color: ${({ theme }) => theme.fontSizes.default};
     color: black;
