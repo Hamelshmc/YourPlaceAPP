@@ -19,23 +19,12 @@ const Join = () => (
 );
 
 const TabSection = styled.section`
+  grid-row: 2;
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
-  border-radius: 0.2rem;
-  align-items: center;
   justify-content: space-around;
-  min-width: 15rem;
-  background-color: ${({ theme }) => theme.fontSizes.default};
-  box-shadow: ${({ theme }) => theme.boxShadow};
-  input:checked + label {
-    background-color: ${({ theme }) => theme.colors.primary.default};
-    color: #fff;
-    box-shadow: ${({ theme }) => theme.boxShadow};
-  }
-  input[type='radio'] {
-    display: none;
-  }
+  margin: 0 auto;
+  width: clamp(300px, 50%, 500px);
 `;
 
 export default Join;

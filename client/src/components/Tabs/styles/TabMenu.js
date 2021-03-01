@@ -9,5 +9,5 @@ export const TabMenu = styled.section`
   align-self: center;
   min-width: 15rem;
   background-color: #f0f0f0;
-  box-shadow: ${({ theme }) => theme.boxShadow};
+  box-shadow: ${({ theme }) => theme.boxShadow.default};
 `;
