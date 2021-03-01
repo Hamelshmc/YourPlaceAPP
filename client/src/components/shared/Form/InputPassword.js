@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import Icon from '../Icon';
-import { Constraints } from './styles/Constraints';
-import { Input } from './styles/Input';
-import { InputLabel } from './styles/InputLabel';
-import { InputSection } from './styles/InputSection';
-import { TogglePassword } from './styles/TogglePassword';
+import Constraints from './styles/Constraints';
+import Input from './styles/Input';
+import InputLabel from './styles/InputLabel';
+import InputSection from './styles/InputSection';
+import TogglePassword from './styles/TogglePassword';
 
 function InputPassword({ id, name, error, setPasswordSecondShown }) {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisiblity = () => {
-    setPasswordShown(passwordShown ? false : true);
+    setPasswordShown(!passwordShown);
   };
 
   return (

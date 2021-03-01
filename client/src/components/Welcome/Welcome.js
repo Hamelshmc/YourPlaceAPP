@@ -1,6 +1,6 @@
-import { Image } from './styles/Image';
-import { TittleWelcome } from './styles/TittleWelcome';
-import { WelcomeContainer } from './styles/WelcomeContainer';
+import Image from './styles/Image';
+import TittleWelcome from './styles/TittleWelcome';
+import WelcomeContainer from './styles/WelcomeContainer';
 
 function Welcome() {
   return (

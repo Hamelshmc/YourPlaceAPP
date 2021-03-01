@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TabButton = styled.button`
+const TabButton = styled.button`
   position: sticky;
   cursor: pointer;
   padding: 8px 16px;
@@ -19,3 +19,5 @@ export const TabButton = styled.button`
     border-bottom: 2px solid #007bef;
   }
 `;
+
+export default TabButton;

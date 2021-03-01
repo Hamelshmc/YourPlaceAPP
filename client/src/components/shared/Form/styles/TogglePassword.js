@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TogglePassword = styled.button`
+const TogglePassword = styled.button`
   background: none;
   border: none;
   cursor: pointer;
@@ -15,3 +15,5 @@ export const TogglePassword = styled.button`
   left: calc(100% - 1.5rem);
   transform: translate(-50%, -50%);
 `;
+
+export default TogglePassword;

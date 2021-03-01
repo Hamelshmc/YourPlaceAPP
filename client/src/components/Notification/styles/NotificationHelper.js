@@ -1,1 +1,3 @@
-export const NotificationHelper = () => <span>¡Echale un vistazo! ✨</span>;
+const NotificationHelper = () => <span>¡Echale un vistazo! ✨</span>;
+
+export default NotificationHelper;
