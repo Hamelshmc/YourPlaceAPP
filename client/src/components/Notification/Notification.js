@@ -1,6 +1,4 @@
 import { CloseIcon } from './styles/CloseIcon';
-import { NotificationBody } from './styles/NotificationBody';
-import { NotificationBodyContent } from './styles/NotificationBodyContent';
 import { NotificationContainer } from './styles/NotificationContainer';
 import { NotificationContent } from './styles/NotificationContent';
 import { NotificationHeader } from './styles/NotificationHeader';
@@ -17,10 +15,10 @@ const Notification = ({ acepted, title, time, content }) => {
           <NotificationTime>{time}</NotificationTime>
           <CloseIcon>close</CloseIcon>
         </NotificationHeader>
-        <NotificationBody>
-          <NotificationBodyContent>{content}</NotificationBodyContent>
+        <div>
+          <span>{content}</span>
           <NotificationHelper />
-        </NotificationBody>
+        </div>
       </NotificationContent>
     </NotificationContainer>
   );

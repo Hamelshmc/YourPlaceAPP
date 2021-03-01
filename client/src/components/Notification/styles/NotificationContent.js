@@ -9,7 +9,7 @@ const Content = styled.div`
   max-height: 8rem;
   border-radius: 0.2rem;
   padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 -1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: ${({ theme }) => theme.boxShadow.default};
   position: relative;
   border-left: 0.5rem solid ${({ acepted }) => (acepted ? 'greenyellow' : 'red')};
 `;

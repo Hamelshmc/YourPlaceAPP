@@ -22,7 +22,7 @@ const StyledLink = styled(NavLink)`
   height: auto;
   padding: 1rem;
   text-decoration: none;
-  text-shadow: ${({ theme }) => theme.boxShadow};
+  text-shadow: ${({ theme }) => theme.boxShadow.default};
   width: 100%;
 
   &:link {
