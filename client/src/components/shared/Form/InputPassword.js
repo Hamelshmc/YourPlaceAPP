@@ -6,7 +6,7 @@ import InputLabel from './styles/InputLabel';
 import InputSection from './styles/InputSection';
 import TogglePassword from './styles/TogglePassword';
 
-function InputPassword({ id, name, error, setPasswordSecondShown }) {
+function InputPassword({ id, name, label, placeholder, errorMsg, error, reference }) {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisiblity = () => {
@@ -16,15 +16,18 @@ function InputPassword({ id, name, error, setPasswordSecondShown }) {
   return (
     <div>
       <InputSection>
-        <InputLabel htmlFor={id}>{name}</InputLabel>
         <Input
           id={id}
-          name={id}
+          name={name}
           autoComplete="on"
           aria-describedby={id}
           required
           type={passwordShown ? 'text' : 'password'}
+          ref={reference}
+          focus={error}
+          placeholder={placeholder}
         />
+        <InputLabel htmlFor={id}>{label}</InputLabel>
         <TogglePassword
           onClick={togglePasswordVisiblity}
           type="button"
@@ -32,7 +35,7 @@ function InputPassword({ id, name, error, setPasswordSecondShown }) {
           <Icon>{passwordShown ? 'visibility' : 'visibility_off'}</Icon>
         </TogglePassword>
       </InputSection>
-      <Constraints id={id}>{error}</Constraints>
+      <Constraints id={id}>{errorMsg}</Constraints>
     </div>
   );
 }

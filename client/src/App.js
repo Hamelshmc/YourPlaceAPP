@@ -3,7 +3,7 @@ import Confetti from 'react-confetti';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import Theme from './theme/Theme';
+import { UserProvider } from './hooks/UserContext';
 import Wrapper from './theme/Wrapper';
 
 const Home = React.lazy(() => import('./pages/Home'));
@@ -17,7 +17,7 @@ const Publication = React.lazy(() => import('./pages/Publication'));
 
 function App() {
   return (
-    <Theme>
+    <UserProvider>
       <Confetti numberOfPieces={300} recycle={false} />
       <Wrapper>
         <Header />
@@ -34,7 +34,7 @@ function App() {
         </Switch>
         <Footer />
       </Wrapper>
-    </Theme>
+    </UserProvider>
   );
 }
 
