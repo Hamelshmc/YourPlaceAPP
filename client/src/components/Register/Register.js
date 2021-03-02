@@ -1,5 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
+import fetchRegister from '../../api/User';
 import InputForm from '../shared/Form/InputForm';
 import InputPassword from '../shared/Form/InputPassword';
 import Form from '../shared/Form/styles/Form';
@@ -13,8 +14,9 @@ const Register = () => {
     resolver: joiResolver(registerSchema),
     mode: 'onChange',
   });
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+  const onSubmit = async (data) => {
+    const res = await fetchRegister(data);
+    console.log(res);
   };
   console.log(errors);
   return (
