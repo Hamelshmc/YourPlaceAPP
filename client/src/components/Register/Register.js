@@ -6,7 +6,7 @@ import Form from '../shared/Form/styles/Form';
 import FormContainer from '../shared/Form/styles/FormContainer';
 import FormTitle from '../shared/Form/styles/FormTitle';
 import SubmitButton from '../shared/Form/styles/SubmitButton';
-import { registerSchema } from './validations/registerSchema';
+import registerSchema from './validations/registerSchema';
 
 const Register = () => {
   const { register, handleSubmit, errors } = useForm({
