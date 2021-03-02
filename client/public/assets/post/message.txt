@@ -1,0 +1,60 @@
+function crearCards(valores) {
+	var divCard = document.createElement("div");
+	divCard.classList.add("card");
+	divCard.classList.add("mb-3");
+	divCard.classList.add("item");
+	divCard.id = valores.id_restaurante;
+
+	var img = document.createElement("img");
+	img.setAttribute("src", "resources/img/default.jpg");
+	img.classList.add("imgs");
+
+	var cardBody = document.createElement("div");
+	cardBody.classList.add("card-body");
+	var h5 = document.createElement("h1");
+	h5.classList.add("card-title");
+	h5.classList.add("text-light");
+	h5.classList.add("bg-warning");
+	var nombre = document.createTextNode(valores.nombre);
+	h5.appendChild(nombre);
+	var p = document.createElement("p");
+	p.classList.add("text-light");
+	p.classList.add("bg-info");
+	var br = document.createElement("br");
+	var tipoComida = document.createTextNode(valores.tipocomida);
+	var entrega = document.createTextNode("Entrega: " + valores.entrega + "€");
+	var pedidoMin = document.createTextNode("Pedido minimo: "
+			+ valores.pedidomin + "€");
+	var calle = document.createTextNode("C/ " + valores.direccion.calle + ","
+			+ valores.direccion.ciudad + "," + valores.direccion.cod_postal);
+	var tlf = document.createTextNode(valores.telefono);
+	p.appendChild(tipoComida);
+	p.appendChild(document.createElement("br"));
+	p.appendChild(entrega);
+	p.appendChild(document.createElement("br"));
+	p.appendChild(pedidoMin);
+	p.appendChild(document.createElement("br"));
+	p.appendChild(calle);
+	p.appendChild(document.createElement("br"));
+	p.appendChild(tlf);
+	var cardFooter = document.createElement("div");
+	cardFooter.classList.add("card-footer");
+	cardFooter.classList.add("bg-success");
+	var small = document.createElement("small");
+	small.classList.add("float-right");
+
+	divCard.appendChild(img);
+	cardBody.appendChild(h5);
+	cardBody.appendChild(p);
+	divCard.appendChild(cardBody);
+	crearPuntuaciones(valores, cardFooter);
+	divCard.appendChild(cardFooter);
+	
+	if(null === document.getElementById("cardList")){
+		crearCardList();
+		document.getElementById("cardList").appendChild(divCard);
+	}else{
+		document.getElementById("cardList").appendChild(divCard);
+	}
+	
+}
