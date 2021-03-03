@@ -10,6 +10,7 @@ async function loginUser(request, response) {
   const user = { email, password };
   try {
     const userLogged = await userServices.loginUser(user);
+    const { password, ...useruserWithoutPass } = userLogged;
     const token = jwt.sign(
       { id: userLogged.id, verified: userLogged.verified },
       process.env.TOKEN_SECRET,
@@ -20,7 +21,7 @@ async function loginUser(request, response) {
     return response
       .header('Authorization', `Bearer ${token}`)
       .status(httpStatus.OK)
-      .send(new ResponseJson(httpStatus.OK, { authorization: token }));
+      .send(new ResponseJson(httpStatus.OK, { user: useruserWithoutPass, authorization: token }));
   } catch (error) {
     return response
       .status(error.status)

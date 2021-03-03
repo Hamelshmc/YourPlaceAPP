@@ -1,6 +1,8 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { fetchLogin } from '../../api/User';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import InputForm from '../shared/Form/InputForm';
 import InputPassword from '../shared/Form/InputPassword';
 import Form from '../shared/Form/styles/Form';
@@ -10,13 +12,27 @@ import SubmitButton from '../shared/Form/styles/SubmitButton';
 import loginSchema from './validations/loginSchema';
 
 const Login = () => {
+  const [token, setToken] = useLocalStorage('accessToken', '');
+  const [user, setUser] = useLocalStorage('user', {});
+
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(loginSchema),
     mode: 'onChange',
   });
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+
+  const onSubmit = async (data) => {
+    const res = await fetchLogin(data);
+    console.log(res);
+    if (res.status === 200) {
+      setToken(res.data.authorization);
+      setUser(...user, {
+        id: res.data.user.id,
+        token: res.data.authorization,
+        picture: res.data.user.picture,
+      });
+    }
   };
+
   console.log(errors);
   return (
     <FormContainer>

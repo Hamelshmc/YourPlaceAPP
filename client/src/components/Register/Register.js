@@ -1,6 +1,6 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
-import fetchRegister from '../../api/User';
+import { fetchRegister } from '../../api/User';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import InputForm from '../shared/Form/InputForm';
 import InputPassword from '../shared/Form/InputPassword';
