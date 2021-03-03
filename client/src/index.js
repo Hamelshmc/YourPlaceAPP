@@ -4,13 +4,16 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from './theme/GlobalStyle';
+import Theme from './theme/Theme';
 
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback>
       <BrowserRouter>
         <GlobalStyle />
-        <App />
+        <Theme>
+          <App />
+        </Theme>
       </BrowserRouter>
     </Suspense>
   </React.StrictMode>,

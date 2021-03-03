@@ -14,6 +14,7 @@ const SubmitButton = styled.button`
   margin: 3rem 0 0 0;
   padding: 10px;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
+  width: 100%;
   &:hover {
     background-color: ${({ theme }) => theme.fontSizes.default};
     color: black;

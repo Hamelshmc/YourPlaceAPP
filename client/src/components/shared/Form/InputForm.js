@@ -4,22 +4,23 @@ import Input from './styles/Input';
 import InputLabel from './styles/InputLabel';
 import InputSection from './styles/InputSection';
 
-function InputForm({ id, name, type, error, placeholder }) {
+function InputForm({ id, name, label, type, errorMsg, error, placeholder, reference }) {
   return (
     <div>
       <InputSection>
-        <InputLabel htmlFor={id}>{name}</InputLabel>
         <Input
           id={id}
           name={name}
           type={type}
           aria-describedby={name}
-          required
           autoComplete="on"
           placeholder={placeholder}
+          ref={reference}
+          focus={error}
         />
+        <InputLabel htmlFor={id}>{label}</InputLabel>
       </InputSection>
-      <Constraints id={id}>{error}</Constraints>
+      <Constraints id={id}>{errorMsg}</Constraints>
     </div>
   );
 }
