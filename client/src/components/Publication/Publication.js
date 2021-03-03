@@ -31,7 +31,7 @@ function Publication({ id, url, tipo, precio, ubicacion, rating }) {
       </PublicationModule>
       <Features>
         <Item number="4" type="Bathroom" />
-        <Item number="1" type="Bedroom" />
+        <Item number="2" type="Bedroom" />
         <Item number="400" type="Area" />
       </Features>
       <Lessor phoneNumber={648759635} />
