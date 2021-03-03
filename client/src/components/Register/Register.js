@@ -11,7 +11,7 @@ import SubmitButton from '../shared/Form/styles/SubmitButton';
 import registerSchema from './validations/registerSchema';
 
 const Register = () => {
-  const [token, setToken] = useLocalStorage('accessToken', '');
+  const [, setUser] = useLocalStorage('user', {});
 
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(registerSchema),
@@ -21,7 +21,11 @@ const Register = () => {
   const onSubmit = async (data) => {
     const res = await fetchRegister(data);
     if (res.status === 201) {
-      setToken(res.data.authorization);
+      setUser({
+        id: res.data.user.id,
+        token: res.data.authorization,
+        picture: res.data.user.picture,
+      });
     }
   };
 
