@@ -1,6 +1,7 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
 import fetchRegister from '../../api/User';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import InputForm from '../shared/Form/InputForm';
 import InputPassword from '../shared/Form/InputPassword';
 import Form from '../shared/Form/styles/Form';
@@ -10,14 +11,20 @@ import SubmitButton from '../shared/Form/styles/SubmitButton';
 import registerSchema from './validations/registerSchema';
 
 const Register = () => {
+  const [token, setToken] = useLocalStorage('accessToken', '');
+
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(registerSchema),
     mode: 'onChange',
   });
+
   const onSubmit = async (data) => {
     const res = await fetchRegister(data);
-    console.log(res);
+    if (res.status === 201) {
+      setToken(res.data.authorization);
+    }
   };
+
   console.log(errors);
   return (
     <FormContainer>
