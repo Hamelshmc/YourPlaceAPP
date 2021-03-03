@@ -1,8 +1,9 @@
 import { joiResolver } from '@hookform/resolvers/joi';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
 import { fetchLogin } from '../../api/User';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import { UserContext } from '../../hooks/UserContext';
 import InputForm from '../shared/Form/InputForm';
 import InputPassword from '../shared/Form/InputPassword';
 import Form from '../shared/Form/styles/Form';
@@ -12,7 +13,7 @@ import SubmitButton from '../shared/Form/styles/SubmitButton';
 import loginSchema from './validations/loginSchema';
 
 const Login = () => {
-  const [, setUser] = useLocalStorage('user', {});
+  const [user, setUser] = useContext(UserContext);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(loginSchema),
@@ -30,7 +31,6 @@ const Login = () => {
     }
   };
 
-  console.log(errors);
   return (
     <FormContainer>
       <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
@@ -55,6 +55,7 @@ const Login = () => {
           placeholder="password"
         />
         <SubmitButton id="login">Go</SubmitButton>
+        {user.token && <Redirect to="/search" />}
       </Form>
     </FormContainer>
   );
