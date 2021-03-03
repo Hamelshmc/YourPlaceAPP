@@ -1,9 +1,10 @@
 import React from 'react';
 import Confetti from 'react-confetti';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Switch } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import PublicRoute from './components/shared/PublicRoute';
 import { UserProvider } from './hooks/UserContext';
 import Wrapper from './theme/Wrapper';
 
@@ -27,14 +28,14 @@ function App() {
         <Header />
         <QueryClientProvider client={queryClient}>
           <Switch>
-            <Route path="/publication" component={Publication} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/notification" component={Notification} />
-            <Route path="/like" component={Like} />
-            <Route path="/messages" component={Messages} />
-            <Route path="/search" component={Search} />
-            <Route path="/join" component={Join} />
-            <Route path="/" exact component={Home} />
+            <PublicRoute path="/publication" restricted={false} component={Publication} exact />
+            <PublicRoute path="/profile" restricted={true} component={Profile} exact />
+            <PublicRoute path="/notification" restricted={true} component={Notification} exact />
+            <PublicRoute path="/like" restricted={false} component={Like} exact />
+            <PublicRoute path="/messages" restricted={true} component={Messages} exact />
+            <PublicRoute path="/search" restricted={false} component={Search} exact />
+            <PublicRoute path="/join" restricted={false} component={Join} exact />
+            <PublicRoute path="/" restricted={false} component={Home} exact />
             <Redirect to="/" />
           </Switch>
         </QueryClientProvider>
