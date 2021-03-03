@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const VisitForm = styled.form`
+const VisitForm = styled.form`
   margin: 0 auto;
   max-width: 500px;
 `;
+
+export default VisitForm;

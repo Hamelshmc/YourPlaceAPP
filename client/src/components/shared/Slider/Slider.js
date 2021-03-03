@@ -50,6 +50,15 @@ function Slider({ slides }) {
     });
   };
 
+  // res.cloudinary.com/yourplace/image/upload/v1614792140/YourPlace_IMG/2321321-1449034446853-66c86144b0ad_ierfjr.jpg
+
+  const separateString = (string) => string.split(`YourPlace_IMG/`)[1];
+
+  const cloudinaryPublicId = (arrayImages) => arrayImages.map((item) => separateString(item));
+
+  const result = cloudinaryPublicId(slides);
+  console.log(result);
+
   return (
     <SliderContainer ref={targetRef}>
       <SliderContent translate={translate} transition={transition}>
