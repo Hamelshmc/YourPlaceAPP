@@ -12,8 +12,7 @@ import SubmitButton from '../shared/Form/styles/SubmitButton';
 import loginSchema from './validations/loginSchema';
 
 const Login = () => {
-  const [token, setToken] = useLocalStorage('accessToken', '');
-  const [user, setUser] = useLocalStorage('user', {});
+  const [, setUser] = useLocalStorage('user', {});
 
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(loginSchema),
@@ -22,10 +21,8 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     const res = await fetchLogin(data);
-    console.log(res);
     if (res.status === 200) {
-      setToken(res.data.authorization);
-      setUser(...user, {
+      setUser({
         id: res.data.user.id,
         token: res.data.authorization,
         picture: res.data.user.picture,
