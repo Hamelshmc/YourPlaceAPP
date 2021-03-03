@@ -45,16 +45,6 @@ const PublicationContainer = styled.li`
   position: relative;
 `;
 
-const PublicationImg = styled.div`
-  display: flex;
-  flex: 1 1 auto;
-  img {
-    flex: 1 1 auto;
-    object-fit: cover;
-    object-position: center;
-  }
-`;
-
 const PublicationModule = styled.section`
   padding: 1rem;
 `;

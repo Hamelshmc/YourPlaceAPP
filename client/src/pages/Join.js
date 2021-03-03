@@ -24,7 +24,7 @@ const TabSection = styled.section`
   flex-direction: column;
   justify-content: space-around;
   margin: 0 auto;
-  width: clamp(300px, 50%, 500px);
+  width: clamp(15.5rem, 50%, 25rem);
 `;
 
 export default Join;
