@@ -27,7 +27,7 @@ const theme = {
       800: '#184975',
       900: '#153b5b',
     },
-    like: '#e0245d',
+    like: '#ac1945',
     success: '#26aa5e',
     error: '#e74c3c',
     alert: '#b2910a',
@@ -36,23 +36,22 @@ const theme = {
     default: '.938rem',
     small: '0.875rem',
     smaller: '.813rem',
+    medium: '1.6rem',
+    large: '2.4rem',
   },
   fontColor: {
     default: '#333333',
     emphasis: '#8899a6',
+    alternative: '#718096',
   },
-  margins: {
-    1: '.5rem',
-    2: '1rem',
-    3: '1.5rem',
-  },
-  padding: {
-    1: '.5rem',
-    2: '1rem',
-    3: '1.5rem',
-  },
+  margins: ['.5rem', '1rem', '1.5rem'],
+  padding: ['.5rem', '1rem', '1.5rem'],
   boxShadow: {
     default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+  },
+  card: {
+    lessorColor: '#f7fafc',
+    borderColor: '#e2e8f0',
   },
 };
 

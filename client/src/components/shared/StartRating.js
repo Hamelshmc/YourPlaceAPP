@@ -4,7 +4,7 @@ import Icon from './Icon';
 
 const numberStart = 5;
 
-function StartRating({ value, disabled }) {
+function StartRating({ value, disabled, size }) {
   const [rating, setRating] = useState(value || null);
 
   const handleRating = (event) => {
@@ -25,7 +25,9 @@ function StartRating({ value, disabled }) {
               onClick={handleRating}
               disabled={disabled}
             />
-            <Star color={ratingValue <= rating ? '#ffdf00' : '#4a5568'}>star_rate</Star>
+            <Star color={ratingValue <= rating ? '#867500' : '#4a5568'} size={size}>
+              star_rate
+            </Star>
           </label>
         );
       })}
@@ -36,13 +38,13 @@ function StartRating({ value, disabled }) {
 const Star = styled(Icon)`
   cursor: pointer;
   transition: color 300ms;
-  font-size: 1.5rem;
+  font-size: ${({ size, theme }) => size || theme.fontSizes.medium};
   margin: 0;
   padding: 0;
   font-weight: 900;
   color: ${({ color }) => color};
   &:hover {
-    color: '#ffdf00';
+    color: '#867500';
   }
 `;
 

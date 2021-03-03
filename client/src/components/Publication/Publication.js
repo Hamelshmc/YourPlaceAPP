@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Slider from '../shared/Slider/Slider';
 import StartRating from '../shared/StartRating';
@@ -19,8 +20,10 @@ function Publication({ id, url, tipo, precio, ubicacion, rating }) {
       <Favorite />
       <PublicationModule>
         <Tipo> Detached house • 5y old</Tipo>
-        <Precio> $750,000 </Precio>
-
+        <Container>
+          <Precio> $750,000 </Precio>
+          <LinkShowMore to="/publication/:id">Show more</LinkShowMore>
+        </Container>
         <Container>
           <Ubicacion>742 Evergreen Terrace</Ubicacion>
           <StartRating value={rating} disabled={false} />
@@ -31,7 +34,7 @@ function Publication({ id, url, tipo, precio, ubicacion, rating }) {
         <Item number="1" type="Bedroom" />
         <Item number="400" type="Area" />
       </Features>
-      <Lessor />
+      <Lessor phoneNumber={648759635} />
     </PublicationContainer>
   );
 }
@@ -76,7 +79,36 @@ const Features = styled.section`
 const Container = styled.section`
   display: flex;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+`;
+
+const LinkShowMore = styled(Link)`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  color: white;
+  background-color: ${({ theme }) => theme.colors.primary['900']};
+  box-shadow: ${({ theme }) => theme.boxShadow.default};
+  border-radius: 0.2rem;
+  &:link {
+    color: white;
+  }
+
+  &:visited {
+    color: white;
+  }
+
+  &:hover {
+    color: white;
+  }
+
+  &:active {
+    color: white;
+  }
 `;
 
 export default Publication;

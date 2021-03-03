@@ -9,9 +9,9 @@ function Favorite({ id }) {
 const FavoriteIcon = styled(Icon)`
   position: absolute;
   right: 0;
-  margin: 0.5rem;
-  font-size: 1.8rem;
-  color: #e0245d;
+  margin: ${({ theme }) => theme.margins[0]};
+  font-size: ${({ theme }) => theme.fontSizes.medium};
+  color: ${({ theme }) => theme.colors.like};
   text-shadow: ${({ theme }) => theme.boxShadow.default};
 `;
 

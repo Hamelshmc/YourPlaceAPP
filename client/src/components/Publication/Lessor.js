@@ -1,5 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Icon from '../shared/Icon';
+import IconSvg from '../shared/icon/IconSvg';
+import StartRating from '../shared/StartRating';
 
 function Lessor({ url, name, phoneNumber }) {
   return (
@@ -17,8 +21,19 @@ function Lessor({ url, name, phoneNumber }) {
         </LessorAvatar>
         <div>
           <LessorName>Pepe</LessorName>
-          <LessorNumber>65834232</LessorNumber>
+          <StartRating value={5} disabled size=".813rem" />
         </div>
+        <IconContainer>
+          <LessorLink href={`tel:+34${phoneNumber}`}>
+            <IconLessor>phone</IconLessor>
+          </LessorLink>
+          <LessorLinkRouter to="/messages/:id">
+            <IconLessor>chat</IconLessor>{' '}
+          </LessorLinkRouter>
+          <LessorLink href={`https://wa.me/${phoneNumber}`}>
+            <IconSvg svg="whatsapp" />
+          </LessorLink>
+        </IconContainer>
       </LessorProfile>
     </LessorWrapper>
   );
@@ -26,30 +41,29 @@ function Lessor({ url, name, phoneNumber }) {
 
 const LessorWrapper = styled.section`
   display: flex;
-  padding: 1rem;
-  border-top: 1px solid #e2e8f0;
+  padding: ${({ theme }) => theme.padding[1]};
+  border-top: 1px solid ${({ theme }) => theme.card.borderColor};
   flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: #f7fafc;
+  background-color: ${({ theme }) => theme.card.lessorColor};
   flex-direction: column;
 `;
 
 const LessorTittle = styled.div`
   letter-spacing: 0.025em;
   text-transform: uppercase;
-  font-size: 0.75rem;
-  color: #718096;
+  font-size: ${({ theme }) => theme.fontSizes.smaller};
+  color: ${({ theme }) => theme.fontColor.alternative};
   font-weight: 700;
 `;
 
 const LessorProfile = styled.div`
   display: flex;
   align-items: center;
-  padding-top: 0.5rem;
+  padding-top: ${({ theme }) => theme.padding[0]};
 `;
 
 const LessorAvatar = styled.div`
-  margin-right: 0.75rem;
+  margin-right: ${({ theme }) => theme.margins[0]};
   img {
     width: 2.5rem;
     height: 2.5rem;
@@ -61,11 +75,72 @@ const LessorAvatar = styled.div`
 
 const LessorName = styled.p`
   font-weight: 700;
-  color: #1a202c;
+`;
+const IconContainer = styled.div`
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-evenly;
 `;
 
-const LessorNumber = styled.p`
-  font-size: 0.875rem;
+const LessorLink = styled.a`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 0.5rem;
+  text-decoration: none;
+  letter-spacing: 0.17rem;
+  text-shadow: ${({ theme }) => theme.boxShadow.default};
+
+  p {
+    margin-left: 0.25rem;
+  }
+
+  &:link {
+    color: inherit;
+  }
+
+  &:visited {
+    color: inherit;
+  }
+
+  &:hover {
+    color: inherit;
+  }
+
+  &:active {
+    color: inherit;
+  }
+`;
+
+const LessorLinkRouter = styled(Link)`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 0.5rem;
+  text-decoration: none;
+  text-shadow: ${({ theme }) => theme.boxShadow.default};
+  &:link {
+    color: inherit;
+  }
+
+  &:visited {
+    color: inherit;
+  }
+
+  &:hover {
+    color: inherit;
+  }
+
+  &:active {
+    color: inherit;
+  }
+`;
+
+const IconLessor = styled(Icon)`
+  font-size: 1.8rem;
 `;
 
 export default Lessor;
