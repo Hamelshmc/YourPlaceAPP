@@ -29,10 +29,10 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Switch>
             <PublicRoute path="/publication" restricted={false} component={Publication} exact />
-            <PublicRoute path="/profile" restricted={true} component={Profile} exact />
-            <PublicRoute path="/notification" restricted={true} component={Notification} exact />
+            <PublicRoute path="/profile" restricted component={Profile} exact />
+            <PublicRoute path="/notification" restricted component={Notification} exact />
             <PublicRoute path="/like" restricted={false} component={Like} exact />
-            <PublicRoute path="/messages" restricted={true} component={Messages} exact />
+            <PublicRoute path="/messages" restricted component={Messages} exact />
             <PublicRoute path="/search" restricted={false} component={Search} exact />
             <PublicRoute path="/join" restricted={false} component={Join} exact />
             <PublicRoute path="/" restricted={false} component={Home} exact />
