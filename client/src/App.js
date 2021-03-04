@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Redirect, Switch } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import PublicRoute from './components/shared/PublicRoute';
+import { PrivateRoute, PublicRoute } from './components/shared/RouteFactory';
 import { UserProvider } from './hooks/UserContext';
 import Wrapper from './theme/Wrapper';
 
@@ -28,14 +28,14 @@ function App() {
         <Header />
         <QueryClientProvider client={queryClient}>
           <Switch>
-            <PublicRoute path="/publication" restricted={false} component={Publication} exact />
-            <PublicRoute path="/profile" restricted component={Profile} exact />
-            <PublicRoute path="/notification" restricted component={Notification} exact />
-            <PublicRoute path="/like" restricted={false} component={Like} exact />
-            <PublicRoute path="/messages" restricted component={Messages} exact />
-            <PublicRoute path="/search" restricted={false} component={Search} exact />
-            <PublicRoute path="/join" restricted={false} component={Join} exact />
-            <PublicRoute path="/" restricted={false} component={Home} exact />
+            <PublicRoute path="/search" component={Search} exact />
+            <PublicRoute path="/join" component={Join} exact />
+            <PublicRoute component={Home} path="/" exact />
+            <PrivateRoute path="/publication" component={Publication} exact />
+            <PrivateRoute path="/profile" component={Profile} exact />
+            <PrivateRoute path="/notification" component={Notification} exact />
+            <PrivateRoute path="/like" component={Like} exact />
+            <PrivateRoute path="/messages" component={Messages} exact />
             <Redirect to="/" />
           </Switch>
         </QueryClientProvider>
