@@ -19,7 +19,7 @@ function HeaderNav() {
     <HeaderContainer>
       <Header>
         <HeaderTitle>
-          <HeaderIcon>home</HeaderIcon>
+          <HeaderIcon to="/">home</HeaderIcon>
           <Title>Your Space</Title>
         </HeaderTitle>
         <HeaderNavBar>

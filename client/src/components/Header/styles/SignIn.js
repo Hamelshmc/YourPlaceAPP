@@ -11,6 +11,9 @@ const SignIn = styled(Link)`
   text-shadow: ${({ theme }) => theme.boxShadow.default};
   align-self: center;
   font-size: ${({ theme }) => theme.fontSizes.default};
+  @media (min-width: 768px) {
+    align-self: flex-start;
+  }
 
   &:link {
     color: inherit;

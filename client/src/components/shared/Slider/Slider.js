@@ -57,7 +57,6 @@ function Slider({ slides }) {
   const cloudinaryPublicId = (arrayImages) => arrayImages.map((item) => separateString(item));
 
   const result = cloudinaryPublicId(slides);
-  console.log(result);
 
   return (
     <SliderContainer ref={targetRef}>

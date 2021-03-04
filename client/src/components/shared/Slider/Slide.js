@@ -12,6 +12,7 @@ const Slide = ({ content }) => (
     dpr="auto"
     responsive
     crop="scale"
+    width="auto"
     responsiveUseBreakpoints="true">
     <Transformation quality="auto" fetchFormat="auto" />
   </SlideImg>
