@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '../shared/Icon';
-import IconSvg from '../shared/icon/IconSvg';
+import IconSvg from '../shared/IconSvg/IconSVG';
 import StartRating from '../shared/StartRating';
 
 function Lessor({ url, name, phoneNumber }) {
