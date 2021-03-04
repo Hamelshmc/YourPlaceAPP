@@ -7,22 +7,23 @@ const cloudName = 'yourplace';
 const Slide = ({ content }) => (
   <SlideImg
     cloudName={cloudName}
+    loading="lazy"
     publicId={content}
     secure="true"
     dpr="auto"
     responsive
-    crop="scale"
     width="auto"
     responsiveUseBreakpoints="true">
-    <Transformation quality="auto" fetchFormat="auto" />
+    <Transformation aspectRatio="4:3" crop="fill" />
+    <Transformation quality="auto" fetchFormat="auto" crop="scale" height="400" />
   </SlideImg>
 );
 
 const SlideImg = styled(Image)`
-  height: 100;
+  height: 100%;
   width: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
 `;
 
 export default Slide;
