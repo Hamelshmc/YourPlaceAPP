@@ -31,7 +31,7 @@ function App() {
             <PublicRoute path="/search" component={Search} exact />
             <PublicRoute path="/join" component={Join} exact />
             <PublicRoute component={Home} path="/" exact />
-            <PrivateRoute path="/publication" component={Publication} exact />
+            <PublicRoute path="/publication" component={Publication} exact />
             <PrivateRoute path="/profile" component={Profile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />
             <PrivateRoute path="/like" component={Like} exact />

@@ -18,8 +18,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 // LOGIN STATUS
 const isLogin = () => {
-  const user = localStorage.getItem('user');
-  return user.token ? true : false;
+  const data = localStorage.getItem('user');
+  const user = JSON.parse(data);
+  return user && !!user.token;
 };
 
 export { PrivateRoute, PublicRoute, isLogin };

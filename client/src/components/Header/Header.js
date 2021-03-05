@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import styled from 'styled-components';
 import { UserContext } from '../../hooks/UserContext';
 import IconLink from '../shared/IconLink';
 import Menu from '../shared/Menu';
@@ -49,9 +50,7 @@ function HeaderNav() {
           </div>
         )}
         {user.token ? (
-          <MenuItem>
-            <IconLink to="/profile">person</IconLink>
-          </MenuItem>
+          <UserAvatar to="/profile">person</UserAvatar>
         ) : (
           <SignIn to="/join">Sign In</SignIn>
         )}
@@ -59,5 +58,9 @@ function HeaderNav() {
     </HeaderContainer>
   );
 }
+
+const UserAvatar = styled(IconLink)`
+  width: auto;
+`;
 
 export default HeaderNav;
