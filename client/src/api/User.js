@@ -38,4 +38,22 @@ const fetchLogin = async (data) => {
   return res;
 };
 
-export { fetchRegister, fetchLogin };
+const fetchUser = async (token) => {
+  const res = await (
+    await fetch('/api/v1/users/', {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+  ).json();
+  return res;
+};
+
+export { fetchRegister, fetchLogin, fetchUser };
