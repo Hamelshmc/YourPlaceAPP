@@ -32,10 +32,12 @@ function App() {
             <PublicRoute path="/join" component={Join} exact />
             <PublicRoute component={Home} path="/" exact />
             <PublicRoute path="/publication" component={Publication} exact />
+            <PublicRoute path="/like" component={Like} exact />
+
             <PrivateRoute path="/profile" component={Profile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />
-            <PrivateRoute path="/like" component={Like} exact />
             <PrivateRoute path="/messages" component={Messages} exact />
+
             <Redirect to="/" />
           </Switch>
         </QueryClientProvider>

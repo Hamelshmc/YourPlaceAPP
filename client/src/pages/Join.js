@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
 import TabItem from '../components/Tabs/styles/TabItem';
+import TabSection from '../components/Tabs/styles/TabSection';
 import Tabs from '../components/Tabs/Tabs';
 
 const Join = () => (
@@ -17,14 +17,5 @@ const Join = () => (
     </Tabs>
   </TabSection>
 );
-
-const TabSection = styled.section`
-  grid-row: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin: 0 auto;
-  width: clamp(15.5rem, 50%, 25rem);
-`;
 
 export default Join;
