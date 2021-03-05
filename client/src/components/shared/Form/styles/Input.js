@@ -40,6 +40,25 @@ const Input = styled.input`
     color: ${({ theme }) => theme.fontColor.emphasis};
     font-size: ${({ theme }) => theme.fontSizes.smaller};
   }
+
+  &[type='number'] {
+    position: relative;
+  }
+
+  &[type='number']::-webkit-inner-spin-button,
+  &[type='number']::-webkit-outer-spin-button {
+    opacity: 1;
+  }
+
+  &[type='number']::-webkit-outer-spin-button,
+  &[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: inner-spin-button;
+    width: 1.2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+  }
 `;
 
 export default Input;

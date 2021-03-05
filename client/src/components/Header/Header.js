@@ -3,6 +3,7 @@ import { UserContext } from '../../hooks/UserContext';
 import IconLink from '../shared/IconLink';
 import Menu from '../shared/Menu';
 import MenuItem from '../shared/MenuItem';
+import Avatar from './styles/Avatar';
 import Header from './styles/Header';
 import HeaderContainer from './styles/HeaderContainer';
 import HeaderIcon from './styles/HeaderIcon';
@@ -48,13 +49,7 @@ function HeaderNav() {
             </Menu>
           </div>
         )}
-        {user.token ? (
-          <MenuItem>
-            <IconLink to="/profile">person</IconLink>
-          </MenuItem>
-        ) : (
-          <SignIn to="/join">Sign In</SignIn>
-        )}
+        {user.token ? <Avatar to="/profile">person</Avatar> : <SignIn to="/join">Sign In</SignIn>}
       </Header>
     </HeaderContainer>
   );
