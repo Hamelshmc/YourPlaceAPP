@@ -1,10 +1,14 @@
+/* eslint-disable camelcase */
 /* eslint-disable complexity */
 /* eslint-disable no-magic-numbers */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import styled from 'styled-components';
+import { fetchImage, fetchPublication } from '../api/Publication';
 import InputCheckBox from '../components/shared/Form/InputCheckBox';
 import InputForm from '../components/shared/Form/InputForm';
+import InputImage from '../components/shared/Form/InputImage';
 import InputRadio from '../components/shared/Form/InputRadio';
 import Form from '../components/shared/Form/styles/Form';
 import FormContainer from '../components/shared/Form/styles/FormContainer';
@@ -15,13 +19,51 @@ import { UserContext } from '../hooks/UserContext';
 
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
+  const [previewSource, setPreviewSource] = useState([]);
+  const mutation = useMutation((newTodo) => fetchPublication(newTodo, user));
+
+  const fileToDataUri = (image) =>
+    new Promise((res) => {
+      const reader = new FileReader();
+      const { type, name, size } = image;
+      reader.addEventListener('load', () => {
+        res({
+          base64: reader.result,
+          name,
+          type,
+          size,
+        });
+      });
+      reader.readAsDataURL(image);
+    });
+
+  const handleFileInput = async (data) => {
+    const image = {
+      data: [],
+    };
+    for (let i = 0; i < data.files.length; i += 1) {
+      image.data.push(fileToDataUri(data.files[i]));
+    }
+    const newImages = await Promise.all(image.data);
+    image.data = newImages;
+    const res = await fetchImage(image);
+    setPreviewSource(res.data);
+    return res.data;
+  };
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onChange',
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    const { files, ...datos } = data;
+    const { street, door, floor, city, zipcode, ...rest } = datos;
+    const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
+    let pictures = await handleFileInput(data);
+    pictures = pictures.map((item) => item.url);
+    const publication = { ...rest };
+    const body = { publication, publication_address, pictures };
+    mutation.mutate(body);
   };
 
   return (
@@ -53,6 +95,16 @@ function NewPublication() {
             />
           </InputWrapper>
           <InputWrapper>
+            <InputForm
+              id="door"
+              name="door"
+              label="Door"
+              type="text"
+              errorMsg={errors.emailRegister && errors.emailRegister.message}
+              error={errors.emailRegister}
+              placeholder="A o Left"
+              reference={register}
+            />
             <InputForm
               id="zipcode"
               name="zipcode"
@@ -209,7 +261,17 @@ function NewPublication() {
               reference={register}
             />
           </InputCheckBoxWrapper>
-          <SubmitButton id="register">Create New Publication</SubmitButton>
+          <InputImage reference={register} previewSource={previewSource} />
+          <SubmitButton id="register">
+            {mutation.isLoading ? (
+              'Adding todo...'
+            ) : (
+              <>
+                {mutation.isError ? `An error occurred: ${mutation.error.message}` : null}
+                {mutation.isSuccess ? `Todo added!` : 'Create New Publication'}
+              </>
+            )}
+          </SubmitButton>
         </Form>
       </FormContainer>
     </SectionNewPublication>

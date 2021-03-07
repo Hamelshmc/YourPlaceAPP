@@ -10,7 +10,7 @@ cloudinary.config({
 const optionsImage = Object.freeze({
   overlay: 'hackaboss_t6dzcm',
   gravity: 'south_east',
-  height: 50,
+  height: 200,
   opacity: 60,
   quality: 'auto',
   upload_preset: 'YourPlace_IMG',

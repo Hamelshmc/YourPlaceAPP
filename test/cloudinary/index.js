@@ -5,7 +5,7 @@ const image = 'hackaboss_t6dzcm';
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const files = document.querySelector('[type=file]').files;
+  const { files } = document.querySelector('[type=file]');
 
   const image = {
     data: [],
@@ -30,9 +30,7 @@ const uploadImage = async (base64EncodedImage) => {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => {
-        return response.text();
-      })
+      .then((response) => response.text())
       .then((data) => {
         console.log(JSON.parse(data));
         document.getElementById('data').innerHTML += JSON.parse(data);
@@ -42,8 +40,8 @@ const uploadImage = async (base64EncodedImage) => {
   }
 };
 
-const readFileAsync = async (file) => {
-  return new Promise((resolve, reject) => {
+const readFileAsync = async (file) =>
+  new Promise((resolve, reject) => {
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -54,4 +52,3 @@ const readFileAsync = async (file) => {
 
     reader.readAsDataURL(file);
   });
-};
