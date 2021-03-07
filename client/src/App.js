@@ -35,7 +35,7 @@ function App() {
             <PrivateRoute path="/publication/:id" component={Publication} exact />
             <PrivateRoute path="/profile" component={Profile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />
-            <PrivateRoute path="/like" component={Like} exact />
+            <PublicRoute path="/like" component={Like} exact />
             <PrivateRoute path="/messages" component={Messages} exact />
             <Redirect to="/" />
           </Switch>

@@ -10,6 +10,7 @@ import Form from '../components/shared/Form/styles/Form';
 import FormContainer from '../components/shared/Form/styles/FormContainer';
 import FormTitle from '../components/shared/Form/styles/FormTitle';
 import SubmitButton from '../components/shared/Form/styles/SubmitButton';
+import SearchMap from '../components/shared/MapBox/SearchMap';
 import { UserContext } from '../hooks/UserContext';
 
 function NewPublication() {
@@ -28,6 +29,41 @@ function NewPublication() {
       <FormContainer>
         <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
           <FormTitle>Publication</FormTitle>
+          <SearchMap reference={register} />
+          <InputWrapper>
+            <InputForm
+              id="floor"
+              name="floor"
+              label="Floor"
+              type="text"
+              errorMsg={errors.emailRegister && errors.emailRegister.message}
+              error={errors.emailRegister}
+              placeholder="4A o 4 izq"
+              reference={register}
+            />
+            <InputForm
+              id="city"
+              name="city"
+              label="City"
+              type="text"
+              errorMsg={errors.emailRegister && errors.emailRegister.message}
+              error={errors.emailRegister}
+              placeholder="Lugo"
+              reference={register}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <InputForm
+              id="zipcode"
+              name="zipcode"
+              label="Zip Code"
+              type="number"
+              errorMsg={errors.emailRegister && errors.emailRegister.message}
+              error={errors.emailRegister}
+              placeholder="15009"
+              reference={register}
+            />
+          </InputWrapper>
           <InputWrapper>
             <InputForm
               id="area"
@@ -195,7 +231,7 @@ const InputCheckBoxWrapper = styled.section`
   flex-wrap: wrap;
   align-items: baseline;
   section {
-    width: 45%;
+    min-width: 50%;
     flex: 1 1 auto;
   }
 `;
@@ -203,24 +239,26 @@ const InputCheckBoxWrapper = styled.section`
 const InputRadioWrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
   align-content: flex-start;
+  align-items: baseline;
   section {
-    width: 50%;
+    min-width: 50%;
     flex: 1 1 auto;
+  }
+  @media (min-width: 768px) {
+    flex-wrap: nowrap;
   }
 `;
 
 const InputWrapper = styled.section`
   display: flex;
+  justify-content: space-around;
   align-items: baseline;
   border: none;
   margin: 0;
   padding: 0;
   section {
-    width: 90%;
-    flex: 1 1 auto;
+    padding: 0.1rem;
   }
 `;
 

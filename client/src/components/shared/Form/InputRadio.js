@@ -83,6 +83,8 @@ const BlinkBorder = keyframes`
 
 const InputRadioContainer = styled.section`
   display: flex;
+  align-items: baseline;
+  justify-content: center;
   padding: 1rem;
 `;
 
@@ -90,6 +92,9 @@ const RadioLabel = styled.label`
   cursor: pointer;
   transition: all 0.3s;
   padding: 0 1rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
   input[type='radio']:not(:checked) + div:after {
     transition: all 0.3s;
     animation: ${FadeOut} 0.3s;
@@ -128,6 +133,7 @@ const Radio = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  margin-right: 0.5rem;
   &:after {
     content: '';
     display: block;

@@ -11,13 +11,13 @@ const SubmitButton = styled.button`
   /* fallback */
   font-size: ${({ theme }) => theme.fontSizes.default};
   font-weight: 500;
-  margin: 3rem 0 0 0;
+  margin: 1rem 0 2rem 0;
   padding: 10px;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
   width: 100%;
+  transition:all 0.3s;
   &:hover {
-    background-color: ${({ theme }) => theme.fontSizes.default};
-    color: black;
+    background-color: ${({ theme }) => theme.colors.primary['800']};
   }
 `;
 
