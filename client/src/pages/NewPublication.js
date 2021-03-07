@@ -22,6 +22,7 @@ function NewPublication() {
   const [previewSource, setPreviewSource] = useState([]);
   const [response, setResponse] = useState(false);
   const mutation = useMutation((newTodo) => fetchPublication(newTodo, user));
+
   const { register, handleSubmit, errors } = useForm({
     mode: 'onChange',
   });
@@ -151,6 +152,15 @@ function NewPublication() {
               placeholder="3"
               reference={register}
             />
+            <InputForm
+              id="availability_date"
+              name="availability_date"
+              label="Availability Date"
+              type="date"
+              errorMsg={errors.emailRegister && errors.emailRegister.message}
+              error={errors.emailRegister}
+              reference={register}
+            />
           </InputWrapper>
           <InputWrapper>
             <InputForm
@@ -196,7 +206,8 @@ function NewPublication() {
               reference={register}
             />
           </InputRadioWrapper>
-          <InputCheckBoxWrapper>
+
+          <InputWrapper>
             <InputCheckBox
               id="garage"
               name="garage"
@@ -213,6 +224,8 @@ function NewPublication() {
               error={errors.emailRegister}
               reference={register}
             />
+          </InputWrapper>
+          <InputWrapper>
             <InputCheckBox
               id="furnished"
               name="furnished"
@@ -229,7 +242,8 @@ function NewPublication() {
               error={errors.emailRegister}
               reference={register}
             />
-
+          </InputWrapper>
+          <InputWrapper>
             <InputCheckBox
               id="garden"
               name="garden"
@@ -246,6 +260,8 @@ function NewPublication() {
               error={errors.emailRegister}
               reference={register}
             />
+          </InputWrapper>
+          <InputWrapper>
             <InputCheckBox
               id="terrace"
               name="terrace"
@@ -262,7 +278,7 @@ function NewPublication() {
               error={errors.emailRegister}
               reference={register}
             />
-          </InputCheckBoxWrapper>
+          </InputWrapper>
           <InputImage reference={register} previewSource={previewSource} />
           <SubmitButton id="register">
             {response || mutation.isLoading ? (
@@ -290,16 +306,6 @@ const SectionNewPublication = styled.section`
   width: clamp(15rem, 50%, 35rem);
 `;
 
-const InputCheckBoxWrapper = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  section {
-    min-width: 50%;
-    flex: 1 1 auto;
-  }
-`;
-
 const InputRadioWrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
@@ -322,6 +328,7 @@ const InputWrapper = styled.section`
   margin: 0;
   padding: 0;
   section {
+    min-width: 30%;
     padding: 0.1rem;
   }
 `;
