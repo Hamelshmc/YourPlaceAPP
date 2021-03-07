@@ -23,7 +23,7 @@ function NewPublication() {
   const [response, setResponse] = useState(false);
   const mutation = useMutation((newTodo) => fetchPublication(newTodo, user));
 
-  const { register, handleSubmit, errors } = useForm({
+  const { newPublication, handleSubmit, errors } = useForm({
     mode: 'onChange',
   });
 
@@ -74,7 +74,7 @@ function NewPublication() {
       <FormContainer>
         <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
           <FormTitle>Publication</FormTitle>
-          <SearchMap reference={register} />
+          <SearchMap reference={newPublication} />
           <InputWrapper>
             <InputForm
               id="floor"
@@ -84,7 +84,7 @@ function NewPublication() {
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
               placeholder="4A o 4 izq"
-              reference={register}
+              reference={newPublication}
             />
             <InputForm
               id="city"
@@ -94,7 +94,7 @@ function NewPublication() {
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
               placeholder="Lugo"
-              reference={register}
+              reference={newPublication}
             />
           </InputWrapper>
           <InputWrapper>
@@ -106,7 +106,7 @@ function NewPublication() {
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
               placeholder="A o Left"
-              reference={register}
+              reference={newPublication}
             />
             <InputForm
               id="zipcode"
@@ -116,7 +116,7 @@ function NewPublication() {
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
               placeholder="15009"
-              reference={register}
+              reference={newPublication}
             />
           </InputWrapper>
           <InputWrapper>
@@ -128,7 +128,7 @@ function NewPublication() {
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
               placeholder="120"
-              reference={register}
+              reference={newPublication}
             />
             <InputForm
               id="rooms"
@@ -138,7 +138,7 @@ function NewPublication() {
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
               placeholder="2"
-              reference={register}
+              reference={newPublication}
             />
           </InputWrapper>
           <InputWrapper>
@@ -150,7 +150,7 @@ function NewPublication() {
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
               placeholder="3"
-              reference={register}
+              reference={newPublication}
             />
             <InputForm
               id="availability_date"
@@ -159,7 +159,7 @@ function NewPublication() {
               type="date"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
           </InputWrapper>
           <InputWrapper>
@@ -171,7 +171,7 @@ function NewPublication() {
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
               placeholder="500"
-              reference={register}
+              reference={newPublication}
             />
             <InputForm
               id="price"
@@ -181,7 +181,7 @@ function NewPublication() {
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
               placeholder="300"
-              reference={register}
+              reference={newPublication}
             />
           </InputWrapper>
           <InputRadioWrapper>
@@ -193,7 +193,7 @@ function NewPublication() {
               labelSecond="Electrical"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
             <InputRadio
               idFirst="flat"
@@ -203,7 +203,7 @@ function NewPublication() {
               labelSecond="House"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
           </InputRadioWrapper>
 
@@ -214,7 +214,7 @@ function NewPublication() {
               label="Garage"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
             <InputCheckBox
               id="elevator"
@@ -222,7 +222,7 @@ function NewPublication() {
               label="Elevator"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
           </InputWrapper>
           <InputWrapper>
@@ -232,7 +232,7 @@ function NewPublication() {
               label="Furnished"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
             <InputCheckBox
               id="parking"
@@ -240,7 +240,7 @@ function NewPublication() {
               label="Parking"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
           </InputWrapper>
           <InputWrapper>
@@ -250,7 +250,7 @@ function NewPublication() {
               label="Garden"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
             <InputCheckBox
               id="pool"
@@ -258,7 +258,7 @@ function NewPublication() {
               label="Pool"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
           </InputWrapper>
           <InputWrapper>
@@ -268,7 +268,7 @@ function NewPublication() {
               label="Terrace"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
             <InputCheckBox
               id="storage_room"
@@ -276,10 +276,10 @@ function NewPublication() {
               label="Storage Room"
               errorMsg={errors.emailRegister && errors.emailRegister.message}
               error={errors.emailRegister}
-              reference={register}
+              reference={newPublication}
             />
           </InputWrapper>
-          <InputImage reference={register} previewSource={previewSource} />
+          <InputImage reference={newPublication} previewSource={previewSource} />
           <SubmitButton id="register">
             {response || mutation.isLoading ? (
               'Adding Publication...'
