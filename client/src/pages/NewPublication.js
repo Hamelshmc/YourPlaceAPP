@@ -20,7 +20,11 @@ import { UserContext } from '../hooks/UserContext';
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
   const [previewSource, setPreviewSource] = useState([]);
+  const [response, setResponse] = useState(false);
   const mutation = useMutation((newTodo) => fetchPublication(newTodo, user));
+  const { register, handleSubmit, errors } = useForm({
+    mode: 'onChange',
+  });
 
   const fileToDataUri = (image) =>
     new Promise((res) => {
@@ -38,6 +42,7 @@ function NewPublication() {
     });
 
   const handleFileInput = async (data) => {
+    setResponse(true);
     const image = {
       data: [],
     };
@@ -51,10 +56,6 @@ function NewPublication() {
     return res.data;
   };
 
-  const { register, handleSubmit, errors } = useForm({
-    mode: 'onChange',
-  });
-
   const onSubmit = async (data) => {
     const { files, ...datos } = data;
     const { street, door, floor, city, zipcode, ...rest } = datos;
@@ -63,7 +64,8 @@ function NewPublication() {
     pictures = pictures.map((item) => item.url);
     const publication = { ...rest };
     const body = { publication, publication_address, pictures };
-    mutation.mutate(body);
+    await mutation.mutateAsync(body);
+    setResponse(false);
   };
 
   return (
@@ -263,12 +265,12 @@ function NewPublication() {
           </InputCheckBoxWrapper>
           <InputImage reference={register} previewSource={previewSource} />
           <SubmitButton id="register">
-            {mutation.isLoading ? (
-              'Adding todo...'
+            {response || mutation.isLoading ? (
+              'Adding Publication...'
             ) : (
               <>
                 {mutation.isError ? `An error occurred: ${mutation.error.message}` : null}
-                {mutation.isSuccess ? `Todo added!` : 'Create New Publication'}
+                {mutation.isSuccess ? `Publication added!` : 'Create New Publication'}
               </>
             )}
           </SubmitButton>
