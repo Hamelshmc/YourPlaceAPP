@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable complexity */
 /* eslint-disable no-magic-numbers */
+import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -16,6 +17,7 @@ import FormTitle from '../components/shared/Form/styles/FormTitle';
 import SubmitButton from '../components/shared/Form/styles/SubmitButton';
 import SearchMap from '../components/shared/MapBox/SearchMap';
 import { UserContext } from '../hooks/UserContext';
+import publicationSchema from '../Validations/Publication';
 
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
@@ -23,7 +25,8 @@ function NewPublication() {
   const [response, setResponse] = useState(false);
   const mutation = useMutation((newTodo) => fetchPublication(newTodo, user));
 
-  const { newPublication, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
+    resolver: joiResolver(publicationSchema),
     mode: 'onChange',
   });
 
@@ -51,9 +54,9 @@ function NewPublication() {
       image.data.push(fileToDataUri(data.files[i]));
     }
     const newImages = await Promise.all(image.data);
+    setPreviewSource(image.data);
     image.data = newImages;
     const res = await fetchImage(image);
-    setPreviewSource(res.data);
     return res.data;
   };
 
@@ -65,16 +68,23 @@ function NewPublication() {
     pictures = pictures.map((item) => item.url);
     const publication = { ...rest };
     const body = { publication, publication_address, pictures };
-    await mutation.mutateAsync(body);
-    setResponse(false);
+    try {
+      await mutation.mutateAsync(body);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setResponse(false);
+    }
   };
+
+  console.log(errors);
 
   return (
     <SectionNewPublication>
       <FormContainer>
         <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
           <FormTitle>Publication</FormTitle>
-          <SearchMap reference={newPublication} />
+          <SearchMap reference={register} />
           <InputWrapper>
             <InputForm
               id="floor"
@@ -84,7 +94,7 @@ function NewPublication() {
               errorMsg={errors.floor && errors.floor.message}
               error={errors.floor}
               placeholder="4A o 4 izq"
-              reference={newPublication}
+              reference={register}
             />
             <InputForm
               id="city"
@@ -94,7 +104,7 @@ function NewPublication() {
               errorMsg={errors.city && errors.city.message}
               error={errors.city}
               placeholder="Lugo"
-              reference={newPublication}
+              reference={register}
             />
           </InputWrapper>
           <InputWrapper>
@@ -106,7 +116,7 @@ function NewPublication() {
               errorMsg={errors.door && errors.door.message}
               error={errors.door}
               placeholder="A o Left"
-              reference={newPublication}
+              reference={register}
             />
             <InputForm
               id="zipcode"
@@ -116,7 +126,7 @@ function NewPublication() {
               errorMsg={errors.zipcode && errors.zipcode.message}
               error={errors.zipcode}
               placeholder="15009"
-              reference={newPublication}
+              reference={register}
             />
           </InputWrapper>
           <InputWrapper>
@@ -128,7 +138,7 @@ function NewPublication() {
               errorMsg={errors.area && errors.area.message}
               error={errors.area}
               placeholder="120"
-              reference={newPublication}
+              reference={register}
             />
             <InputForm
               id="rooms"
@@ -138,30 +148,28 @@ function NewPublication() {
               errorMsg={errors.rooms && errors.rooms.message}
               error={errors.rooms}
               placeholder="2"
-              reference={newPublication}
+              reference={register}
             />
           </InputWrapper>
-          <InputWrapper>
-            <InputForm
-              id="bathrooms"
-              name="bathrooms"
-              label="Bathrooms"
-              type="number"
-              errorMsg={errors.bathrooms && errors.bathrooms.message}
-              error={errors.bathrooms}
-              placeholder="3"
-              reference={newPublication}
-            />
-            <InputForm
-              id="availability_date"
-              name="availability_date"
-              label="Availability Date"
-              type="date"
-              errorMsg={errors.availability_date && errors.availability_date.message}
-              error={errors.availability_date}
-              reference={newPublication}
-            />
-          </InputWrapper>
+          <InputForm
+            id="bathrooms"
+            name="bathrooms"
+            label="Bathrooms"
+            type="number"
+            errorMsg={errors.bathrooms && errors.bathrooms.message}
+            error={errors.bathrooms}
+            placeholder="3"
+            reference={register}
+          />
+          <InputForm
+            id="availability_date"
+            name="availability_date"
+            label="Availability Date"
+            type="date"
+            errorMsg={errors.availability_date && errors.availability_date.message}
+            error={errors.availability_date}
+            reference={register}
+          />
           <InputWrapper>
             <InputForm
               id="deposit"
@@ -171,7 +179,7 @@ function NewPublication() {
               errorMsg={errors.deposit && errors.deposit.message}
               error={errors.deposit}
               placeholder="500"
-              reference={newPublication}
+              reference={register}
             />
             <InputForm
               id="price"
@@ -181,7 +189,7 @@ function NewPublication() {
               errorMsg={errors.price && errors.price.message}
               error={errors.price}
               placeholder="300"
-              reference={newPublication}
+              reference={register}
             />
           </InputWrapper>
           <InputRadioWrapper>
@@ -193,7 +201,7 @@ function NewPublication() {
               labelSecond="Electrical"
               errorMsg={errors.heating && errors.heating.message}
               error={errors.heating}
-              reference={newPublication}
+              reference={register}
             />
             <InputRadio
               idFirst="flat"
@@ -203,7 +211,7 @@ function NewPublication() {
               labelSecond="House"
               errorMsg={errors.publication_type && errors.publication_type.message}
               error={errors.publication_type}
-              reference={newPublication}
+              reference={register}
             />
           </InputRadioWrapper>
 
@@ -214,7 +222,7 @@ function NewPublication() {
               label="Garage"
               errorMsg={errors.garage && errors.garage.message}
               error={errors.garage}
-              reference={newPublication}
+              reference={register}
             />
             <InputCheckBox
               id="elevator"
@@ -222,7 +230,7 @@ function NewPublication() {
               label="Elevator"
               errorMsg={errors.elevator && errors.elevator.message}
               error={errors.elevator}
-              reference={newPublication}
+              reference={register}
             />
           </InputWrapper>
           <InputWrapper>
@@ -232,7 +240,7 @@ function NewPublication() {
               label="Furnished"
               errorMsg={errors.furnished && errors.furnished.message}
               error={errors.furnished}
-              reference={newPublication}
+              reference={register}
             />
             <InputCheckBox
               id="parking"
@@ -240,7 +248,7 @@ function NewPublication() {
               label="Parking"
               errorMsg={errors.parking && errors.parking.message}
               error={errors.parking}
-              reference={newPublication}
+              reference={register}
             />
           </InputWrapper>
           <InputWrapper>
@@ -250,7 +258,7 @@ function NewPublication() {
               label="Garden"
               errorMsg={errors.garden && errors.garden.message}
               error={errors.garden}
-              reference={newPublication}
+              reference={register}
             />
             <InputCheckBox
               id="pool"
@@ -258,7 +266,7 @@ function NewPublication() {
               label="Pool"
               errorMsg={errors.pool && errors.pool.message}
               error={errors.pool}
-              reference={newPublication}
+              reference={register}
             />
           </InputWrapper>
           <InputWrapper>
@@ -268,7 +276,7 @@ function NewPublication() {
               label="Terrace"
               errorMsg={errors.terrace && errors.terrace.message}
               error={errors.terrace}
-              reference={newPublication}
+              reference={register}
             />
             <InputCheckBox
               id="storage_room"
@@ -276,16 +284,16 @@ function NewPublication() {
               label="Storage Room"
               errorMsg={errors.storage_room && errors.storage_room.message}
               error={errors.storage_room}
-              reference={newPublication}
+              reference={register}
             />
           </InputWrapper>
-          <InputImage reference={newPublication} previewSource={previewSource} />
+          <InputImage reference={register} previewSource={previewSource} />
           <SubmitButton id="register">
             {response || mutation.isLoading ? (
               'Adding Publication...'
             ) : (
               <>
-                {mutation.isError ? `An error occurred: ${mutation.error.message}` : null}
+                {mutation.isError ? `An error occurred: ${mutation.error}` : null}
                 {mutation.isSuccess ? `Publication added!` : 'Create New Publication'}
               </>
             )}
@@ -312,7 +320,7 @@ const InputRadioWrapper = styled.section`
   align-content: flex-start;
   align-items: baseline;
   section {
-    min-width: 50%;
+    min-width: 48%;
     flex: 1 1 auto;
   }
   @media (min-width: 768px) {
@@ -322,14 +330,14 @@ const InputRadioWrapper = styled.section`
 
 const InputWrapper = styled.section`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: baseline;
   border: none;
   margin: 0;
   padding: 0;
   section {
-    min-width: 30%;
-    padding: 0.1rem;
+    min-width: 50%;
+    padding-left: 0.1rem;
   }
 `;
 
