@@ -81,8 +81,8 @@ function NewPublication() {
               name="floor"
               label="Floor"
               type="text"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.floor && errors.floor.message}
+              error={errors.floor}
               placeholder="4A o 4 izq"
               reference={newPublication}
             />
@@ -91,8 +91,8 @@ function NewPublication() {
               name="city"
               label="City"
               type="text"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.city && errors.city.message}
+              error={errors.city}
               placeholder="Lugo"
               reference={newPublication}
             />
@@ -103,8 +103,8 @@ function NewPublication() {
               name="door"
               label="Door"
               type="text"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.door && errors.door.message}
+              error={errors.door}
               placeholder="A o Left"
               reference={newPublication}
             />
@@ -113,8 +113,8 @@ function NewPublication() {
               name="zipcode"
               label="Zip Code"
               type="number"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.zipcode && errors.zipcode.message}
+              error={errors.zipcode}
               placeholder="15009"
               reference={newPublication}
             />
@@ -125,8 +125,8 @@ function NewPublication() {
               name="area"
               label="Area"
               type="number"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.area && errors.area.message}
+              error={errors.area}
               placeholder="120"
               reference={newPublication}
             />
@@ -135,8 +135,8 @@ function NewPublication() {
               name="rooms"
               label="Rooms"
               type="number"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.rooms && errors.rooms.message}
+              error={errors.rooms}
               placeholder="2"
               reference={newPublication}
             />
@@ -147,8 +147,8 @@ function NewPublication() {
               name="bathrooms"
               label="Bathrooms"
               type="number"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.bathrooms && errors.bathrooms.message}
+              error={errors.bathrooms}
               placeholder="3"
               reference={newPublication}
             />
@@ -157,8 +157,8 @@ function NewPublication() {
               name="availability_date"
               label="Availability Date"
               type="date"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.availability_date && errors.availability_date.message}
+              error={errors.availability_date}
               reference={newPublication}
             />
           </InputWrapper>
@@ -168,8 +168,8 @@ function NewPublication() {
               name="deposit"
               label="Deposit"
               type="number"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.deposit && errors.deposit.message}
+              error={errors.deposit}
               placeholder="500"
               reference={newPublication}
             />
@@ -178,8 +178,8 @@ function NewPublication() {
               name="price"
               label="Price"
               type="number"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.price && errors.price.message}
+              error={errors.price}
               placeholder="300"
               reference={newPublication}
             />
@@ -191,8 +191,8 @@ function NewPublication() {
               name="heating"
               labelFirst="Gas"
               labelSecond="Electrical"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.heating && errors.heating.message}
+              error={errors.heating}
               reference={newPublication}
             />
             <InputRadio
@@ -201,8 +201,8 @@ function NewPublication() {
               name="publication_type"
               labelFirst="Flat"
               labelSecond="House"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.publication_type && errors.publication_type.message}
+              error={errors.publication_type}
               reference={newPublication}
             />
           </InputRadioWrapper>
@@ -212,16 +212,16 @@ function NewPublication() {
               id="garage"
               name="garage"
               label="Garage"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.garage && errors.garage.message}
+              error={errors.garage}
               reference={newPublication}
             />
             <InputCheckBox
               id="elevator"
               name="elevator"
               label="Elevator"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.elevator && errors.elevator.message}
+              error={errors.elevator}
               reference={newPublication}
             />
           </InputWrapper>
@@ -230,16 +230,16 @@ function NewPublication() {
               id="furnished"
               name="furnished"
               label="Furnished"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.furnished && errors.furnished.message}
+              error={errors.furnished}
               reference={newPublication}
             />
             <InputCheckBox
               id="parking"
               name="parking"
               label="Parking"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.parking && errors.parking.message}
+              error={errors.parking}
               reference={newPublication}
             />
           </InputWrapper>
@@ -248,16 +248,16 @@ function NewPublication() {
               id="garden"
               name="garden"
               label="Garden"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.garden && errors.garden.message}
+              error={errors.garden}
               reference={newPublication}
             />
             <InputCheckBox
               id="pool"
               name="pool"
               label="Pool"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.pool && errors.pool.message}
+              error={errors.pool}
               reference={newPublication}
             />
           </InputWrapper>
@@ -266,16 +266,16 @@ function NewPublication() {
               id="terrace"
               name="terrace"
               label="Terrace"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.terrace && errors.terrace.message}
+              error={errors.terrace}
               reference={newPublication}
             />
             <InputCheckBox
               id="storage_room"
               name="storage_room"
               label="Storage Room"
-              errorMsg={errors.emailRegister && errors.emailRegister.message}
-              error={errors.emailRegister}
+              errorMsg={errors.storage_room && errors.storage_room.message}
+              error={errors.storage_room}
               reference={newPublication}
             />
           </InputWrapper>
