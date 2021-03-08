@@ -19,25 +19,24 @@ const Profile = () => {
     data.then((res) => {
       console.log({ res });
       if (res.status === 200) {
-        setUserProfile({ ...userProfile, data });
+        setUserProfile({ ...userProfile, ...res.data });
       }
     });
-  }, [setUserProfile]);
+  }, []);
 
-  return (
-    userProfile && (
-      <ProfileContainer>
-        <div>
-          <Header user={userProfile.user} />
-          <Content user={userProfile.user} />
-        </div>
-        <UserTabs
-          publicationsUser={userProfile.publicationsUser}
-          publicationsHistoryUser={userProfile.publicationsHistoryUser}
-          publicationsFavoritesUser={userProfile.publicationsFavoritesUser}
-        />
-      </ProfileContainer>
-    )
+  return userProfile.user ? (
+    <ProfileContainer>
+      <div>
+        <Header user={userProfile.user} />
+        <Content user={userProfile.user} />
+      </div>
+      <UserTabs
+        publicationsUser={userProfile.publicationsUser}
+        publicationsHistoryUser={userProfile.publicationsHistoryUser}
+      />
+    </ProfileContainer>
+  ) : (
+    ''
   );
 };
 

@@ -15,14 +15,14 @@ async function loginUser(request, response) {
       { id: userLogged.id, verified: userLogged.verified },
       process.env.TOKEN_SECRET,
       {
-        expiresIn: '1m',
+        expiresIn: '30m',
       }
     );
     const refreshToken = jwt.sign(
       { id: userLogged.id, verified: userLogged.verified },
       process.env.TOKEN_SECRET,
       {
-        expiresIn: '1m',
+        expiresIn: '24h',
       }
     );
     return response

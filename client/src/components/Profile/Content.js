@@ -5,22 +5,22 @@ import BioInfoItem from './styles/BioInfoItem';
 import BioInfoItemEmphasized from './styles/BioInfoItemEmphasized';
 import UserRating from './styles/UserRating';
 
-const Content = ({ bio, city, country, borndate, userRating }) => {
+const Content = ({ user }) => {
   return (
     <BioInfoContainer>
-      <BioInfoItem>{bio ? bio : ''}</BioInfoItem>
+      <BioInfoItem>{user.bio ? user.bio : ''}</BioInfoItem>
       <BioInfoItemEmphasized>
         <Icon>location_on</Icon>
-        {city ? city : ''}, {country ? country : ''}
+        {user.city ? `${user.city}, ` : ''} {user.country ? user.country : 'España'}
       </BioInfoItemEmphasized>
       <BioInfoItemEmphasized>
         <Icon>calendar_today</Icon>
-        Borndate: {borndate ? borndate : ''}
+        {user.borndate ? user.borndate : ''}
       </BioInfoItemEmphasized>
 
       <UserRating>
-        {userRating ? (
-          <StartRating value={userRating} disabled />
+        {user.userRating ? (
+          <StartRating value={user.userRating} disabled />
         ) : (
           <StartRating value={0} disabled />
         )}

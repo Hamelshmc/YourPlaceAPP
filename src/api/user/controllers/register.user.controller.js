@@ -19,14 +19,14 @@ async function registerUser(request, response) {
       { id: userRegistered.id, verified: userRegistered.verified },
       TOKEN_SECRET,
       {
-        expiresIn: '1m',
+        expiresIn: '30m',
       }
     );
     const refreshToken = jwt.sign(
       { id: userRegistered.id, verified: userRegistered.verified },
       process.env.TOKEN_SECRET,
       {
-        expiresIn: '1m',
+        expiresIn: '24h',
       }
     );
     await userServices.sendEmail(userRegistered.id, verificationCode, email);

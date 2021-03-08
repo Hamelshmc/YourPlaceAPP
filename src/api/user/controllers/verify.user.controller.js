@@ -19,10 +19,10 @@ async function verifyUser(request, response) {
       );
     } else {
       const token = jwt.sign({ id, verified: 1 }, process.env.TOKEN_SECRET, {
-        expiresIn: '1m',
+        expiresIn: '30m',
       });
       const refreshToken = jwt.sign({ id, verified: 1 }, process.env.TOKEN_SECRET, {
-        expiresIn: '1m',
+        expiresIn: '24h',
       });
       response
         .header('Authorization', `Bearer ${token}`)
