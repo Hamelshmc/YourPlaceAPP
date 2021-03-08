@@ -7,12 +7,19 @@ function InputImage({ reference, previewSource, error, errorMsg }) {
   return (
     <div>
       <ButtonWrapper>
-        <LabelUpload>Upload Image</LabelUpload>
-        <InputUpload type="file" name="files[]" multiple ref={reference} focus={error} />
+        <LabelUpload>{error ? errorMsg : 'Upload Image'}</LabelUpload>
+        <InputUpload
+          type="file"
+          id="files"
+          name="files"
+          multiple
+          ref={reference}
+          focus={error}
+          required
+        />
       </ButtonWrapper>
-
-      {previewSource && <Slider slides={previewSource} />}
       <Constraints id="file">{errorMsg}</Constraints>
+      {previewSource && <Slider slides={previewSource} />}
     </div>
   );
 }

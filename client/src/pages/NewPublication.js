@@ -29,7 +29,6 @@ function NewPublication() {
     resolver: joiResolver(publicationSchema),
     mode: 'onChange',
   });
-
   const fileToDataUri = (image) =>
     new Promise((res) => {
       const reader = new FileReader();
@@ -54,21 +53,21 @@ function NewPublication() {
       image.data.push(fileToDataUri(data.files[i]));
     }
     const newImages = await Promise.all(image.data);
-
     image.data = newImages;
     const res = await fetchImage(image);
     return res.data;
   };
 
   const onSubmit = async (data) => {
-    const { files, ...datos } = data;
+    const { files, availability_date, ...datos } = data;
     const { street, door, floor, city, zipcode, ...rest } = datos;
     const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
     let pictures = await handleFileInput(data);
     pictures = pictures.map((item) => item.url);
     setPreviewSource(pictures);
-    const publication = { ...rest };
+    const publication = { availability_date, ...rest };
     const body = { publication, publication_address, pictures };
+    console.log(body, errors);
     try {
       await mutation.mutateAsync(body);
     } catch (error) {
@@ -301,7 +300,7 @@ function NewPublication() {
               'Adding Publication...'
             ) : (
               <>
-                {mutation.isError ? `An error occurred: ${mutation.error}` : null}
+                {mutation.isError ? `An error occurred: ${mutation.error.message}` : null}
                 {mutation.isSuccess ? `Publication added!` : 'Create New Publication'}
               </>
             )}
@@ -319,7 +318,7 @@ const SectionNewPublication = styled.section`
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  width: clamp(15rem, 50%, 35rem);
+  width: clamp(15rem, 50%, 28rem);
 `;
 
 const InputRadioWrapper = styled.section`
