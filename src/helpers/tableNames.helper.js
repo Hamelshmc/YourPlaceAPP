@@ -14,6 +14,7 @@ const tableNames = Object.freeze({
   USER_PUBLICATIONS_FAVORITES: 'user_publication_favorites',
   USER_RATING: 'user_rating',
   USER: 'users',
+  USER_VERIFICATION: 'user_verification',
   VISIT: 'visit',
 });
 

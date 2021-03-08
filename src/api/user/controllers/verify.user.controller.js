@@ -3,19 +3,36 @@
 const jwt = require('jsonwebtoken');
 const userServices = require('../services');
 const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
+const validateVerification = require('../services/validate.verification.service');
 
 async function verifyUser(request, response) {
-  const { id, secretCode } = await request.params;
-  const verified = jwt.verify(secretCode, process.env.TOKEN_SECRET);
   try {
-    if (verified.id === id && verified.verified === 0) {
-      await userServices.verifyUser(verified.id);
-      return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, 'VERIFIED'));
+    const { id, code } = request.params;
+    if (!code) {
+      throw new ResponseError(httpStatus.BAD_REQUEST, 'NOT CODE IN REQUEST');
+    }
+    const isActivated = await validateVerification(code);
+    if (!isActivated) {
+      throw new ResponseError(
+        httpStatus.CONFLICT,
+        'Account not activated. Verification code expired. Or yet actived.'
+      );
+    } else {
+      const token = jwt.sign({ id, verified: 1 }, process.env.TOKEN_SECRET, {
+        expiresIn: '1m',
+      });
+      const refreshToken = jwt.sign({ id, verified: 1 }, process.env.TOKEN_SECRET, {
+        expiresIn: '1m',
+      });
+      response
+        .header('Authorization', `Bearer ${token}`)
+        .status(httpStatus.CREATED)
+        .send(
+          new ResponseJson(httpStatus.OK, { message: 'Account activated', token, refreshToken })
+        );
     }
   } catch (error) {
-    return response
-      .status(error.status || httpStatus.BAD_REQUEST)
-      .send(new ResponseError(error.status, error, error.message));
+    response.send(new ResponseError(error.status, error, error.message));
   }
 }
 

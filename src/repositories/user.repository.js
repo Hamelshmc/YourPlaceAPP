@@ -83,13 +83,30 @@ async function valueExists(value, tableValue) {
   return await repositoryManager.valueExists(selectUserEmail, values);
 }
 
+async function addVerificationCode(id, code) {
+  const query = `INSERT INTO ${tableNames.USER_VERIFICATION} (id_user,verification_code) VALUES (?,?)`;
+  const values = [id, code];
+  return await repositoryManager.executeQuery(query, values);
+}
+
+async function validateVerificationCode(date, code) {
+  const query = `UPDATE ${tableNames.USER_VERIFICATION}
+    SET verified_at = ?
+    WHERE verification_code = ?
+    AND verified_at IS NULL`;
+  const values = [date, code];
+  const validation = await repositoryManager.executeQuery(query, values);
+  return validation.affectedRows === 1;
+}
+
 async function verifyUser(id) {
-  const selectUserId = `UPDATE ${tableNames.USER} SET verified = 1 WHERE id = ?`;
+  const query = `UPDATE ${tableNames.USER} SET verified = 1 WHERE id = ?`;
   const values = [id];
-  return await repositoryManager.executeQuery(selectUserId, values);
+  return await repositoryManager.executeQuery(query, values);
 }
 
 module.exports = {
+  addVerificationCode,
   findByEmail,
   findById,
   findHistoryPublicationUser,
@@ -98,6 +115,7 @@ module.exports = {
   findUserWithAddress,
   registerUser,
   updateUser,
+  validateVerificationCode,
   valueExists,
   verifyUser,
 };

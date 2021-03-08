@@ -7,21 +7,15 @@ import UserAvatar from './styles/UserAvatar';
 import Username from './styles/Username';
 import UserProfile from './styles/UserProfile';
 
-const Header = () => {
+const Header = ({ fullname, picture }) => {
   return (
     <ProfileHeader>
       <ProfileHeaderContainer>
         <ProfileHeaderContent>
           <UserProfile>
-            <UserAvatar
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              loading="lazy"
-              alt="profile image"
-              width=""
-              height="100"
-            />
+            <UserAvatar src={picture} loading="lazy" alt="profile image" width="" height="100" />
             <Username>
-              <span>Martin</span>
+              <span>{fullname}</span>
             </Username>
           </UserProfile>
         </ProfileHeaderContent>

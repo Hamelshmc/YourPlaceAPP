@@ -1,25 +1,18 @@
-'use strict';
-
 const jwt = require('jsonwebtoken');
 const userServices = require('../services');
 
 const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
-async function loginUser(request, response) {
-  const { email, password } = request.body;
-  const user = { email, password };
+async function tokenHandler(request, response) {
+  const { authorization } = request.headers;
   try {
-    const userLogged = await userServices.loginUser(user);
-    const { password, ...useruserWithoutPass } = userLogged;
-    const token = jwt.sign(
-      { id: userLogged.id, verified: userLogged.verified },
-      process.env.TOKEN_SECRET,
-      {
-        expiresIn: '1m',
-      }
-    );
+    const token = authorization.split(' ')[1];
+    const user = jwt.verify(token, process.env.TOKEN_SECRET, { ignoreExpiration: true });
+    const newToken = jwt.sign({ id: user.id, verified: user.verified }, process.env.TOKEN_SECRET, {
+      expiresIn: '1m',
+    });
     const refreshToken = jwt.sign(
-      { id: userLogged.id, verified: userLogged.verified },
+      { id: user.id, verified: user.verified },
       process.env.TOKEN_SECRET,
       {
         expiresIn: '1m',
@@ -30,16 +23,15 @@ async function loginUser(request, response) {
       .status(httpStatus.OK)
       .send(
         new ResponseJson(httpStatus.OK, {
-          user: useruserWithoutPass,
           authorization: token,
           refreshToken,
         })
       );
   } catch (error) {
     return response
-      .status(error.status)
+      .status(error.status || httpStatus.BAD_REQUEST)
       .send(new ResponseError(error.status, error, error.message));
   }
 }
 
-module.exports = loginUser;
+module.exports = tokenHandler;

@@ -1,6 +1,10 @@
 const userRouter = require('express').Router();
-const { auth, verified } = require('../middleware');
+const { auth, verified, handleToken } = require('../middleware');
 const userController = require('../controllers');
+
+userRouter
+  .route('/token')
+  .get(async (request, response) => await userController.token(request, response));
 
 userRouter
   .route('/register')
@@ -11,7 +15,7 @@ userRouter
   .post(async (request, response) => await userController.loginUser(request, response));
 
 userRouter
-  .route('/verify/:id/:secretCode')
+  .route('/verify/:id/:code')
   .get(async (request, response) => await userController.verifyUser(request, response));
 
 userRouter

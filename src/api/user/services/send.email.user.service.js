@@ -1,10 +1,13 @@
+/* eslint-disable max-lines-per-function */
+/* eslint-disable max-lines */
+
 'use strict';
 
 const sgMail = require('@sendgrid/mail');
 
-const { SENDGRID_API_KEY, SENDGRID_MAIL_TO, SENDGRID_MAIL_FROM, HTTP_SERVER_NAME } = process.env;
-//http://localhost:8000/api/v1/users/verify/${user.id}/${token}
-async function sendEmail(user, token, email) {
+const { SENDGRID_API_KEY, SENDGRID_MAIL_TO, SENDGRID_MAIL_FROM, HTTP_CLIENT_NAME } = process.env;
+
+async function sendEmail(id, code, email) {
   sgMail.setApiKey(SENDGRID_API_KEY);
   const msg = {
     to: email,
@@ -430,7 +433,7 @@ async function sendEmail(user, token, email) {
                                                 class="inner-td"
                                                 style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
                                               <a style="background-color:#066ec0; border:1px solid #066EC0; border-color:#066EC0; border-radius:0px; border-width:1px; color:#ffffff; display:inline-block; font-family:verdana,geneva,sans-serif; font-size:16px; font-weight:normal; letter-spacing:1px; line-height:30px; padding:12px 20px 12px 20px; text-align:center; text-decoration:none; border-style:solid;"
-                                                 href="${HTTP_SERVER_NAME}/api/v1/users/verify/${user.id}/${token}"
+                                                 href="${HTTP_CLIENT_NAME}/verify/${id}/${code}"
                                                  target="_blank">Go!</a></td>
                                           </tr>
                                         </tbody>

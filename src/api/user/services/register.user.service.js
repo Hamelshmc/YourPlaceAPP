@@ -12,7 +12,14 @@ const schemaValidation = require('../validations');
 const userAddressRepository = require('../../../repositories/userAddress.repository');
 const userRepository = require('../../../repositories/user.repository');
 
-async function registerUser(user) {
+async function insertUserAddress(id) {
+  const address = { street: '', city: '', country: '', zipcode: 0 };
+  const idAddress = await idChecker(tableNames.USER_ADDRESSES);
+  const addressEntity = { id: idAddress, ...address, id_user: id };
+  await userAddressRepository.insertUserAddress(addressEntity);
+}
+
+async function registerUser(user, code) {
   const { email, password } = user;
 
   await schemaValidation.loginUserValidation(user);
@@ -30,7 +37,7 @@ async function registerUser(user) {
   const userToCreate = { id, email, password: hashedPassword };
   await userRepository.registerUser(userToCreate);
   await insertUserAddress(id);
-
+  await userRepository.addVerificationCode(id, code);
   const [userdb] = await userRepository.findByEmail(email);
 
   if (!userdb) {
@@ -38,13 +45,6 @@ async function registerUser(user) {
   }
 
   return userdb;
-}
-
-async function insertUserAddress(id) {
-  const address = { street: '', city: '', country: '', zipcode: 0 };
-  const idAddress = await idChecker(tableNames.USER_ADDRESSES);
-  const addressEntity = { id: idAddress, ...address, id_user: id };
-  await userAddressRepository.insertUserAddress(addressEntity);
 }
 
 module.exports = registerUser;

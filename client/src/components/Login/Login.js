@@ -26,6 +26,7 @@ const Login = () => {
       setUser({
         id: res.data.user.id,
         token: res.data.authorization,
+        refreshToken: res.data.refreshToken,
         picture: res.data.user.picture,
       });
     }

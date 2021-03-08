@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Publication from './Publication';
 
-function ListPublication() {
+function ListPublication({ list }) {
   return (
     <ListPublicationWrapper>
       <Publication rating="4" />

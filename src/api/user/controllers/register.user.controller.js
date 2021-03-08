@@ -1,6 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
+const cryptoRandomString = require('crypto-random-string');
 const userServices = require('../services');
 
 const { TOKEN_SECRET } = process.env;
@@ -11,22 +12,35 @@ async function registerUser(request, response) {
   const { email, password } = request.body;
   const user = { email, password };
   try {
-    const userRegistered = await userServices.registerUser(user);
+    const verificationCode = cryptoRandomString({ length: 64 });
+    const userRegistered = await userServices.registerUser(user, verificationCode);
 
     const token = jwt.sign(
       { id: userRegistered.id, verified: userRegistered.verified },
       TOKEN_SECRET,
       {
-        expiresIn: '60m',
+        expiresIn: '1m',
       }
     );
-
-    await userServices.sendEmail(userRegistered, token, email);
+    const refreshToken = jwt.sign(
+      { id: userRegistered.id, verified: userRegistered.verified },
+      process.env.TOKEN_SECRET,
+      {
+        expiresIn: '1m',
+      }
+    );
+    await userServices.sendEmail(userRegistered.id, verificationCode, email);
 
     return response
       .header('Authorization', `Bearer ${token}`)
       .status(httpStatus.CREATED)
-      .send(new ResponseJson(httpStatus.CREATED, { user: userRegistered, authorization: token }));
+      .send(
+        new ResponseJson(httpStatus.CREATED, {
+          user: userRegistered,
+          authorization: token,
+          refreshToken,
+        })
+      );
   } catch (error) {
     return response
       .status(error.status)

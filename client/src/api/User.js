@@ -38,7 +38,7 @@ const fetchLogin = async (data) => {
   return res;
 };
 
-const fetchUser = async (token) => {
+const fetchUser = async (user, setUser) => {
   const res = await (
     await fetch('/api/v1/users/', {
       method: 'GET',
@@ -47,7 +47,75 @@ const fetchUser = async (token) => {
       credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${user.token}`,
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+  ).json();
+  if (res.status === 401) {
+    const secondRes = await (
+      await fetch('/api/v1/users/', {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.refreshToken}`,
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+      })
+    ).json();
+    if (secondRes.status === 401) {
+      const newToken = await (
+        await fetch('/api/v1/users/token', {
+          method: 'GET',
+          mode: 'cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user.refreshToken}`,
+          },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer',
+        })
+      ).json();
+      setUser({
+        ...user,
+        token: newToken.data.authorization,
+        refreshToken: newToken.data.refreshToken,
+      });
+    }
+    return await (
+      await fetch('/api/v1/users/', {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.refreshToken}`,
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+      })
+    ).json();
+  }
+  return res;
+};
+
+const fetchUserVerification = async (url) => {
+  const res = await (
+    await fetch(`/api/v1/users${url}`, {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
@@ -56,4 +124,4 @@ const fetchUser = async (token) => {
   return res;
 };
 
-export { fetchRegister, fetchLogin, fetchUser };
+export { fetchRegister, fetchLogin, fetchUser, fetchUserVerification };

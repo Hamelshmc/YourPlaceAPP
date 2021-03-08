@@ -11,8 +11,8 @@ function auth(request, response, next) {
   }
   try {
     const token = authorization.split(' ')[1];
-    const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-    request.user = verified;
+    const user = jwt.verify(token, process.env.TOKEN_SECRET);
+    request.user = user;
     next();
   } catch (error) {
     return response
