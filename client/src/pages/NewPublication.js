@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable camelcase */
 /* eslint-disable complexity */
 /* eslint-disable no-magic-numbers */
@@ -15,7 +16,6 @@ import Form from '../components/shared/Form/styles/Form';
 import FormContainer from '../components/shared/Form/styles/FormContainer';
 import FormTitle from '../components/shared/Form/styles/FormTitle';
 import SubmitButton from '../components/shared/Form/styles/SubmitButton';
-import SearchMap from '../components/shared/MapBox/SearchMap';
 import { UserContext } from '../hooks/UserContext';
 import publicationSchema from '../Validations/Publication';
 
@@ -24,7 +24,6 @@ function NewPublication() {
   const [previewSource, setPreviewSource] = useState([]);
   const [response, setResponse] = useState(false);
   const mutation = useMutation((newTodo) => fetchPublication(newTodo, user));
-
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(publicationSchema),
     mode: 'onChange',
@@ -67,11 +66,13 @@ function NewPublication() {
     setPreviewSource(pictures);
     const publication = { availability_date, ...rest };
     const body = { publication, publication_address, pictures };
-    console.log(body, errors);
     try {
       await mutation.mutateAsync(body);
     } catch (error) {
-      console.error(error);
+      console.error('[ERROR]', error);
+      if (mutation.isError) {
+        console.log(`An error occurred: ${mutation.error.message}`);
+      }
     } finally {
       setResponse(false);
     }
@@ -82,10 +83,15 @@ function NewPublication() {
       <FormContainer>
         <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
           <FormTitle>Publication</FormTitle>
-          <SearchMap
-            reference={register}
+          <InputForm
+            type="text"
+            name="street"
+            id="street"
+            label="Street"
             errorMsg={errors.street && errors.street.message}
             error={errors.street}
+            placeholder="Calle Juan Florez"
+            reference={register}
           />
           <InputWrapper>
             <InputForm
@@ -300,8 +306,11 @@ function NewPublication() {
               'Adding Publication...'
             ) : (
               <>
-                {mutation.isError ? `An error occurred: ${mutation.error.message}` : null}
-                {mutation.isSuccess ? `Publication added!` : 'Create New Publication'}
+                {mutation.data && mutation.data.status > 400
+                  ? `error occurred ${mutation.data.data}`
+                  : mutation.isSuccess
+                  ? `Publication added!`
+                  : 'Create New Publication'}
               </>
             )}
           </SubmitButton>
