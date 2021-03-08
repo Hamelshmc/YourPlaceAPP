@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { UserContext } from '../../hooks/UserContext';
+import SignIn from '../Header/styles/SignIn';
 import IconLink from '../shared/IconLink';
 import Menu from '../shared/Menu';
 import MenuItem from '../shared/MenuItem';
@@ -23,9 +24,13 @@ function Footer() {
               <IconLink to="/publication/add">add_box</IconLink>
             </MenuItem>
           )}
-          <MenuItem>
-            <IconLink to="/join">person</IconLink>
-          </MenuItem>
+          {user.token ? (
+            <MenuItem>
+              <IconLink to="/profile">person</IconLink>
+            </MenuItem>
+          ) : (
+            <SignIn to="/join">Sign In</SignIn>
+          )}
         </Menu>
       </Nav>
     </FooterContainer>

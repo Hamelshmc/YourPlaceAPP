@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from './Icon';
 
-
 function IconLink({ to, children, className }) {
   return (
     <StyledLink
@@ -25,7 +24,6 @@ const StyledLink = styled(NavLink)`
   text-decoration: none;
   text-shadow: ${({ theme }) => theme.boxShadow.default};
   width: 100%;
-
   &:link {
     color: inherit;
   }

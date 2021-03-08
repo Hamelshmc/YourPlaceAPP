@@ -2,7 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 const userServices = require('../services');
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
 async function verifyUser(request, response) {
   const { id, secretCode } = await request.params;
@@ -14,7 +14,7 @@ async function verifyUser(request, response) {
     }
   } catch (error) {
     return response
-      .status(error.status)
+      .status(error.status || 500)
       .send(new ResponseError(error.status, error, error.message));
   }
 }

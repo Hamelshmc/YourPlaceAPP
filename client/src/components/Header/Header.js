@@ -49,7 +49,7 @@ function HeaderNav() {
             </Menu>
           </div>
         )}
-        {user.token ? <Avatar to="/join">person</Avatar> : <SignIn to="/join">Sign In</SignIn>}
+        {user.token ? <Avatar to="/profile">person</Avatar> : <SignIn to="/join">Sign In</SignIn>}
       </Header>
     </HeaderContainer>
   );

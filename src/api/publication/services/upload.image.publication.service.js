@@ -8,7 +8,7 @@ async function uploadImagePublication(files) {
     throw new ResponseError(httpStatus.NO_CONTENT, 'There is no image');
   }
   const promises = files.map(async (file) => {
-    const uploadResponse = await cloudinary.uploader.upload(file.data, optionsImage);
+    const uploadResponse = await cloudinary.uploader.upload(file.base64, optionsImage);
     return { url: uploadResponse.url };
   });
   const data = await Promise.all(promises).then((completed) => completed);
