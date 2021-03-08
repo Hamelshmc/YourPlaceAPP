@@ -1,9 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Icon from '../shared/Icon';
 import IconSvg from '../shared/IconSvg/IconSVG';
 import StartRating from '../shared/StartRating';
+import IconContainer from './styles/Lessor/IconContainer';
+import IconLessor from './styles/Lessor/IconLessor';
+import LessorAvatar from './styles/Lessor/LessorAvatar';
+import LessorLink from './styles/Lessor/LessorLink';
+import LessorLinkRouter from './styles/Lessor/LessorLinkRouter';
+import LessorName from './styles/Lessor/LessorName';
+import LessorProfile from './styles/Lessor/LessorProfile';
+import LessorTittle from './styles/Lessor/LessorTittle';
+import LessorWrapper from './styles/Lessor/LessorWrapper';
 
 function Lessor({ url, name, phoneNumber }) {
   return (
@@ -38,109 +44,5 @@ function Lessor({ url, name, phoneNumber }) {
     </LessorWrapper>
   );
 }
-
-const LessorWrapper = styled.section`
-  display: flex;
-  padding: ${({ theme }) => theme.padding[1]};
-  border-top: 1px solid ${({ theme }) => theme.card.borderColor};
-  flex-wrap: wrap;
-  background-color: ${({ theme }) => theme.card.lessorColor};
-  flex-direction: column;
-`;
-
-const LessorTittle = styled.div`
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
-  font-size: ${({ theme }) => theme.fontSizes.smaller};
-  color: ${({ theme }) => theme.fontColor.alternative};
-  font-weight: 700;
-`;
-
-const LessorProfile = styled.div`
-  display: flex;
-  align-items: center;
-  padding-top: ${({ theme }) => theme.padding[0]};
-`;
-
-const LessorAvatar = styled.div`
-  margin-right: ${({ theme }) => theme.margins[0]};
-  img {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-  }
-`;
-
-const LessorName = styled.p`
-  font-weight: 700;
-`;
-const IconContainer = styled.div`
-  display: flex;
-  flex: 1 1 auto;
-  align-items: center;
-  justify-content: space-evenly;
-`;
-
-const LessorLink = styled.a`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  padding: 0.5rem;
-  text-decoration: none;
-  letter-spacing: 0.17rem;
-  text-shadow: ${({ theme }) => theme.boxShadow.default};
-
-  p {
-    margin-left: 0.25rem;
-  }
-
-  &:link {
-    color: inherit;
-  }
-
-  &:visited {
-    color: inherit;
-  }
-
-  &:hover {
-    color: inherit;
-  }
-
-  &:active {
-    color: inherit;
-  }
-`;
-
-const LessorLinkRouter = styled(Link)`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  padding: 0.5rem;
-  text-decoration: none;
-  text-shadow: ${({ theme }) => theme.boxShadow.default};
-  &:link {
-    color: inherit;
-  }
-
-  &:visited {
-    color: inherit;
-  }
-
-  &:hover {
-    color: inherit;
-  }
-
-  &:active {
-    color: inherit;
-  }
-`;
-
-const IconLessor = styled(Icon)`
-  font-size: 1.8rem;
-`;
 
 export default Lessor;

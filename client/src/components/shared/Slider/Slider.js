@@ -16,7 +16,6 @@ function Slider({ slides }) {
   const { translate, transition, activeIndex } = state;
 
   const getWidth = () => width;
-  console.log(width);
 
   const nextSlide = () => {
     if (activeIndex === slides.length - 1) {

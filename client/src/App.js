@@ -18,6 +18,7 @@ const Profile = React.lazy(() => import('./pages/Profile'));
 const Publication = React.lazy(() => import('./pages/Publication'));
 const Verification = React.lazy(() => import('./pages/Verification'));
 
+const NewPublication = React.lazy(() => import('./pages/NewPublication'));
 // Create a client
 const queryClient = new QueryClient();
 
@@ -36,6 +37,10 @@ function App() {
             <PublicRoute path="/like" component={Like} exact />
             <PublicRoute path="/join" component={Join} exact />
 
+            <PrivateRoute path="/profile" component={Profile} exact />
+            <PrivateRoute path="/notification" component={Notification} exact />
+            <PrivateRoute path="/publication/add" component={NewPublication} exact />
+            <PrivateRoute path="/publication/:id" component={Publication} exact />
             <PrivateRoute path="/profile" component={Profile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />
             <PrivateRoute path="/messages" component={Messages} exact />

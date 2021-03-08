@@ -4,6 +4,7 @@ import { UserContext } from '../../hooks/UserContext';
 import IconLink from '../shared/IconLink';
 import Menu from '../shared/Menu';
 import MenuItem from '../shared/MenuItem';
+import Avatar from './styles/Avatar';
 import Header from './styles/Header';
 import HeaderContainer from './styles/HeaderContainer';
 import HeaderIcon from './styles/HeaderIcon';
