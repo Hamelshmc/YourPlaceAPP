@@ -1,19 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import Slider from '../Slider/Slider';
 import Constraints from './styles/Constraints';
 
-function InputImage({ reference, previewSource }) {
+function InputImage({ reference, previewSource, error, errorMsg }) {
   return (
     <div>
       <ButtonWrapper>
         <LabelUpload>Upload Image</LabelUpload>
-        <InputUpload type="file" name="files[]" multiple ref={reference} />
+        <InputUpload type="file" name="files[]" multiple ref={reference} focus={error} />
       </ButtonWrapper>
-      {previewSource &&
-        previewSource.map((item) => (
-          <img src={item.url} key={item.url} alt="chosen" style={{ height: '150px' }} />
-        ))}
-      <Constraints />
+
+      {previewSource && <Slider slides={previewSource} />}
+      <Constraints id="file">{errorMsg}</Constraints>
     </div>
   );
 }

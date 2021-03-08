@@ -36,13 +36,12 @@ function SearchMap({ reference, error, errorMsg }) {
   };
 
   const handleItemClicked = (e) => {
-    e.preventDefault();
     setSearch(e.target.value);
     setDisplay(false);
+    setOptions([]);
   };
 
   const handleSearchChange = (e) => {
-    e.preventDefault();
     setDisplay(true);
     setSearch(e.target.value);
     debounce(getStreetsResults(), 300);

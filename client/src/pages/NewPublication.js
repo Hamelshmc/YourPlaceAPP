@@ -54,7 +54,7 @@ function NewPublication() {
       image.data.push(fileToDataUri(data.files[i]));
     }
     const newImages = await Promise.all(image.data);
-    setPreviewSource(image.data);
+
     image.data = newImages;
     const res = await fetchImage(image);
     return res.data;
@@ -66,6 +66,7 @@ function NewPublication() {
     const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
     let pictures = await handleFileInput(data);
     pictures = pictures.map((item) => item.url);
+    setPreviewSource(pictures);
     const publication = { ...rest };
     const body = { publication, publication_address, pictures };
     try {
@@ -77,14 +78,16 @@ function NewPublication() {
     }
   };
 
-  console.log(errors);
-
   return (
     <SectionNewPublication>
       <FormContainer>
         <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
           <FormTitle>Publication</FormTitle>
-          <SearchMap reference={register} />
+          <SearchMap
+            reference={register}
+            errorMsg={errors.street && errors.street.message}
+            error={errors.street}
+          />
           <InputWrapper>
             <InputForm
               id="floor"
@@ -287,7 +290,12 @@ function NewPublication() {
               reference={register}
             />
           </InputWrapper>
-          <InputImage reference={register} previewSource={previewSource} />
+          <InputImage
+            reference={register}
+            previewSource={previewSource}
+            errorMsg={errors.files && errors.files.message}
+            error={errors.files}
+          />
           <SubmitButton id="register">
             {response || mutation.isLoading ? (
               'Adding Publication...'
@@ -335,8 +343,9 @@ const InputWrapper = styled.section`
   border: none;
   margin: 0;
   padding: 0;
+  max-width: 30rem;
   section {
-    min-width: 50%;
+    min-width: 30%;
     padding-left: 0.1rem;
   }
 `;
