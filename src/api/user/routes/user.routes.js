@@ -3,8 +3,12 @@ const { auth, verified, handleToken } = require('../middleware');
 const userController = require('../controllers');
 
 userRouter
-  .route('/token')
-  .get(async (request, response) => await userController.token(request, response));
+  .route('/checkToken')
+  .get(async (request, response) => await userController.checkToken(request, response));
+
+userRouter
+  .route('/generateTokens')
+  .get(async (request, response) => await userController.generateTokens(request, response));
 
 userRouter
   .route('/register')

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { fetchUser } from '../api/User';
+import { fetchAuthData, fetchUser } from '../api/User';
 import Content from '../components/Profile/Content';
 import Header from '../components/Profile/Header';
 import ProfileContainer from '../components/Profile/styles/ProfileContainer';
@@ -14,8 +14,9 @@ const Profile = () => {
 
   const [user, setUser] = useContext(UserContext);
 
-  const { isLoading, isError, error, data } = useQuery(['userProfile', user, setUser], () =>
-    fetchUser(user, setUser)
+  const { isLoading, isError, error, data } = useQuery(
+    ['userProfile', fetchUser, user, setUser],
+    () => fetchAuthData(fetchUser, user, setUser)
   );
 
   if (isLoading) {
@@ -40,18 +41,6 @@ const Profile = () => {
       progress: undefined,
     });
     return <div>ERROR</div>;
-  }
-
-  if (data.status !== 200) {
-    toast.error('ERROR STATUS != 200', {
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    return <div>ERROR STATUS != 200</div>;
   }
 
   return data ? (

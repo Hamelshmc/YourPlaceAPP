@@ -7,5 +7,6 @@ module.exports = {
   putUser: require('./put.user.controller'),
   registerUser: require('./register.user.controller'),
   verifyUser: require('./verify.user.controller'),
-  token: require('./token.controller'),
+  generateTokens: require('./generate.tokens.controller'),
+  checkToken: require('./check.token.controller'),
 };

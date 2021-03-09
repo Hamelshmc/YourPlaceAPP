@@ -22,7 +22,7 @@ async function verifyUser(request, response) {
       const token = jwt.sign({ id, verified: 1 }, process.env.TOKEN_SECRET, {
         expiresIn: '30m',
       });
-      const refreshToken = jwt.sign({ id, verified: 1 }, process.env.TOKEN_SECRET, {
+      const refreshToken = jwt.sign({ id, verified: 1 }, process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: '24h',
       });
       response

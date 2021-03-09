@@ -20,7 +20,7 @@ async function loginUser(request, response) {
     );
     const refreshToken = jwt.sign(
       { id: userLogged.id, verified: userLogged.verified },
-      process.env.TOKEN_SECRET,
+      process.env.REFRESH_TOKEN_SECRET,
       {
         expiresIn: '24h',
       }

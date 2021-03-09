@@ -24,7 +24,7 @@ async function registerUser(request, response) {
     );
     const refreshToken = jwt.sign(
       { id: userRegistered.id, verified: userRegistered.verified },
-      process.env.TOKEN_SECRET,
+      process.env.REFRESH_TOKEN_SECRET,
       {
         expiresIn: '24h',
       }
