@@ -7,7 +7,7 @@ async function getPublicationById(id) {
   const [publication] = await publicationRepository.findPublicationById(id);
 
   if (publication.length < 1) {
-    throw new ResponseErrorr(httpStatus.NOT_FOUND, 'PUBLICATION NOT FOUND');
+    throw new ResponseError(httpStatus.NOT_FOUND, 'PUBLICATION NOT FOUND');
   }
 
   const pics = await publicationRepository.findAllPicturesByPublicationId(id);

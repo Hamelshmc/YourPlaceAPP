@@ -3,10 +3,8 @@ import styled from 'styled-components';
 
 const Dots = ({ slides, activeIndex }) => (
   <DostsContainer>
-    {slides.map((slide, i) => (
-      <Dot key={slide} active={activeIndex === i} />
-    ))}
-    <Number>1/{slides.length}</Number>
+    {slides && slides.map((slide, i) => <Dot key={slide} active={activeIndex === i} />)}
+    <Number>1/{slides && slides.length}</Number>
   </DostsContainer>
 );
 
