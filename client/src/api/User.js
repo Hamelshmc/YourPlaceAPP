@@ -38,7 +38,7 @@ const fetchLogin = async (data) => {
   return res;
 };
 
-const fetchUser = async (user, setUser) => {
+const fetchUser = async (user) => {
   const res = await (
     await fetch('/api/v1/users/', {
       method: 'GET',
@@ -53,57 +53,6 @@ const fetchUser = async (user, setUser) => {
       referrerPolicy: 'no-referrer',
     })
   ).json();
-  if (res.status === 401) {
-    const secondRes = await (
-      await fetch('/api/v1/users/', {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.refreshToken}`,
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-      })
-    ).json();
-    if (secondRes.status === 401) {
-      const newToken = await (
-        await fetch('/api/v1/users/token', {
-          method: 'GET',
-          mode: 'cors',
-          cache: 'no-cache',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${user.refreshToken}`,
-          },
-          redirect: 'follow',
-          referrerPolicy: 'no-referrer',
-        })
-      ).json();
-      setUser({
-        ...user,
-        token: newToken.data.authorization,
-        refreshToken: newToken.data.refreshToken,
-      });
-    }
-    return await (
-      await fetch('/api/v1/users/', {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.refreshToken}`,
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-      })
-    ).json();
-  }
   return res;
 };
 

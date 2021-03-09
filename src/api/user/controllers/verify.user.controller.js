@@ -18,6 +18,7 @@ async function verifyUser(request, response) {
         'Account not activated. Verification code expired. Or yet actived.'
       );
     } else {
+      await userServices.verifyUser(id);
       const token = jwt.sign({ id, verified: 1 }, process.env.TOKEN_SECRET, {
         expiresIn: '30m',
       });

@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
 import { fetchUser } from '../api/User';
 import Content from '../components/Profile/Content';
 import Header from '../components/Profile/Header';
@@ -7,30 +9,60 @@ import UserTabs from '../components/Profile/UserTabs';
 import { UserContext } from '../hooks/UserContext';
 
 const Profile = () => {
+  // Access the client
+  const queryClient = useQueryClient();
+
   const [user, setUser] = useContext(UserContext);
-  const [userProfile, setUserProfile] = useState({});
 
-  const loadProfile = async () => await fetchUser(user, setUser);
+  const { isLoading, isError, error, data } = useQuery(['userProfile', user, setUser], () =>
+    fetchUser(user, setUser)
+  );
 
-  useEffect(() => {
-    const data = loadProfile();
-    data.then((res) => {
-      console.log({ res });
-      if (res.status === 200) {
-        setUserProfile({ ...userProfile, ...res.data });
-      }
+  if (isLoading) {
+    toast.info('CARGANDO...', {
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
-  }, []);
+    return <div>CARGANDO</div>;
+  }
 
-  return userProfile.user ? (
+  if (isError) {
+    toast.error('ERROR', {
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return <div>ERROR</div>;
+  }
+
+  if (data.status !== 200) {
+    toast.error('ERROR STATUS != 200', {
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return <div>ERROR STATUS != 200</div>;
+  }
+
+  return data ? (
     <ProfileContainer>
       <div>
-        <Header user={userProfile.user} />
-        <Content user={userProfile.user} />
+        <Header user={data.data.user} />
+        <Content user={data.data.user} />
       </div>
       <UserTabs
-        publicationsUser={userProfile.publicationsUser}
-        publicationsHistoryUser={userProfile.publicationsHistoryUser}
+        publicationsUser={data.data.publicationsUser}
+        publicationsHistoryUser={data.data.publicationsHistoryUser}
       />
     </ProfileContainer>
   ) : (

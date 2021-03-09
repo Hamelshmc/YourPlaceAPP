@@ -2,6 +2,8 @@ import React from 'react';
 import Confetti from 'react-confetti';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Redirect, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import { PrivateRoute, PublicRoute } from './components/shared/RouteFactory';
@@ -50,6 +52,18 @@ function App() {
         </QueryClientProvider>
         <Footer />
       </Wrapper>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        limit={1}
+      />
     </UserProvider>
   );
 }
