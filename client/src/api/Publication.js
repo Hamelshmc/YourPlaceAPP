@@ -16,13 +16,14 @@ const fetchImage = async (data) => {
   return res;
 };
 
-const fetchPublication = async (data, user) => {
+const fetchPublication = async (data, token) => {
+  console.log(token);
   const res = await (
     await fetch('/api/v1/publications/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })

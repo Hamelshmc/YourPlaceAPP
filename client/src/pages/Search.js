@@ -22,8 +22,7 @@ function Search() {
 
   const { isLoading, isError, error, data, isFetching, isPreviousData } = useQuery(
     ['data', page, search],
-    () => fetchProjects(page, search),
-    { keepPreviousData: true }
+    () => fetchProjects(page, search)
   );
   console.log(data);
 

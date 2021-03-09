@@ -14,8 +14,6 @@ import LessorWrapper from './styles/Lessor/LessorWrapper';
 
 const cloudName = 'yourplace';
 function Lessor({ url, name, phoneNumber, email }) {
-  const separateString = (string) => string.split(`YourPlace_IMG/`)[1];
-  const content = separateString(url);
   return (
     <LessorWrapper>
       <LessorTittle>Lessor</LessorTittle>
@@ -24,7 +22,7 @@ function Lessor({ url, name, phoneNumber, email }) {
           <Image
             cloudName={cloudName}
             loading="lazy"
-            publicId={content}
+            publicId={url}
             secure="true"
             dpr="auto"
             responsive
@@ -43,7 +41,7 @@ function Lessor({ url, name, phoneNumber, email }) {
             <IconLessor>phone</IconLessor>
           </LessorLink>
           <LessorLinkRouter to="/messages/:id">
-            <IconLessor>chat</IconLessor>{' '}
+            <IconLessor>chat</IconLessor>
           </LessorLinkRouter>
           <LessorLink href={`https://wa.me/${phoneNumber}`}>
             <IconSvg svg="whatsapp" />

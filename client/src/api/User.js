@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const fetchRegister = async (data) => {
   const { emailRegister: email, password } = data;
   const user = { email, password };
@@ -38,8 +39,8 @@ const fetchLogin = async (data) => {
   return res;
 };
 
-const checkToken = async (token) => {
-  return await (
+const checkToken = async (token) =>
+  await (
     await fetch('/api/v1/users/checkToken', {
       method: 'GET',
       mode: 'cors',
@@ -53,9 +54,8 @@ const checkToken = async (token) => {
       referrerPolicy: 'no-referrer',
     })
   ).json();
-};
-const generateTokens = async (token) => {
-  return await (
+const generateTokens = async (token) =>
+  await (
     await fetch('/api/v1/users/generateTokens', {
       method: 'GET',
       mode: 'cors',
@@ -69,7 +69,6 @@ const generateTokens = async (token) => {
       referrerPolicy: 'no-referrer',
     })
   ).json();
-};
 
 const fetchUser = async (token) => {
   const res = await (
@@ -100,6 +99,24 @@ const fetchAuthData = async (fetchFn, user, setUser) => {
     token: generateTokenResponse.data.authorization,
     refreshToken: generateTokenResponse.data.refreshToken,
   });
+  return generateTokenResponse;
+};
+
+const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
+  const tokenResponse = await checkToken(user.refreshToken);
+  if (tokenResponse.status === 200) {
+    return await fetchFn(data, user.token);
+  }
+  const generateTokenResponse = await generateTokens(user.refreshToken);
+  console.log('[GenerateToken]', generateTokenResponse);
+  if (generateTokenResponse.status === 200) {
+    setUser({
+      ...user,
+      token: generateTokenResponse.data.authorization,
+      refreshToken: generateTokenResponse.data.refreshToken,
+    });
+    return await fetchFn(data, generateTokenResponse.data.authorization);
+  }
 };
 
 const fetchUserVerification = async (url) => {
@@ -119,4 +136,11 @@ const fetchUserVerification = async (url) => {
   return res;
 };
 
-export { fetchRegister, fetchLogin, fetchUser, fetchUserVerification, fetchAuthData };
+export {
+  fetchRegister,
+  fetchLogin,
+  fetchUser,
+  fetchUserVerification,
+  fetchAuthData,
+  fetchAuthDataPost,
+};

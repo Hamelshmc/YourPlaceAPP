@@ -5,6 +5,7 @@ const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage('user', {});
+  console.log('[userLocal]', user);
   return <UserContext.Provider value={[user, setUser]}>{children}</UserContext.Provider>;
 };
 

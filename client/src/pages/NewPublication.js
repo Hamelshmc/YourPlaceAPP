@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import styled from 'styled-components';
 import { fetchImage, fetchPublication } from '../api/Publication';
+import { fetchAuthDataPost } from '../api/User';
 import InputCheckBox from '../components/shared/Form/InputCheckBox';
 import InputForm from '../components/shared/Form/InputForm';
 import InputImage from '../components/shared/Form/InputImage';
@@ -23,7 +24,9 @@ function NewPublication() {
   const [user, setUser] = useContext(UserContext);
   const [previewSource, setPreviewSource] = useState([]);
   const [response, setResponse] = useState(false);
-  const mutation = useMutation((newTodo) => fetchPublication(newTodo, user));
+  const mutation = useMutation((newTodo) =>
+    fetchAuthDataPost(fetchPublication, user, setUser, newTodo)
+  );
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(publicationSchema),
     mode: 'onChange',
