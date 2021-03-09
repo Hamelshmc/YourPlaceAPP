@@ -56,7 +56,9 @@ function Publication({ publication, lessor = false }) {
         <Item number={rooms} type="bedroom" />
         <Item number={area} type="area" />
       </Features>
-      {lessor && <Lessor phoneNumber={telephone} url={picture} name={name} email={email} />}
+      {lessor.telephone && (
+        <Lessor phoneNumber={telephone} url={picture} name={name} email={email} />
+      )}
     </PublicationContainer>
   );
 }

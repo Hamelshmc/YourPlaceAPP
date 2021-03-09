@@ -1,8 +1,16 @@
 import React from 'react';
+import Publication from './Publication';
 import ListPublicationWrapper from './styles/Publication/ListPublicationWrapper';
 
-function ListPublication() {
-  return <ListPublicationWrapper />;
+function ListPublication({ publications }) {
+  return (
+    <ListPublicationWrapper>
+      {publications &&
+        publications.map((publication) => {
+          return <Publication key={publication.id} publication={publication} lessor />;
+        })}
+    </ListPublicationWrapper>
+  );
 }
 
 export default ListPublication;

@@ -13,14 +13,14 @@ const Header = ({ user }) => (
       <ProfileHeaderContent>
         <UserProfile>
           <UserAvatar
-            src={user.picture}
+            src={user.picture && user.picture}
             loading="lazy"
             alt="profile image"
             width=""
             height="100"
-            />
+          />
           <Username>
-            <span>{user.fullname}</span>
+            <span>{user.fullname && user.fullname}</span>
           </Username>
         </UserProfile>
       </ProfileHeaderContent>
@@ -29,5 +29,5 @@ const Header = ({ user }) => (
       </EditProfile>
     </ProfileHeaderContainer>
   </ProfileHeader>
-  );
+);
 export default Header;

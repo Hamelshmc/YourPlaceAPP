@@ -8,10 +8,10 @@ const UserTabs = ({ publicationsUser, publicationsHistoryUser }) => (
   <TabSectionReverse>
     <Tabs defaultIndex="1" onTabClick="1">
       <TabItem label="Publications" index="1">
-        <ListPublication publicationsUser={publicationsUser} />
+        <ListPublication publications={publicationsUser} />
       </TabItem>
       <TabItem label="Historical" index="2">
-        <ListPublication publicationsHistoryUser={publicationsHistoryUser} />
+        <ListPublication publications={publicationsHistoryUser} />
       </TabItem>
     </Tabs>
   </TabSectionReverse>

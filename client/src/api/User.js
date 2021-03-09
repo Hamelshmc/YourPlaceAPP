@@ -95,11 +95,13 @@ const fetchAuthData = async (fetchFn, user, setUser) => {
     return await fetchFn(user.token);
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
-  setUser({
-    ...user,
-    token: generateTokenResponse.data.authorization,
-    refreshToken: generateTokenResponse.data.refreshToken,
-  });
+  if (generateTokenResponse.status === 200) {
+    setUser({
+      ...user,
+      token: generateTokenResponse.data.authorization,
+      refreshToken: generateTokenResponse.data.refreshToken,
+    });
+  }
 };
 
 const fetchUserVerification = async (url) => {
