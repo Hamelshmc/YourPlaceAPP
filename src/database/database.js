@@ -14,7 +14,7 @@ async function getPool() {
         password: MYSQL_PASSWORD,
         database: MYSQL_DBNAME,
         waitForConnections: true,
-        connectionLimit: 5,
+        connectionLimit: 1,
         queueLimit: 0,
       });
     }
