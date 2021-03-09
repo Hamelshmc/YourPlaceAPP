@@ -22,7 +22,7 @@ import Ubicacion from './styles/Publication/Ubicacion';
 function Publication({ publication, lessor = false }) {
   const {
     id,
-    images,
+    pictures,
     tipo,
     precio,
     rating,
@@ -38,7 +38,7 @@ function Publication({ publication, lessor = false }) {
 
   return (
     <PublicationContainer>
-      <Slider slides={images} />
+      <Slider slides={pictures} />
       <Favorite />
       <PublicationModule>
         <Tipo> {tipo}</Tipo>
@@ -52,9 +52,9 @@ function Publication({ publication, lessor = false }) {
         </Container>
       </PublicationModule>
       <Features>
-        <Item number={bathrooms} type="Bathroom" />
-        <Item number={rooms} type="Bedroom" />
-        <Item number={area} type="Area" />
+        <Item number={bathrooms} type="bathroom" />
+        <Item number={rooms} type="bedroom" />
+        <Item number={area} type="area" />
       </Features>
       {lessor && <Lessor phoneNumber={telephone} url={picture} name={name} email={email} />}
     </PublicationContainer>
