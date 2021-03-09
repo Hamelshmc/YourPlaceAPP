@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { fetchUserVerification } from '../api/User';
 import { UserContext } from '../hooks/UserContext';
 

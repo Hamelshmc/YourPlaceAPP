@@ -10,9 +10,7 @@ const Profile = () => {
   const [user, setUser] = useContext(UserContext);
   const [userProfile, setUserProfile] = useState({});
 
-  const loadProfile = async () => {
-    return await fetchUser(user, setUser);
-  };
+  const loadProfile = async () => await fetchUser(user, setUser);
 
   useEffect(() => {
     const data = loadProfile();
