@@ -55,15 +55,14 @@ function Slider({ slides }) {
 
   const cloudinaryPublicId = (arrayImages) => arrayImages.map((item) => separateString(item));
 
-  const result = cloudinaryPublicId(slides);
-
   return (
     <SliderContainer ref={targetRef}>
       <SliderContent translate={translate} transition={transition}>
-        {slides.map((slide, index) => {
-          const key = index + 1;
-          return <Slide key={key} content={slide} />;
-        })}
+        {slides &&
+          slides.map((slide, index) => {
+            const key = index + 1;
+            return <Slide key={key} content={slide} />;
+          })}
       </SliderContent>
       <Arrow direction="left" handleClick={prevSlide} />
       <Arrow direction="right" handleClick={nextSlide} />

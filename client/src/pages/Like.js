@@ -1,12 +1,7 @@
 import React from 'react';
-import SearchMap from '../components/shared/MapBox/SearchMap';
 
 function Like() {
-  return (
-    <div>
-      <SearchMap />
-    </div>
-  );
+  return <div>Like</div>;
 }
 
 export default Like;

@@ -30,4 +30,9 @@ const fetchPublication = async (data, user) => {
   return res;
 };
 
-export { fetchImage, fetchPublication };
+const fetchPublicationSearch = async () => {
+  const res = await (await fetch('/api/v1/publications/')).json();
+  return res;
+};
+
+export { fetchImage, fetchPublication, fetchPublicationSearch };

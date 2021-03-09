@@ -69,10 +69,13 @@ async function getPublicationSearch(parametros) {
   const { result, values } = await columnWhereBuilder(filtro);
   const query = `
   SELECT  p.id, area, rooms, bathrooms, garage, elevator, furnished, parking, pets, garden, pool, terrace, storage_room, heating,
-  publication_type, deposit,price, availability_date, street, floor ,city, country, zipcode
+  publication_type, deposit,price, availability_date, street, floor ,city, country, zipcode,u.telephone,u.email,u.fullname,u.picture,AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating
   FROM ${tableNames.PUBLICATION} p
   LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON p.id_publication_address = pa.id
-  WHERE Concat(city, '', country, '', zipcode,'',street) LIKE ? ${result} ORDER BY timestamp ASC LIMIT ?,?;`;
+  LEFT JOIN ${tableNames.USER} u ON p.id_user = u.id
+  LEFT JOIN ${tableNames.USER_RATING} ur ON ur.id_user_voted = p.id_user
+  LEFT JOIN ${tableNames.PUBLICATION_RATINGS} pr ON pr.id_publication = p.id
+  WHERE Concat(city, '', country, '', zipcode,'',street) LIKE ? ${result} GROUP BY p.id ORDER BY p.timestamp ASC LIMIT ?,? `;
   return await repositoryManager.executeQuery(query, [
     valueSearch,
     ...values,
