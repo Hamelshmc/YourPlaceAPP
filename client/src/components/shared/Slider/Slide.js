@@ -8,7 +8,7 @@ const Slide = ({ content }) => (
   <SlideImg
     cloudName={cloudName}
     loading="lazy"
-    publicId={content}
+    publicId={`YourPlace_IMG/${content}`}
     secure="true"
     dpr="auto"
     responsive
