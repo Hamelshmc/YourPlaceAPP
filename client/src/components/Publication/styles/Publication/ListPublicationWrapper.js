@@ -13,7 +13,7 @@ const ListPublicationWrapper = styled.ul`
     align-items: center;
     grid-gap: 1.5rem;
     margin: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   }
 `;
 export default ListPublicationWrapper;

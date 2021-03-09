@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Slider from '../shared/Slider/Slider';
 import StartRating from '../shared/StartRating';
 import Favorite from './Favorite';
@@ -12,19 +13,12 @@ import PublicationModule from './styles/Publication/PublicationModule';
 import Tipo from './styles/Publication/Tipo';
 import Ubicacion from './styles/Publication/Ubicacion';
 
-// const images = [
-//   'https://res.cloudinary.com/yourplace/image/upload/v1614792148/YourPlace_IMG/photo-1534161308652-fdfcf10f62c4_nguovq.jpg',
-//   'https://res.cloudinary.com/yourplace/image/upload/v1614792146/YourPlace_IMG/photo-1448630360428-65456885c650_rwoqla.jpg',
-//   'https://res.cloudinary.com/yourplace/image/upload/v1614792143/YourPlace_IMG/photo-1470341223622-1019832be824_vy6lr5.jpg',
-//   'https://res.cloudinary.com/yourplace/image/upload/v1614792140/YourPlace_IMG/photo-1449034446853-66c86144b0ad_ierfjr.jpg',
-// ];
-
 function Publication({ publication, lessor = false }) {
   const {
     id,
     pictures,
-    tipo,
-    precio,
+    publication_type,
+    price,
     rating,
     bathrooms,
     rooms,
@@ -41,9 +35,9 @@ function Publication({ publication, lessor = false }) {
       <Slider slides={pictures} />
       <Favorite />
       <PublicationModule>
-        <Tipo> {tipo}</Tipo>
+        <Tipo> {publication_type}</Tipo>
         <Container>
-          <Precio> {precio}$ </Precio>
+          <Precio> {price}$ </Precio>
           <LinkShowMore to={`/publication/${id}`}>Show more</LinkShowMore>
         </Container>
         <Container>

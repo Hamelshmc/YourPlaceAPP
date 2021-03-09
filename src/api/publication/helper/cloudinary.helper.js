@@ -8,10 +8,10 @@ cloudinary.config({
 });
 
 const optionsImage = Object.freeze({
-  overlay: 'hackaboss_t6dzcm',
+  overlay: 'yourplace_logo_baqyds',
   gravity: 'south_east',
-  height: 200,
-  opacity: 60,
+  height: 100,
+  opacity: 70,
   quality: 'auto',
   upload_preset: 'YourPlace_IMG',
 });
