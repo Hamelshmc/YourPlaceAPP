@@ -43,6 +43,8 @@ const Profile = () => {
     return <div>ERROR</div>;
   }
 
+  console.log({ data });
+
   return data ? (
     <ProfileContainer>
       <div>

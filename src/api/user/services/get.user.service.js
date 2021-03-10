@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 const { ResponseError, httpStatus } = require('../../../helpers');
 const publicationRepository = require('../../../repositories/publication.repository');
 const userRepository = require('../../../repositories/user.repository');
@@ -7,6 +8,10 @@ async function getUser({ id: idUser }) {
 
   if (user) {
     let [...publicationsUser] = await userRepository.findPublicationUser(idUser);
+    console.log(
+      'EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE',
+      publicationsUser
+    );
     let [...publicationsFavoritesUser] = await userRepository.findPublicationFavoriteUser(idUser);
     let [...publicationsHistoryUser] = await userRepository.findHistoryPublicationUser(idUser);
 

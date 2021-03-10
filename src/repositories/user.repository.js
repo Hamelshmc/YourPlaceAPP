@@ -26,8 +26,9 @@ async function findPublicationUser(id) {
   SELECT
   p.id, p.area,p.rooms,p.bathrooms,p.garage,p.elevator,p.furnished,p.publication_type,p.deposit,p.price,p.availability_date,p.disabled, AVG(pr.rating)
   as publicationRating
-  FROM ${tableNames.USER} u LEFT JOIN ${tableNames.PUBLICATION} p ON u.id = p.id_user
-  LEFT JOIN ${tableNames.PUBLICATION_RATINGS}  pr ON pr.id_publication = p.id  where u.id = ?  ORDER BY p.timestamp`;
+  FROM ${tableNames.PUBLICATION} p
+  LEFT JOIN ${tableNames.PUBLICATION_RATINGS} pr ON pr.id_publication = p.id
+  WHERE p.id_user = ? GROUP BY p.id ORDER BY p.timestamp`;
   const values = [id];
   return await repositoryManager.executeQuery(selectUserId, values);
 }
