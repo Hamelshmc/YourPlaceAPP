@@ -8,8 +8,6 @@ const fetchImage = async (data) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
       body: JSON.stringify(data),
     })
   ).json();

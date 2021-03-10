@@ -11,8 +11,6 @@ const fetchRegister = async (data) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
       body: JSON.stringify(user),
     })
   ).json();
@@ -30,8 +28,6 @@ const fetchLogin = async (data) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
       body: JSON.stringify(user),
     })
   ).json();
@@ -48,8 +44,6 @@ const checkToken = async (token) =>
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
     })
   ).json();
 
@@ -64,8 +58,6 @@ const generateTokens = async (token) =>
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
     })
   ).json();
 
@@ -80,8 +72,6 @@ const fetchUser = async (token) =>
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
     })
   ).json();
 
@@ -125,8 +115,6 @@ const fetchUserVerification = async (url) =>
       headers: {
         'Content-Type': 'application/json',
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
     })
   ).json();
 
