@@ -1,6 +1,6 @@
 const fetchImage = async (data) => {
   return await (
-    await fetch('http://localhost:8080/api/v1/publications/image', {
+    await fetch('http://yourplaceappdev.herokuapp.com/api/v1/publications/image', {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -17,7 +17,7 @@ const fetchImage = async (data) => {
 
 const fetchPublication = async (data, token) => {
   return await (
-    await fetch('http://localhost:8080/api/v1/publications/', {
+    await fetch('http://yourplaceappdev.herokuapp.com/api/v1/publications/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ const fetchPublication = async (data, token) => {
 const fetchPublicationSearch = async (pageParam, value, filter) => {
   const res = await (
     await fetch(
-      `http://localhost:8080/api/v1/publications/?limit=10&page=${
+      `http://yourplaceappdev.herokuapp.com/api/v1/publications/?limit=10&page=${
         pageParam * 10
       }&search=${value}${filter}`
     )
