@@ -16,7 +16,23 @@ import loginSchema from './validations/loginSchema';
 
 const Login = () => {
   const [user, setUser] = useContext(UserContext);
-  const mutation = useMutation((data) => fetchLogin(data));
+
+  const mutation = useMutation(async (data) => await fetchLogin(data), {
+    onSuccess: (result) => {
+      console.log({ result });
+      if (result.status === 200) {
+        setUser({
+          id: result.data.user.id,
+          token: result.data.authorization,
+          refreshToken: result.data.refreshToken,
+          picture: result.data.user.picture,
+        });
+        toast.success(`😄 Welcome! 😄`);
+      } else {
+        toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
+      }
+    },
+  });
 
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(loginSchema),
@@ -25,18 +41,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await mutation.mutateAsync(data);
-      if (res.status === 200) {
-        setUser({
-          id: res.data.user.id,
-          token: res.data.authorization,
-          refreshToken: res.data.refreshToken,
-          picture: res.data.user.picture,
-        });
-        toast.success(`😄 Welcome! 😄`);
-      } else {
-        toast.error(` ${res.data} 🙈 Ooops! Can you try again please? 🙈 `);
-      }
+      await mutation.mutateAsync(data);
     } catch (error) {
       toast.error(`${error.message} 🙈 Ooops! Connection error 🙈 `);
     }

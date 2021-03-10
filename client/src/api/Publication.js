@@ -1,6 +1,6 @@
 const fetchImage = async (data) => {
-  const res = await (
-    await fetch('/api/v1/publications/image', {
+  return await (
+    await fetch('http://localhost:8080/api/v1/publications/image', {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -13,13 +13,11 @@ const fetchImage = async (data) => {
       body: JSON.stringify(data),
     })
   ).json();
-  return res;
 };
 
 const fetchPublication = async (data, token) => {
-  console.log(token);
-  const res = await (
-    await fetch('/api/v1/publications/', {
+  return await (
+    await fetch('http://localhost:8080/api/v1/publications/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,12 +26,15 @@ const fetchPublication = async (data, token) => {
       body: JSON.stringify(data),
     })
   ).json();
-  return res;
 };
 
 const fetchPublicationSearch = async (pageParam, value, filter) => {
   const res = await (
-    await fetch(`/api/v1/publications/?limit=10&page=${pageParam * 10}&search=${value}${filter}`)
+    await fetch(
+      `http://localhost:8080/api/v1/publications/?limit=10&page=${
+        pageParam * 10
+      }&search=${value}${filter}`
+    )
   ).json();
   return res.data;
 };

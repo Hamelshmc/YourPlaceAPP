@@ -2,8 +2,8 @@
 const fetchRegister = async (data) => {
   const { emailRegister: email, password } = data;
   const user = { email, password };
-  const res = await (
-    await fetch('/api/v1/users/register', {
+  return await (
+    await fetch('http://localhost:8080/api/v1/users/register', {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -16,14 +16,13 @@ const fetchRegister = async (data) => {
       body: JSON.stringify(user),
     })
   ).json();
-  return res;
 };
 
 const fetchLogin = async (data) => {
   const { emailLogin: email, passwordLogin: password } = data;
   const user = { email, password };
-  const res = await (
-    await fetch('/api/v1/users/login', {
+  return await (
+    await fetch('http://localhost:8080/api/v1/users/login', {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -36,12 +35,11 @@ const fetchLogin = async (data) => {
       body: JSON.stringify(user),
     })
   ).json();
-  return res;
 };
 
 const checkToken = async (token) =>
   await (
-    await fetch('/api/v1/users/checkToken', {
+    await fetch('http://localhost:8080/api/v1/users/checkToken', {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -57,7 +55,7 @@ const checkToken = async (token) =>
 
 const generateTokens = async (token) =>
   await (
-    await fetch('/api/v1/users/generateTokens', {
+    await fetch('http://localhost:8080/api/v1/users/generateTokens', {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -73,7 +71,7 @@ const generateTokens = async (token) =>
 
 const fetchUser = async (token) =>
   await (
-    await fetch('/api/v1/users/', {
+    await fetch('http://localhost:8080/api/v1/users/', {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -119,7 +117,7 @@ const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
 
 const fetchUserVerification = async (url) =>
   await (
-    await fetch(`/api/v1/users${url}`, {
+    await fetch(`http://localhost:8080/api/v1/users${url}`, {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',

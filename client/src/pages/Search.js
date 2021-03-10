@@ -11,11 +11,12 @@ function Search() {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
-  const fetchProjects = (size = 0, value, query) => fetchPublicationSearch(size, value, query);
+  const fetchProjects = async (size = 0, value, query) =>
+    await fetchPublicationSearch(size, value, query);
 
   const { isLoading, isError, error, data, isFetching, isPreviousData } = useQuery(
     ['data', page, search, filter],
-    () => fetchProjects(page, search, filter)
+    async () => await fetchProjects(page, search, filter)
   );
 
   const previousPage = async () => {

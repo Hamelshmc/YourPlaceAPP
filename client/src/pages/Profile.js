@@ -16,7 +16,7 @@ const Profile = () => {
 
   const { isLoading, isError, error, data } = useQuery(
     ['userProfile', fetchUser, user, setUser],
-    () => fetchAuthData(fetchUser, user, setUser)
+    async () => await fetchAuthData(fetchUser, user, setUser)
   );
 
   if (isError) {

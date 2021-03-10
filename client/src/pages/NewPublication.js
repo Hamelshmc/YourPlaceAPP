@@ -24,8 +24,8 @@ function NewPublication() {
   const [user, setUser] = useContext(UserContext);
   const [previewSource, setPreviewSource] = useState([]);
   const [response, setResponse] = useState(false);
-  const mutation = useMutation((newTodo) =>
-    fetchAuthDataPost(fetchPublication, user, setUser, newTodo)
+  const mutation = useMutation(
+    async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo)
   );
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(publicationSchema),
