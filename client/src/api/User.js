@@ -2,7 +2,7 @@
 const fetchRegister = async (data) => {
   const { emailRegister: email, password } = data;
   const user = { email, password };
-  return await (
+  const res = await (
     await fetch('/api/v1/users/register', {
       method: 'POST',
       headers: {
@@ -11,12 +11,13 @@ const fetchRegister = async (data) => {
       body: JSON.stringify(user),
     })
   ).json();
+  return res;
 };
 
 const fetchLogin = async (data) => {
   const { emailLogin: email, passwordLogin: password } = data;
   const user = { email, password };
-  return await (
+  const res = await (
     await fetch('/api/v1/users/login', {
       method: 'POST',
       headers: {
@@ -25,10 +26,11 @@ const fetchLogin = async (data) => {
       body: JSON.stringify(user),
     })
   ).json();
+  return res;
 };
 
-const checkToken = async (token) =>
-  await (
+const checkToken = async (token) => {
+  const res = await (
     await fetch('/api/v1/users/checkToken', {
       method: 'GET',
       headers: {
@@ -37,9 +39,11 @@ const checkToken = async (token) =>
       },
     })
   ).json();
+  return res;
+};
 
-const generateTokens = async (token) =>
-  await (
+const generateTokens = async (token) => {
+  const res = await (
     await fetch('/api/v1/users/generateTokens', {
       method: 'GET',
       headers: {
@@ -48,9 +52,10 @@ const generateTokens = async (token) =>
       },
     })
   ).json();
-
-const fetchUser = async (token) =>
-  await (
+  return res;
+};
+const fetchUser = async (token) => {
+  const res = await (
     await fetch('/api/v1/users/', {
       method: 'GET',
       headers: {
@@ -59,11 +64,14 @@ const fetchUser = async (token) =>
       },
     })
   ).json();
+  return res;
+};
 
 const fetchAuthData = async (fetchFn, user, setUser) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
-    return await fetchFn(user.token);
+    const res = await fetchFn(user.token);
+    return res;
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
   setUser({
@@ -71,13 +79,15 @@ const fetchAuthData = async (fetchFn, user, setUser) => {
     token: generateTokenResponse.data.authorization,
     refreshToken: generateTokenResponse.data.refreshToken,
   });
-  return await fetchFn(generateTokenResponse.data.authorization);
+  const res = await fetchFn(generateTokenResponse.data.authorization);
+  return res;
 };
 
 const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
-    return await fetchFn(data, user.token);
+    const res = await fetchFn(data, user.token);
+    return res;
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
   if (generateTokenResponse.status === 200) {
@@ -86,12 +96,13 @@ const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
       token: generateTokenResponse.data.authorization,
       refreshToken: generateTokenResponse.data.refreshToken,
     });
-    return await fetchFn(data, generateTokenResponse.data.authorization);
+    const res = await fetchFn(data, generateTokenResponse.data.authorization);
+    return res;
   }
 };
 
-const fetchUserVerification = async (url) =>
-  await (
+const fetchUserVerification = async (url) => {
+  const res = await (
     await fetch(`/api/v1/users${url}`, {
       method: 'GET',
       headers: {
@@ -99,6 +110,8 @@ const fetchUserVerification = async (url) =>
       },
     })
   ).json();
+  return res;
+};
 
 export {
   fetchRegister,

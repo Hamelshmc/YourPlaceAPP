@@ -1,5 +1,5 @@
 const fetchImage = async (data) => {
-  return await (
+  const res = await (
     await fetch('/api/v1/publications/image', {
       method: 'POST',
       headers: {
@@ -8,10 +8,11 @@ const fetchImage = async (data) => {
       body: JSON.stringify(data),
     })
   ).json();
+  return res;
 };
 
 const fetchPublication = async (data, token) => {
-  return await (
+  const res = await (
     await fetch('/api/v1/publications/', {
       method: 'POST',
       headers: {
@@ -21,6 +22,7 @@ const fetchPublication = async (data, token) => {
       body: JSON.stringify(data),
     })
   ).json();
+  return res;
 };
 
 const fetchPublicationSearch = async (pageParam, value, filter) => {
