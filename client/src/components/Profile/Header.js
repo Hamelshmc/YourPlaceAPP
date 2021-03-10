@@ -8,7 +8,6 @@ import Username from './styles/Username';
 import UserProfile from './styles/UserProfile';
 
 const Header = ({ user }) => {
-  console.log(user);
   return (
     <ProfileHeader>
       <ProfileHeaderContainer>

@@ -54,6 +54,7 @@ const checkToken = async (token) =>
       referrerPolicy: 'no-referrer',
     })
   ).json();
+
 const generateTokens = async (token) =>
   await (
     await fetch('/api/v1/users/generateTokens', {
@@ -70,8 +71,8 @@ const generateTokens = async (token) =>
     })
   ).json();
 
-const fetchUser = async (token) => {
-  const res = await (
+const fetchUser = async (token) =>
+  await (
     await fetch('/api/v1/users/', {
       method: 'GET',
       mode: 'cors',
@@ -85,8 +86,6 @@ const fetchUser = async (token) => {
       referrerPolicy: 'no-referrer',
     })
   ).json();
-  return res;
-};
 
 const fetchAuthData = async (fetchFn, user, setUser) => {
   const tokenResponse = await checkToken(user.token);
@@ -94,7 +93,6 @@ const fetchAuthData = async (fetchFn, user, setUser) => {
     return await fetchFn(user.token);
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
-  console.log('[GenerateToken]', generateTokenResponse);
   setUser({
     ...user,
     token: generateTokenResponse.data.authorization,
@@ -109,7 +107,6 @@ const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
     return await fetchFn(data, user.token);
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
-  console.log('[GenerateToken]', generateTokenResponse);
   if (generateTokenResponse.status === 200) {
     setUser({
       ...user,
@@ -120,8 +117,8 @@ const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
   }
 };
 
-const fetchUserVerification = async (url) => {
-  const res = await (
+const fetchUserVerification = async (url) =>
+  await (
     await fetch(`/api/v1/users${url}`, {
       method: 'GET',
       mode: 'cors',
@@ -134,8 +131,6 @@ const fetchUserVerification = async (url) => {
       referrerPolicy: 'no-referrer',
     })
   ).json();
-  return res;
-};
 
 export {
   fetchRegister,
