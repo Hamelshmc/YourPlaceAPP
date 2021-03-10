@@ -5,9 +5,6 @@ const fetchRegister = async (data) => {
   return await (
     await fetch('/api/v1/users/register', {
       method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -22,9 +19,6 @@ const fetchLogin = async (data) => {
   return await (
     await fetch('/api/v1/users/login', {
       method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -37,9 +31,6 @@ const checkToken = async (token) =>
   await (
     await fetch('/api/v1/users/checkToken', {
       method: 'GET',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -51,9 +42,6 @@ const generateTokens = async (token) =>
   await (
     await fetch('/api/v1/users/generateTokens', {
       method: 'GET',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -65,9 +53,6 @@ const fetchUser = async (token) =>
   await (
     await fetch('/api/v1/users/', {
       method: 'GET',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -109,9 +94,6 @@ const fetchUserVerification = async (url) =>
   await (
     await fetch(`/api/v1/users${url}`, {
       method: 'GET',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
       },

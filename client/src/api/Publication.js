@@ -2,9 +2,6 @@ const fetchImage = async (data) => {
   return await (
     await fetch('/api/v1/publications/image', {
       method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
       },
