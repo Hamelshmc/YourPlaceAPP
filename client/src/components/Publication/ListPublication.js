@@ -6,7 +6,9 @@ function ListPublication({ publications }) {
   return (
     <ListPublicationWrapper>
       {publications &&
-        publications.map((publication) => <Publication key={publication.id} publication={publication} lessor />)}
+        publications.map((publication) => (
+          <Publication key={publication.id} publication={publication} lessor />
+        ))}
     </ListPublicationWrapper>
   );
 }

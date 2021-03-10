@@ -1,166 +1,88 @@
-/* eslint-disable complexity */
-/* eslint-disable no-console */
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import { fetchPublicationSearch } from '../api/Publication';
 import Publication from '../components/Publication/Publication';
 import ListPublicationWrapper from '../components/Publication/styles/Publication/ListPublicationWrapper';
-import Icon from '../components/shared/Icon';
-
-const fetchPublicationSearch = async (pageParam, value) => {
-  const res = await (
-    await fetch(`/api/v1/publications/?limit=10&page=${pageParam * 10}&search=${value}`)
-  ).json();
-  return res.data;
-};
+import SearchContent from '../components/Search/SearchContent';
 
 function Search() {
+  const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
-  const fetchProjects = (size = 0, value) => fetchPublicationSearch(size, value);
+  const fetchProjects = (size = 0, value, query) => fetchPublicationSearch(size, value, query);
 
   const { isLoading, isError, error, data, isFetching, isPreviousData } = useQuery(
-    ['data', page, search],
-    () => fetchProjects(page, search)
+    ['data', page, search, filter],
+    () => fetchProjects(page, search, filter)
   );
-  console.log(data);
 
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
+  const previousPage = async () => {
+    setPage((old) => Math.max(old - 1, 0));
+  };
+
+  const nextPage = async () => {
+    if (!isPreviousData && data) {
+      setPage((old) => old + 1);
+    }
   };
 
   return (
-    <div>
-      <SearchContainer>
-        <SearchBox>
-          <SearchItem>
-            <SearchButton id="btn-search" type="button">
-              <Icon>search</Icon>
-            </SearchButton>
-            <SearchInput
-              id="search"
-              value={search}
-              name="search"
-              type="search"
-              onChange={handleSearchChange}
-              placeholder="¿Qué es lo que buscas?"
-              required
-            />
-          </SearchItem>
-          <FilterContainer>
-            <FilterInput type="checkbox" id="filter" />
-            <FilterButton htmlFor="filter">
-              <Icon>filter_list</Icon>
-            </FilterButton>
-          </FilterContainer>
-        </SearchBox>
-      </SearchContainer>
+    <SearchWrapper>
+      <SearchContent setFilter={setFilter} setSearch={setSearch} search={search} />
       {isLoading ? (
         <div>Loading...</div>
       ) : isError ? (
         <div>Error: {error.message}</div>
       ) : (
         <ListPublicationWrapper>
-          {data.map((item) => (
-            <Publication key={item.id} publication={item} lessor />
-          ))}
+          {data && data.map((item) => <Publication key={item.id} publication={item} lessor />)}
         </ListPublicationWrapper>
       )}
-      <span>Current Page: {page + 1}</span>
-      <button
-        type="button"
-        onClick={() => setPage((old) => Math.max(old - 1, 0))}
-        disabled={page === 0}>
-        Previous Page
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          if (!isPreviousData && data) {
-            setPage((old) => old + 1);
-          }
-        }}
-        // Disable the Next Page button until we know a next page is available
-        disabled={isPreviousData || (data?.length > 5 && data?.length < 10) || data?.length === 0}>
-        Next Page
-      </button>
-      {isFetching ? <span> Loading...</span> : null}{' '}
-    </div>
+      <FlexContainer>
+        <CurrentPage>Current Page: {page + 1}</CurrentPage>
+        <ButtonPage type="button" onClick={previousPage} disabled={page === 0}>
+          Previous Page
+        </ButtonPage>
+        <ButtonPage
+          type="button"
+          onClick={nextPage}
+          disabled={
+            isPreviousData || (data?.length > 1 && data?.length < 10) || data?.length === 0
+          }>
+          Next Page
+        </ButtonPage>
+      </FlexContainer>
+    </SearchWrapper>
   );
 }
 
-const SearchContainer = styled.section`
-  display: flex;
-  position: relative;
-  justify-content: center;
+const SearchWrapper = styled.section`
+  display: grid;
+  grid-row: 2;
 `;
 
-const SearchBox = styled.form`
-  display: flex;
-  flex: 0 1 max(45rem);
-  border-radius: 0.2rem;
-  margin: 0.5rem;
-  align-self: center;
+const CurrentPage = styled.span`
+  padding: 0.5rem 0.5rem;
+  font-size: 0.875rem;
+`;
+
+const ButtonPage = styled.button`
+  padding: 0.5rem 0.5rem;
+  margin: 0.2rem;
+  font-size: 0.875rem;
+  background-color: ${({ theme, disabled }) => (disabled ? 'gray' : theme.colors.primary['800'])};
   box-shadow: ${({ theme }) => theme.boxShadow.default};
-`;
-
-const SearchItem = styled.section`
-  display: flex;
-  flex: 1 1 auto;
-`;
-
-const SearchButton = styled.button`
-  display: flex;
-  margin: 0;
-  padding: 0.5rem;
-  border: none;
-  backdrop-filter: blur(25px);
-  background-color: rgba(255, 255, 255, 0.9);
-`;
-
-const SearchInput = styled.input`
-  backdrop-filter: blur(25px);
-  background-color: rgba(255, 255, 255, 0.9);
-  flex: 1 1 auto;
-  letter-spacing: 0.1rem;
-  margin-left: 1rem;
-  border: none;
+  color: white;
+  border-radius: 0.2rem;
   outline: none;
-  &::-webkit-search-cancel-button {
-    opacity: 0.6;
-    filter: saturate(300%);
-    font-size: 1.3rem;
-  }
-  &::placeholder {
-    font-size: 0.875rem;
-  }
 `;
 
-const FilterContainer = styled.section`
+const FlexContainer = styled.section`
   display: flex;
-  position: relative;
-`;
-
-const FilterButton = styled.label`
-  border: none;
-  display: flex;
-  margin: 0;
-  padding: 0.5rem;
-`;
-
-const FilterInput = styled.input`
-  &[type='checkbox'] {
-    display: none;
-  }
-  &[type='checkbox']:checked ~ nav {
-    display: block;
-  }
-  &[type='checkbox']:checked + label {
-    background-color: #f7f7f7;
-    color: $color-03;
-    backdrop-filter: blur(25px);
-  }
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Search;
