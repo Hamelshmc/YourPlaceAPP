@@ -68,13 +68,13 @@ function Search() {
         </ListPublicationWrapper>
       )}
       <span>Current Page: {page + 1}</span>
-      <button
+      <ButtonPage
         type="button"
         onClick={() => setPage((old) => Math.max(old - 1, 0))}
         disabled={page === 0}>
         Previous Page
-      </button>
-      <button
+      </ButtonPage>
+      <ButtonPage
         type="button"
         onClick={() => {
           if (!isPreviousData && data) {
@@ -84,7 +84,7 @@ function Search() {
         // Disable the Next Page button until we know a next page is available
         disabled={isPreviousData || (data?.length > 5 && data?.length < 10) || data?.length === 0}>
         Next Page
-      </button>
+      </ButtonPage>
       {isFetching ? <span> Loading...</span> : null}{' '}
     </div>
   );
@@ -161,6 +161,10 @@ const FilterInput = styled.input`
     color: $color-03;
     backdrop-filter: blur(25px);
   }
+`;
+
+const ButtonPage = styled.button`
+  padding: 1rem 2rem;
 `;
 
 export default Search;
