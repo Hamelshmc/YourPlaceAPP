@@ -19,7 +19,7 @@ async function registerUser(request, response) {
       { id: userRegistered.id, verified: userRegistered.verified },
       TOKEN_SECRET,
       {
-        expiresIn: '30m',
+        expiresIn: '1m',
       }
     );
     const refreshToken = jwt.sign(

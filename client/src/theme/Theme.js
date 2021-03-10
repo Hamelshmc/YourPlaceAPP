@@ -48,6 +48,7 @@ const theme = {
   padding: ['.5rem', '1rem', '1.5rem'],
   boxShadow: {
     default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+    footer: '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)',
   },
   card: {
     lessorColor: '#f7fafc',

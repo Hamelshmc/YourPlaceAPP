@@ -15,7 +15,7 @@ async function loginUser(request, response) {
       { id: userLogged.id, verified: userLogged.verified },
       process.env.TOKEN_SECRET,
       {
-        expiresIn: '30m',
+        expiresIn: '1m',
       }
     );
     const refreshToken = jwt.sign(
