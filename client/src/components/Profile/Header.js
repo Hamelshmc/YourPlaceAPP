@@ -13,7 +13,7 @@ const Header = ({ user }) => (
       <ProfileHeaderContent>
         <UserProfile>
           <UserAvatar
-            src={user && user.picture}
+            src={user.picture ? user.picture : '/assets/User.svg'}
             loading="lazy"
             alt="profile image"
             width=""

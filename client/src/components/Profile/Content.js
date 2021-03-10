@@ -5,21 +5,26 @@ import BioInfoItem from './styles/BioInfoItem';
 import BioInfoItemEmphasized from './styles/BioInfoItemEmphasized';
 import UserRating from './styles/UserRating';
 
-const Content = ({ user }) => (
-  <BioInfoContainer>
-    <BioInfoItem>{user ? user.bio : ''}</BioInfoItem>
-    <BioInfoItemEmphasized>
-      <Icon>location_on</Icon>
-      {user ? `${user.city}, ` : ''} {user ? user.country : 'España'}
-    </BioInfoItemEmphasized>
-    <BioInfoItemEmphasized>
-      <Icon>calendar_today</Icon>
-      {user ? user.borndate : ''}
-    </BioInfoItemEmphasized>
+const Content = ({ user }) =>
+  user && (
+    <BioInfoContainer>
+      <BioInfoItem>{user.bio ? user.bio : ''}</BioInfoItem>
+      <BioInfoItemEmphasized>
+        <Icon>location_on</Icon>
+        {user.city ? `  ${user.city}, ` : '  City, '} {user.country ? user.country : 'Country'}
+      </BioInfoItemEmphasized>
+      <BioInfoItemEmphasized>
+        <Icon>calendar_today</Icon>
+        {user.borndate ? user.borndate : '  1900-01-01'}
+      </BioInfoItemEmphasized>
 
-    <UserRating>
-      {user ? <StartRating value={user.userRating} disabled /> : <StartRating value={0} disabled />}
-    </UserRating>
-  </BioInfoContainer>
-);
+      <UserRating>
+        {user.userRating ? (
+          <StartRating value={user.userRating} disabled />
+        ) : (
+          <StartRating value={0} disabled />
+        )}
+      </UserRating>
+    </BioInfoContainer>
+  );
 export default Content;

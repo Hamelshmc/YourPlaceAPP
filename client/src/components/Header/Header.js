@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import styled from 'styled-components';
+import { useLocation } from 'react-router';
 import { UserContext } from '../../hooks/UserContext';
 import IconLink from '../shared/IconLink';
 import Menu from '../shared/Menu';
@@ -9,12 +9,14 @@ import HeaderContainer from './styles/HeaderContainer';
 import HeaderIcon from './styles/HeaderIcon';
 import HeaderNavBar from './styles/HeaderNavBar';
 import HeaderTitle from './styles/HeaderTitle';
+import Logout from './styles/Logout';
 import SignIn from './styles/SignIn';
 import Title from './styles/Title';
+import UserAvatar from './styles/UserAvatar';
 
 function HeaderNav() {
   const [user, setUser] = useContext(UserContext);
-
+  const location = useLocation();
   return (
     <HeaderContainer>
       <Header>
@@ -54,13 +56,10 @@ function HeaderNav() {
         ) : (
           <SignIn to="/join">Sign In</SignIn>
         )}
+        {location.pathname === '/profile' && <Logout to="/logout">Logout</Logout>}
       </Header>
     </HeaderContainer>
   );
 }
-
-const UserAvatar = styled(IconLink)`
-  width: auto;
-`;
 
 export default HeaderNav;

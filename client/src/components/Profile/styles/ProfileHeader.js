@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ProfileHeader = styled.header`
-  background-image: url(https://i.pinimg.com/originals/3c/5b/f8/3c5bf826c2b466e1c871c3fdb8a6f86e.jpg);
+  background-image: url(/assets/UserBackground.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
