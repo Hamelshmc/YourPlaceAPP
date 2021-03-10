@@ -24,7 +24,7 @@ userRouter
 
 userRouter
   .route('/')
-  .all(auth, verified)
+  .all(auth)
   .get(async (request, response) => await userController.getMeUser(request, response))
   .put(async (request, response) => await userController.putUser(request, response));
 

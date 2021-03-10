@@ -5,21 +5,21 @@ import BioInfoItem from './styles/BioInfoItem';
 import BioInfoItemEmphasized from './styles/BioInfoItemEmphasized';
 import UserRating from './styles/UserRating';
 
-const Content = ({ user }) =>
-  user && (
+const Content = ({ user }) => {
+  return (
     <BioInfoContainer>
-      <BioInfoItem>{user.bio ? user.bio : ''}</BioInfoItem>
+      <BioInfoItem>{user && user.bio ? user.bio : 'Type your bio here ! ⌨ ⌨ '}</BioInfoItem>
       <BioInfoItemEmphasized>
         <Icon>location_on</Icon>
-        {user.city ? `  ${user.city}, ` : '  City, '} {user.country ? user.country : 'Country'}
+        {user && user.city ? ` ${user.city}, ` : ' City, '}{' '}
+        {user && user.country ? user.country : 'Country'}
       </BioInfoItemEmphasized>
       <BioInfoItemEmphasized>
         <Icon>calendar_today</Icon>
-        {user.borndate ? user.borndate : '  1900-01-01'}
+        {user && user.borndate ? user.borndate : 'Borndate'}
       </BioInfoItemEmphasized>
-
       <UserRating>
-        {user.userRating ? (
+        {user && user.userRating ? (
           <StartRating value={user.userRating} disabled />
         ) : (
           <StartRating value={0} disabled />

@@ -1,7 +1,9 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { fetchLogin } from '../../api/User';
 import { UserContext } from '../../hooks/UserContext';
 import InputForm from '../shared/Form/InputForm';
@@ -14,6 +16,7 @@ import loginSchema from './validations/loginSchema';
 
 const Login = () => {
   const [user, setUser] = useContext(UserContext);
+  const mutation = useMutation((data) => fetchLogin(data));
 
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(loginSchema),
@@ -21,14 +24,21 @@ const Login = () => {
   });
 
   const onSubmit = async (data) => {
-    const res = await fetchLogin(data);
-    if (res.status === 200) {
-      setUser({
-        id: res.data.user.id,
-        token: res.data.authorization,
-        refreshToken: res.data.refreshToken,
-        picture: res.data.user.picture,
-      });
+    try {
+      const res = await mutation.mutateAsync(data);
+      if (res.status === 200) {
+        setUser({
+          id: res.data.user.id,
+          token: res.data.authorization,
+          refreshToken: res.data.refreshToken,
+          picture: res.data.user.picture,
+        });
+        toast.success(`😄 Welcome! 😄`);
+      } else {
+        toast.error(` ${res.data} 🙈 Ooops! Can you try again please? 🙈 `);
+      }
+    } catch (error) {
+      toast.error(`${error.message} 🙈 Ooops! Connection error 🙈 `);
     }
   };
 
@@ -55,8 +65,21 @@ const Login = () => {
           reference={register}
           placeholder="password"
         />
-        <SubmitButton id="login">Go</SubmitButton>
-        {user.token && <Redirect to="/search" />}
+        <SubmitButton id="login">
+          {mutation.isLoading ? (
+            'Doing interesting things...'
+          ) : (
+            <>
+              {mutation.data && mutation.data.status >= 400 ? (
+                `Try again!`
+              ) : mutation.isSuccess ? (
+                <Redirect to="/search" />
+              ) : (
+                'Go!'
+              )}
+            </>
+          )}
+        </SubmitButton>
       </Form>
     </FormContainer>
   );

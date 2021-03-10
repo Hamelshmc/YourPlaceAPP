@@ -309,8 +309,8 @@ function NewPublication() {
               'Adding Publication...'
             ) : (
               <>
-                {mutation.data && mutation.data.status > 400
-                  ? `error occurred ${mutation.data.data}`
+                {mutation.data && mutation.data.status >= 400
+                  ? `Try again!`
                   : mutation.isSuccess
                   ? `Publication added!`
                   : 'Create New Publication'}

@@ -1,13 +1,13 @@
-import React from 'react';
+import { default as React } from 'react';
 import Confetti from 'react-confetti';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Redirect, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import { PrivateRoute, PublicRoute } from './components/shared/RouteFactory';
 import { UserProvider } from './hooks/UserContext';
+import StyledContainer from './StyledContainer';
 import Wrapper from './theme/Wrapper';
 
 const Home = React.lazy(() => import('./pages/Home'));
@@ -43,8 +43,6 @@ function App() {
             <PrivateRoute path="/notification" component={Notification} exact />
             <PrivateRoute path="/publication/add" component={NewPublication} exact />
             <PrivateRoute path="/publication/:id" component={Publication} exact />
-            <PrivateRoute path="/profile" component={Profile} exact />
-            <PrivateRoute path="/notification" component={Notification} exact />
             <PrivateRoute path="/messages" component={Messages} exact />
 
             <Redirect to="/" />
@@ -52,18 +50,7 @@ function App() {
         </QueryClientProvider>
         <Footer />
       </Wrapper>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-        limit={1}
-      />
+      <StyledContainer />
     </UserProvider>
   );
 }

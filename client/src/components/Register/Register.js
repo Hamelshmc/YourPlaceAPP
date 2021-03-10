@@ -1,7 +1,9 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { fetchRegister } from '../../api/User';
 import { UserContext } from '../../hooks/UserContext';
 import InputForm from '../shared/Form/InputForm';
@@ -14,6 +16,7 @@ import registerSchema from './validations/registerSchema';
 
 const Register = () => {
   const [user, setUser] = useContext(UserContext);
+  const mutation = useMutation((data) => fetchRegister(data));
 
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(registerSchema),
@@ -21,14 +24,21 @@ const Register = () => {
   });
 
   const onSubmit = async (data) => {
-    const res = await fetchRegister(data);
-    if (res.status === 201) {
-      setUser({
-        id: res.data.user.id,
-        token: res.data.authorization,
-        refreshToken: res.data.refreshToken,
-        picture: res.data.user.picture,
-      });
+    try {
+      const res = await mutation.mutateAsync(data);
+      if (res.status === 201) {
+        setUser({
+          id: res.data.user.id,
+          token: res.data.authorization,
+          refreshToken: res.data.refreshToken,
+          picture: res.data.user.picture,
+        });
+        toast.success(`😄 Welcome! 😄`);
+      } else {
+        toast.error(` ${res.data} 🙈 Ooops! Can you try again please? 🙈 `);
+      }
+    } catch (error) {
+      toast.error(`${error.message} 🙈 Ooops! Connection error 🙈 `);
     }
   };
 
@@ -67,8 +77,21 @@ const Register = () => {
           placeholder="Eight chars min"
         />
 
-        <SubmitButton id="register">Join our community</SubmitButton>
-        {user.token && <Redirect to="/search" />}
+        <SubmitButton id="register">
+          {mutation.isLoading ? (
+            'Doing interesting things...'
+          ) : (
+            <>
+              {mutation.data && mutation.data.status >= 400 ? (
+                `Try again!`
+              ) : mutation.isSuccess ? (
+                <Redirect to="/search" />
+              ) : (
+                'Join our community!'
+              )}
+            </>
+          )}
+        </SubmitButton>
       </Form>
     </FormContainer>
   );

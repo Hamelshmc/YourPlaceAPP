@@ -1,13 +1,14 @@
-import { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 import { UserContext } from '../../../hooks/UserContext';
-import SignIn from './SignIn';
+import LogoutButton from './LogoutButton';
 
 const Logout = () => {
   const [user, setUser] = useContext(UserContext);
 
   const handleLogout = (e) => {
     setUser({});
+    toast.success(`Bye bye! 😄👋👋`);
   };
 
   return (
@@ -16,9 +17,5 @@ const Logout = () => {
     </LogoutButton>
   );
 };
-const LogoutButton = styled(SignIn)`
-  color: red;
-  font-size: ${({ theme }) => theme.fontSizes.smaller};
-`;
 
 export default Logout;

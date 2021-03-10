@@ -2,12 +2,6 @@ import React, { useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { UserContext } from '../../hooks/UserContext';
 
-// // LOGIN STATUS
-// const isLogin = () => {
-//   const user = localStorage.getItem('user');
-//   return !!user.token;
-// };
-
 const PublicRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => <Component {...props} />} />
 );
@@ -22,11 +16,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-// LOGIN STATUS
-const isLogin = () => {
-  const data = localStorage.getItem('user');
-  const user = JSON.parse(data);
-  return user && !!user.token;
-};
-
-export { PrivateRoute, PublicRoute, isLogin };
+export { PrivateRoute, PublicRoute };

@@ -20,7 +20,7 @@ async function verifyUser(request, response) {
     } else {
       await userServices.verifyUser(id);
       const token = jwt.sign({ id, verified: 1 }, process.env.TOKEN_SECRET, {
-        expiresIn: '30m',
+        expiresIn: '1m',
       });
       const refreshToken = jwt.sign({ id, verified: 1 }, process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: '24h',

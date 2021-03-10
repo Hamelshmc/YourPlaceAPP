@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Nav = styled.nav`
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: ${({ theme }) => theme.boxShadow.footer};
   backdrop-filter: blur(25px);
   display: flex;
   flex: 1 1 auto;

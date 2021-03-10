@@ -89,21 +89,22 @@ const fetchUser = async (token) => {
 };
 
 const fetchAuthData = async (fetchFn, user, setUser) => {
-  const tokenResponse = await checkToken(user.refreshToken);
+  const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
     return await fetchFn(user.token);
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
+  console.log('[GenerateToken]', generateTokenResponse);
   setUser({
     ...user,
     token: generateTokenResponse.data.authorization,
     refreshToken: generateTokenResponse.data.refreshToken,
   });
-  return generateTokenResponse;
+  return await fetchFn(generateTokenResponse.data.authorization);
 };
 
 const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
-  const tokenResponse = await checkToken(user.refreshToken);
+  const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
     return await fetchFn(data, user.token);
   }
