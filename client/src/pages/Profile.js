@@ -22,7 +22,7 @@ const Profile = () => {
   if (isError) {
     toast.error('🙈 Ooops!');
   }
-  
+
   return data ? (
     <ProfileContainer>
       <div>

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { UserContext } from '../../hooks/UserContext';
 import IconLink from '../shared/IconLink';
 import Menu from '../shared/Menu';

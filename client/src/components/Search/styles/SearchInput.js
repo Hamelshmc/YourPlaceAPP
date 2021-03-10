@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SearchInput = styled.input`
+const SearchInput = styled.input`
   backdrop-filter: blur(25px);
   background-color: rgba(255, 255, 255, 0.9);
   flex: 1 1 auto;

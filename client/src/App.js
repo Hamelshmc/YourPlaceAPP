@@ -1,4 +1,4 @@
-import { default as React } from 'react';
+import React from 'react';
 import Confetti from 'react-confetti';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Redirect, Switch } from 'react-router-dom';
