@@ -15,7 +15,7 @@ const SubmitButton = styled.button`
   padding: 10px;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
   width: 100%;
-  transition:all 0.3s;
+  transition: all 0.3s;
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary['800']};
   }

@@ -35,7 +35,7 @@ const CheckBoxWrapper = styled.section`
   justify-content: flex-start;
   padding: 0.5rem 0;
   margin: 0;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 `;
 
 const CheckboxOn = keyframes`
