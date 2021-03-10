@@ -13,14 +13,14 @@ const Header = ({ user }) => (
       <ProfileHeaderContent>
         <UserProfile>
           <UserAvatar
-            src={user.picture && user.picture}
+            src={user.picture ? user.picture : '/assets/User.svg'}
             loading="lazy"
             alt="profile image"
             width=""
             height="100"
           />
           <Username>
-            <span>{user.fullname && user.fullname}</span>
+            <span>{user && user.fullname}</span>
           </Username>
         </UserProfile>
       </ProfileHeaderContent>

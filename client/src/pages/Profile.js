@@ -19,18 +19,6 @@ const Profile = () => {
     () => fetchAuthData(fetchUser, user, setUser)
   );
 
-  if (isLoading) {
-    toast.info('CARGANDO...', {
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    return <div>CARGANDO</div>;
-  }
-
   if (isError) {
     toast.error('ERROR', {
       autoClose: 5000,
@@ -40,10 +28,8 @@ const Profile = () => {
       draggable: true,
       progress: undefined,
     });
-    return <div>ERROR</div>;
+    return <div>🙈 Ooops!</div>;
   }
-
-  console.log({ data });
 
   return data ? (
     <ProfileContainer>

@@ -59,7 +59,11 @@ UNLOCK TABLES;
 
 LOCK TABLES `publication` WRITE;
 /*!40000 ALTER TABLE `publication` DISABLE KEYS */;
-INSERT INTO `publication` VALUES ('23396244-e41a-4e42-be23-cd5e944157f3',120,2,3,1,0,1,0,0,0,1,1,0,'GAS','HOUSE',1200,300,'2021-03-10','2021-03-09 16:58:44.804913',0,'95c0601e-079a-4df0-9f79-cc23a7fa6c61','90162685-0627-40cc-827e-cf973875c831'),('735d2dd2-2e25-4c9a-b232-c2abbaf89a74',230,4,5,1,1,1,0,1,1,0,1,1,'GAS','HOUSE',900,545,'2021-03-28','2021-03-09 17:24:00.504319',0,'95c0601e-079a-4df0-9f79-cc23a7fa6c61','faca659f-ec2b-4f67-8b2b-eaad23495c30'),('88afb0d1-9899-41bc-931d-192247fe7599',120,3,3,0,1,0,0,1,1,0,1,0,'GAS','FLAT',1230,213,'2021-03-11','2021-03-09 17:18:54.818614',0,'95c0601e-079a-4df0-9f79-cc23a7fa6c61','8b4ec9e0-c947-44a0-b93c-284d2c9a744c'),('af84c067-3962-4300-8547-dedd9fe47f62',120,2,3,1,0,1,0,0,0,1,1,0,'GAS','HOUSE',1229,300,'2021-03-10','2021-03-09 16:41:00.675309',0,'95c0601e-079a-4df0-9f79-cc23a7fa6c61','58d32f83-8133-4e53-89cc-22978fac7c4d');
+INSERT INTO `publication` VALUES
+('23396244-e41a-4e42-be23-cd5e944157f3',120,2,3,1,0,1,0,0,0,1,1,0,'GAS','HOUSE',1200,300,'2021-03-10','2021-03-09 16:58:44.804913',0,'95c0601e-079a-4df0-9f79-cc23a7fa6c61','90162685-0627-40cc-827e-cf973875c831'),
+('735d2dd2-2e25-4c9a-b232-c2abbaf89a74',230,4,5,1,1,1,0,1,1,0,1,1,'GAS','HOUSE',900,545,'2021-03-28','2021-03-09 17:24:00.504319',0,'95c0601e-079a-4df0-9f79-cc23a7fa6c61','faca659f-ec2b-4f67-8b2b-eaad23495c30'),
+('88afb0d1-9899-41bc-931d-192247fe7599',120,3,3,0,1,0,0,1,1,0,1,0,'GAS','FLAT',1230,213,'2021-03-11','2021-03-09 17:18:54.818614',0,'95c0601e-079a-4df0-9f79-cc23a7fa6c61','8b4ec9e0-c947-44a0-b93c-284d2c9a744c'),
+('af84c067-3962-4300-8547-dedd9fe47f62',120,2,3,1,0,1,0,0,0,1,1,0,'GAS','HOUSE',1229,300,'2021-03-10','2021-03-09 16:41:00.675309',0,'95c0601e-079a-4df0-9f79-cc23a7fa6c61','58d32f83-8133-4e53-89cc-22978fac7c4d');
 /*!40000 ALTER TABLE `publication` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +73,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `publication_addresses` WRITE;
 /*!40000 ALTER TABLE `publication_addresses` DISABLE KEYS */;
-INSERT INTO `publication_addresses` VALUES ('58d32f83-8133-4e53-89cc-22978fac7c4d','Calle Caballeros N°25 1° Derecha','A','4','A Coruña','Spain',15009,43.3531,-8.40563),('8b4ec9e0-c947-44a0-b93c-284d2c9a744c','Avenida Monelos','left','4','A Coruña','Spain',15009,43.3396,-8.39402),('90162685-0627-40cc-827e-cf973875c831','Calle Juan Florez 120','A','3','A Coruña','Spain',15009,43.3602,-8.4064),('faca659f-ec2b-4f67-8b2b-eaad23495c30','Los Rosales 3','F','5','A Coruña','Spain',15011,43.3738,-8.43707);
+INSERT INTO `publication_addresses` VALUES
+('58d32f83-8133-4e53-89cc-22978fac7c4d','Calle Caballeros N°25 1° Derecha','A','4','A Coruña','Spain',15009,43.3531,-8.40563),('8b4ec9e0-c947-44a0-b93c-284d2c9a744c','Avenida Monelos','left','4','A Coruña','Spain',15009,43.3396,-8.39402),('90162685-0627-40cc-827e-cf973875c831','Calle Juan Florez 120','A','3','A Coruña','Spain',15009,43.3602,-8.4064),('faca659f-ec2b-4f67-8b2b-eaad23495c30','Los Rosales 3','F','5','A Coruña','Spain',15011,43.3738,-8.43707);
 /*!40000 ALTER TABLE `publication_addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +84,18 @@ UNLOCK TABLES;
 
 LOCK TABLES `publication_pictures` WRITE;
 /*!40000 ALTER TABLE `publication_pictures` DISABLE KEYS */;
-INSERT INTO `publication_pictures` VALUES ('1a50ad60-9ff1-4993-8643-928c5bef77c6','http://res.cloudinary.com/yourplace/image/upload/v1615310332/YourPlace_IMG/pkpjsyuzbfah61bsr9op.jpg','88afb0d1-9899-41bc-931d-192247fe7599'),('3469c7aa-da3d-4c63-887b-c92688647dcb','http://res.cloudinary.com/yourplace/image/upload/v1615310637/YourPlace_IMG/yzjxfluxq8mchegolyqu.jpg','735d2dd2-2e25-4c9a-b232-c2abbaf89a74'),('44f49ae3-1a85-459f-a5f6-fb237141ba36','http://res.cloudinary.com/yourplace/image/upload/v1615310637/YourPlace_IMG/knr3uro5ttl95gltomzz.jpg','735d2dd2-2e25-4c9a-b232-c2abbaf89a74'),('7b97ae15-14aa-4e97-96ea-fd4332dd65e5','http://res.cloudinary.com/yourplace/image/upload/v1615310332/YourPlace_IMG/l0v1385zixvyccqsrgdc.jpg','88afb0d1-9899-41bc-931d-192247fe7599'),('7ca034a0-f498-453c-b40f-7d2b3dc733e6','http://res.cloudinary.com/yourplace/image/upload/v1615310332/YourPlace_IMG/l0lgcxfwlizidlenrmmc.jpg','88afb0d1-9899-41bc-931d-192247fe7599'),('887070f2-a6b8-43f4-8b19-6ee33278a0be','http://res.cloudinary.com/yourplace/image/upload/v1615310637/YourPlace_IMG/kakpqkatuuyhbcf2dmkn.jpg','735d2dd2-2e25-4c9a-b232-c2abbaf89a74'),('966eab98-7916-4e3a-927f-b7e560cd5922','http://res.cloudinary.com/yourplace/image/upload/v1615308057/YourPlace_IMG/mthbhzm4tzh785der3yf.jpg','af84c067-3962-4300-8547-dedd9fe47f62'),('a8c7f493-e5f3-4c6d-8abc-d001d97f124a','http://res.cloudinary.com/yourplace/image/upload/v1615309121/YourPlace_IMG/p5xtzjergugvmqnbjqu0.jpg','23396244-e41a-4e42-be23-cd5e944157f3'),('cbc6c414-2aa4-44c9-b310-d85830746bf2','http://res.cloudinary.com/yourplace/image/upload/v1615308056/YourPlace_IMG/ukejbkotuscntcbrk0ek.jpg','af84c067-3962-4300-8547-dedd9fe47f62'),('dc6413fa-e9fa-4bb5-8f00-464fa250acfc','http://res.cloudinary.com/yourplace/image/upload/v1615310637/YourPlace_IMG/r3kp2mqyylz0yvxrswmr.jpg','735d2dd2-2e25-4c9a-b232-c2abbaf89a74'),('fb742bed-5575-4be8-89c8-12abc6c300ac','http://res.cloudinary.com/yourplace/image/upload/v1615308056/YourPlace_IMG/efrytzzx5pcqxh5he5ro.jpg','af84c067-3962-4300-8547-dedd9fe47f62');
+INSERT INTO `publication_pictures` VALUES
+('1a50ad60-9ff1-4993-8643-928c5bef77c6','http://res.cloudinary.com/yourplace/image/upload/v1615310332/YourPlace_IMG/pkpjsyuzbfah61bsr9op.jpg','88afb0d1-9899-41bc-931d-192247fe7599'),
+('3469c7aa-da3d-4c63-887b-c92688647dcb','http://res.cloudinary.com/yourplace/image/upload/v1615310637/YourPlace_IMG/yzjxfluxq8mchegolyqu.jpg','735d2dd2-2e25-4c9a-b232-c2abbaf89a74'),
+('44f49ae3-1a85-459f-a5f6-fb237141ba36','http://res.cloudinary.com/yourplace/image/upload/v1615310637/YourPlace_IMG/knr3uro5ttl95gltomzz.jpg','735d2dd2-2e25-4c9a-b232-c2abbaf89a74'),
+('7b97ae15-14aa-4e97-96ea-fd4332dd65e5','http://res.cloudinary.com/yourplace/image/upload/v1615310332/YourPlace_IMG/l0v1385zixvyccqsrgdc.jpg','88afb0d1-9899-41bc-931d-192247fe7599'),
+('7ca034a0-f498-453c-b40f-7d2b3dc733e6','http://res.cloudinary.com/yourplace/image/upload/v1615310332/YourPlace_IMG/l0lgcxfwlizidlenrmmc.jpg','88afb0d1-9899-41bc-931d-192247fe7599'),
+('887070f2-a6b8-43f4-8b19-6ee33278a0be','http://res.cloudinary.com/yourplace/image/upload/v1615310637/YourPlace_IMG/kakpqkatuuyhbcf2dmkn.jpg','735d2dd2-2e25-4c9a-b232-c2abbaf89a74'),
+('966eab98-7916-4e3a-927f-b7e560cd5922','http://res.cloudinary.com/yourplace/image/upload/v1615308057/YourPlace_IMG/mthbhzm4tzh785der3yf.jpg','af84c067-3962-4300-8547-dedd9fe47f62'),
+('a8c7f493-e5f3-4c6d-8abc-d001d97f124a','http://res.cloudinary.com/yourplace/image/upload/v1615309121/YourPlace_IMG/p5xtzjergugvmqnbjqu0.jpg','23396244-e41a-4e42-be23-cd5e944157f3'),
+('cbc6c414-2aa4-44c9-b310-d85830746bf2','http://res.cloudinary.com/yourplace/image/upload/v1615308056/YourPlace_IMG/ukejbkotuscntcbrk0ek.jpg','af84c067-3962-4300-8547-dedd9fe47f62'),
+('dc6413fa-e9fa-4bb5-8f00-464fa250acfc','http://res.cloudinary.com/yourplace/image/upload/v1615310637/YourPlace_IMG/r3kp2mqyylz0yvxrswmr.jpg','735d2dd2-2e25-4c9a-b232-c2abbaf89a74'),
+('fb742bed-5575-4be8-89c8-12abc6c300ac','http://res.cloudinary.com/yourplace/image/upload/v1615308056/YourPlace_IMG/efrytzzx5pcqxh5he5ro.jpg','af84c067-3962-4300-8547-dedd9fe47f62');
 /*!40000 ALTER TABLE `publication_pictures` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +170,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('95c0601e-079a-4df0-9f79-cc23a7fa6c61',NULL,NULL,NULL,'$2a$15$.u9/6b8FwtKmK1YSDcLSZu8yqro0QTf7nGjHtNOxgD6YyuPlqd2fq','Hamelshmc@gmail.com',1,NULL,NULL,NULL);
+INSERT INTO `users` VALUES
+('95c0601e-079a-4df0-9f79-cc23a7fa6c61',NULL,NULL,NULL,'$2a$15$.u9/6b8FwtKmK1YSDcLSZu8yqro0QTf7nGjHtNOxgD6YyuPlqd2fq','Hamelshmc@gmail.com',1,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
