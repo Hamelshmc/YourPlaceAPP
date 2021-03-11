@@ -22,7 +22,15 @@ const fetchLogin = async (data) => {
   try {
     const res = await axios.post(
       'http://yourplaceappdev.herokuapp.com:8080/api/v1/users/login',
-      user
+      user,
+      {
+        mode: 'cors',
+        origin: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
     );
     console.log(res.data);
     return res.data;
