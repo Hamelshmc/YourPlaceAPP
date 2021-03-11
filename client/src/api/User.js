@@ -1,4 +1,6 @@
 /* eslint-disable consistent-return */
+import axios from 'axios';
+
 const fetchRegister = async (data) => {
   const { emailRegister: email, password } = data;
   const user = { email, password };
@@ -15,16 +17,18 @@ const fetchRegister = async (data) => {
 };
 
 const fetchLogin = async (data) => {
+  console.time('axios');
   const { emailLogin: email, passwordLogin: password } = data;
   const user = { email, password };
-  // try {
-  //   const res = await axios.post('api/v1/users/login', user);
-  //   console.log(res.data);
-  //   return res.data;
-  // } catch (error) {
-  //   console.log(error);
-  // }
   try {
+    const res = await axios.post('api/v1/users/login', user);
+    console.log(res);
+    console.timeEnd('axios');
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+  /*   try {
     const res = await (
       await fetch('/api/v1/users/login', {
         method: 'POST',
@@ -39,7 +43,7 @@ const fetchLogin = async (data) => {
   } catch (error) {
     console.log(error);
     return error;
-  }
+  } */
 };
 
 const checkToken = async (token) => {
