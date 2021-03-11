@@ -36,8 +36,9 @@ async function loginUser(request, response) {
         })
       );
   } catch (error) {
+    console.log(error);
     return response
-      .status(error.status)
+      .status(error.status || 500)
       .send(new ResponseError(error.status, error, error.message));
   }
 }
