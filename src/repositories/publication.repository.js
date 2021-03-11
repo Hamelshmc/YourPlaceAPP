@@ -41,7 +41,7 @@ async function findAllPicturesByPublicationId(idPublication) {
 }
 
 async function findPublicationById(idPublication) {
-  const query = `SELECT p.id,p.area,p.rooms,p.bathrooms,p.garage,p.elevator,p.furnished,p.publication_type,p.deposit,p.price,p.availability_date,p.disabled,p.id_user,pa.street,pa.city,pa.country,pa.zipcode,pa.latitude,pa.longitude,u.fullname,u.picture,AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating
+  const query = `SELECT p.id,p.area,p.rooms,p.bathrooms,p.garage,p.elevator,p.furnished,p.publication_type,p.deposit,p.price,DATE_FORMAT( p.availability_date, '%d-%c-%Y') as availability_date,p.disabled,p.id_user,pa.street,pa.city,pa.country,pa.zipcode,pa.latitude,pa.longitude,u.fullname,u.picture,AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating
   FROM ${tableNames.PUBLICATION} p
   LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON p.id_publication_address = pa.id
   LEFT JOIN ${tableNames.USER} u ON p.id_user = u.id
@@ -69,7 +69,7 @@ async function getPublicationSearch(parametros) {
   const { result, values } = await columnWhereBuilder(filtro);
   const query = `
   SELECT  p.id, area, rooms, bathrooms, garage, elevator, furnished, parking, pets, garden, pool, terrace, storage_room, heating,
-  publication_type, deposit,price, availability_date, street, floor ,city, country, zipcode,u.telephone,u.email,u.fullname,u.picture,AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating
+  publication_type, deposit,price,DATE_FORMAT( availability_date, '%d-%c-%Y') as availability_date , street, floor ,city, country, zipcode,u.telephone,u.email,u.fullname,u.picture,AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating
   FROM ${tableNames.PUBLICATION} p
   LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON p.id_publication_address = pa.id
   LEFT JOIN ${tableNames.USER} u ON p.id_user = u.id

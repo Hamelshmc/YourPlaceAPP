@@ -28,6 +28,8 @@ function Publication({ publication, lessor = false }) {
     picture,
     email,
     name,
+    city,
+    availability_date,
   } = publication;
 
   return (
@@ -35,13 +37,15 @@ function Publication({ publication, lessor = false }) {
       <Slider slides={pictures} />
       <Favorite />
       <PublicationModule>
-        <Tipo> {publication_type}</Tipo>
+        <Tipo>
+          {street} • {city}
+        </Tipo>
         <Container>
-          <Precio> {price}$ </Precio>
+          <Precio> {price}€</Precio>
           <LinkShowMore to={`/publication/${id}`}>Show more</LinkShowMore>
         </Container>
         <Container>
-          <Ubicacion>{street}</Ubicacion>
+          <Ubicacion>{publication_type}</Ubicacion>
           <StartRating value={rating} disabled={false} />
         </Container>
       </PublicationModule>
@@ -49,10 +53,9 @@ function Publication({ publication, lessor = false }) {
         <Item number={bathrooms} type="bathroom" />
         <Item number={rooms} type="bedroom" />
         <Item number={area} type="area" />
+        <Item number={availability_date.split('T')[0]} type="availability" />
       </Features>
-      {lessor.telephone && (
-        <Lessor phoneNumber={telephone} url={picture} name={name} email={email} />
-      )}
+      {lessor && <Lessor phoneNumber={telephone} url={picture} name={name} email={email} />}
     </PublicationContainer>
   );
 }
