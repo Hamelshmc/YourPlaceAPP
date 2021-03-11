@@ -1,10 +1,11 @@
+/* eslint-disable complexity */
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
 import builderQuery from '../../helper/BuilderQuery';
 import InputCheckBox from '../shared/Form/InputCheckBox';
 import InputForm from '../shared/Form/InputForm';
 import InputRadio from '../shared/Form/InputRadio';
-import SubmitButton from '../shared/Form/styles/SubmitButton';
 import Icon from '../shared/Icon';
 import FilterButton from './styles/FilterButton';
 import FilterContainer from './styles/FilterContainer';
@@ -16,7 +17,7 @@ import SearchForm from './styles/SearchForm';
 import SearchInput from './styles/SearchInput';
 import SearchItem from './styles/SearchItem';
 
-function SearchContent({ search, setSearch, setFilter }) {
+function SearchContent({ search, setSearch, setFilter, setReset }) {
   const { register, handleSubmit, errors } = useForm({
     mode: 'onChange',
   });
@@ -91,16 +92,29 @@ function SearchContent({ search, setSearch, setFilter }) {
                 />
               </li>
               <li>
-                <InputRadio
-                  idFirst="gas"
-                  idSecond="electrical"
-                  name="heating"
-                  labelFirst="Gas"
-                  labelSecond="Electrical"
-                  errorMsg={errors.heating && errors.heating.message}
-                  error={errors.heating}
+                <InputForm
+                  id="price"
+                  name="price"
+                  label="Price"
+                  type="number"
+                  errorMsg={errors.price && errors.price.message}
+                  error={errors.price}
+                  placeholder="300"
                   reference={register}
                 />
+              </li>
+              <li>
+                <InputForm
+                  id="availability_date"
+                  name="availability_date"
+                  label="Availability Date"
+                  type="date"
+                  errorMsg={errors.availability_date && errors.availability_date.message}
+                  error={errors.availability_date}
+                  reference={register}
+                />
+              </li>
+              <li>
                 <InputRadio
                   idFirst="flat"
                   idSecond="house"
@@ -130,7 +144,13 @@ function SearchContent({ search, setSearch, setFilter }) {
                   reference={register}
                 />
               </li>
-              <SubmitButton id="register">Apply Filter</SubmitButton>
+
+              <ButtonSearch id="register" red>
+                Apply Filter
+              </ButtonSearch>
+              <ButtonSearch type="button" onClick={setReset} id="reset">
+                Clear Filter
+              </ButtonSearch>
             </ul>
           </FilterContent>
         </FilterContainer>
@@ -138,5 +158,27 @@ function SearchContent({ search, setSearch, setFilter }) {
     </SearchContainer>
   );
 }
+
+const ButtonSearch = styled.button`
+  background-color: ${({ theme, red }) =>
+    red ? theme.colors.primary.default : theme.colors.primary['900']};
+  border: 1px solid ${({ theme }) => theme.colors.primary.default};
+  border-radius: 2px;
+  color: ${({ theme }) => theme.colors.primary[50]};
+  cursor: pointer;
+  display: block;
+  font-size: ${({ theme }) => theme.fontSizes.default};
+  /* fallback */
+  font-size: ${({ theme }) => theme.fontSizes.default};
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: ${({ theme }) => theme.boxShadow.default};
+  width: 100%;
+  transition: all 0.3s;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary['800']};
+  }
+`;
 
 export default SearchContent;

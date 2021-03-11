@@ -10,6 +10,7 @@ import SearchContent from '../components/Search/SearchContent';
 function Search() {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
+  const [reset, setReset] = useState(false);
   const [page, setPage] = useState(0);
   const fetchProjects = async (size = 0, value, query) =>
     await fetchPublicationSearch(size, value, query);
@@ -28,10 +29,20 @@ function Search() {
       setPage((old) => old + 1);
     }
   };
+  const resetPage = async () => {
+    setSearch('');
+    setFilter('');
+    setPage(0);
+  };
 
   return (
     <SearchWrapper>
-      <SearchContent setFilter={setFilter} setSearch={setSearch} search={search} />
+      <SearchContent
+        setFilter={setFilter}
+        setSearch={setSearch}
+        search={search}
+        setReset={resetPage}
+      />
       {isLoading ? (
         <div>Loading...</div>
       ) : isError ? (
@@ -70,8 +81,8 @@ const CurrentPage = styled.span`
 `;
 
 const ButtonPage = styled.button`
-  padding: 0.5rem 0.5rem;
-  margin: 0.2rem;
+  padding: 0.5rem;
+  margin: 0.1rem;
   font-size: 0.875rem;
   background-color: ${({ theme, disabled }) => (disabled ? 'gray' : theme.colors.primary['800'])};
   box-shadow: ${({ theme }) => theme.boxShadow.default};
@@ -83,7 +94,7 @@ const ButtonPage = styled.button`
 const FlexContainer = styled.section`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 export default Search;
