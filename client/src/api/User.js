@@ -24,7 +24,9 @@ const fetchLogin = async (data) => {
   // } catch (error) {
   //   console.log(error);
   // }
+
   try {
+    console.time('ocultar');
     const res = await (
       await fetch('/api/v1/users/login', {
         method: 'POST',
@@ -35,6 +37,7 @@ const fetchLogin = async (data) => {
       })
     ).json();
     console.log(res);
+    console.timeEnd('ocultar');
     return res;
   } catch (error) {
     console.log(error);
