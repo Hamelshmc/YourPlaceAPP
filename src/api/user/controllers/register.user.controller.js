@@ -31,16 +31,13 @@ async function registerUser(request, response) {
     );
     await userServices.sendEmail(userRegistered.id, verificationCode, email);
 
-    return response
-      .header('Authorization', `Bearer ${token}`)
-      .status(httpStatus.CREATED)
-      .send(
-        new ResponseJson(httpStatus.CREATED, {
-          user: userRegistered,
-          authorization: token,
-          refreshToken,
-        })
-      );
+    return response.status(httpStatus.CREATED).send(
+      new ResponseJson({
+        user: userRegistered,
+        authorization: token,
+        refreshToken,
+      })
+    );
   } catch (error) {
     return response
       .status(error.status)

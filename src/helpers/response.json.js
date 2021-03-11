@@ -1,6 +1,5 @@
 class ResponseJson {
-  constructor(status, data) {
-    this.status = status;
+  constructor(data) {
     this.data = data;
   }
 }

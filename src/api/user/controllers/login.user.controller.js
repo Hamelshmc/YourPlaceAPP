@@ -25,16 +25,13 @@ async function loginUser(request, response) {
         expiresIn: '24h',
       }
     );
-    return response
-      .header('Authorization', `Bearer ${token}`)
-      .status(httpStatus.OK)
-      .send(
-        new ResponseJson(httpStatus.OK, {
-          user: useruserWithoutPass,
-          authorization: token,
-          refreshToken,
-        })
-      );
+    return response.status(httpStatus.OK).send(
+      new ResponseJson({
+        user: useruserWithoutPass,
+        authorization: token,
+        refreshToken,
+      })
+    );
   } catch (error) {
     return response
       .status(error.status)

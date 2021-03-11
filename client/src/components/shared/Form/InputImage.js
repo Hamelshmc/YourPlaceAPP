@@ -3,20 +3,20 @@ import styled from 'styled-components';
 import Slider from '../Slider/Slider';
 import Constraints from './styles/Constraints';
 
-function InputImage({ reference, previewSource, error, errorMsg }) {
+function InputImage({
+  id = 'files',
+  name = 'files',
+  label = 'Upload Image',
+  reference,
+  previewSource,
+  error,
+  errorMsg,
+}) {
   return (
     <div>
       <ButtonWrapper>
-        <LabelUpload>{error ? errorMsg : 'Upload Image'}</LabelUpload>
-        <InputUpload
-          type="file"
-          id="files"
-          name="files"
-          multiple
-          ref={reference}
-          focus={error}
-          required
-        />
+        <LabelUpload>{error ? errorMsg : label}</LabelUpload>
+        <InputUpload type="file" id={id} name={name} multiple ref={reference} focus={error} />
       </ButtonWrapper>
       <Constraints id="file">{errorMsg}</Constraints>
       {previewSource && <Slider slides={previewSource} />}

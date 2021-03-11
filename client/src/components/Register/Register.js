@@ -44,7 +44,7 @@ const Register = () => {
 
   return (
     <FormContainer>
-      <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <FormTitle>Register</FormTitle>
         <InputForm
           id="emailRegister"

@@ -2,14 +2,14 @@
 
 const userServices = require('../services');
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
 async function postRating(request, response) {
   const { body: rating, user: token } = request;
   const { id } = token;
   try {
     const setUser = await userServices.insertRating(rating, id);
-    return response.status(httpStatus.CREATED).send(new ResponseJson(httpStatus.CREATED, setUser));
+    return response.status(httpStatus.CREATED).send(new ResponseJson(setUser));
   } catch (error) {
     return response
       .status(error.status)

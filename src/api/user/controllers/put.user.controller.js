@@ -2,7 +2,7 @@
 
 const userServices = require('../services');
 
-const { httpStatus, ResponseError } = require('../../../helpers');
+const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
 async function putUser(request, response) {
   const { body, user: token } = request;
@@ -11,7 +11,7 @@ async function putUser(request, response) {
   try {
     await userServices.updateUser(user, address, id);
     const showUser = await userServices.getUser({ id });
-    return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, showUser));
+    return response.status(httpStatus.OK).send(new ResponseJson(showUser));
   } catch (error) {
     return response
       .status(error.status)

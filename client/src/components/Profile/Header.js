@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-constant-condition */
 import EditButton from './styles/EditButton';
-import EditProfile from './styles/EditProfile';
+import EditProfile from './styles/EditButtonContainer';
 import ProfileHeader from './styles/ProfileHeader';
 import ProfileHeaderContainer from './styles/ProfileHeaderContainer';
 import ProfileHeaderContent from './styles/ProfileHeaderContent';
@@ -9,7 +9,7 @@ import UserAvatar from './styles/UserAvatar';
 import Username from './styles/Username';
 import UserProfile from './styles/UserProfile';
 
-const Header = ({ user }) => (
+const Header = ({ user, switchProfile, setSwitchProfile }) => (
   <ProfileHeader>
     <ProfileHeaderContainer>
       <ProfileHeaderContent>
@@ -33,7 +33,9 @@ const Header = ({ user }) => (
         </UserProfile>
       </ProfileHeaderContent>
       <EditProfile>
-        <EditButton>Edit profile</EditButton>
+        <EditButton switchProfile={switchProfile} setSwitchProfile={setSwitchProfile}>
+          Edit profile
+        </EditButton>
       </EditProfile>
     </ProfileHeaderContainer>
   </ProfileHeader>

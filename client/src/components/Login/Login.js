@@ -48,7 +48,7 @@ const Login = () => {
 
   return (
     <FormContainer>
-      <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <FormTitle>Login</FormTitle>
         <InputForm
           id="emailLogin"

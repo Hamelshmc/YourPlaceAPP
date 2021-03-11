@@ -18,15 +18,12 @@ async function generateTokens(request, response) {
         expiresIn: '24h',
       }
     );
-    return response
-      .header('Authorization', `Bearer ${newToken}`)
-      .status(httpStatus.OK)
-      .send(
-        new ResponseJson(httpStatus.OK, {
-          authorization: newToken,
-          refreshToken,
-        })
-      );
+    return response.status(httpStatus.OK).send(
+      new ResponseJson({
+        authorization: newToken,
+        refreshToken,
+      })
+    );
   } catch (error) {
     return response
       .status(error.status || httpStatus.BAD_REQUEST)

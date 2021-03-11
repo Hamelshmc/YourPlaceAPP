@@ -26,11 +26,8 @@ async function verifyUser(request, response) {
         expiresIn: '24h',
       });
       response
-        .header('Authorization', `Bearer ${token}`)
         .status(httpStatus.CREATED)
-        .send(
-          new ResponseJson(httpStatus.OK, { message: 'Account activated', token, refreshToken })
-        );
+        .send(new ResponseJson({ message: 'Account activated', token, refreshToken }));
     }
   } catch (error) {
     response.send(new ResponseError(error.status, error, error.message));

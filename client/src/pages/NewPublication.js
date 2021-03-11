@@ -84,7 +84,7 @@ function NewPublication() {
   return (
     <SectionNewPublication>
       <FormContainer>
-        <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <FormTitle>Publication</FormTitle>
           <InputForm
             type="text"
