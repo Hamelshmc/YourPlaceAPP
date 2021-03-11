@@ -2,6 +2,7 @@ const compression = require('compression');
 const cors = require('cors');
 const express = require('express');
 const path = require('path');
+const favicon = require('serve-favicon');
 const errorMiddleware = require('./middleware/error.middleware');
 const { httpStatus, ResponseError } = require('./helpers');
 const corsOptions = require('./middleware/cors.middleware');
@@ -24,6 +25,7 @@ app.use(cors());
 app.use(configureLog());
 
 app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(favicon(path.join(__dirname, '../client/public/favicon', 'favicon.ico')));
 
 app.use('/api/v1/bookings', bookingsRouter);
 app.use('/api/v1/contracts', contractsRouter);
