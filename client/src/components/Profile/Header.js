@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-constant-condition */
 import EditButton from './styles/EditButton';
 import EditProfile from './styles/EditProfile';
 import ProfileHeader from './styles/ProfileHeader';
@@ -18,14 +20,14 @@ const Header = ({ user }) => (
             alt="profile image"
             width=""
             height="100"
-            />
+          />
           <Username>
             <span>
               {user && user.email
-                  ? user.email.split('@')[0]
-                  : 'Jhon Doe'
-                  ? user && user.fullName
-                  : user.fullName}
+                ? user.email.split('@')[0]
+                : 'Jhon Doe'
+                ? user && user.fullName
+                : user.fullName}
             </span>
           </Username>
         </UserProfile>
@@ -35,5 +37,5 @@ const Header = ({ user }) => (
       </EditProfile>
     </ProfileHeaderContainer>
   </ProfileHeader>
-  );
+);
 export default Header;
