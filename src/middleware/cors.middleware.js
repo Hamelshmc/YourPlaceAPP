@@ -7,7 +7,7 @@ const whitelist = [
   'https://yourplaceappdev.herokuapp.com',
 ];
 const corsOptions = {
-  origin(origin, callback) {
+  origin: (origin, callback) => {
     console.log(`** Origin of request ${origin}`);
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       console.log('Origin acceptable');
