@@ -21,9 +21,11 @@ const fetchPublication = async (data, token) =>
     })
   ).json();
 
-const fetchPublicationSearch = async (pageParam, value, filter) =>
-  await (
+const fetchPublicationSearch = async (pageParam, value, filter) => {
+  const res = await (
     await fetch(`/api/v1/publications/?limit=10&page=${pageParam * 10}&search=${value}${filter}`)
   ).json();
+  return res.data;
+};
 
 export { fetchImage, fetchPublication, fetchPublicationSearch };
