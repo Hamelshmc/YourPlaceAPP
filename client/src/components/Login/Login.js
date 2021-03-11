@@ -19,7 +19,6 @@ const Login = () => {
 
   const mutation = useMutation(async (data) => await fetchLogin(data), {
     onSuccess: (result) => {
-      console.log({ result });
       if (result.status === 200) {
         setUser({
           id: result.data.user.id,

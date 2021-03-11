@@ -1,10 +1,9 @@
 /* eslint-disable consistent-return */
-import axios from 'axios';
 
 const fetchRegister = async (data) => {
   const { emailRegister: email, password } = data;
   const user = { email, password };
-  const res = await (
+  return await (
     await fetch('/api/v1/users/register', {
       method: 'POST',
       headers: {
@@ -13,41 +12,24 @@ const fetchRegister = async (data) => {
       body: JSON.stringify(user),
     })
   ).json();
-  return res;
 };
 
 const fetchLogin = async (data) => {
-  console.time('axios');
   const { emailLogin: email, passwordLogin: password } = data;
   const user = { email, password };
-  try {
-    const res = await axios.post('api/v1/users/login', user);
-    console.log(res);
-    console.timeEnd('axios');
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-  /*   try {
-    const res = await (
-      await fetch('/api/v1/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      })
-    ).json();
-    console.log(res);
-    return res;
-  } catch (error) {
-    console.log(error);
-    return error;
-  } */
+  return await (
+    await fetch('/api/v1/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+  ).json();
 };
 
-const checkToken = async (token) => {
-  const res = await (
+const checkToken = async (token) =>
+  await (
     await fetch('/api/v1/users/checkToken', {
       method: 'GET',
       headers: {
@@ -56,11 +38,9 @@ const checkToken = async (token) => {
       },
     })
   ).json();
-  return res;
-};
 
-const generateTokens = async (token) => {
-  const res = await (
+const generateTokens = async (token) =>
+  await (
     await fetch('/api/v1/users/generateTokens', {
       method: 'GET',
       headers: {
@@ -69,10 +49,9 @@ const generateTokens = async (token) => {
       },
     })
   ).json();
-  return res;
-};
-const fetchUser = async (token) => {
-  const res = await (
+
+const fetchUser = async (token) =>
+  await (
     await fetch('/api/v1/users/', {
       method: 'GET',
       headers: {
@@ -81,14 +60,11 @@ const fetchUser = async (token) => {
       },
     })
   ).json();
-  return res;
-};
 
 const fetchAuthData = async (fetchFn, user, setUser) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
-    const res = await fetchFn(user.token);
-    return res;
+    return await fetchFn(user.token);
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
   setUser({
@@ -96,15 +72,13 @@ const fetchAuthData = async (fetchFn, user, setUser) => {
     token: generateTokenResponse.data.authorization,
     refreshToken: generateTokenResponse.data.refreshToken,
   });
-  const res = await fetchFn(generateTokenResponse.data.authorization);
-  return res;
+  return await fetchFn(generateTokenResponse.data.authorization);
 };
 
 const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
-    const res = await fetchFn(data, user.token);
-    return res;
+    return await fetchFn(data, user.token);
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
   if (generateTokenResponse.status === 200) {
@@ -113,13 +87,12 @@ const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
       token: generateTokenResponse.data.authorization,
       refreshToken: generateTokenResponse.data.refreshToken,
     });
-    const res = await fetchFn(data, generateTokenResponse.data.authorization);
-    return res;
+    return await fetchFn(data, generateTokenResponse.data.authorization);
   }
 };
 
-const fetchUserVerification = async (url) => {
-  const res = await (
+const fetchUserVerification = async (url) =>
+  await (
     await fetch(`/api/v1/users${url}`, {
       method: 'GET',
       headers: {
@@ -127,8 +100,6 @@ const fetchUserVerification = async (url) => {
       },
     })
   ).json();
-  return res;
-};
 
 export {
   fetchRegister,
