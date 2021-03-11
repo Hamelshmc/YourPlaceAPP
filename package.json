@@ -7,7 +7,7 @@
         "url": "https://gitlab.com/team-mh"
     },
     "engines": {
-        "node": "15.x"
+        "node": "14.x"
     },
     "main": "server.js",
     "scripts": {
