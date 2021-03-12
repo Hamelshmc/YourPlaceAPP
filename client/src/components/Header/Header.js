@@ -21,7 +21,7 @@ function HeaderNav() {
     <HeaderContainer>
       <Header>
         <HeaderTitle to="/">
-          <HeaderIcon to="/">home</HeaderIcon>
+          <HeaderIcon>home</HeaderIcon>
           <Title>Your Space</Title>
         </HeaderTitle>
         <HeaderNavBar>

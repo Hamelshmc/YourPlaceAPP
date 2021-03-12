@@ -13,7 +13,7 @@ import LessorTittle from './styles/Lessor/LessorTittle';
 import LessorWrapper from './styles/Lessor/LessorWrapper';
 
 const cloudName = 'yourplace';
-function Lessor({ url, name, phoneNumber, email }) {
+function Lessor({ url, name, phoneNumber, email,id }) {
   return (
     <LessorWrapper>
       <LessorTittle>Lessor</LessorTittle>
@@ -33,7 +33,11 @@ function Lessor({ url, name, phoneNumber, email }) {
           </Image>
         </LessorAvatar>
         <div>
-          {name ? <LessorName>{name}</LessorName> : <LessorName>{email.split('@')[0]}</LessorName>}
+          {name ? (
+            <LessorName>{name}</LessorName>
+          ) : (
+            <LessorName>{email && email.split('@')[0]}</LessorName>
+          )}
           <StartRating value={5} disabled size=".813rem" />
         </div>
         <IconContainer>

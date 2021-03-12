@@ -8,6 +8,7 @@ import Slide from './Slide';
 function Slider({ slides }) {
   const targetRef = useRef();
   const { width } = useContainerDimensions(targetRef);
+  const getWidth = () => width;
   const [state, setState] = useState({
     translate: 0,
     transition: 0.3,
@@ -15,8 +16,7 @@ function Slider({ slides }) {
   });
   const { translate, transition, activeIndex } = state;
 
-  const getWidth = () => width;
-
+  console.log(width);
   const nextSlide = () => {
     if (activeIndex === slides.length - 1) {
       return setState({
@@ -29,7 +29,7 @@ function Slider({ slides }) {
     return setState({
       ...state,
       activeIndex: activeIndex + 1,
-      translate: (activeIndex + 1) * getWidth(),
+      translate: (activeIndex + 1) * width,
     });
   };
 
@@ -37,7 +37,7 @@ function Slider({ slides }) {
     if (activeIndex === 0) {
       return setState({
         ...state,
-        translate: (slides.length - 1) * getWidth(),
+        translate: (slides.length - 1) * width,
         activeIndex: slides.length - 1,
       });
     }
@@ -45,7 +45,7 @@ function Slider({ slides }) {
     return setState({
       ...state,
       activeIndex: activeIndex - 1,
-      translate: (activeIndex - 1) * getWidth(),
+      translate: (activeIndex - 1) * width,
     });
   };
 
