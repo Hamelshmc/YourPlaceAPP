@@ -46,6 +46,9 @@ const MapContainer = styled.div`
   flex-direction: column;
   height: 350px;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
+  border-width: 0.2rem;
+  border-style: solid;
+  border-image: linear-gradient(to bottom, #1679c5, rgba(0, 0, 0, 0)) 1 100%;
 
   .mapboxgl-control-container {
     display: none;

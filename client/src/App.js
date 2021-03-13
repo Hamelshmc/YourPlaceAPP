@@ -19,7 +19,9 @@ const Notification = React.lazy(() => import('./pages/Notification'));
 const Profile = React.lazy(() => import('./pages/Profile'));
 const Publication = React.lazy(() => import('./pages/Publication'));
 const Verification = React.lazy(() => import('./pages/Verification'));
-
+const FormEditPublication = React.lazy(() => import('./pages/FormEditPublication'));
+const FormReservation = React.lazy(() => import('./pages/FormReservation'));
+const FormVisit = React.lazy(() => import('./pages/FormVisit'));
 const NewPublication = React.lazy(() => import('./pages/NewPublication'));
 // Create a client
 const queryClient = new QueryClient();
@@ -39,6 +41,9 @@ function App() {
             <PublicRoute path="/join" component={Join} exact />
             <PublicRoute path="/publication/:id" component={Publication} exact />
             <PrivateRoute path="/user/:id" component={Profile} exact />
+            <PrivateRoute path="/publication/edit" component={FormEditPublication} exact />
+            <PrivateRoute path="/reservation" component={FormReservation} exact />
+            <PrivateRoute path="/visit" component={FormVisit} exact />
 
             <PrivateRoute path="/profile" component={Profile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />

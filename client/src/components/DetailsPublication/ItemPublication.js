@@ -64,6 +64,9 @@ const ItemPublication = styled.div`
   border-width: 0.2rem;
   border-style: solid;
   border-image: linear-gradient(to bottom, #1679c5, rgba(0, 0, 0, 0)) 1 100%;
+  &:hover {
+    border-image: linear-gradient(to bottom, #1679c5, rgba(0, 0, 0, 0.4)) 1 100%;
+  }
 `;
 
 const ItemPublicationIcon = styled.img`

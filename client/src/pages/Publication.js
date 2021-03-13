@@ -2,7 +2,7 @@
 /* eslint-disable complexity */
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchPublicationById } from '../api/Publication';
 import ItemPublicationContent from '../components/DetailsPublication/ItemPublication';
@@ -39,10 +39,67 @@ function Publication() {
       <MapContent>
         <MapPublication latitude={publication.latitude} longitude={publication.longitude} />
       </MapContent>
-      {user.id !== publication.id_user ? <Lessor lessor={publication} /> : <></>}
+      <PublicationLessorWrapper>
+        {user.id !== publication.id_user ? <Lessor lessor={publication} /> : <></>}
+      </PublicationLessorWrapper>
+      <ButtonContent>
+        {user.id !== publication.id_user ? <ButtonLink to="/visit">Visit</ButtonLink> : <></>}
+        {user.id !== publication.id_user ? (
+          <ButtonLink to="/reservation">Reservation</ButtonLink>
+        ) : (
+          <></>
+        )}
+        {user.id === publication.id_user ? (
+          <ButtonLink to="/publication/edit">Edit Publication</ButtonLink>
+        ) : (
+          <></>
+        )}
+      </ButtonContent>
     </PublicationSection>
   );
 }
+
+const ButtonContent = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ButtonLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.2rem;
+  min-width: 6rem;
+  max-width: 11rem;
+  text-decoration: none;
+  text-shadow: ${({ theme }) => theme.boxShadow.default};
+  box-shadow: ${({ theme }) => theme.boxShadow.default};
+  border-width: 0.2rem;
+  border-style: solid;
+  background-color: #1679c5;
+  color: white;
+  border-image: linear-gradient(to bottom, #1679c5, rgba(0, 0, 0, 0)) 1 100%;
+  width: 100%;
+  &:link {
+    color: white;
+  }
+
+  &:visited {
+    color: white;
+  }
+
+  &:hover {
+    background-color: #153b5b;
+    color: white;
+  }
+  &:active {
+    color: white;
+  }
+`;
 
 const PublicationSection = styled.section`
   grid-row: 2;
@@ -67,7 +124,7 @@ const SliderWrapper = styled.section`
   @media (min-width: 1281px) {
     & {
       margin: 0 auto;
-      width: clamp(30rem, 60%, 40rem);
+      width: clamp(28rem, 60%, 38rem);
     }
   }
 `;
@@ -75,6 +132,23 @@ const SliderWrapper = styled.section`
 const MapContent = styled.div`
   padding: 1rem;
   position: relative;
+`;
+
+const PublicationLessorWrapper = styled.div`
+  padding: 1rem;
+  display: grid;
+  place-items: center;
+  section {
+    box-shadow: ${({ theme }) => theme.boxShadow.default};
+    border-width: 0.2rem;
+    border-style: solid;
+    border-image: linear-gradient(to bottom, #1679c5, rgba(0, 0, 0, 0)) 1 100%;
+  }
+  @media (min-width: 1281px) {
+    section {
+      max-width: 70%;
+    }
+  }
 `;
 
 export default Publication;
