@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+import { useContext } from 'react';
+import { UserContext } from '../../hooks/UserContext';
 import Slider from '../shared/Slider/Slider';
 import StartRating from '../shared/StartRating';
 import Favorite from './Favorite';
@@ -13,7 +15,8 @@ import PublicationModule from './styles/Publication/PublicationModule';
 import Tipo from './styles/Publication/Tipo';
 import Ubicacion from './styles/Publication/Ubicacion';
 
-function Publication({ publication, lessor = false }) {
+function Publication({ publication }) {
+  const [user, setUser] = useContext(UserContext);
   const {
     id,
     pictures,
@@ -24,12 +27,9 @@ function Publication({ publication, lessor = false }) {
     rooms,
     area,
     street,
-    telephone,
-    picture,
-    email,
-    name,
     city,
     availability_date,
+    id_user,
   } = publication;
 
   return (
@@ -55,7 +55,7 @@ function Publication({ publication, lessor = false }) {
         <Item number={area} type="area" />
         <Item number={availability_date.split('T')[0]} type="availability" />
       </Features>
-      {lessor && <Lessor phoneNumber={telephone} url={picture} name={name} email={email} />}
+      {user.id !== id_user ? <Lessor lessor={publication} /> : <></>}
     </PublicationContainer>
   );
 }

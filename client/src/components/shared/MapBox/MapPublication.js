@@ -46,6 +46,9 @@ const MapContainer = styled.div`
   flex-direction: column;
   height: 350px;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
+  border-width: 0.2rem;
+  border-style: solid;
+  border-image: linear-gradient(to bottom, #1679c5, rgba(0, 0, 0, 0)) 1 100%;
 
   .mapboxgl-control-container {
     display: none;
@@ -58,17 +61,5 @@ const MapContainer = styled.div`
     opacity: 1;
     transition: opacity 0.2s;
   }
-`;
-
-const Sidebar = styled.div`
-  background-color: rgba(35, 55, 75, 0.9);
-  color: #ffffff;
-  padding: 6px 12px;
-  font: 15px/24px monospace;
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 12px;
-  border-radius: 4px;
+  transition: 0.3s;
 `;

@@ -78,6 +78,7 @@ const SliderContainer = styled.div`
   margin: 0 auto;
   overflow: hidden;
   width: 100%;
+  transition: 0.3s;
 `;
 
 const SliderContent = styled.div`
@@ -85,6 +86,7 @@ const SliderContent = styled.div`
   transition: transform ease-out ${(props) => props.transition}s;
   display: flex;
   flex: 1 1 auto;
+  transition: 0.3s;
 `;
 
 export default Slider;
