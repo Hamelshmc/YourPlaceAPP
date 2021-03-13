@@ -27,7 +27,7 @@ const Login = () => {
           picture: result.data.user.picture,
         });
         toast.success(`😄 Welcome! 😄`);
-        if (result.data.user.verify === 0) {
+        if (result.data.user.verified === 0) {
           toast.info(`Remember to verify your account 👼`);
         }
       } else {

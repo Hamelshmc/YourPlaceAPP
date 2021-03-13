@@ -315,8 +315,7 @@ function NewPublication() {
             error={errors.files}
           />
           <SubmitButton id="register">
-            Upload here your publication
-            {mutation.isLoading && 'Doing interesting things...'}
+            {mutation.isLoading ? 'Doing interesting things...' : 'Upload here your publication'}
             {mutation.isError && 'An error occurred'}
             {mutation.isSuccess && <Redirect to="/profile" />}
           </SubmitButton>

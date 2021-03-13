@@ -9,7 +9,7 @@ const Verification = () => {
 
   (async () => {
     const res = await fetchUserVerification(location.pathname);
-    if (res.status === 200) {
+    if (res.status === 201) {
       const { token, refreshToken } = res.data;
       setUser({ ...user, token, refreshToken });
     }
