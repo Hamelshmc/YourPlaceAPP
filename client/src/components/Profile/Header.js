@@ -10,7 +10,7 @@ import Username from './styles/Username';
 import UserProfile from './styles/UserProfile';
 
 const Header = ({ user }) => (
-  <ProfileHeader background={user.background}>
+  <ProfileHeader background={user && user.background}>
     <ProfileHeaderContainer>
       <ProfileHeaderContent>
         <UserProfile>
@@ -22,7 +22,13 @@ const Header = ({ user }) => (
             height="100"
           />
           <Username>
-            <span>{user && user.fullname ? user.fullname : user.email.split('@')[0]}</span>
+            <span>
+              {user && user.fullname
+                ? user.fullname
+                : user && user.email
+                ? user.email.split('@')[0]
+                : 'Jhon Doe'}
+            </span>
           </Username>
         </UserProfile>
       </ProfileHeaderContent>

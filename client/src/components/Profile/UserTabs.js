@@ -8,14 +8,14 @@ const UserTabs = ({ publicationsUser, publicationsHistoryUser }) => (
   <TabSectionReverse>
     <Tabs defaultIndex="1" onTabClick="1">
       <TabItem label="Publications" index="1">
-        {publicationsUser.length > 0 ? (
+        {publicationsUser && publicationsUser.length > 0 ? (
           <ListPublication publications={publicationsUser} />
         ) : (
           <h2>You dont have any publication</h2>
         )}
       </TabItem>
       <TabItem label="Historical" index="2">
-        {publicationsHistoryUser.length > 0 ? (
+        {publicationsHistoryUser && publicationsHistoryUser.length > 0 ? (
           <ListPublication publications={publicationsHistoryUser} />
         ) : (
           <h2>You dont have a history...</h2>
