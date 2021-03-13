@@ -27,6 +27,9 @@ const Login = () => {
           picture: result.data.user.picture,
         });
         toast.success(`😄 Welcome! 😄`);
+        if (result.data.user.verify === 0) {
+          toast.info(`Remember to verify your account 👼`);
+        }
       } else {
         toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
       }
@@ -48,7 +51,7 @@ const Login = () => {
 
   return (
     <FormContainer>
-      <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <FormTitle>Login</FormTitle>
         <InputForm
           id="emailLogin"

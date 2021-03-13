@@ -3,24 +3,33 @@ import styled from 'styled-components';
 import Slider from '../Slider/Slider';
 import Constraints from './styles/Constraints';
 
-function InputImage({ reference, previewSource, error, errorMsg }) {
+function InputImage({
+  id = 'files',
+  name = 'files',
+  label = 'Upload Image',
+  reference,
+  previewSource,
+  error,
+  errorMsg,
+  required = true,
+}) {
   return (
-    <div>
+    <InputImageContainer>
       <ButtonWrapper>
-        <LabelUpload>{error ? errorMsg : 'Upload Image'}</LabelUpload>
+        <LabelUpload>{error ? errorMsg : label}</LabelUpload>
         <InputUpload
           type="file"
-          id="files"
-          name="files"
+          id={id}
+          name={name}
           multiple
           ref={reference}
           focus={error}
-          required
+          required={required}
         />
       </ButtonWrapper>
       <Constraints id="file">{errorMsg}</Constraints>
       {previewSource && <Slider slides={previewSource} />}
-    </div>
+    </InputImageContainer>
   );
 }
 
@@ -30,6 +39,7 @@ const ButtonWrapper = styled.div`
   width: 100%;
   text-align: center;
   position: relative;
+  margin-bottom: 0.5rem;
 `;
 
 const LabelUpload = styled.label`
@@ -55,4 +65,8 @@ const InputUpload = styled.input`
   left: 0;
   opacity: 0;
   cursor: pointer;
+`;
+
+const InputImageContainer = styled.div`
+  width: 100%;
 `;

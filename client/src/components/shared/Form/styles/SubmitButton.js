@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const SubmitButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.primary.default};
-  border: 1px solid ${({ theme }) => theme.colors.primary.default};
+  background-color: ${({ theme }) => theme.colors.primary['600']};
+  border: 1px solid ${({ theme }) => theme.colors.primary['600']};
   border-radius: 2px;
   color: ${({ theme }) => theme.colors.primary[50]};
   cursor: pointer;

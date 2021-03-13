@@ -9,7 +9,7 @@ async function generateTokens(request, response) {
     const token = authorization.split(' ')[1];
     const user = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, { ignoreExpiration: true });
     const newToken = jwt.sign({ id: user.id, verified: user.verified }, process.env.TOKEN_SECRET, {
-      expiresIn: '30m',
+      expiresIn: '1h',
     });
     const refreshToken = jwt.sign(
       { id: user.id, verified: user.verified },
@@ -18,15 +18,12 @@ async function generateTokens(request, response) {
         expiresIn: '24h',
       }
     );
-    return response
-      .header('Authorization', `Bearer ${newToken}`)
-      .status(httpStatus.OK)
-      .send(
-        new ResponseJson(httpStatus.OK, {
-          authorization: newToken,
-          refreshToken,
-        })
-      );
+    return response.status(httpStatus.CREATED).send(
+      new ResponseJson(httpStatus.CREATED, {
+        authorization: newToken,
+        refreshToken,
+      })
+    );
   } catch (error) {
     return response
       .status(error.status || httpStatus.BAD_REQUEST)
