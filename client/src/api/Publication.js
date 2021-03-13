@@ -21,6 +21,19 @@ const fetchPublication = async (data, token) =>
     })
   ).json();
 
+const fetchUpdatePublication = async (data, token) => {
+  const res = await fetch('/api/v1/publications/', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  const resJSON = await res.json();
+  return resJSON;
+};
+
 const fetchPublicationById = async (id) => await (await fetch(`/api/v1/publications/${id}`)).json();
 
 const fetchPublicationSearch = async (pageParam, value, filter) => {
@@ -32,4 +45,10 @@ const fetchPublicationSearch = async (pageParam, value, filter) => {
   return res.data;
 };
 
-export { fetchImage, fetchPublication, fetchPublicationSearch, fetchPublicationById };
+export {
+  fetchImage,
+  fetchPublication,
+  fetchPublicationSearch,
+  fetchPublicationById,
+  fetchUpdatePublication,
+};

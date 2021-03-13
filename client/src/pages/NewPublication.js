@@ -5,7 +5,7 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -25,7 +25,7 @@ import { UserContext } from '../hooks/UserContext';
 
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
-
+  const queryClient = useQueryClient();
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(publicationSchema),
     mode: 'onChange',
@@ -34,17 +34,16 @@ function NewPublication() {
   const mutation = useMutation(
     async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo),
     {
-      onSuccess: (result) => {
+      onSuccess: async (result) => {
         if (result.status === 201) {
           toast.success(`😄 ¡Publication added! 😄`);
+          await queryClient.refetchQueries(['data'], { active: true });
         } else {
           toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
         }
       },
     }
   );
-
-
 
   const handleFileInput = async (data) => {
     const image = {

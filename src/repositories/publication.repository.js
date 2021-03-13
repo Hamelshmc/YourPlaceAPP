@@ -41,7 +41,7 @@ async function findAllPicturesByPublicationId(idPublication) {
 }
 
 async function findPublicationById(idPublication) {
-  const query = `SELECT p.id,p.area,p.rooms,p.bathrooms,p.garage,p.elevator,p.furnished,p.publication_type,p.deposit,p.price,DATE_FORMAT( p.availability_date, '%d-%c-%Y') as availability_date,p.disabled,p.id_user, p.parking, p.pets, p.garden, p.pool, p.terrace, p.storage_room, p.heating,pa.street,pa.city,pa.country,pa.zipcode,pa.latitude,pa.longitude,p.id_user,u.telephone, u.email, u.fullname,u.picture,AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating
+  const query = `SELECT p.id,p.area,p.rooms,p.bathrooms,p.garage,p.elevator,p.furnished,p.publication_type,p.deposit,p.price,DATE_FORMAT( p.availability_date, '%d-%c-%Y') as availability_date,p.disabled,p.id_user, p.parking, p.pets, p.garden, p.pool, p.terrace, p.storage_room, p.heating,p.id_publication_address,pa.street,pa.city,pa.country,pa.zipcode,pa.latitude,pa.longitude,pa.door,pa.floor, p.id_user,u.telephone, u.email, u.fullname,u.picture,AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating
   FROM ${tableNames.PUBLICATION} p
   LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON p.id_publication_address = pa.id
   LEFT JOIN ${tableNames.USER} u ON p.id_user = u.id
