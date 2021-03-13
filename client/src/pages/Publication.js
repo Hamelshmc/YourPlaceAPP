@@ -50,7 +50,7 @@ function Publication() {
           <></>
         )}
         {user.id === publication.id_user ? (
-          <ButtonLink to="/publication/edit">Edit publication</ButtonLink>
+          <ButtonLink to={`/publication/edit/${id}`}>Edit publication</ButtonLink>
         ) : (
           <></>
         )}

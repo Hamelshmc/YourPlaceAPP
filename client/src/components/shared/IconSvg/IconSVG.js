@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import svgs from './Icon';
 
-const Icon = ({ svg, classes, click, title }) => {
+const Icon = ({ svg, className, click, title }) => {
   // Ingresaremos el nombre del ícono con la propiedad svg
   // de nuestro ícono en el objeto de íconos
   // Junto con una condicional para buscar el valor por
@@ -14,7 +14,7 @@ const Icon = ({ svg, classes, click, title }) => {
   return (
     <SvgContainer
       viewBox={svgRender.viewBox}
-      className={classes}
+      className={className}
       title={title}
       xmlns="http://www.w3.org/2000/svg">
       {svgRender.svg}

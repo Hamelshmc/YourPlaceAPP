@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Slider from '../Slider/Slider';
+import fileToDataUri from '../../../helper/FileToDataUri';
+import SliderFormPreview from '../SliderFormPreview/SliderFormPreview';
 import Constraints from './styles/Constraints';
 
 function InputImage({
@@ -13,6 +14,17 @@ function InputImage({
   errorMsg,
   required = true,
 }) {
+  const [previewPhoto, setPreviewPhoto] = useState('');
+
+  const handleFileInputChange = async (e) => {
+    const result = [];
+    for (let i = 0; i < e.target.files.length; i += 1) {
+      result.push(fileToDataUri(e.target.files[i]));
+    }
+    const newImages = await Promise.all(result);
+    console.log(newImages);
+    setPreviewPhoto(newImages);
+  };
   return (
     <InputImageContainer>
       <ButtonWrapper>
@@ -25,10 +37,11 @@ function InputImage({
           ref={reference}
           focus={error}
           required={required}
+          onChange={handleFileInputChange}
         />
       </ButtonWrapper>
       <Constraints id="file">{errorMsg}</Constraints>
-      {previewSource && <Slider slides={previewSource} />}
+      {previewPhoto && <SliderFormPreview slides={previewPhoto} />}
     </InputImageContainer>
   );
 }

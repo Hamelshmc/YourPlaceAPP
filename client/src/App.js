@@ -20,7 +20,7 @@ const Profile = React.lazy(() => import('./pages/Profile'));
 const EditProfile = React.lazy(() => import('./pages/EditProfile'));
 const Publication = React.lazy(() => import('./pages/Publication'));
 const Verification = React.lazy(() => import('./pages/Verification'));
-const FormEditPublication = React.lazy(() => import('./pages/FormEditPublication'));
+const EditPublication = React.lazy(() => import('./pages/EditPublication'));
 const NewBooking = React.lazy(() => import('./pages/NewBooking'));
 const FormVisit = React.lazy(() => import('./pages/FormVisit'));
 const NewPublication = React.lazy(() => import('./pages/NewPublication'));
@@ -43,7 +43,7 @@ function App() {
             <PrivateRoute path="/publication/add" component={NewPublication} exact />
             <PublicRoute path="/publication/:id" component={Publication} exact />
             <PrivateRoute path="/user/:id" component={Profile} exact />
-            <PrivateRoute path="/publication/edit" component={FormEditPublication} exact />
+            <PrivateRoute path="/publication/edit/:id" component={EditPublication} exact />
             <PrivateRoute path="/booking/add/:id" component={NewBooking} exact />
             <PrivateRoute path="/visit" component={FormVisit} exact />
             <PrivateRoute path="/profile" component={Profile} exact />

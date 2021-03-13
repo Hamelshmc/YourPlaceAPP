@@ -6,7 +6,6 @@ const GlobalStyle = createGlobalStyle`
 *::before,
 *::after {
   box-sizing: border-box;
-  /* outline:1px solid tomato; */
 }
 
 /* Remove default margin */
@@ -44,6 +43,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color:#333333;
+  font-weight: 500;
 }
 
 

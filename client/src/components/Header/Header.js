@@ -1,7 +1,9 @@
 import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 import { UserContext } from '../../hooks/UserContext';
 import IconLink from '../shared/IconLink';
+import IconSvg from '../shared/IconSvg/IconSVG';
 import Menu from '../shared/Menu';
 import MenuItem from '../shared/MenuItem';
 import Header from './styles/Header';
@@ -21,7 +23,10 @@ function HeaderNav() {
     <HeaderContainer>
       <Header>
         <HeaderTitle to="/">
-          <HeaderIcon>home</HeaderIcon>
+          <HeaderIcon>
+            <IconLogo svg="logo" />
+          </HeaderIcon>
+
           <Title>Your Space</Title>
         </HeaderTitle>
         <HeaderNavBar>
@@ -61,5 +66,12 @@ function HeaderNav() {
     </HeaderContainer>
   );
 }
+
+const IconLogo = styled(IconSvg)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+`;
 
 export default HeaderNav;

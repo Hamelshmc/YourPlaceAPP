@@ -3,7 +3,7 @@
 /* eslint-disable complexity */
 /* eslint-disable no-magic-numbers */
 import { joiResolver } from '@hookform/resolvers/joi';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { Redirect } from 'react-router-dom';
@@ -20,11 +20,16 @@ import Form from '../components/shared/Form/styles/Form';
 import FormContainer from '../components/shared/Form/styles/FormContainer';
 import FormTitle from '../components/shared/Form/styles/FormTitle';
 import SubmitButton from '../components/shared/Form/styles/SubmitButton';
+import fileToDataUri from '../helper/FileToDataUri';
 import { UserContext } from '../hooks/UserContext';
 
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
-  const [previewSource, setPreviewSource] = useState([]);
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: joiResolver(publicationSchema),
+    mode: 'onChange',
+  });
 
   const mutation = useMutation(
     async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo),
@@ -39,25 +44,7 @@ function NewPublication() {
     }
   );
 
-  const { register, handleSubmit, errors } = useForm({
-    resolver: joiResolver(publicationSchema),
-    mode: 'onChange',
-  });
 
-  const fileToDataUri = (image) =>
-    new Promise((res) => {
-      const reader = new FileReader();
-      const { type, name, size } = image;
-      reader.addEventListener('load', () => {
-        res({
-          base64: reader.result,
-          name,
-          type,
-          size,
-        });
-      });
-      reader.readAsDataURL(image);
-    });
 
   const handleFileInput = async (data) => {
     const image = {
@@ -79,7 +66,6 @@ function NewPublication() {
       const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
       let pictures = await handleFileInput(data);
       pictures = pictures.map((item) => item.url);
-      setPreviewSource(pictures);
       const publication = { availability_date, ...rest };
       const body = { publication, publication_address, pictures };
       await mutation.mutateAsync(body);
@@ -310,7 +296,6 @@ function NewPublication() {
           </InputWrapper>
           <InputImage
             reference={register}
-            previewSource={previewSource}
             errorMsg={errors.files && errors.files.message}
             error={errors.files}
           />
