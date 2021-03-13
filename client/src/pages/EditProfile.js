@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable complexity */
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
@@ -76,20 +77,26 @@ const EditProfile = () => {
     return res.data;
   };
 
-  const checkImages = async (images) => {
-    let pictures;
+  const checkImages = async (userInfo, images) => {
+    const userData = { ...userInfo };
+    let pictures = [];
     if (images[0]) {
       if (images[1]) {
         pictures = await handleFileInput([images[0], images[1]]);
+        pictures = pictures.map((item) => item.url);
+        userData.picture = pictures[0];
+        userData.background = pictures[1];
       } else {
         pictures = await handleFileInput([images[0]]);
+        pictures = pictures.map((item) => item.url);
+        userData.picture = pictures[0];
       }
     } else if (images[1]) {
       pictures = await handleFileInput([images[1]]);
-    } else {
-      pictures = false;
+      pictures = pictures.map((item) => item.url);
+      userData.background = pictures[1];
     }
-    return pictures ? pictures.map((item) => item.url) : pictures;
+    return userData;
   };
 
   const onSubmit = async (submitData) => {
@@ -98,17 +105,15 @@ const EditProfile = () => {
     const images = [picture[0], background[0]];
     const { fullname, dni, email, telephone, ...rest } = restSubmitData;
     const { street, city, zipcode } = rest;
-    const pictures = await checkImages(images);
-    const userInfo = {
+    const userData = {
       fullname,
       dni,
       bio,
       email,
       telephone,
       borndate: newBornDate,
-      picture: pictures[0] ? pictures[0] : '/assets/User.svg',
-      background: pictures[1] ? pictures[1] : '/assets/UserBackground.jpg',
     };
+    const userInfo = await checkImages(userData, images);
     const userAddress = { street, city, country: 'Spain', zipcode };
     try {
       await mutation.mutateAsync({ userInfo, userAddress });
