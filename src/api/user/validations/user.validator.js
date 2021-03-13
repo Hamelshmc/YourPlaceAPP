@@ -12,6 +12,7 @@ const userSchema = Joi.object({
   password: Joi.string(),
   email: Joi.string().email().required(),
   picture: Joi.string(),
+  background: Joi.string(),
   bio: Joi.string().max(180),
   telephone: Joi.string(),
 });

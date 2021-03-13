@@ -6,6 +6,8 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage, fetchPublication } from '../api/Publication';
 import { fetchAuthDataPost } from '../api/User';
@@ -23,14 +25,25 @@ import publicationSchema from '../Validations/Publication';
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
   const [previewSource, setPreviewSource] = useState([]);
-  const [response, setResponse] = useState(false);
+
   const mutation = useMutation(
-    async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo)
+    async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo),
+    {
+      onSuccess: (result) => {
+        if (result.status === 201) {
+          toast.success(`😄 ¡Publication added! 😄`);
+        } else {
+          toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
+        }
+      },
+    }
   );
+
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(publicationSchema),
     mode: 'onChange',
   });
+
   const fileToDataUri = (image) =>
     new Promise((res) => {
       const reader = new FileReader();
@@ -47,7 +60,6 @@ function NewPublication() {
     });
 
   const handleFileInput = async (data) => {
-    setResponse(true);
     const image = {
       data: [],
     };
@@ -61,30 +73,28 @@ function NewPublication() {
   };
 
   const onSubmit = async (data) => {
-    const { files, availability_date, ...datos } = data;
-    const { street, door, floor, city, zipcode, ...rest } = datos;
-    const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
-    let pictures = await handleFileInput(data);
-    pictures = pictures.map((item) => item.url);
-    setPreviewSource(pictures);
-    const publication = { availability_date, ...rest };
-    const body = { publication, publication_address, pictures };
     try {
+      const { files, availability_date, ...datos } = data;
+      const { street, door, floor, city, zipcode, ...rest } = datos;
+      const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
+      let pictures = await handleFileInput(data);
+      pictures = pictures.map((item) => item.url);
+      setPreviewSource(pictures);
+      const publication = { availability_date, ...rest };
+      const body = { publication, publication_address, pictures };
       await mutation.mutateAsync(body);
     } catch (error) {
       console.error('[ERROR]', error);
       if (mutation.isError) {
         console.log(`An error occurred: ${mutation.error.message}`);
       }
-    } finally {
-      setResponse(false);
     }
   };
 
   return (
     <SectionNewPublication>
       <FormContainer>
-        <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <FormTitle>Publication</FormTitle>
           <InputForm
             type="text"
@@ -93,7 +103,7 @@ function NewPublication() {
             label="Street"
             errorMsg={errors.street && errors.street.message}
             error={errors.street}
-            placeholder="Calle Juan Florez"
+            placeholder="Calle Juan Florez 10"
             reference={register}
           />
           <InputWrapper>
@@ -305,17 +315,10 @@ function NewPublication() {
             error={errors.files}
           />
           <SubmitButton id="register">
-            {response || mutation.isLoading ? (
-              'Adding Publication...'
-            ) : (
-              <>
-                {mutation.data && mutation.data.status >= 400
-                  ? `Try again!`
-                  : mutation.isSuccess
-                  ? `Publication added!`
-                  : 'Create New Publication'}
-              </>
-            )}
+            Upload here your publication
+            {mutation.isLoading && 'Doing interesting things...'}
+            {mutation.isError && 'An error occurred'}
+            {mutation.isSuccess && <Redirect to="/profile" />}
           </SubmitButton>
         </Form>
       </FormContainer>

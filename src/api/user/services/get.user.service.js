@@ -8,10 +8,6 @@ async function getUser({ id: idUser }) {
 
   if (user) {
     let [...publicationsUser] = await userRepository.findPublicationUser(idUser);
-    console.log(
-      'EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE',
-      publicationsUser
-    );
     let [...publicationsFavoritesUser] = await userRepository.findPublicationFavoriteUser(idUser);
     let [...publicationsHistoryUser] = await userRepository.findHistoryPublicationUser(idUser);
 

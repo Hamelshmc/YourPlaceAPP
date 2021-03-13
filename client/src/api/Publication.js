@@ -21,6 +21,8 @@ const fetchPublication = async (data, token) =>
     })
   ).json();
 
+const fetchPublicationById = async (id) => await (await fetch(`/api/v1/publications/${id}`)).json();
+
 const fetchPublicationSearch = async (pageParam, value, filter) => {
   console.log(`/api/v1/publications/?limit=10&page=${pageParam * 10}&search=${value}${filter}`);
   const res = await (
@@ -30,4 +32,4 @@ const fetchPublicationSearch = async (pageParam, value, filter) => {
   return res.data;
 };
 
-export { fetchImage, fetchPublication, fetchPublicationSearch };
+export { fetchImage, fetchPublication, fetchPublicationSearch, fetchPublicationById };

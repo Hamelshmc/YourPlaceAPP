@@ -67,12 +67,14 @@ const fetchAuthData = async (fetchFn, user, setUser) => {
     return await fetchFn(user.token);
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
-  setUser({
-    ...user,
-    token: generateTokenResponse.data.authorization,
-    refreshToken: generateTokenResponse.data.refreshToken,
-  });
-  return await fetchFn(generateTokenResponse.data.authorization);
+  if (generateTokenResponse.status === 201) {
+    setUser({
+      ...user,
+      token: generateTokenResponse.data.authorization,
+      refreshToken: generateTokenResponse.data.refreshToken,
+    });
+    return await fetchFn(generateTokenResponse.data.authorization);
+  }
 };
 
 const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
@@ -81,7 +83,7 @@ const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
     return await fetchFn(data, user.token);
   }
   const generateTokenResponse = await generateTokens(user.refreshToken);
-  if (generateTokenResponse.status === 200) {
+  if (generateTokenResponse.status === 201) {
     setUser({
       ...user,
       token: generateTokenResponse.data.authorization,
@@ -101,6 +103,21 @@ const fetchUserVerification = async (url) =>
     })
   ).json();
 
+const fetchUpdateUser = async (data, token) => {
+  const res = await fetch('/api/v1/users/', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  console.log({ res });
+  const resJSON = await res.json();
+  console.log({ resJSON });
+  return resJSON;
+};
+
 export {
   fetchRegister,
   fetchLogin,
@@ -108,4 +125,5 @@ export {
   fetchUserVerification,
   fetchAuthData,
   fetchAuthDataPost,
+  fetchUpdateUser,
 };
