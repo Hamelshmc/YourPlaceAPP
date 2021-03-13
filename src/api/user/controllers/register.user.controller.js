@@ -19,7 +19,7 @@ async function registerUser(request, response) {
       { id: userRegistered.id, verified: userRegistered.verified },
       TOKEN_SECRET,
       {
-        expiresIn: '1m',
+        expiresIn: '1h',
       }
     );
     const refreshToken = jwt.sign(
@@ -32,7 +32,7 @@ async function registerUser(request, response) {
     await userServices.sendEmail(userRegistered.id, verificationCode, email);
 
     return response.status(httpStatus.CREATED).send(
-      new ResponseJson({
+      new ResponseJson(httpStatus.CREATED, {
         user: userRegistered,
         authorization: token,
         refreshToken,

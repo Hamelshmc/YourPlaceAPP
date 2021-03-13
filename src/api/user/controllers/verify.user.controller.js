@@ -20,14 +20,20 @@ async function verifyUser(request, response) {
     } else {
       await userServices.verifyUser(id);
       const token = jwt.sign({ id, verified: 1 }, process.env.TOKEN_SECRET, {
-        expiresIn: '1m',
+        expiresIn: '1h',
       });
       const refreshToken = jwt.sign({ id, verified: 1 }, process.env.REFRESH_TOKEN_SECRET, {
         expiresIn: '24h',
       });
       response
         .status(httpStatus.CREATED)
-        .send(new ResponseJson({ message: 'Account activated', token, refreshToken }));
+        .send(
+          new ResponseJson(httpStatus.CREATED, {
+            message: 'Account activated',
+            token,
+            refreshToken,
+          })
+        );
     }
   } catch (error) {
     response.send(new ResponseError(error.status, error, error.message));

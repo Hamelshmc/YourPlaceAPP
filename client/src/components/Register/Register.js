@@ -16,7 +16,22 @@ import registerSchema from './validations/registerSchema';
 
 const Register = () => {
   const [user, setUser] = useContext(UserContext);
-  const mutation = useMutation((data) => fetchRegister(data));
+  const mutation = useMutation(async (data) => await fetchRegister(data), {
+    onSuccess: async (result) => {
+      if (result.status === 201) {
+        setUser({
+          id: result.data.user.id,
+          token: result.data.authorization,
+          refreshToken: result.data.refreshToken,
+          picture: result.data.user.picture,
+        });
+        toast.success(`😄 Welcome! 😄`);
+        toast.info(`Remember to verify your account 👼`);
+      } else {
+        toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
+      }
+    },
+  });
 
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(registerSchema),
@@ -25,18 +40,7 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await mutation.mutateAsync(data);
-      if (res.status === 201) {
-        setUser({
-          id: res.data.user.id,
-          token: res.data.authorization,
-          refreshToken: res.data.refreshToken,
-          picture: res.data.user.picture,
-        });
-        toast.success(`😄 Welcome! 😄`);
-      } else {
-        toast.error(` ${res.data} 🙈 Ooops! Can you try again please? 🙈 `);
-      }
+      await mutation.mutateAsync(data);
     } catch (error) {
       toast.error(`${error.message} 🙈 Ooops! Connection error 🙈 `);
     }

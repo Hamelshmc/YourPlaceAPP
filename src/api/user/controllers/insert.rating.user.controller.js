@@ -9,7 +9,7 @@ async function postRating(request, response) {
   const { id } = token;
   try {
     const setUser = await userServices.insertRating(rating, id);
-    return response.status(httpStatus.CREATED).send(new ResponseJson(setUser));
+    return response.status(httpStatus.CREATED).send(new ResponseJson(httpStatus.CREATED, setUser));
   } catch (error) {
     return response
       .status(error.status)

@@ -9,8 +9,8 @@ import UserAvatar from './styles/UserAvatar';
 import Username from './styles/Username';
 import UserProfile from './styles/UserProfile';
 
-const Header = ({ user, switchProfile, setSwitchProfile }) => (
-  <ProfileHeader>
+const Header = ({ user }) => (
+  <ProfileHeader background={user.background}>
     <ProfileHeaderContainer>
       <ProfileHeaderContent>
         <UserProfile>
@@ -22,20 +22,12 @@ const Header = ({ user, switchProfile, setSwitchProfile }) => (
             height="100"
           />
           <Username>
-            <span>
-              {user && user.email
-                ? user.email.split('@')[0]
-                : 'Jhon Doe'
-                ? user && user.fullName
-                : user.fullName}
-            </span>
+            <span>{user && user.fullname ? user.fullname : user.email.split('@')[0]}</span>
           </Username>
         </UserProfile>
       </ProfileHeaderContent>
       <EditProfile>
-        <EditButton switchProfile={switchProfile} setSwitchProfile={setSwitchProfile}>
-          Edit profile
-        </EditButton>
+        <EditButton>Edit profile</EditButton>
       </EditProfile>
     </ProfileHeaderContainer>
   </ProfileHeader>

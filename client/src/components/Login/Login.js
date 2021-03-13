@@ -27,6 +27,9 @@ const Login = () => {
           picture: result.data.user.picture,
         });
         toast.success(`😄 Welcome! 😄`);
+        if (result.data.user.verify === 0) {
+          toast.info(`Remember to verify your account 👼`);
+        }
       } else {
         toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
       }

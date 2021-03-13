@@ -15,7 +15,7 @@ async function loginUser(request, response) {
       { id: userLogged.id, verified: userLogged.verified },
       process.env.TOKEN_SECRET,
       {
-        expiresIn: '1m',
+        expiresIn: '1h',
       }
     );
     const refreshToken = jwt.sign(
@@ -26,7 +26,7 @@ async function loginUser(request, response) {
       }
     );
     return response.status(httpStatus.OK).send(
-      new ResponseJson({
+      new ResponseJson(httpStatus.OK, {
         user: useruserWithoutPass,
         authorization: token,
         refreshToken,

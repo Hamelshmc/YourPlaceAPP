@@ -33,7 +33,11 @@ function Lessor({ url, name, phoneNumber, email }) {
           </Image>
         </LessorAvatar>
         <div>
-          {name ? <LessorName>{name}</LessorName> : <LessorName>{email.split('@')[0]}</LessorName>}
+          {name ? (
+            <LessorName>{name}</LessorName>
+          ) : (
+            <LessorName>{email && email.split('@')[0]}</LessorName>
+          )}
           <StartRating value={5} disabled size=".813rem" />
         </div>
         <IconContainer>

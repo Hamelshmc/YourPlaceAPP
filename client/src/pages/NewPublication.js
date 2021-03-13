@@ -24,13 +24,16 @@ function NewPublication() {
   const [user, setUser] = useContext(UserContext);
   const [previewSource, setPreviewSource] = useState([]);
   const [response, setResponse] = useState(false);
+
   const mutation = useMutation(
     async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo)
   );
+
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(publicationSchema),
     mode: 'onChange',
   });
+
   const fileToDataUri = (image) =>
     new Promise((res) => {
       const reader = new FileReader();
@@ -61,15 +64,15 @@ function NewPublication() {
   };
 
   const onSubmit = async (data) => {
-    const { files, availability_date, ...datos } = data;
-    const { street, door, floor, city, zipcode, ...rest } = datos;
-    const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
-    let pictures = await handleFileInput(data);
-    pictures = pictures.map((item) => item.url);
-    setPreviewSource(pictures);
-    const publication = { availability_date, ...rest };
-    const body = { publication, publication_address, pictures };
     try {
+      const { files, availability_date, ...datos } = data;
+      const { street, door, floor, city, zipcode, ...rest } = datos;
+      const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
+      let pictures = await handleFileInput(data);
+      pictures = pictures.map((item) => item.url);
+      setPreviewSource(pictures);
+      const publication = { availability_date, ...rest };
+      const body = { publication, publication_address, pictures };
       await mutation.mutateAsync(body);
     } catch (error) {
       console.error('[ERROR]', error);

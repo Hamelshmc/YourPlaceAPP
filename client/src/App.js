@@ -17,6 +17,7 @@ const Messages = React.lazy(() => import('./pages/Messages'));
 const Like = React.lazy(() => import('./pages/Like'));
 const Notification = React.lazy(() => import('./pages/Notification'));
 const Profile = React.lazy(() => import('./pages/Profile'));
+const EditProfile = React.lazy(() => import('./pages/EditProfile'));
 const Publication = React.lazy(() => import('./pages/Publication'));
 const Verification = React.lazy(() => import('./pages/Verification'));
 
@@ -29,8 +30,8 @@ function App() {
     <UserProvider>
       <Confetti numberOfPieces={300} recycle={false} />
       <Wrapper>
-        <Header />
         <QueryClientProvider client={queryClient}>
+          <Header />
           <Switch>
             <PublicRoute path="/" component={Home} exact />
             <PublicRoute path="/verify/:id/:code" component={Verification} exact />
@@ -40,6 +41,7 @@ function App() {
             <PublicRoute path="/join" component={Join} exact />
 
             <PrivateRoute path="/profile" component={Profile} exact />
+            <PrivateRoute path="/profile/edit" component={EditProfile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />
             <PrivateRoute path="/publication/add" component={NewPublication} exact />
             <PrivateRoute path="/publication/:id" component={Publication} exact />
@@ -47,8 +49,8 @@ function App() {
 
             <Redirect to="/" />
           </Switch>
+          <Footer />
         </QueryClientProvider>
-        <Footer />
       </Wrapper>
       <StyledContainer />
     </UserProvider>

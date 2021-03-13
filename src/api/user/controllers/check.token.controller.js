@@ -8,7 +8,9 @@ async function checkToken(request, response) {
   try {
     const token = authorization.split(' ')[1];
     jwt.verify(token, process.env.TOKEN_SECRET);
-    return response.status(httpStatus.OK).send(new ResponseJson({ authorization: token }));
+    return response
+      .status(httpStatus.OK)
+      .send(new ResponseJson(httpStatus.OK, { authorization: token }));
   } catch (error) {
     return response
       .status(error.status || httpStatus.BAD_REQUEST)
