@@ -68,10 +68,8 @@ function HeaderNav() {
 }
 
 const IconLogo = styled(IconSvg)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
+  width: auto;
+  height: 1.2rem;
 `;
 
 export default HeaderNav;
