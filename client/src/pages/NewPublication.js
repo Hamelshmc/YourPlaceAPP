@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage, fetchPublication } from '../api/Publication';
 import { fetchAuthDataPost } from '../api/User';
+import publicationSchema from '../components/Publication/validations/Publication';
 import InputCheckBox from '../components/shared/Form/InputCheckBox';
 import InputForm from '../components/shared/Form/InputForm';
 import InputImage from '../components/shared/Form/InputImage';
@@ -20,7 +21,6 @@ import FormContainer from '../components/shared/Form/styles/FormContainer';
 import FormTitle from '../components/shared/Form/styles/FormTitle';
 import SubmitButton from '../components/shared/Form/styles/SubmitButton';
 import { UserContext } from '../hooks/UserContext';
-import publicationSchema from '../Validations/Publication';
 
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
