@@ -6,6 +6,8 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage, fetchPublication } from '../api/Publication';
 import { fetchAuthDataPost } from '../api/User';
@@ -23,10 +25,18 @@ import publicationSchema from '../Validations/Publication';
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
   const [previewSource, setPreviewSource] = useState([]);
-  const [response, setResponse] = useState(false);
 
   const mutation = useMutation(
-    async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo)
+    async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo),
+    {
+      onSuccess: (result) => {
+        if (result.status === 201) {
+          toast.success(`😄 ¡Publication added! 😄`);
+        } else {
+          toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
+        }
+      },
+    }
   );
 
   const { register, handleSubmit, errors } = useForm({
@@ -50,7 +60,6 @@ function NewPublication() {
     });
 
   const handleFileInput = async (data) => {
-    setResponse(true);
     const image = {
       data: [],
     };
@@ -79,8 +88,6 @@ function NewPublication() {
       if (mutation.isError) {
         console.log(`An error occurred: ${mutation.error.message}`);
       }
-    } finally {
-      setResponse(false);
     }
   };
 
@@ -96,7 +103,7 @@ function NewPublication() {
             label="Street"
             errorMsg={errors.street && errors.street.message}
             error={errors.street}
-            placeholder="Calle Juan Florez"
+            placeholder="Calle Juan Florez 10"
             reference={register}
           />
           <InputWrapper>
@@ -308,17 +315,10 @@ function NewPublication() {
             error={errors.files}
           />
           <SubmitButton id="register">
-            {response || mutation.isLoading ? (
-              'Adding Publication...'
-            ) : (
-              <>
-                {mutation.data && mutation.data.status >= 400
-                  ? `Try again!`
-                  : mutation.isSuccess
-                  ? `Publication added!`
-                  : 'Create New Publication'}
-              </>
-            )}
+            Upload here your publication
+            {mutation.isLoading && 'Doing interesting things...'}
+            {mutation.isError && 'An error occurred'}
+            {mutation.isSuccess && <Redirect to="/profile" />}
           </SubmitButton>
         </Form>
       </FormContainer>

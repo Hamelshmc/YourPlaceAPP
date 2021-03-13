@@ -3,6 +3,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage } from '../api/Publication';
@@ -28,14 +29,11 @@ const EditProfile = () => {
       onSuccess: async (result) => {
         if (result.status === 200) {
           setUser({
-            id: result.data.user.id,
-            token: result.data.authorization,
-            refreshToken: result.data.refreshToken,
+            ...user,
             picture: result.data.user.picture,
           });
           toast.success(`😄 ¡Your profile has been updated! 😄`);
-
-          if (result.data.user.verify === 0) {
+          if (result.data.user.verified === 0) {
             toast.info(`Remember to verify your account 👼`);
           }
         } else {
@@ -95,24 +93,24 @@ const EditProfile = () => {
   };
 
   const onSubmit = async (submitData) => {
+    const { picture, background, borndate, bio, ...restSubmitData } = submitData;
+    const newBornDate = borndate.toISOString().split('T')[0];
+    const images = [picture[0], background[0]];
+    const { fullname, dni, email, telephone, ...rest } = restSubmitData;
+    const { street, city, zipcode } = rest;
+    const pictures = await checkImages(images);
+    const userInfo = {
+      fullname,
+      dni,
+      bio,
+      email,
+      telephone,
+      borndate: newBornDate,
+      picture: pictures[0] ? pictures[0] : '/assets/User.svg',
+      background: pictures[1] ? pictures[1] : '/assets/UserBackground.jpg',
+    };
+    const userAddress = { street, city, country: 'Spain', zipcode };
     try {
-      const { picture, background, borndate, bio, ...restSubmitData } = submitData;
-      const newBornDate = borndate.toISOString().split('T')[0];
-      const images = [picture[0], background[0]];
-      const { fullname, dni, email, telephone, ...rest } = restSubmitData;
-      const { street, city, zipcode } = rest;
-      const pictures = await checkImages(images);
-      const userInfo = {
-        fullname,
-        dni,
-        bio,
-        email,
-        telephone,
-        borndate: newBornDate,
-        picture: pictures[0] ? pictures[0] : '/assets/User.svg',
-        background: pictures[1] ? pictures[1] : '/assets/UserBackground.jpg',
-      };
-      const userAddress = { street, city, country: 'Spain', zipcode };
       await mutation.mutateAsync({ userInfo, userAddress });
     } catch (mutationEerror) {
       toast.error(` ${mutationEerror.message} 🙈 ¡Ooops! ¿Can you try again please? 🙈 `);
@@ -236,8 +234,10 @@ const EditProfile = () => {
             error={errors.background}
           />
           <SubmitButton id="editProfile">
+            Update here your profile data
             {mutation.isLoading && 'Doing interesting things...'}
             {mutation.isError && 'An error occurred'}
+            {mutation.isSuccess && <Redirect to="/profile" />}
           </SubmitButton>
         </Form>
       </FormContainer>

@@ -11,7 +11,7 @@ async function findByEmail(email) {
 async function findById(id) {
   const selectUserId = `
   SELECT
-  u.id, u.fullname, u.dni,DATE_FORMAT(u.borndate, "%d/%m/%Y") as borndate, u.email, u.picture, u.background, u.bio,
+  u.id, u.fullname, u.dni,DATE_FORMAT(u.borndate, "%d/%m/%Y") as borndate, u.email, u.verified, u.picture, u.background, u.bio,
   ud.street , ud.city,ud.country, ud.zipcode,AVG(ur.rating) as userRating
   FROM  ${tableNames.USER} u
   LEFT JOIN user_addresses ud ON u.id = ud.id_user

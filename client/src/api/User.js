@@ -104,16 +104,18 @@ const fetchUserVerification = async (url) =>
   ).json();
 
 const fetchUpdateUser = async (data, token) => {
-  await (
-    await fetch('/api/v1/users/', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-  ).json();
+  const res = await fetch('/api/v1/users/', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  console.log({ res });
+  const resJSON = await res.json();
+  console.log({ resJSON });
+  return resJSON;
 };
 
 export {
