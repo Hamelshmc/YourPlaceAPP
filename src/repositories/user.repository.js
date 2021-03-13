@@ -108,6 +108,12 @@ async function verifyUser(id) {
   return await repositoryManager.executeQuery(query, values);
 }
 
+async function findUserBookings(id) {
+  const query = `SELECT * FROM ${tableNames.BOOKING} WHERE id_user_payer = ? LIMIT 1`;
+  const values = [id];
+  return await repositoryManager.executeQuery(query, values);
+}
+
 module.exports = {
   addVerificationCode,
   findByEmail,
@@ -115,6 +121,7 @@ module.exports = {
   findHistoryPublicationUser,
   findPublicationFavoriteUser,
   findPublicationUser,
+  findUserBookings,
   findUserWithAddress,
   registerUser,
   updateUser,

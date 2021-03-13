@@ -29,6 +29,7 @@ const Profile = () => {
       <UserTabs
         publicationsUser={data.data.publicationsUser}
         publicationsHistoryUser={data.data.publicationsHistoryUser}
+        bookings={data.data.bookings}
       />
     </ProfileContainer>
   ) : (

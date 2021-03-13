@@ -45,12 +45,12 @@ function Publication() {
       <ButtonContent>
         {user.id !== publication.id_user ? <ButtonLink to="/visit">Visit</ButtonLink> : <></>}
         {user.id !== publication.id_user ? (
-          <ButtonLink to="/reservation">Reservation</ButtonLink>
+          <ButtonLink to={`/booking/add/${id}`}>¡Book it!</ButtonLink>
         ) : (
           <></>
         )}
         {user.id === publication.id_user ? (
-          <ButtonLink to="/publication/edit">Edit Publication</ButtonLink>
+          <ButtonLink to="/publication/edit">Edit publication</ButtonLink>
         ) : (
           <></>
         )}

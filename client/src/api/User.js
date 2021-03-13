@@ -112,9 +112,7 @@ const fetchUpdateUser = async (data, token) => {
     },
     body: JSON.stringify(data),
   });
-  console.log({ res });
   const resJSON = await res.json();
-  console.log({ resJSON });
   return resJSON;
 };
 
