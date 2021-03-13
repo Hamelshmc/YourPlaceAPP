@@ -13,7 +13,7 @@ import LessorTittle from './styles/Lessor/LessorTittle';
 import LessorWrapper from './styles/Lessor/LessorWrapper';
 
 const cloudName = 'yourplace';
-function Lessor({ url, name, phoneNumber, email }) {
+function Lessor({ url, name, phoneNumber, email,id }) {
   return (
     <LessorWrapper>
       <LessorTittle>Lessor</LessorTittle>

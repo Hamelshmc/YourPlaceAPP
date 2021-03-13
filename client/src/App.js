@@ -36,7 +36,6 @@ function App() {
             <PublicRoute path="/" component={Home} exact />
             <PublicRoute path="/verify/:id/:code" component={Verification} exact />
             <PublicRoute path="/search" component={Search} exact />
-            <PublicRoute path="/publication" component={Publication} exact />
             <PublicRoute path="/like" component={Like} exact />
             <PublicRoute path="/join" component={Join} exact />
 

@@ -1,8 +1,13 @@
 import styled from 'styled-components';
-import IconLink from '../../shared/IconLink';
+import Icon from '../../shared/Icon';
 
-const HeaderIcon = styled(IconLink)`
-  font-size: 1rem;
+const HeaderIcon = styled(Icon)`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 1rem;
+  font-size: 1.4rem;
   letter-spacing: 0.2rem;
   margin-left: 0.5rem;
   padding: 0;
