@@ -3,7 +3,7 @@
 /* eslint-disable complexity */
 /* eslint-disable no-magic-numbers */
 import { joiResolver } from '@hookform/resolvers/joi';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Redirect, useParams } from 'react-router-dom';
@@ -32,15 +32,18 @@ function EditPublication() {
     mode: 'onChange',
   });
 
-  const { isLoading, isError, data, error } = useQuery(['publicationByID', id], async () =>
-    fetchPublicationById(id)
+  const { isLoading, isError, data, error } = useQuery(
+    ['publicationByID', id],
+    async () => fetchPublicationById(id),
+    {
+      onSuccess: (result) => {
+        reset(result.data);
+      },
+      refetchOnWindowFocus:false
+    }
   );
 
-  const resetData = data && data.data;
-
-  useEffect(async () => {
-    reset(resetData);
-  }, [reset]);
+  const resetData = data ? data.data : {};
 
   const mutation = useMutation(
     async (newTodo) => await fetchAuthDataPost(fetchUpdatePublication, user, setUser, newTodo),
@@ -196,6 +199,7 @@ function EditPublication() {
             errorMsg={errors.availability_date && errors.availability_date.message}
             error={errors.availability_date}
             reference={register}
+            required
           />
           <InputWrapper>
             <InputForm
