@@ -19,7 +19,7 @@ async function createPublication(publicationReq, publicationAddress, pictures, i
     zipcode,
   };
   await schemaValidator.publicationAddressValidator(address);
-  const { lat, long } = await getAddressCoords(street, zipcode);
+  const { lat, long } = await getAddressCoords(street, city);
   address.latitude = lat;
   address.longitude = long;
   const idPublication = await idChecker(tableNames.PUBLICATION);

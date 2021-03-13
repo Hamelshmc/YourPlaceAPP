@@ -8,22 +8,22 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema yourplacedb
+-- Schema bgdhgalq8sqhcnlktbhx
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `yourplacedb` ;
+DROP SCHEMA IF EXISTS `bgdhgalq8sqhcnlktbhx` ;
 
 -- -----------------------------------------------------
--- Schema yourplacedb
+-- Schema bgdhgalq8sqhcnlktbhx
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `yourplacedb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `yourplacedb` ;
+CREATE SCHEMA IF NOT EXISTS `bgdhgalq8sqhcnlktbhx` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `bgdhgalq8sqhcnlktbhx` ;
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`users`
+-- Table `bgdhgalq8sqhcnlktbhx`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`users` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`users` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`users` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`users` (
   `id` VARCHAR(36) NOT NULL,
   `fullname` VARCHAR(200) NULL DEFAULT NULL,
   `dni` VARCHAR(9) NULL DEFAULT NULL,
@@ -44,11 +44,11 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`publication_addresses`
+-- Table `bgdhgalq8sqhcnlktbhx`.`publication_addresses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`publication_addresses` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`publication_addresses` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`publication_addresses` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`publication_addresses` (
   `id` VARCHAR(36) NOT NULL,
   `street` VARCHAR(200) NOT NULL,
   `door` VARCHAR(5) NOT NULL,
@@ -65,11 +65,11 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`publication`
+-- Table `bgdhgalq8sqhcnlktbhx`.`publication`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`publication` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`publication` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`publication` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`publication` (
   `id` VARCHAR(36) NOT NULL,
   `area` INT NOT NULL,
   `rooms` INT NOT NULL,
@@ -97,21 +97,21 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`publication` (
   INDEX `id_publication_address` (`id_publication_address` ASC) VISIBLE,
   CONSTRAINT `publication_ibfk_1`
     FOREIGN KEY (`id_user`)
-    REFERENCES `yourplacedb`.`users` (`id`),
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`),
   CONSTRAINT `publication_ibfk_2`
     FOREIGN KEY (`id_publication_address`)
-    REFERENCES `yourplacedb`.`publication_addresses` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`publication_addresses` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`booking`
+-- Table `bgdhgalq8sqhcnlktbhx`.`booking`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`booking` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`booking` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`booking` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`booking` (
   `id` VARCHAR(36) NOT NULL,
   `timestamp` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
   `start_date` DATE NOT NULL,
@@ -124,21 +124,21 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`booking` (
   INDEX `id_publication` (`id_publication` ASC) VISIBLE,
   CONSTRAINT `booking_ibfk_1`
     FOREIGN KEY (`id_user_payer`)
-    REFERENCES `yourplacedb`.`users` (`id`),
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`),
   CONSTRAINT `booking_ibfk_2`
     FOREIGN KEY (`id_publication`)
-    REFERENCES `yourplacedb`.`publication` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`publication` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`messages`
+-- Table `bgdhgalq8sqhcnlktbhx`.`messages`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`messages` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`messages` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`messages` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`messages` (
   `id` VARCHAR(36) NOT NULL,
   `timestamp` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `message` VARCHAR(200) NOT NULL,
@@ -149,21 +149,21 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`messages` (
   INDEX `id_user_receiver` (`id_user_receiver` ASC) VISIBLE,
   CONSTRAINT `messages_ibfk_1`
     FOREIGN KEY (`id_user_sender`)
-    REFERENCES `yourplacedb`.`users` (`id`),
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`),
   CONSTRAINT `messages_ibfk_2`
     FOREIGN KEY (`id_user_receiver`)
-    REFERENCES `yourplacedb`.`users` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`notifications`
+-- Table `bgdhgalq8sqhcnlktbhx`.`notifications`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`notifications` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`notifications` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`notifications` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`notifications` (
   `id` VARCHAR(36) NOT NULL,
   `timestamp` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `notification_type` ENUM('MESSAGE', 'VISIT', 'BOOKING', 'PAYMENT', 'RATING') NOT NULL,
@@ -173,18 +173,18 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`notifications` (
   INDEX `id_user` (`id_user` ASC) VISIBLE,
   CONSTRAINT `notifications_ibfk_1`
     FOREIGN KEY (`id_user`)
-    REFERENCES `yourplacedb`.`users` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`publication_pictures`
+-- Table `bgdhgalq8sqhcnlktbhx`.`publication_pictures`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`publication_pictures` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`publication_pictures` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`publication_pictures` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`publication_pictures` (
   `id` VARCHAR(36) NOT NULL,
   `url` VARCHAR(200) NOT NULL,
   `id_publication` VARCHAR(50) NOT NULL,
@@ -192,18 +192,18 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`publication_pictures` (
   INDEX `id_publication` (`id_publication` ASC) VISIBLE,
   CONSTRAINT `publication_pictures_ibfk_1`
     FOREIGN KEY (`id_publication`)
-    REFERENCES `yourplacedb`.`publication` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`publication` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`publication_ratings`
+-- Table `bgdhgalq8sqhcnlktbhx`.`publication_ratings`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`publication_ratings` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`publication_ratings` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`publication_ratings` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`publication_ratings` (
   `rating` INT NOT NULL,
   `timestamp` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
   `comment` VARCHAR(180) NOT NULL,
@@ -213,21 +213,21 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`publication_ratings` (
   INDEX `id_user_voter` (`id_user_voter` ASC) VISIBLE,
   CONSTRAINT `publication_ratings_ibfk_1`
     FOREIGN KEY (`id_publication`)
-    REFERENCES `yourplacedb`.`publication` (`id`),
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`publication` (`id`),
   CONSTRAINT `publication_ratings_ibfk_2`
     FOREIGN KEY (`id_user_voter`)
-    REFERENCES `yourplacedb`.`users` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`transactions`
+-- Table `bgdhgalq8sqhcnlktbhx`.`transactions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`transactions` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`transactions` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`transactions` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`transactions` (
   `id` VARCHAR(36) NOT NULL,
   `timestamp` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
   `amount` INT NOT NULL,
@@ -237,18 +237,18 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`transactions` (
   INDEX `id_booking` (`id_booking` ASC) VISIBLE,
   CONSTRAINT `transactions_ibfk_1`
     FOREIGN KEY (`id_booking`)
-    REFERENCES `yourplacedb`.`booking` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`booking` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`user_addresses`
+-- Table `bgdhgalq8sqhcnlktbhx`.`user_addresses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`user_addresses` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`user_addresses` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`user_addresses` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`user_addresses` (
   `id` VARCHAR(36) NOT NULL,
   `street` VARCHAR(250) NOT NULL,
   `city` VARCHAR(50) NOT NULL,
@@ -259,18 +259,18 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`user_addresses` (
   UNIQUE INDEX `id_user` (`id_user` ASC) VISIBLE,
   CONSTRAINT `user_addresses_ibfk_1`
     FOREIGN KEY (`id_user`)
-    REFERENCES `yourplacedb`.`users` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`user_billing_addresses`
+-- Table `bgdhgalq8sqhcnlktbhx`.`user_billing_addresses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`user_billing_addresses` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`user_billing_addresses` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`user_billing_addresses` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`user_billing_addresses` (
   `id` VARCHAR(36) NOT NULL,
   `card_number` INT NOT NULL,
   `card_expiry` DATE NOT NULL,
@@ -279,39 +279,39 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`user_billing_addresses` (
   UNIQUE INDEX `id_user` (`id_user` ASC) VISIBLE,
   CONSTRAINT `user_billing_addresses_ibfk_1`
     FOREIGN KEY (`id_user`)
-    REFERENCES `yourplacedb`.`users` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`user_publication_favorites`
+-- Table `bgdhgalq8sqhcnlktbhx`.`user_publication_favorites`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`user_publication_favorites` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`user_publication_favorites` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`user_publication_favorites` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`user_publication_favorites` (
   `id_user` VARCHAR(50) NOT NULL,
   `id_publication` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id_user`, `id_publication`),
   INDEX `id_publication` (`id_publication` ASC) VISIBLE,
   CONSTRAINT `user_publication_favorites_ibfk_1`
     FOREIGN KEY (`id_user`)
-    REFERENCES `yourplacedb`.`users` (`id`),
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`),
   CONSTRAINT `user_publication_favorites_ibfk_2`
     FOREIGN KEY (`id_publication`)
-    REFERENCES `yourplacedb`.`publication` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`publication` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`user_rating`
+-- Table `bgdhgalq8sqhcnlktbhx`.`user_rating`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`user_rating` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`user_rating` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`user_rating` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`user_rating` (
   `rating` INT NOT NULL,
   `timestamp` TIMESTAMP(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
   `comment` VARCHAR(200) NOT NULL,
@@ -321,21 +321,21 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`user_rating` (
   INDEX `id_user_voted` (`id_user_voted` ASC) VISIBLE,
   CONSTRAINT `user_rating_ibfk_1`
     FOREIGN KEY (`id_user_voter`)
-    REFERENCES `yourplacedb`.`users` (`id`),
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`),
   CONSTRAINT `user_rating_ibfk_2`
     FOREIGN KEY (`id_user_voted`)
-    REFERENCES `yourplacedb`.`users` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`user_verification`
+-- Table `bgdhgalq8sqhcnlktbhx`.`user_verification`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`user_verification` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`user_verification` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`user_verification` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`user_verification` (
   `id_user` VARCHAR(36) NOT NULL,
   `verification_code` CHAR(64) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -343,18 +343,18 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`user_verification` (
   PRIMARY KEY (`id_user`),
   CONSTRAINT `user_verification_ibfk_1`
     FOREIGN KEY (`id_user`)
-    REFERENCES `yourplacedb`.`users` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `yourplacedb`.`visit`
+-- Table `bgdhgalq8sqhcnlktbhx`.`visit`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `yourplacedb`.`visit` ;
+DROP TABLE IF EXISTS `bgdhgalq8sqhcnlktbhx`.`visit` ;
 
-CREATE TABLE IF NOT EXISTS `yourplacedb`.`visit` (
+CREATE TABLE IF NOT EXISTS `bgdhgalq8sqhcnlktbhx`.`visit` (
   `id` VARCHAR(36) NOT NULL,
   `visit_date` DATE NOT NULL,
   `visit_hour` TIME NOT NULL,
@@ -366,10 +366,10 @@ CREATE TABLE IF NOT EXISTS `yourplacedb`.`visit` (
   INDEX `id_user_visitant` (`id_user_visitant` ASC) VISIBLE,
   CONSTRAINT `visit_ibfk_1`
     FOREIGN KEY (`id_publication`)
-    REFERENCES `yourplacedb`.`publication` (`id`),
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`publication` (`id`),
   CONSTRAINT `visit_ibfk_2`
     FOREIGN KEY (`id_user_visitant`)
-    REFERENCES `yourplacedb`.`users` (`id`))
+    REFERENCES `bgdhgalq8sqhcnlktbhx`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

@@ -22,15 +22,18 @@ async function findById(id) {
 }
 
 async function findPublicationUser(id) {
-  const selectUserId = `
-  SELECT
-  p.id, p.area,p.rooms,p.bathrooms,p.garage,p.elevator,p.furnished,p.publication_type,p.deposit,p.price,p.availability_date,p.disabled, AVG(pr.rating)
-  as publicationRating
+  const query = `
+  SELECT  p.id, area, rooms, bathrooms, garage, elevator, furnished, parking, pets, garden, pool, terrace, storage_room, heating,
+  publication_type, deposit,price,DATE_FORMAT( availability_date, '%d-%c-%Y') as availability_date , street, floor ,city, country, zipcode,p.id_user,u.telephone,u.email,u.fullname,u.picture,AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating
   FROM ${tableNames.PUBLICATION} p
+  LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON p.id_publication_address = pa.id
+  LEFT JOIN ${tableNames.USER} u ON p.id_user = u.id
+  LEFT JOIN ${tableNames.USER_RATING} ur ON ur.id_user_voted = p.id_user
   LEFT JOIN ${tableNames.PUBLICATION_RATINGS} pr ON pr.id_publication = p.id
   WHERE p.id_user = ? GROUP BY p.id ORDER BY p.timestamp`;
+
   const values = [id];
-  return await repositoryManager.executeQuery(selectUserId, values);
+  return await repositoryManager.executeQuery(query, values);
 }
 
 async function findPublicationFavoriteUser(id) {

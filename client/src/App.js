@@ -40,17 +40,15 @@ function App() {
             <PublicRoute path="/search" component={Search} exact />
             <PublicRoute path="/like" component={Like} exact />
             <PublicRoute path="/join" component={Join} exact />
+            <PrivateRoute path="/publication/add" component={NewPublication} exact />
             <PublicRoute path="/publication/:id" component={Publication} exact />
             <PrivateRoute path="/user/:id" component={Profile} exact />
             <PrivateRoute path="/publication/edit" component={FormEditPublication} exact />
             <PrivateRoute path="/reservation" component={FormReservation} exact />
             <PrivateRoute path="/visit" component={FormVisit} exact />
-
             <PrivateRoute path="/profile" component={Profile} exact />
             <PrivateRoute path="/profile/edit" component={EditProfile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />
-            <PrivateRoute path="/publication/add" component={NewPublication} exact />
-
             <PrivateRoute path="/messages" component={Messages} exact />
 
             <Redirect to="/" />
