@@ -49,7 +49,7 @@ function Search() {
         <div>Error: {error.message}</div>
       ) : (
         <ListPublicationWrapper>
-          {data && data.map((item) => <Publication key={item.id} publication={item} lessor />)}
+          {data && data.map((item) => <Publication key={item.id} publication={item} />)}
         </ListPublicationWrapper>
       )}
       <FlexContainer>

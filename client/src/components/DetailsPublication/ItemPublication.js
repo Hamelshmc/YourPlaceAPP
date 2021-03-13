@@ -36,7 +36,7 @@ function ItemPublicationContent({ publication }) {
       {publication.storage_room === 1 ? <ItemPublication>Storage Room</ItemPublication> : ''}
       {publication.heating === 1 ? <ItemPublication>Heating</ItemPublication> : ''}
       <ItemPublication>
-        <StartRating value={publication.publicationRating} disabled />
+        <StartRating value={publication.publicationRating} disabled size="1rem" />
       </ItemPublication>
     </ItemPublicationWrapper>
   );
@@ -54,16 +54,20 @@ const ItemPublicationWrapper = styled.section`
 `;
 const ItemPublication = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  margin: 0.1rem;
+  margin: 0.2rem;
   padding: 1rem 1.5rem;
   border-radius: 0.2rem;
-  min-width: 9.8rem;
+  min-width: 10.5rem;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
+  border-width: 0.2rem;
+  border-style: solid;
+  border-image: linear-gradient(to bottom, #1679c5, rgba(0, 0, 0, 0)) 1 100%;
 `;
 
 const ItemPublicationIcon = styled.img`
   width: auto;
   height: 1.3rem;
+  margin-right: 0.5rem;
 `;

@@ -58,17 +58,5 @@ const MapContainer = styled.div`
     opacity: 1;
     transition: opacity 0.2s;
   }
-`;
-
-const Sidebar = styled.div`
-  background-color: rgba(35, 55, 75, 0.9);
-  color: #ffffff;
-  padding: 6px 12px;
-  font: 15px/24px monospace;
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 12px;
-  border-radius: 4px;
+  transition: 0.3s;
 `;
