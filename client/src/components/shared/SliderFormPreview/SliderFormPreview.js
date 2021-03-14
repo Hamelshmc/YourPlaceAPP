@@ -7,7 +7,7 @@ import Dots from '../Slider/Dot';
 function SliderFormPreview({ slides }) {
   const targetRef = useRef();
   const { width } = useContainerDimensions(targetRef);
-  const getWidth = () => width;
+
   const [state, setState] = useState({
     translate: 0,
     transition: 0.3,
@@ -15,7 +15,6 @@ function SliderFormPreview({ slides }) {
   });
   const { translate, transition, activeIndex } = state;
 
-  console.log(width);
   const nextSlide = () => {
     if (activeIndex === slides.length - 1) {
       return setState({

@@ -45,7 +45,7 @@ function SearchContent({ search, setSearch, setFilter, setReset }) {
             name="search"
             type="search"
             onChange={handleSearchChange}
-            placeholder="¿Qué es lo que buscas?"
+            placeholder="Start your search"
           />
         </SearchItem>
         <FilterContainer>

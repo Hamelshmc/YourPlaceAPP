@@ -9,7 +9,6 @@ function InputImage({
   name = 'files',
   label = 'Upload Image',
   reference,
-  previewSource,
   error,
   errorMsg,
   required = true,
@@ -22,7 +21,6 @@ function InputImage({
       result.push(fileToDataUri(e.target.files[i]));
     }
     const newImages = await Promise.all(result);
-    console.log(newImages);
     setPreviewPhoto(newImages);
   };
   return (

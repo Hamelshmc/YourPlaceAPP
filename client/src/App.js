@@ -10,7 +10,7 @@ import { UserProvider } from './hooks/UserContext';
 import StyledContainer from './StyledContainer';
 import Wrapper from './theme/Wrapper';
 
-const Home = React.lazy(() => import('./pages/Home'));
+
 const Join = React.lazy(() => import('./pages/Join'));
 const Search = React.lazy(() => import('./pages/Search'));
 const Messages = React.lazy(() => import('./pages/Messages'));

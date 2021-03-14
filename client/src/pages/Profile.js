@@ -10,7 +10,7 @@ import { UserContext } from '../hooks/UserContext';
 
 const Profile = () => {
   const [user, setUser] = useContext(UserContext);
-  const { isLoading, isError, error, data } = useQuery(
+  const { isError, data } = useQuery(
     ['userProfile', fetchUser, user, setUser],
     async () => await fetchAuthData(fetchUser, user, setUser)
   );

@@ -8,7 +8,7 @@ import Slide from './Slide';
 function Slider({ slides }) {
   const targetRef = useRef();
   const { width } = useContainerDimensions(targetRef);
-  const getWidth = () => width;
+
   const [state, setState] = useState({
     translate: 0,
     transition: 0.3,
@@ -16,7 +16,6 @@ function Slider({ slides }) {
   });
   const { translate, transition, activeIndex } = state;
 
-  console.log(width);
   const nextSlide = () => {
     if (activeIndex === slides.length - 1) {
       return setState({

@@ -8,6 +8,7 @@ import { fetchPublicationById } from '../api/Publication';
 import ItemPublicationContent from '../components/DetailsPublication/ItemPublication';
 import Favorite from '../components/Publication/Favorite';
 import Lessor from '../components/Publication/Lessor';
+import FormRating from '../components/shared/Form/FormRating';
 import MapPublication from '../components/shared/MapBox/MapPublication';
 import Slider from '../components/shared/Slider/Slider';
 import { UserContext } from '../hooks/UserContext';
@@ -21,7 +22,6 @@ function Publication() {
 
   const publication = data && data.data;
 
-  console.log('[DATA]', publication);
   if (isLoading) {
     return <span>Loading...</span>;
   }
@@ -37,11 +37,15 @@ function Publication() {
       </SliderWrapper>
       {data && <ItemPublicationContent publication={publication} />}
       <MapContent>
+        <p>
+          {publication.street} • {publication.city}
+        </p>
         <MapPublication latitude={publication.latitude} longitude={publication.longitude} />
       </MapContent>
       <PublicationLessorWrapper>
         {user.id !== publication.id_user ? <Lessor lessor={publication} /> : <></>}
       </PublicationLessorWrapper>
+      <FormRating />
       <ButtonContent>
         {user.id !== publication.id_user ? <ButtonLink to="/visit">Visit</ButtonLink> : <></>}
         {user.id !== publication.id_user ? (

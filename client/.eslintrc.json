@@ -46,7 +46,8 @@
         "react/jsx-props-no-spreading": "off",
         "jsx-a11y/label-has-associated-control": "off",
         "no-nested-ternary": "off",
-        "no-console": "off",
+        "no-console": "warn",
+        "no-unused-vars": "warn",
         "complexity": [
             "warn",
             {
@@ -56,14 +57,6 @@
         "max-depth": [
             "warn",
             2
-        ],
-        "max-lines": [
-            "warn",
-            500
-        ],
-        "max-lines-per-function": [
-            "warn",
-            500
         ],
         "max-nested-callbacks": [
             "warn",
@@ -91,7 +84,6 @@
                 "max": 2,
                 "maxEOF": 1
             }
-        ],
-        "no-unused-vars": 0
+        ]
     }
 }
