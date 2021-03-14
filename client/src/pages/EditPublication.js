@@ -5,11 +5,11 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from 'react-query';
-import { Redirect } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import { fetchImage, fetchPublication } from '../api/Publication';
+import { fetchImage, fetchPublicationById, fetchUpdatePublication } from '../api/Publication';
 import { fetchAuthDataPost } from '../api/User';
 import publicationSchema from '../components/Publication/validations/Publication';
 import InputCheckBox from '../components/shared/Form/InputCheckBox';
@@ -23,19 +23,33 @@ import SubmitButton from '../components/shared/Form/styles/SubmitButton';
 import fileToDataUri from '../helper/FileToDataUri';
 import { UserContext } from '../hooks/UserContext';
 
-function NewPublication() {
+function EditPublication() {
   const [user, setUser] = useContext(UserContext);
   const queryClient = useQueryClient();
-  const { register, handleSubmit, errors } = useForm({
+  const { id } = useParams();
+  const { register, handleSubmit, errors, reset } = useForm({
     resolver: joiResolver(publicationSchema),
     mode: 'onChange',
   });
 
+  const { isLoading, isError, data, error } = useQuery(
+    ['publicationByID', id],
+    async () => fetchPublicationById(id),
+    {
+      onSuccess: (result) => {
+        reset(result.data);
+      },
+      refetchOnWindowFocus:false
+    }
+  );
+
+  const resetData = data ? data.data : {};
+
   const mutation = useMutation(
-    async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo),
+    async (newTodo) => await fetchAuthDataPost(fetchUpdatePublication, user, setUser, newTodo),
     {
       onSuccess: async (result) => {
-        if (result.status === 201) {
+        if (result.status === 200) {
           toast.success(`😄 ¡Publication added! 😄`);
           await queryClient.refetchQueries(['data'], { active: true });
         } else {
@@ -45,12 +59,12 @@ function NewPublication() {
     }
   );
 
-  const handleFileInput = async (data) => {
+  const handleFileInput = async (dataImage) => {
     const image = {
       data: [],
     };
-    for (let i = 0; i < data.files.length; i += 1) {
-      image.data.push(fileToDataUri(data.files[i]));
+    for (let i = 0; i < dataImage.files.length; i += 1) {
+      image.data.push(fileToDataUri(dataImage.files[i]));
     }
     const newImages = await Promise.all(image.data);
     image.data = newImages;
@@ -58,18 +72,28 @@ function NewPublication() {
     return res.data;
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (dataPublication) => {
     try {
-      const { files, availability_date, ...datos } = data;
+      const { files, availability_date, ...datos } = dataPublication;
       const { street, door, floor, city, zipcode, ...rest } = datos;
-      const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
-      let pictures = await handleFileInput(data);
+      const { id: publicationId, id_publication_address } = resetData;
+      const publication_address = {
+        id: id_publication_address,
+        street,
+        door,
+        floor,
+        city,
+        zipcode,
+        country: 'Spain',
+      };
+      let pictures = await handleFileInput(dataPublication);
       pictures = pictures.map((item) => item.url);
-      const publication = { availability_date, ...rest };
+      const publication = { id: publicationId, availability_date, ...rest };
       const body = { publication, publication_address, pictures };
+      console.log('[BODY]', body);
       await mutation.mutateAsync(body);
-    } catch (error) {
-      console.error('[ERROR]', error);
+    } catch (e) {
+      console.error('[ERROR]', e);
       if (mutation.isError) {
         console.log(`An error occurred: ${mutation.error.message}`);
       }
@@ -80,7 +104,7 @@ function NewPublication() {
     <SectionNewPublication>
       <FormContainer>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <FormTitle>Publication</FormTitle>
+          <FormTitle> Edit Publication</FormTitle>
           <InputForm
             type="text"
             name="street"
@@ -175,6 +199,7 @@ function NewPublication() {
             errorMsg={errors.availability_date && errors.availability_date.message}
             error={errors.availability_date}
             reference={register}
+            required
           />
           <InputWrapper>
             <InputForm
@@ -347,4 +372,4 @@ const InputWrapper = styled.section`
   }
 `;
 
-export default NewPublication;
+export default EditPublication;

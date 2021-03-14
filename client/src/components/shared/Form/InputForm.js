@@ -4,7 +4,17 @@ import Input from './styles/Input';
 import InputLabel from './styles/InputLabel';
 import InputSection from './styles/InputSection';
 
-function InputForm({ id, name, label, type, errorMsg, error, placeholder, reference }) {
+function InputForm({
+  id,
+  name,
+  label,
+  type,
+  errorMsg,
+  error,
+  placeholder,
+  reference,
+  required = false,
+}) {
   return (
     <div>
       <InputSection>
@@ -17,6 +27,7 @@ function InputForm({ id, name, label, type, errorMsg, error, placeholder, refere
           placeholder={placeholder}
           ref={reference}
           focus={error}
+          required={required}
         />
         <InputLabel htmlFor={id}>{label}</InputLabel>
       </InputSection>
