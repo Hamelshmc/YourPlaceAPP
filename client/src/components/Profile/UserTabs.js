@@ -1,7 +1,9 @@
 /* eslint-disable complexity */
 import React from 'react';
+import styled from 'styled-components';
 import ListPublication from '../Publication/ListPublication';
 import LinkShowMore from '../Publication/styles/Publication/LinkShowMore';
+import CardBookingVisit from '../shared/CardBookingVisit';
 import TabItem from '../Tabs/styles/TabItem';
 import Tabs from '../Tabs/Tabs';
 import TabSectionReverse from './styles/TabSectionReverse';
@@ -27,19 +29,12 @@ const UserTabs = ({ publicationsUser, publicationsHistoryUser, bookings, request
         <TabSectionReverse>
           <Tabs defaultIndex="1" onTabClick="1">
             <TabItem label="Requests" index="1">
-              {requestBookings &&
-                requestBookings.map((reqBooking) => (
-                  <div key={reqBooking.id}>
-                    <p>Start date: {reqBooking.start_date}</p>
-                    <p>End date: {reqBooking.end_date}</p>
-                    <LinkShowMore to={`/publication/${reqBooking.id_publication}`}>
-                      Accept
-                    </LinkShowMore>
-                    <LinkShowMore to={`/publication/${reqBooking.id_publication}`}>
-                      Deny
-                    </LinkShowMore>
-                  </div>
-                ))}
+              <ListCard>
+                {requestBookings &&
+                  requestBookings.map((reqBooking) => (
+                    <CardBookingVisit key={reqBooking.id} item={reqBooking} />
+                  ))}
+              </ListCard>
             </TabItem>
             <TabItem label="My bookings" index="2">
               {bookings &&
@@ -75,3 +70,8 @@ const UserTabs = ({ publicationsUser, publicationsHistoryUser, bookings, request
 );
 
 export default UserTabs;
+
+const ListCard = styled.ul`
+  padding: 0;
+  margin: 0;
+`;
