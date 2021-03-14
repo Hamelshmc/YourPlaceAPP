@@ -20,21 +20,11 @@ const BookingForm = () => {
 
   const mutation = useMutation(async (data) => await fetchAddBooking(data, user.token), {
     onSuccess: (result) => {
-      console.log({ result });
-      /* if (result.status === 200) {
-        setUser({
-          id: result.data.user.id,
-          token: result.data.authorization,
-          refreshToken: result.data.refreshToken,
-          picture: result.data.user.picture,
-        });
-        toast.success(`😄 Welcome! 😄`);
-        if (result.data.user.verified === 0) {
-          toast.info(`Remember to verify your account 👼`);
-        }
+      if (result.status === 201) {
+        toast.success(`¡Booking added! 😄`);
       } else {
-        toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
-      } */
+        toast.error(`🙈  ${result.data}  🙈 `);
+      }
     },
   });
 

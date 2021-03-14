@@ -109,7 +109,15 @@ async function verifyUser(id) {
 }
 
 async function findUserBookings(id) {
-  const query = `SELECT * FROM ${tableNames.BOOKING} WHERE id_user_payer = ? LIMIT 1`;
+  const query = `SELECT * FROM ${tableNames.BOOKING} b WHERE b.id_user_payer = ? GROUP BY b.id`;
+  const values = [id];
+  return await repositoryManager.executeQuery(query, values);
+}
+
+async function findUserRequestBookings(id) {
+  const query = `SELECT * FROM ${tableNames.BOOKING} b
+  LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id AND p.id_user = ?
+  GROUP BY b.id`;
   const values = [id];
   return await repositoryManager.executeQuery(query, values);
 }
@@ -122,6 +130,7 @@ module.exports = {
   findPublicationFavoriteUser,
   findPublicationUser,
   findUserBookings,
+  findUserRequestBookings,
   findUserWithAddress,
   registerUser,
   updateUser,
