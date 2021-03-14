@@ -40,9 +40,9 @@ function App() {
             <PublicRoute path="/like" component={Like} exact />
             <PublicRoute path="/join" component={Join} exact />
             <PrivateRoute path="/publication/add" component={NewPublication} exact />
+            <PrivateRoute path="/publication/edit/:id" component={EditPublication} exact />
             <PublicRoute path="/publication/:id" component={Publication} exact />
             <PrivateRoute path="/user/:id" component={Profile} exact />
-            <PrivateRoute path="/publication/edit/:id" component={EditPublication} exact />
             <PrivateRoute path="/booking/add/:id" component={NewBooking} exact />
             <PrivateRoute path="/visit" component={FormVisit} exact />
             <PrivateRoute path="/profile" component={Profile} exact />
