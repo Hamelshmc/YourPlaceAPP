@@ -30,8 +30,8 @@ const UserTabs = ({ publicationsUser, publicationsHistoryUser, bookings, request
               {requestBookings &&
                 requestBookings.map((reqBooking) => (
                   <div key={reqBooking.id}>
-                    <p>Start date: {new Date(reqBooking.start_date).toISOString().split('T')[0]}</p>
-                    <p>End date: {new Date(reqBooking.end_date).toISOString().split('T')[0]}</p>
+                    <p>Start date: {reqBooking.start_date}</p>
+                    <p>End date: {reqBooking.end_date}</p>
                     <LinkShowMore to={`/publication/${reqBooking.id_publication}`}>
                       Accept
                     </LinkShowMore>
@@ -45,11 +45,11 @@ const UserTabs = ({ publicationsUser, publicationsHistoryUser, bookings, request
               {bookings &&
                 bookings.map((booking) => (
                   <div key={booking.id}>
-                    <p>Start date: {new Date(booking.start_date).toISOString().split('T')[0]}</p>
-                    <p>End date: {new Date(booking.end_date).toISOString().split('T')[0]}</p>
+                    <p>Start date: {booking.start_date}</p>
+                    <p>End date: {booking.end_date}</p>
                     <p>Acepted: {booking.acepted ? '✨ ¡Acepted! 🎉🎉' : 'Not acepted yet...'}</p>
                     {booking.acepted ? (
-                      <LinkShowMore to={`/payment/${booking.id_publication}`}>
+                      <LinkShowMore to={`/payment?/${booking.id_publication}`}>
                         Proceed to payment
                       </LinkShowMore>
                     ) : (
