@@ -21,6 +21,18 @@ const fetchPublication = async (data, token) =>
     })
   ).json();
 
+const fetchPublicationRating = async (data, token, idPublication) =>
+  await (
+    await fetch(`/api/v1/publications/${idPublication}/ratings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+  ).json();
+
 const fetchUpdatePublication = async (data, token) => {
   const res = await fetch('/api/v1/publications/', {
     method: 'PUT',
@@ -49,4 +61,5 @@ export {
   fetchPublicationSearch,
   fetchPublicationById,
   fetchUpdatePublication,
+  fetchPublicationRating,
 };
