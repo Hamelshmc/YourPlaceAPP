@@ -10,4 +10,16 @@ const fetchAddBooking = async (data, token) =>
     })
   ).json();
 
-export default fetchAddBooking;
+const fetchUpdateBooking = async (data, token) =>
+  await (
+    await fetch('/api/v1/bookings/', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+  ).json();
+
+export { fetchUpdateBooking, fetchAddBooking };
