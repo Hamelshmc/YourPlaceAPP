@@ -11,6 +11,7 @@ async function getUser({ id: idUser }) {
     let [...publicationsFavoritesUser] = await userRepository.findPublicationFavoriteUser(idUser);
     let [...publicationsHistoryUser] = await userRepository.findHistoryPublicationUser(idUser);
     const [...bookings] = await userRepository.findUserBookings(idUser);
+    const [...requestBookings] = await userRepository.findUserRequestBookings(idUser);
 
     publicationsUser = await publicationsUser.map(async (publication) => {
       const pics = await publicationRepository.findAllPicturesByPublicationId(publication.id);
@@ -38,7 +39,7 @@ async function getUser({ id: idUser }) {
       (completed) => completed
     );
 
-    return { user, publicationsUser, publicationsFavoritesUser, publicationsHistoryUser, bookings };
+    return { user, publicationsUser, publicationsFavoritesUser, publicationsHistoryUser, bookings,requestBookings };
   }
 
   throw new ResponseError(httpStatus.NOT_FOUND, 'User not found');
