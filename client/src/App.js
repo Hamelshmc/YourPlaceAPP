@@ -10,7 +10,6 @@ import { UserProvider } from './hooks/UserContext';
 import StyledContainer from './StyledContainer';
 import Wrapper from './theme/Wrapper';
 
-
 const Join = React.lazy(() => import('./pages/Join'));
 const Search = React.lazy(() => import('./pages/Search'));
 const Messages = React.lazy(() => import('./pages/Messages'));
@@ -23,7 +22,7 @@ const Verification = React.lazy(() => import('./pages/Verification'));
 const EditPublication = React.lazy(() => import('./pages/EditPublication'));
 const NewBooking = React.lazy(() => import('./pages/NewBooking'));
 const EditBooking = React.lazy(() => import('./pages/EditBooking'));
-const FormVisit = React.lazy(() => import('./pages/FormVisit'));
+const NewVisit = React.lazy(() => import('./pages/NewVisit'));
 const NewPublication = React.lazy(() => import('./pages/NewPublication'));
 // Create a client
 const queryClient = new QueryClient();
@@ -46,7 +45,7 @@ function App() {
             <PrivateRoute path="/user/:id" component={Profile} exact />
             <PrivateRoute path="/booking/add/:id" component={NewBooking} exact />
             <PrivateRoute path="/booking/edit/:id" component={EditBooking} exact />
-            <PrivateRoute path="/visit" component={FormVisit} exact />
+            <PrivateRoute path="/visit/add/:id" component={NewVisit} exact />
             <PrivateRoute path="/profile" component={Profile} exact />
             <PrivateRoute path="/profile/edit" component={EditProfile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />
