@@ -6,6 +6,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import fetchAddBooking from '../api/Booking';
+import { fetchAuthDataPost } from '../api/User';
 import bookingSchema from '../components/Booking/validations/bookingSchema';
 import InputForm from '../components/shared/Form/InputForm';
 import Form from '../components/shared/Form/styles/Form';
@@ -18,7 +19,7 @@ const BookingForm = () => {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
 
-  const mutation = useMutation(async (data) => await fetchAddBooking(data, user.token), {
+  const mutation = useMutation(async (data) => await fetchAuthDataPost(fetchAddBooking,user,setUser,data), {
     onSuccess: (result) => {
       if (result.status === 201) {
         toast.success(`¡Booking added! 😄`);
@@ -76,7 +77,7 @@ const BookingForm = () => {
                 {mutation.data && mutation.data.status >= 400 ? (
                   `Try again!`
                 ) : mutation.isSuccess ? (
-                  <Redirect to="/search" />
+                  <Redirect to="/profile" />
                 ) : (
                   'Go!'
                 )}

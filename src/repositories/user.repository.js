@@ -109,14 +109,18 @@ async function verifyUser(id) {
 }
 
 async function findUserBookings(id) {
-  const query = `SELECT * FROM ${tableNames.BOOKING} b WHERE b.id_user_payer = ? GROUP BY b.id`;
+  const query = `SELECT b.id, b.start_date, b.end_date, b.acepted, p.price, p.deposit, pa.street, pa.city FROM ${tableNames.BOOKING} b
+  LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = b.id_publication
+  LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
+  WHERE b.id_user_payer = ? GROUP BY b.id`;
   const values = [id];
   return await repositoryManager.executeQuery(query, values);
 }
 
 async function findUserRequestBookings(id) {
-  const query = `SELECT * FROM ${tableNames.BOOKING} b
+  const query = `SELECT b.id, b.start_date, b.end_date, b.acepted, p.price, p.deposit, u.fullname, u.email, u.picture FROM ${tableNames.BOOKING} b
   LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id AND p.id_user = ?
+  LEFT JOIN ${tableNames.USER} u ON b.id_user_payer = u.id
   GROUP BY b.id`;
   const values = [id];
   return await repositoryManager.executeQuery(query, values);
