@@ -19,7 +19,7 @@ const Profile = () => {
     toast.error('🙈 ¡Ooops! Error fetching your profile data');
   }
 
-  console.log({data});
+  console.log({ data });
 
   return data ? (
     <ProfileContainer>
