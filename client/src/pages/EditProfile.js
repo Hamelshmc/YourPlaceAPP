@@ -3,12 +3,12 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage } from '../api/Publication';
-import { fetchAuthDataPost, fetchUpdateUser } from '../api/User';
+import { fetchAuthData, fetchAuthDataPost, fetchUpdateUser, fetchUser } from '../api/User';
 import editProfileSchema from '../components/Register/validations/editProfileSchema';
 import InputForm from '../components/shared/Form/InputForm';
 import InputImage from '../components/shared/Form/InputImage';
@@ -44,10 +44,22 @@ const EditProfile = () => {
     }
   );
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, reset } = useForm({
     resolver: joiResolver(editProfileSchema),
     mode: 'onChange',
   });
+
+  const { isError, data } = useQuery(
+    ['userProfile', fetchUser, user, setUser],
+    async () => await fetchAuthData(fetchUser, user, setUser),
+    {
+      onSuccess: (result) => {
+        const { picture, background, borndate, ...rest } = result.data.user;
+        reset(rest);
+      },
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const fileToDataUri = (image) =>
     new Promise((res) => {
@@ -100,6 +112,10 @@ const EditProfile = () => {
   };
 
   const onSubmit = async (submitData) => {
+    toast.info(`
+    Uploading information 💭
+            Wait!
+    `);
     const { picture, background, borndate, bio, ...restSubmitData } = submitData;
     const newBornDate = borndate.toISOString().split('T')[0];
     const images = [picture[0], background[0]];

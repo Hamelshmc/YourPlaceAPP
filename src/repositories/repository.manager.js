@@ -3,11 +3,11 @@
 const database = require('../database/database');
 
 const HttpStatusCodes = Object.freeze({
-  ER_TRUNCATED_WRONG_VALUE_FOR_FIELD: 422,
-  ER_DUP_ENTRY: 409,
-  ER_MIX_OF_GROUP_FUNC_AND_FIELDS: 420,
+  ER_TRUNCATED_WRONG_VALUE_FOR_FIELD: 500,
+  ER_DUP_ENTRY: 500,
+  ER_MIX_OF_GROUP_FUNC_AND_FIELDS: 500,
   ER_TRUNCATED_WRONG_VALUE: 500,
-  ER_ACCESS_DENIED_ERROR: 280,
+  ER_ACCESS_DENIED_ERROR: 500,
 });
 
 async function executeQuery(sql, values) {

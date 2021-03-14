@@ -41,7 +41,7 @@ async function findAllRatingByPublicationId(idPublication) {
 }
 
 async function findAllPicturesByPublicationId(idPublication) {
-  const query = `SELECT * FROM ${tableNames.PUBLICATION_PICTURES} WHERE id_publication = ? LIMIT 10`;
+  const query = `SELECT url FROM ${tableNames.PUBLICATION_PICTURES} WHERE id_publication = ? LIMIT 10`;
   return await repositoryManager.executeQuery(query, [idPublication]);
 }
 
