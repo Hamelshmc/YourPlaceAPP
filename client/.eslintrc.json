@@ -46,8 +46,8 @@
         "react/jsx-props-no-spreading": "off",
         "jsx-a11y/label-has-associated-control": "off",
         "no-nested-ternary": "off",
-        "no-console": "warn",
-        "no-unused-vars": "warn",
+        "no-console": 0,
+        "no-unused-vars": 0,
         "complexity": [
             "warn",
             {
