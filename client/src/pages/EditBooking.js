@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import { fetchAddBooking } from '../api/Booking';
+import { fetchUpdateBooking } from '../api/Booking';
 import { fetchAuthDataPost } from '../api/User';
 import bookingSchema from '../components/Booking/validations/bookingSchema';
 import InputForm from '../components/shared/Form/InputForm';
@@ -15,16 +15,16 @@ import FormTitle from '../components/shared/Form/styles/FormTitle';
 import SubmitButton from '../components/shared/Form/styles/SubmitButton';
 import { UserContext } from '../hooks/UserContext';
 
-const NewBooking = () => {
+const EditBooking = () => {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
 
   const mutation = useMutation(
-    async (data) => await fetchAuthDataPost(fetchAddBooking, user, setUser, data),
+    async (data) => await fetchAuthDataPost(fetchUpdateBooking, user, setUser, data),
     {
       onSuccess: (result) => {
-        if (result.status === 201) {
-          toast.success(`¡Booking added! 😄`);
+        if (result.status === 200) {
+          toast.success(`¡Booking updated! ¡Your booking now is pending to been aproved! 😄`);
         } else {
           toast.error(`🙈  ${result.data}  🙈 `);
         }
@@ -41,7 +41,7 @@ const NewBooking = () => {
     try {
       const { startDate } = data;
       const date = new Date(startDate).toISOString().split('T')[0];
-      await mutation.mutateAsync({ ...data, startDate: date, idPublication: id });
+      await mutation.mutateAsync({ ...data, startDate: date, idBooking: id });
     } catch (error) {
       toast.error(`${error.message} 🙈 Ooops! Connection error 🙈 `);
     }
@@ -51,7 +51,7 @@ const NewBooking = () => {
     <BookingContainer>
       <FormContainer>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <FormTitle>New booking</FormTitle>
+          <FormTitle>Edit your booking</FormTitle>
           <InputForm
             id="startDate"
             name="startDate"
@@ -102,4 +102,4 @@ const BookingContainer = styled.section`
   width: clamp(15.5rem, 50%, 25rem);
 `;
 
-export default NewBooking;
+export default EditBooking;

@@ -25,29 +25,47 @@ const UserTabs = ({ publicationsUser, publicationsHistoryUser, bookings, request
       </TabItem>
       <TabItem label="Bookings" index="3">
         <TabSectionReverse>
-        <Tabs defaultIndex="1" onTabClick="1">
-           <TabItem label="Requests" index="1">
-        {requestBookings && requestBookings.map((reqBooking) => (
-          <div>
-            <p>Start date: {new Date(reqBooking.start_date).toISOString().split('T')[0]}</p>
-            <p>End date: {new Date(reqBooking.end_date).toISOString().split('T')[0]}</p>
-            <LinkShowMore to={`/publication/${reqBooking.id_publication}`} >Accept</LinkShowMore>
-            <LinkShowMore to={`/publication/${reqBooking.id_publication}`} >Deny</LinkShowMore>
-          </div>
-        ))}
+          <Tabs defaultIndex="1" onTabClick="1">
+            <TabItem label="Requests" index="1">
+              {requestBookings &&
+                requestBookings.map((reqBooking) => (
+                  <div key={reqBooking.id}>
+                    <p>Start date: {new Date(reqBooking.start_date).toISOString().split('T')[0]}</p>
+                    <p>End date: {new Date(reqBooking.end_date).toISOString().split('T')[0]}</p>
+                    <LinkShowMore to={`/publication/${reqBooking.id_publication}`}>
+                      Accept
+                    </LinkShowMore>
+                    <LinkShowMore to={`/publication/${reqBooking.id_publication}`}>
+                      Deny
+                    </LinkShowMore>
+                  </div>
+                ))}
             </TabItem>
-        <TabItem label="My bookings" index="2">
-        {bookings && bookings.map((booking) => (
-          <div>
-            <p>Start date: {new Date(booking.start_date).toISOString().split('T')[0]}</p>
-            <p>End date: {new Date(booking.end_date).toISOString().split('T')[0]}</p>
-            <p>Acepted: {booking.acepted ? "✨ ¡Acepted! 🎉🎉" : "Not acepted yet..."}</p>
-            {booking.acepted ? <LinkShowMore to={`/payment/${booking.id_publication}`} >Proceed to payment</LinkShowMore> : <></>}
-            <LinkShowMore to={`/publication/${booking.id_publication}`} >Show publication</LinkShowMore>
-          </div>
-        ))}</TabItem>
+            <TabItem label="My bookings" index="2">
+              {bookings &&
+                bookings.map((booking) => (
+                  <div key={booking.id}>
+                    <p>Start date: {new Date(booking.start_date).toISOString().split('T')[0]}</p>
+                    <p>End date: {new Date(booking.end_date).toISOString().split('T')[0]}</p>
+                    <p>Acepted: {booking.acepted ? '✨ ¡Acepted! 🎉🎉' : 'Not acepted yet...'}</p>
+                    {booking.acepted ? (
+                      <LinkShowMore to={`/payment/${booking.id_publication}`}>
+                        Proceed to payment
+                      </LinkShowMore>
+                    ) : (
+                      <></>
+                    )}
+                    <LinkShowMore to={`/publication/${booking.id_publication}`}>
+                      Show publication
+                    </LinkShowMore>
+                    <LinkShowMore to={`/booking/edit/${booking.id}`}>
+                      Edit your booking
+                    </LinkShowMore>
+                  </div>
+                ))}
+            </TabItem>
           </Tabs>
-          </TabSectionReverse>
+        </TabSectionReverse>
       </TabItem>
       <TabItem label="Visits" index="4">
         <h2>You dont have a visits history...</h2>
