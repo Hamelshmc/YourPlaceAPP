@@ -7,12 +7,12 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchAuthDataPost } from '../api/User';
 import { fetchAddVisit } from '../api/Visit';
-import bookingSchema from '../components/Booking/validations/bookingSchema';
 import InputForm from '../components/shared/Form/InputForm';
 import Form from '../components/shared/Form/styles/Form';
 import FormContainer from '../components/shared/Form/styles/FormContainer';
 import FormTitle from '../components/shared/Form/styles/FormTitle';
 import SubmitButton from '../components/shared/Form/styles/SubmitButton';
+import visitSchema from '../components/Visit/validations/visitSchema';
 import { UserContext } from '../hooks/UserContext';
 
 const NewVisit = () => {
@@ -33,15 +33,15 @@ const NewVisit = () => {
   );
 
   const { register, handleSubmit, errors } = useForm({
-    resolver: joiResolver(bookingSchema),
+    resolver: joiResolver(visitSchema),
     mode: 'onChange',
   });
 
   const onSubmit = async (data) => {
     try {
-      const { startDate } = data;
-      const date = new Date(startDate).toISOString().split('T')[0];
-      await mutation.mutateAsync({ ...data, startDate: date, idPublication: id });
+      const { visit_date: date, visit_hour: visitHour } = data;
+      const visitDate = new Date(date).toISOString().split('T')[0];
+      await mutation.mutateAsync({ visitDate, visitHour, idPublication: id });
     } catch (error) {
       toast.error(`${error.message} 🙈 Ooops! Connection error 🙈 `);
     }
