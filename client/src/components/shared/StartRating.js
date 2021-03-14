@@ -4,11 +4,10 @@ import Icon from './Icon';
 
 const numberStart = 5;
 
-function StartRating({ value, disabled, size }) {
+function StartRating({ value, disabled, size, reference }) {
   const [rating, setRating] = useState(value || null);
 
   const handleRating = (event) => {
-    event.preventDefault();
     setRating(event.target.value);
   };
 
@@ -24,6 +23,7 @@ function StartRating({ value, disabled, size }) {
               value={ratingValue}
               onClick={handleRating}
               disabled={disabled}
+              ref={reference}
             />
             <Star color={ratingValue <= rating ? '#867500' : '#4a5568'} size={size}>
               star_rate

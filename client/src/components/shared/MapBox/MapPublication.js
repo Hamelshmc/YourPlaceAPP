@@ -16,7 +16,6 @@ const MapPublication = ({ latitude, longitude, className }) => {
     });
 
     const location = new mapboxgl.LngLat(longitude, latitude);
-    console.log(longitude, latitude);
     map.scrollZoom.disable();
     map.boxZoom.disable();
     map.dragPan.disable();

@@ -8,6 +8,8 @@ import { fetchPublicationById } from '../api/Publication';
 import ItemPublicationContent from '../components/DetailsPublication/ItemPublication';
 import Favorite from '../components/Publication/Favorite';
 import Lessor from '../components/Publication/Lessor';
+import RatingComment from '../components/Publication/RatingComment';
+import FormRating from '../components/shared/Form/FormRating';
 import MapPublication from '../components/shared/MapBox/MapPublication';
 import Slider from '../components/shared/Slider/Slider';
 import { UserContext } from '../hooks/UserContext';
@@ -15,13 +17,17 @@ import { UserContext } from '../hooks/UserContext';
 function Publication() {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
-  const { isLoading, isError, data, error } = useQuery(['publicationByID', id], async () =>
-    fetchPublicationById(id)
+  const { isLoading, isError, data, error } = useQuery(
+    ['publicationByID', id],
+    async () => fetchPublicationById(id),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 
   const publication = data && data.data;
+  console.log(publication);
 
-  console.log('[DATA]', publication);
   if (isLoading) {
     return <span>Loading...</span>;
   }
@@ -37,11 +43,15 @@ function Publication() {
       </SliderWrapper>
       {data && <ItemPublicationContent publication={publication} />}
       <MapContent>
+        <p>
+          {publication.street} • {publication.city}
+        </p>
         <MapPublication latitude={publication.latitude} longitude={publication.longitude} />
       </MapContent>
       <PublicationLessorWrapper>
         {user.id !== publication.id_user ? <Lessor lessor={publication} /> : <></>}
       </PublicationLessorWrapper>
+      {user.id !== publication.id_user ? <FormRating id={id} /> : <></>}
       <ButtonContent>
         {user.id !== publication.id_user ? <ButtonLink to="/visit">Visit</ButtonLink> : <></>}
         {user.id !== publication.id_user ? (
@@ -55,6 +65,7 @@ function Publication() {
           <></>
         )}
       </ButtonContent>
+      {publication.rating && <RatingComment publication={publication} />}
     </PublicationSection>
   );
 }

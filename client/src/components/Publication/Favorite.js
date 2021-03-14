@@ -1,7 +1,7 @@
 import React from 'react';
 import FavoriteIcon from './styles/Favorite/FavoriteIcon';
 
-function Favorite({ id }) {
+function Favorite() {
   return <FavoriteIcon>favorite</FavoriteIcon>;
 }
 

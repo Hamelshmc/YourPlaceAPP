@@ -35,8 +35,13 @@ async function updatePublicationAddress(address, id) {
   return await repositoryManager.executeQuery(sql, [...values, id]);
 }
 
+async function findAllRatingByPublicationId(idPublication) {
+  const query = `SELECT rating,DATE_FORMAT( timestamp, '%d-%c-%Y') as timestamp,comment,fullname,email ,id  FROM ${tableNames.PUBLICATION_RATINGS} pr LEFT JOIN users u ON  u.id = pr.id_user_voter WHERE id_publication = ? LIMIT 10`;
+  return await repositoryManager.executeQuery(query, [idPublication]);
+}
+
 async function findAllPicturesByPublicationId(idPublication) {
-  const query = `SELECT * FROM ${tableNames.PUBLICATION_PICTURES} WHERE id_publication = ? LIMIT 10`;
+  const query = `SELECT url FROM ${tableNames.PUBLICATION_PICTURES} WHERE id_publication = ? LIMIT 10`;
   return await repositoryManager.executeQuery(query, [idPublication]);
 }
 
@@ -102,4 +107,5 @@ module.exports = {
   updatePublication,
   updatePublicationAddress,
   existPublicationEnabled,
+  findAllRatingByPublicationId,
 };

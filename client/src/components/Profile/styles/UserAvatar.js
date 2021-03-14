@@ -1,6 +1,7 @@
+import { Image } from 'cloudinary-react';
 import styled from 'styled-components';
 
-const UserAvatar = styled.img`
+const UserAvatar = styled(Image)`
   border-radius: 50%;
   height: 75px;
   max-width: 100%;

@@ -32,16 +32,12 @@ function EditPublication() {
     mode: 'onChange',
   });
 
-  const { isLoading, isError, data, error } = useQuery(
-    ['publicationByID', id],
-    async () => fetchPublicationById(id),
-    {
-      onSuccess: (result) => {
-        reset(result.data);
-      },
-      refetchOnWindowFocus:false
-    }
-  );
+  const { data } = useQuery(['publicationByID', id], async () => fetchPublicationById(id), {
+    onSuccess: (result) => {
+      reset(result.data);
+    },
+    refetchOnWindowFocus: false,
+  });
 
   const resetData = data ? data.data : {};
 
@@ -90,10 +86,8 @@ function EditPublication() {
       pictures = pictures.map((item) => item.url);
       const publication = { id: publicationId, availability_date, ...rest };
       const body = { publication, publication_address, pictures };
-      console.log('[BODY]', body);
       await mutation.mutateAsync(body);
     } catch (e) {
-      console.error('[ERROR]', e);
       if (mutation.isError) {
         console.log(`An error occurred: ${mutation.error.message}`);
       }

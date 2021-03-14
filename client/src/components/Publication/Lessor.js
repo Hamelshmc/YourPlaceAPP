@@ -17,8 +17,9 @@ import LessorWrapper from './styles/Lessor/LessorWrapper';
 
 const cloudName = 'yourplace';
 function Lessor({ lessor }) {
-  const { picture = 'avatar.jpg', telephone, fullname, email, userRating, id_user } = lessor;
-
+  const { picture = 'avatar.svg', telephone, fullname, email, userRating, id_user } = lessor;
+  const data =
+    lessor && picture ? `YourPlace_IMG/${picture.split('YourPlace_IMG/')[1]}` : 'avatar.svg';
   return (
     <LessorWrapper>
       <LessorTittle>Lessor</LessorTittle>
@@ -28,14 +29,13 @@ function Lessor({ lessor }) {
             <Image
               cloudName={cloudName}
               loading="lazy"
-              publicId={picture}
+              publicId={data}
               secure="true"
               dpr="auto"
               responsive
               width="auto"
               responsiveUseBreakpoints="true">
-              <Transformation aspectRatio="4:3" crop="fill" />
-              <Transformation quality="auto" fetchFormat="auto" crop="scale" height="50" />
+              <Transformation width="150" height="150" gravity="face" radius="max" crop="fill" />
             </Image>
           </LessorAvatar>
           <div>
