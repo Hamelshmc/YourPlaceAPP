@@ -22,4 +22,26 @@ const fetchUpdateVisit = async (data, token) =>
     })
   ).json();
 
-export { fetchUpdateVisit, fetchAddVisit };
+const fetchAceptVisit = async (data, token) =>
+  await (
+    await fetch(`/api/v1/visits/acept/${data.idVisit}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).json();
+
+const fetchDenyVisit = async (data, token) =>
+  await (
+    await fetch(`/api/v1/visits/deny/${data.idVisit}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).json();
+
+export { fetchUpdateVisit, fetchAddVisit, fetchAceptVisit, fetchDenyVisit };

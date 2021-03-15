@@ -2,7 +2,9 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import styled from 'styled-components';
-import LinkShowMore from '../Publication/styles/Publication/LinkShowMore';
+import AcceptButton from './AcceptButton';
+import CardLink from './CardLink';
+import DenyButton from './DenyButton';
 
 function CardBookingVisit({ item, aceptButtons }) {
   const {
@@ -59,21 +61,36 @@ function CardBookingVisit({ item, aceptButtons }) {
         ) : (
           <></>
         )}
-        {aceptButtons && (
+        {aceptButtons ? (
           <CardDateContent>
             {acepted === 1 ? (
               'Booking acepted'
+            ) : start_date && end_date ? (
+              <>
+                <AcceptButton booking id={id} success>
+                  Accept
+                </AcceptButton>
+                <DenyButton booking id={id} error>
+                  Deny
+                </DenyButton>
+              </>
             ) : (
               <>
-                <CardLink to="/" success="true">
+                <AcceptButton visit id={id} success>
                   Accept
-                </CardLink>
-                <CardLink to="/" error="true">
+                </AcceptButton>
+                <DenyButton visit id={id} error>
                   Deny
-                </CardLink>
+                </DenyButton>
               </>
             )}
           </CardDateContent>
+        ) : acepted === 0 && start_date ? (
+          'Booking pending to been aproved'
+        ) : acepted === 0 && visit_date ? (
+          'Visit pending to been aproved'
+        ) : (
+          <></>
         )}
         {start_date && end_date ? (
           <>
@@ -106,13 +123,6 @@ const CardWrapper = styled.li`
   border-radius: 0.2rem;
   box-shadow: ${({ theme }) => theme.boxShadow.default};
   margin: 0.5rem;
-`;
-
-const CardLink = styled(LinkShowMore)`
-  margin: 0.2rem;
-  padding: 0.5rem 1rem;
-  background: #1679c5;
-  background: ${({ success, error }) => (success ? '#26aa5e' : error ? '#e74c3c' : '#1679c5')};
 `;
 
 const CardDirection = styled.p`

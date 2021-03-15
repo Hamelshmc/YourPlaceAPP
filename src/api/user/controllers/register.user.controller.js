@@ -1,10 +1,12 @@
+/* eslint-disable max-lines-per-function */
+
 'use strict';
 
 const jwt = require('jsonwebtoken');
 const cryptoRandomString = require('crypto-random-string');
 const userServices = require('../services');
 
-const { TOKEN_SECRET } = process.env;
+const { TOKEN_SECRET, HTTP_CLIENT_NAME } = process.env;
 
 const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
@@ -29,7 +31,16 @@ async function registerUser(request, response) {
         expiresIn: '24h',
       }
     );
-    await userServices.sendEmail(userRegistered.id, verificationCode, email);
+
+    await userServices.sendConfirmationEmail(
+      userRegistered.id,
+      email,
+      'YourPlace confirm your sign up',
+      '¡Welcome to Yourplace!',
+      '¡Thanks for signing up to our web! We hope you will find your place.',
+      `${HTTP_CLIENT_NAME}/verify/${userRegistered.id}/${verificationCode}`,
+      '¡Verify your account here!'
+    );
 
     return response.status(httpStatus.CREATED).send(
       new ResponseJson(httpStatus.CREATED, {

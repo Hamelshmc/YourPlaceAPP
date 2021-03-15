@@ -16,4 +16,14 @@ visitsRouter
   .get(async (request, response) => await visitControllers.getVisitById(request, response))
   .delete(async (request, response) => await visitControllers.deleteVisit(request, response));
 
+visitsRouter
+  .route('/acept/:id')
+  .all(auth, verified)
+  .post(async (request, response) => await visitControllers.aceptVisit(request, response));
+
+visitsRouter
+  .route('/deny/:id')
+  .all(auth, verified)
+  .post(async (request, response) => await visitControllers.denyVisit(request, response));
+
 module.exports = visitsRouter;
