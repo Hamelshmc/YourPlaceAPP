@@ -29,7 +29,7 @@ async function updateBooking({ startDate, months, idBooking }, idUser) {
       });
 
       const userEmail = await publicationRepository.findPublicationOwner(
-        foundBooking.idPublication
+        foundBooking.id_publication
       );
 
       await userServices.sendConfirmationEmail(
