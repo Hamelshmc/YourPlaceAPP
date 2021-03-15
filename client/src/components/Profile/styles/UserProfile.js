@@ -5,6 +5,7 @@ const UserProfile = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-bottom:1rem;
 `;
 
 export default UserProfile;

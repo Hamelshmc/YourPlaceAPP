@@ -1,41 +1,40 @@
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { fetchAuthData, fetchUser } from '../api/User';
+import { fetchYourUser } from '../api/User';
 import Content from '../components/Profile/Content';
 import Header from '../components/Profile/Header';
 import ProfileContainer from '../components/Profile/styles/ProfileContainer';
 import UserTabs from '../components/Profile/UserTabs';
 import { UserContext } from '../hooks/UserContext';
 
-const Profile = () => {
+const YourProfile = () => {
+  const { id } = useParams();
   const [user, setUser] = useContext(UserContext);
   const { isError, data } = useQuery(
-    ['userProfile', fetchUser, user, setUser],
-    async () => await fetchAuthData(fetchUser, user, setUser)
+    ['userProfile', id, user, setUser],
+    async () => await fetchYourUser(id, user.token)
   );
 
   if (isError) {
     toast.error('🙈 ¡Ooops! Error fetching your profile data');
   }
 
-  console.log({ data });
 
   return data ? (
     <ProfileContainer>
       <div>
-        <Header user={data.data.user} />
-        <Content user={data.data.user} />
+        <Header user={data.data?.user} />
+        <Content user={data.data?.user} />
       </div>
 
       <UserTabs
-        publicationsUser={data.data.publicationsUser}
-        publicationsHistoryUser={data.data.publicationsHistoryUser}
-        bookings={data.data.bookings}
-        requestBookings={data.data.requestBookings}
-        visits={data.data.visits}
-        requestVisits={data.data.requestVisits}
         id={data.data?.user.id}
+        publicationsUser={data.data?.publicationsUser}
+        publicationsHistoryUser={data.data?.publicationsHistoryUser}
+        bookings={data.data?.bookings}
+        requestBookings={data.data?.requestBookings}
       />
     </ProfileContainer>
   ) : (
@@ -43,4 +42,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default YourProfile;

@@ -1,6 +1,9 @@
+/* eslint-disable complexity */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-constant-condition */
 import { Transformation } from 'cloudinary-react';
+import { useContext } from 'react';
+import { UserContext } from '../../hooks/UserContext';
 import EditButton from './styles/EditButton';
 import EditProfile from './styles/EditButtonContainer';
 import ProfileHeader from './styles/ProfileHeader';
@@ -12,13 +15,15 @@ import UserProfile from './styles/UserProfile';
 
 const cloudName = 'yourplace';
 
-const Header = ({ user }) => {
-  const { picture } = user;
+const Header = ({ user: userProp }) => {
+  const [user, setUser] = useContext(UserContext);
+  const { picture } = userProp;
   const data =
-    user && user.picture ? `YourPlace_IMG/${picture.split('YourPlace_IMG/')[1]}` : 'avatar.svg';
-  console.log(data);
+    userProp && userProp.picture
+      ? `YourPlace_IMG/${picture.split('YourPlace_IMG/')[1]}`
+      : 'avatar.svg';
   return (
-    <ProfileHeader background={user && user.background}>
+    <ProfileHeader background={userProp && userProp.background}>
       <ProfileHeaderContainer>
         <ProfileHeaderContent>
           <UserProfile>
@@ -35,17 +40,21 @@ const Header = ({ user }) => {
             </UserAvatar>
             <Username>
               <span>
-                {user && user.fullname
-                  ? user.fullname
-                  : user && user.email
-                  ? user.email.split('@')[0]
+                {userProp && userProp.fullname
+                  ? userProp.fullname
+                  : userProp && userProp.email
+                  ? userProp.email.split('@')[0]
                   : 'Jhon Doe'}
               </span>
             </Username>
           </UserProfile>
         </ProfileHeaderContent>
         <EditProfile>
-          <EditButton>Edit profile</EditButton>
+          {userProp.id === user.id ? (
+            <EditButton to="/profile/edit">Edit profile</EditButton>
+          ) : (
+            <EditButton to={`/user/score/${userProp.id}`}>Score</EditButton>
+          )}
         </EditProfile>
       </ProfileHeaderContainer>
     </ProfileHeader>

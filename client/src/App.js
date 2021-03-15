@@ -25,6 +25,8 @@ const EditBooking = React.lazy(() => import('./pages/EditBooking'));
 const NewVisit = React.lazy(() => import('./pages/NewVisit'));
 const EditVisit = React.lazy(() => import('./pages/EditVisit'));
 const NewPublication = React.lazy(() => import('./pages/NewPublication'));
+const YourProfile = React.lazy(() => import('./pages/YourProfile'));
+const RatingUser = React.lazy(() => import('./pages/RatingUser'));
 // Create a client
 const queryClient = new QueryClient();
 
@@ -43,7 +45,8 @@ function App() {
             <PrivateRoute path="/publication/add" component={NewPublication} exact />
             <PrivateRoute path="/publication/edit/:id" component={EditPublication} exact />
             <PublicRoute path="/publication/:id" component={Publication} exact />
-            <PrivateRoute path="/user/:id" component={Profile} exact />
+            <PrivateRoute path="/user/score/:id" component={RatingUser} exact />
+            <PrivateRoute path="/user/:id" component={YourProfile} exact />
             <PrivateRoute path="/booking/add/:id" component={NewBooking} exact />
             <PrivateRoute path="/booking/edit/:id" component={EditBooking} exact />
             <PrivateRoute path="/visit/add/:id" component={NewVisit} exact />

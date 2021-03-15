@@ -61,6 +61,17 @@ const fetchUser = async (token) =>
     })
   ).json();
 
+const fetchYourUser = async (id, token) =>
+  await (
+    await fetch(`/api/v1/users/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).json();
+
 const fetchAuthData = async (fetchFn, user, setUser) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
@@ -116,6 +127,18 @@ const fetchUpdateUser = async (data, token) => {
   return resJSON;
 };
 
+const fetchUserRating = async (data, token) =>
+  await (
+    await fetch(`/api/v1/users/ratings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+  ).json();
+
 export {
   fetchRegister,
   fetchLogin,
@@ -124,4 +147,6 @@ export {
   fetchAuthData,
   fetchAuthDataPost,
   fetchUpdateUser,
+  fetchYourUser,
+  fetchUserRating,
 };

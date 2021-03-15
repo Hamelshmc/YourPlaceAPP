@@ -121,7 +121,7 @@ const CardWrapper = styled.li`
   padding: 1rem;
   text-align: center;
   border-radius: 0.2rem;
-  box-shadow: ${({ theme }) => theme.boxShadow.default};
+  box-shadow: 0 1px 3px 0 rgba(15, 87, 170, 0.6), 0 1px 2px 0 rgba(15, 87, 170, 0.3);
   margin: 0.5rem;
 `;
 
