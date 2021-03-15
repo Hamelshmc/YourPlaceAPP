@@ -35,6 +35,7 @@ const Profile = () => {
         requestBookings={data.data.requestBookings}
         visits={data.data.visits}
         requestVisits={data.data.requestVisits}
+        id={data.data?.user.id}
       />
     </ProfileContainer>
   ) : (
