@@ -6,7 +6,10 @@ const notificationServices = require('../../notification/services');
 const publicationRepository = require('../../../repositories/publication.repository');
 const typeNotifications = require('../../notification/helper/type.notification');
 const visitRepository = require('../../../repositories/visit.repository');
+const userServices = require('../../user/services');
 const visitValidator = require('../validations');
+
+const { HTTP_CLIENT_NAME } = process.env;
 
 async function insertVisit({ visitDate, visitHour, idPublication }, idUser) {
   await visitValidator.validateInsertVisit({ visitDate, visitHour, idPublication });
@@ -26,6 +29,16 @@ async function insertVisit({ visitDate, visitHour, idPublication }, idUser) {
         type: typeNotifications.VISIT,
         idUser,
       });
+      const userEmail = await publicationRepository.findPublicationOwner(idPublication);
+
+      await userServices.sendConfirmationEmail(
+        userEmail,
+        'YourPlace new request visit',
+        '¡Somebody want to visit yourplace!',
+        '¡Please anwser him as soon as posible!',
+        `${HTTP_CLIENT_NAME}/profile`,
+        '¡Go to my profile!'
+      );
       return await visitRepository.insertVisit(visit);
     }
     throw new ResponseError(httpStatus.NOT_FOUND, 'PUBLICATION NOT FOUND');
