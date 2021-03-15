@@ -61,6 +61,17 @@ const fetchUser = async (token) =>
     })
   ).json();
 
+const fetchYourUser = async (id, token) =>
+  await (
+    await fetch(`/api/v1/users/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).json();
+
 const fetchAuthData = async (fetchFn, user, setUser) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
@@ -124,4 +135,5 @@ export {
   fetchAuthData,
   fetchAuthDataPost,
   fetchUpdateUser,
+  fetchYourUser,
 };
