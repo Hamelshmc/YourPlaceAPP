@@ -39,7 +39,8 @@ async function findPublicationUser(id) {
 async function findPublicationFavoriteUser(id) {
   const selectUserId = `
   SELECT
-  p.id, p.area,p.rooms,p.bathrooms,p.garage,p.elevator,p.furnished,p.publication_type,p.deposit,p.price,p.availability_date,p.disabled,
+  p.id, area, rooms, bathrooms, garage, elevator, furnished, parking, pets, garden, pool, terrace, storage_room, heating,
+  publication_type, deposit,price,DATE_FORMAT( availability_date, '%d-%c-%Y') as availability_date , p.disabled,
   AVG(pr.rating) as publicationRating
   FROM ${tableNames.USER} u
   LEFT JOIN ${tableNames.USER_PUBLICATIONS_FAVORITES} upf ON u.id = upf.id_user
@@ -51,8 +52,13 @@ async function findPublicationFavoriteUser(id) {
 
 async function findHistoryPublicationUser(id) {
   const sql = `SELECT
-  p.id, p.area, p.rooms, p.bathrooms, p.garage, p.elevator, p.furnished, p.parking, p.pets, p.garden, p.pool, p.terrace, p.storage_room, p.heating, p.publication_type
+  p.id, area, rooms, bathrooms, garage, elevator, furnished, parking, pets, garden, pool, terrace, storage_room, heating,
+  publication_type, deposit,price,DATE_FORMAT( availability_date, '%d-%c-%Y') as availability_date, p.id_user, street, city, picture, email, fullname, AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating, t.success
   FROM ${tableNames.PUBLICATION} p
+  LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON p.id_publication_address = pa.id
+  LEFT JOIN ${tableNames.USER} u ON p.id_user = u.id
+  LEFT JOIN ${tableNames.USER_RATING} ur ON ur.id_user_voted = p.id_user
+  LEFT JOIN ${tableNames.PUBLICATION_RATINGS} pr ON pr.id_publication = p.id
   LEFT JOIN ${tableNames.BOOKING} b ON b.id_publication = p.id
   LEFT JOIN ${tableNames.TRANSACTIONS} t ON b.id = t.id_booking
   WHERE t.success = true AND b.id_user_payer = ? ORDER BY p.timestamp`;
@@ -109,17 +115,20 @@ async function verifyUser(id) {
 }
 
 async function findUserBookings(id) {
-  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city, p.id as id_publication
+  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city, p.id as id_publication, t.success
   FROM ${tableNames.BOOKING} b
   LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = b.id_publication
   LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
+  LEFT JOIN ${tableNames.TRANSACTIONS} t ON b.id = t.id_booking
   WHERE b.id_user_payer = ? GROUP BY b.id`;
   const values = [id];
   return await repositoryManager.executeQuery(query, values);
 }
 
 async function findUserRequestBookings(id) {
-  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city, p.id as id_publication FROM ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address WHERE p.id_user = ? GROUP BY b.id`;
+  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city, p.id as id_publication FROM ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
+  LEFT JOIN ${tableNames.TRANSACTIONS} t ON b.id = t.id_booking
+  WHERE p.id_user = ? GROUP BY b.id`;
   const values = [id];
   return await repositoryManager.executeQuery(query, values);
 }

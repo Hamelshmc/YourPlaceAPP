@@ -19,6 +19,7 @@ function CardBookingVisit({ item, aceptButtons }) {
     acepted,
     visit_date,
     visit_hour,
+    success,
   } = item;
   return (
     item && (
@@ -61,7 +62,9 @@ function CardBookingVisit({ item, aceptButtons }) {
         ) : (
           <></>
         )}
-        {aceptButtons ? (
+        {success ? (
+          'This booking is already paid'
+        ) : aceptButtons ? (
           <CardDateContent>
             {acepted === 1 ? (
               'Booking acepted'
@@ -103,7 +106,9 @@ function CardBookingVisit({ item, aceptButtons }) {
           <>
             <CardDateContent>
               <CardLink to={`/publication/${id_publication}`}>Show publication</CardLink>
-              {!aceptButtons && <CardLink to={`/booking/edit/${id}`}>Edit your booking</CardLink>}
+              {!aceptButtons && !success && (
+                <CardLink to={`/booking/edit/${id}`}>Edit your booking</CardLink>
+              )}
             </CardDateContent>
           </>
         ) : (

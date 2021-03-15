@@ -47,6 +47,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Header />
           <Switch>
+            <PublicRoute path="/" component={Search} exact />
             <PublicRoute path="/verify/:id/:code" component={Verification} exact />
             <PublicRoute path="/search" component={Search} exact />
             <PublicRoute path="/like" component={Like} exact />

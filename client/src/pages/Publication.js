@@ -51,14 +51,14 @@ function Publication() {
       <PublicationLessorWrapper>
         {user.id !== publication.id_user ? <Lessor lessor={publication} /> : <></>}
       </PublicationLessorWrapper>
-      {user.id !== publication.id_user ? <FormRating id={id} /> : <></>}
+      {user.id !== publication.id_user && publication.success ? <FormRating id={id} /> : <></>}
       <ButtonContent>
-        {user.id !== publication.id_user ? (
+        {user.id !== publication.id_user && !publication.success ? (
           <ButtonLink to={`/visit/add/${id}`}>¡I want to visit it!</ButtonLink>
         ) : (
           <></>
         )}
-        {user.id !== publication.id_user ? (
+        {user.id !== publication.id_user && !publication.success ? (
           <ButtonLink to={`/booking/add/${id}`}>¡Book it!</ButtonLink>
         ) : (
           <></>
