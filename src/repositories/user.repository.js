@@ -124,6 +124,22 @@ async function findUserRequestBookings(id) {
   return await repositoryManager.executeQuery(query, values);
 }
 
+async function findUserVisits(id) {
+  const query = `SELECT v.id, DATE_FORMAT( v.visit_date, '%d-%c-%Y') as visit_date, v.visit_hour, v.acepted, pa.street, pa.city
+  FROM ${tableNames.VISIT} v
+  LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = v.id_publication
+  LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
+  WHERE v.id_user_visitant = ? GROUP BY v.id`;
+  const values = [id];
+  return await repositoryManager.executeQuery(query, values);
+}
+
+async function findUserRequestVisits(id) {
+  const query = `SELECT v.id, DATE_FORMAT( v.visit_date, '%d-%c-%Y') as visit_date, v.visit_hour, v.acepted, pa.street, pa.city FROM ${tableNames.VISIT} v LEFT JOIN ${tableNames.PUBLICATION} p ON v.id_publication = p.id LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address WHERE p.id_user = ? GROUP BY v.id`;
+  const values = [id];
+  return await repositoryManager.executeQuery(query, values);
+}
+
 module.exports = {
   addVerificationCode,
   findByEmail,
@@ -133,6 +149,8 @@ module.exports = {
   findPublicationUser,
   findUserBookings,
   findUserRequestBookings,
+  findUserRequestVisits,
+  findUserVisits,
   findUserWithAddress,
   registerUser,
   updateUser,

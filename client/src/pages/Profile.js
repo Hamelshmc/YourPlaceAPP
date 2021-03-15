@@ -33,6 +33,8 @@ const Profile = () => {
         publicationsHistoryUser={data.data.publicationsHistoryUser}
         bookings={data.data.bookings}
         requestBookings={data.data.requestBookings}
+        visits={data.data.visits}
+        requestVisits={data.data.requestVisits}
       />
     </ProfileContainer>
   ) : (

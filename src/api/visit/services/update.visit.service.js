@@ -8,6 +8,7 @@ const typeNotifications = require('../../notification/helper/type.notification')
 const { httpStatus, ResponseError } = require('../../../helpers');
 
 async function updateVisit(id, visitDate, visitHour, idUser) {
+  console.log({ id }, { visitDate }, { visitHour }, { idUser });
   await visitValidator.validateUpdateVisit({ visitDate, visitHour });
   const foundVisit = await getVisitById(id);
   if (foundVisit) {
