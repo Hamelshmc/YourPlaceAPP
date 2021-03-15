@@ -87,12 +87,16 @@ function CardBookingVisit({ item, aceptButtons }) {
           </CardDateContent>
         ) : acepted === 0 && start_date ? (
           'Booking pending to been aproved'
+        ) : acepted === 1 && start_date ? (
+          'Acepted booking'
         ) : acepted === 0 && visit_date ? (
           'Visit pending to been aproved'
+        ) : acepted === 1 && visit_date ? (
+          'Acepted visit'
         ) : (
           <></>
         )}
-        {start_date && end_date ? (
+        {start_date ? (
           <>
             <CardDateContent>
               <CardLink to={`/publication/${id_publication}`}>Show publication</CardLink>
