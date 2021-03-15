@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import StartRating from '../StartRating';
 import ButtonRating from './styles/ButtonRating';
 import FormRatingWrapper from './styles/FormRatingWrapper';
 import Textarea from './styles/Textarea';
 
-function FormUserRating({ handleSubmit, onSubmit, register }) {
+function FormUserRating({ handleSubmit, onSubmit, register, mutation }) {
   return (
     <section>
       <FormRatingWrapper onSubmit={handleSubmit(onSubmit)}>
@@ -18,7 +19,9 @@ function FormUserRating({ handleSubmit, onSubmit, register }) {
           placeholder="Write a comment"
         />
         <ButtonRating type="submit" value="Send">
-          Send
+          {mutation.isLoading ? 'Doing interesting things...' : 'Send'}
+          {mutation.isError && 'An error occurred'}
+          {mutation.isSuccess && <Redirect to="/" />}
         </ButtonRating>
       </FormRatingWrapper>
     </section>

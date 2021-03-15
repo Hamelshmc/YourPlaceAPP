@@ -12,6 +12,7 @@ import { UserProvider } from './hooks/UserContext';
 import StyledContainer from './StyledContainer';
 import Wrapper from './theme/Wrapper';
 
+const EditRating = React.lazy(() => import('./pages/EditRating'));
 const Join = React.lazy(() => import('./pages/Join'));
 const Search = React.lazy(() => import('./pages/Search'));
 const Messages = React.lazy(() => import('./pages/Messages'));
@@ -55,6 +56,7 @@ function App() {
             <PrivateRoute path="/publication/add" component={NewPublication} exact />
             <PrivateRoute path="/publication/edit/:id" component={EditPublication} exact />
             <PublicRoute path="/publication/:id" component={Publication} exact />
+            <PrivateRoute path="/user/score/edit/:id" component={EditRating} exact />
             <PrivateRoute path="/user/score/:id" component={RatingUser} exact />
             <PrivateRoute path="/user/:id" component={YourProfile} exact />
             <PrivateRoute path="/booking/add/:id" component={NewBooking} exact />

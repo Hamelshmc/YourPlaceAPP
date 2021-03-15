@@ -21,7 +21,6 @@ async function updateRating(ratingBody, idUser) {
       type: typeNotifications.RATING,
       idUser,
     };
-
     await notificationServices.newNotification(notification);
     return await userRatingRepository.updateUserRating(ratingEntity, idUser);
   }

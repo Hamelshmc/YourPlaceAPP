@@ -14,6 +14,7 @@ async function getUser({ id: idUser }) {
     const [...requestBookings] = await userRepository.findUserRequestBookings(idUser);
     const [...visits] = await userRepository.findUserVisits(idUser);
     const [...requestVisits] = await userRepository.findUserRequestVisits(idUser);
+    const [...ratings] = await userRepository.findAllRatingByUserId(idUser);
 
     publicationsUser = await publicationsUser.map(async (publication) => {
       const pics = await publicationRepository.findAllPicturesByPublicationId(publication.id);
@@ -42,14 +43,15 @@ async function getUser({ id: idUser }) {
     );
 
     return {
-      user,
-      publicationsUser,
+      bookings,
+      ratings,
       publicationsFavoritesUser,
       publicationsHistoryUser,
-      bookings,
+      publicationsUser,
       requestBookings,
-      visits,
       requestVisits,
+      user,
+      visits,
     };
   }
 
