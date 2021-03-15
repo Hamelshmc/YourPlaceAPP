@@ -35,19 +35,20 @@ async function insertBooking({ startDate, months, idPublication }, idUser) {
         type: typeNotifications.BOOKING,
         idUser,
       });
+      const userEmail = await publicationRepository.findPublicationOwner(idPublication);
+
+      await userServices.sendConfirmationEmail(
+        userEmail,
+        'YourPlace new request booking',
+        '¡Somebody want yourplace!',
+        '¡Please anwser him as soon as posible!',
+        `${HTTP_CLIENT_NAME}/profile`,
+        '¡Go to my profile!'
+      );
 
       return await bookingRepository.insertBooking(booking);
     }
-    const [user] = await publicationRepository.findPublicationOwner(idPublication);
 
-    await userServices.sendConfirmationEmail(
-      user,
-      'YourPlace new request booking',
-      '¡Somebody want yourplace!',
-      '¡Please anwser him as soon as posible!',
-      `${HTTP_CLIENT_NAME}/profile`,
-      '¡Go to my profile!'
-    );
     throw new ResponseError(httpStatus.NOT_FOUND, 'THAT PUBLICATION DOESNT EXIST');
   }
   throw new ResponseError(
