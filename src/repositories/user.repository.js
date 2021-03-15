@@ -109,7 +109,7 @@ async function verifyUser(id) {
 }
 
 async function findUserBookings(id) {
-  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city
+  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city, p.id as id_publication
   FROM ${tableNames.BOOKING} b
   LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = b.id_publication
   LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
@@ -119,13 +119,13 @@ async function findUserBookings(id) {
 }
 
 async function findUserRequestBookings(id) {
-  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city FROM ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address WHERE p.id_user = ? GROUP BY b.id`;
+  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city, p.id as id_publication FROM ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address WHERE p.id_user = ? GROUP BY b.id`;
   const values = [id];
   return await repositoryManager.executeQuery(query, values);
 }
 
 async function findUserVisits(id) {
-  const query = `SELECT v.id, DATE_FORMAT( v.visit_date, '%d-%c-%Y') as visit_date, v.visit_hour, v.acepted, pa.street, pa.city
+  const query = `SELECT v.id, DATE_FORMAT( v.visit_date, '%d-%c-%Y') as visit_date, v.visit_hour, v.acepted, pa.street, pa.city, p.id as id_publication
   FROM ${tableNames.VISIT} v
   LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = v.id_publication
   LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
@@ -135,7 +135,7 @@ async function findUserVisits(id) {
 }
 
 async function findUserRequestVisits(id) {
-  const query = `SELECT v.id, DATE_FORMAT( v.visit_date, '%d-%c-%Y') as visit_date, v.visit_hour, v.acepted, pa.street, pa.city FROM ${tableNames.VISIT} v LEFT JOIN ${tableNames.PUBLICATION} p ON v.id_publication = p.id LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address WHERE p.id_user = ? GROUP BY v.id`;
+  const query = `SELECT v.id, DATE_FORMAT( v.visit_date, '%d-%c-%Y') as visit_date, v.visit_hour, v.acepted, pa.street, pa.city, p.id as id_publication FROM ${tableNames.VISIT} v LEFT JOIN ${tableNames.PUBLICATION} p ON v.id_publication = p.id LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address WHERE p.id_user = ? GROUP BY v.id`;
   const values = [id];
   return await repositoryManager.executeQuery(query, values);
 }

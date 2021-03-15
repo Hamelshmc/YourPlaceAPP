@@ -22,4 +22,26 @@ const fetchUpdateBooking = async (data, token) =>
     })
   ).json();
 
-export { fetchUpdateBooking, fetchAddBooking };
+const fetchAceptBooking = async (data, token) =>
+  await (
+    await fetch(`/api/v1/bookings/acept/${data.idBooking}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).json();
+
+const fetchDenyBooking = async (data, token) =>
+  await (
+    await fetch(`/api/v1/bookings/deny/${data.idBooking}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).json();
+
+export { fetchUpdateBooking, fetchAddBooking, fetchAceptBooking, fetchDenyBooking };

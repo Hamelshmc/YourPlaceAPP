@@ -434,7 +434,7 @@ async function sendEmail(id, code, email) {
                                                 style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
                                               <a style="background-color:#066ec0; border:1px solid #066EC0; border-color:#066EC0; border-radius:0px; border-width:1px; color:#ffffff; display:inline-block; font-family:verdana,geneva,sans-serif; font-size:16px; font-weight:normal; letter-spacing:1px; line-height:30px; padding:12px 20px 12px 20px; text-align:center; text-decoration:none; border-style:solid;"
                                                  href="${HTTP_CLIENT_NAME}/verify/${id}/${code}"
-                                                 target="_blank">Go!</a></td>
+                                                 target="_blank">Verify your account here</a></td>
                                           </tr>
                                         </tbody>
                                       </table>

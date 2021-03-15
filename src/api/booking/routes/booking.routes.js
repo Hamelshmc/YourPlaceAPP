@@ -16,4 +16,14 @@ bookingRouter
   .get(async (request, response) => await bookingControllers.getBookingById(request, response))
   .delete(async (request, response) => await bookingControllers.deleteBooking(request, response));
 
+bookingRouter
+  .route('/acept/:id')
+  .all(auth, verified)
+  .post(async (request, response) => await bookingControllers.aceptBooking(request, response));
+
+bookingRouter
+  .route('/deny/:id')
+  .all(auth, verified)
+  .post(async (request, response) => await bookingControllers.denyBooking(request, response));
+
 module.exports = bookingRouter;

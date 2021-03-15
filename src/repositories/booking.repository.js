@@ -45,8 +45,20 @@ async function haveBooking(idUser, idPublication) {
   return await repositoryManager.valueExists(query, [idUser, idPublication]);
 }
 
+async function aceptBooking(idUser, idBooking) {
+  const query = `UPDATE ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = b.id_publication SET b.acepted = 1 WHERE p.id_user = ? AND b.id = ?`;
+  return await repositoryManager.valueExists(query, [idUser, idBooking]);
+}
+// DELETE t1 FROM t1 LEFT JOIN t2 ON t1.id=t2.id WHERE t2.id IS NULL;
+async function denyBooking(idUser, idBooking) {
+  const query = `DELETE b FROM ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id WHERE p.id_user = ? AND b.id = ?`;
+  return await repositoryManager.valueExists(query, [idUser, idBooking]);
+}
+
 module.exports = {
+  aceptBooking,
   deleteBooking,
+  denyBooking,
   findBookingById,
   insertBooking,
   updateBooking,
