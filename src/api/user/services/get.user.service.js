@@ -3,9 +3,12 @@ const { ResponseError, httpStatus } = require('../../../helpers');
 const publicationRepository = require('../../../repositories/publication.repository');
 const userRepository = require('../../../repositories/user.repository');
 
-async function getUser({ id: idUser }) {
+async function getUser({ id: idUser }, id) {
   const [user] = await userRepository.findById(idUser);
-
+  if (id) {
+    const canComment = await userRepository.userCanComment(idUser, id);
+    user.canComment = canComment;
+  }
   if (user) {
     let [...publicationsUser] = await userRepository.findPublicationUser(idUser);
     let [...publicationsFavoritesUser] = await userRepository.findPublicationFavoriteUser(idUser);

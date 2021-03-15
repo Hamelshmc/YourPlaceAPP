@@ -30,6 +30,7 @@ userRouter
 
 userRouter
   .route('/:id')
+  .all(auth)
   .get(async (request, response) => await userController.getUser(request, response));
 
 userRouter

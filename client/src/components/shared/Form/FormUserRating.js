@@ -19,9 +19,9 @@ function FormUserRating({ handleSubmit, onSubmit, register, mutation }) {
           placeholder="Write a comment"
         />
         <ButtonRating type="submit" value="Send">
-          {mutation.isLoading ? 'Doing interesting things...' : 'Send'}
-          {mutation.isError && 'An error occurred'}
-          {mutation.isSuccess && <Redirect to="/" />}
+          {mutation && mutation.isLoading ? 'Doing interesting things...' : 'Send'}
+          {mutation && mutation.isError && 'An error occurred'}
+          {mutation && mutation.isSuccess && <Redirect to="/" />}
         </ButtonRating>
       </FormRatingWrapper>
     </section>

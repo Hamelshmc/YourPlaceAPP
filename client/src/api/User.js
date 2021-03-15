@@ -88,6 +88,22 @@ const fetchAuthData = async (fetchFn, user, setUser) => {
   }
 };
 
+const fetchAuthDataWithParam = async (fetchFn, user, setUser, param) => {
+  const tokenResponse = await checkToken(user.token);
+  if (tokenResponse.status === 200) {
+    return await fetchFn(param, user.token);
+  }
+  const generateTokenResponse = await generateTokens(user.refreshToken);
+  if (generateTokenResponse.status === 201) {
+    setUser({
+      ...user,
+      token: generateTokenResponse.data.authorization,
+      refreshToken: generateTokenResponse.data.refreshToken,
+    });
+    return await fetchFn(param, generateTokenResponse.data.authorization);
+  }
+};
+
 const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
@@ -155,6 +171,7 @@ const fetchUserRatingUpdate = async (data, token, id) => {
 export {
   fetchAuthData,
   fetchAuthDataPost,
+  fetchAuthDataWithParam,
   fetchLogin,
   fetchRegister,
   fetchUpdateUser,

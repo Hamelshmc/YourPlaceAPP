@@ -61,7 +61,7 @@ async function findHistoryPublicationUser(id) {
   LEFT JOIN ${tableNames.PUBLICATION_RATINGS} pr ON pr.id_publication = p.id
   LEFT JOIN ${tableNames.BOOKING} b ON b.id_publication = p.id
   LEFT JOIN ${tableNames.TRANSACTIONS} t ON b.id = t.id_booking
-  WHERE t.success = true AND b.id_user_payer = ? ORDER BY p.timestamp`;
+  WHERE t.success = true AND b.id_user_payer = ? GROUP BY p.id ORDER BY p.timestamp`;
   const value = [id];
   return await repositoryManager.executeQuery(sql, value);
 }
@@ -154,6 +154,11 @@ async function findAllRatingByUserId(idUser) {
   return await repositoryManager.executeQuery(query, [idUser]);
 }
 
+async function userCanComment(idUser, id) {
+  const query = `SELECT * FROM ${tableNames.PUBLICATION} p LEFT JOIN ${tableNames.BOOKING} b ON p.id = b.id_publication LEFT JOIN ${tableNames.TRANSACTIONS} t ON t.id_booking = b.id WHERE p.id_user = ? AND b.id_user_payer = ?;`;
+  return await repositoryManager.valueExists(query, [idUser, id]);
+}
+
 module.exports = {
   addVerificationCode,
   findAllRatingByUserId,
@@ -172,4 +177,5 @@ module.exports = {
   validateVerificationCode,
   valueExists,
   verifyUser,
+  userCanComment,
 };

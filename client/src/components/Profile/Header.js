@@ -53,7 +53,7 @@ const Header = ({ user: userProp }) => {
           {userProp.id === user.id ? (
             <EditButton to="/profile/edit">Edit profile</EditButton>
           ) : (
-            <EditButton to={`/user/score/${userProp.id}`}>Score</EditButton>
+            userProp.canComment && <EditButton to={`/user/score/${userProp.id}`}>Score</EditButton>
           )}
         </EditProfile>
       </ProfileHeaderContainer>

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { fetchYourUser } from '../api/User';
+import { fetchAuthDataWithParam, fetchYourUser } from '../api/User';
 import Content from '../components/Profile/Content';
 import Header from '../components/Profile/Header';
 import ProfileContainer from '../components/Profile/styles/ProfileContainer';
@@ -14,12 +14,14 @@ const YourProfile = () => {
   const [user, setUser] = useContext(UserContext);
   const { isError, data } = useQuery(
     ['userProfile', id, user, setUser],
-    async () => await fetchYourUser(id, user.token)
+    async () => await fetchAuthDataWithParam(fetchYourUser, user, setUser, id)
   );
 
   if (isError) {
     toast.error('🙈 ¡Ooops! Error fetching your profile data');
   }
+
+  console.log({ data });
 
   return data ? (
     <ProfileContainer>
