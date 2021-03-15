@@ -140,8 +140,14 @@ async function findUserRequestVisits(id) {
   return await repositoryManager.executeQuery(query, values);
 }
 
+async function findAllRatingByUserId(idUser) {
+  const query = `SELECT rating,timestamp, DATE_FORMAT( timestamp, '%d-%c-%Y') as timestamp,comment,fullname,email ,id,ur.id_user_voted,id_user_voter FROM user_rating ur LEFT JOIN users u ON  u.id = ur.id_user_voter where ur.id_user_voted = ?;`;
+  return await repositoryManager.executeQuery(query, [idUser]);
+}
+
 module.exports = {
   addVerificationCode,
+  findAllRatingByUserId,
   findByEmail,
   findById,
   findHistoryPublicationUser,

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { UserContext } from '../../hooks/UserContext';
 import ListPublication from '../Publication/ListPublication';
 import CardBookingVisit from '../shared/CardBookingVisit';
+import UserCommentRating from '../shared/UserCommentRating';
 import TabItem from '../Tabs/styles/TabItem';
 import Tabs from '../Tabs/Tabs';
 import TabSectionReverse from './styles/TabSectionReverse';
@@ -16,6 +17,7 @@ const UserTabs = ({
   visits,
   requestVisits,
   id,
+  rating,
 }) => {
   const [user, setUser] = useContext(UserContext);
   return (
@@ -89,6 +91,13 @@ const UserTabs = ({
         ) : (
           <></>
         )}
+        <TabItem label="Comments" index="5">
+          {rating && rating.length > 0 ? (
+            <UserCommentRating item={rating} />
+          ) : (
+            <h2>You dont have any publication</h2>
+          )}
+        </TabItem>
       </Tabs>
     </TabSectionReverse>
   );

@@ -7,8 +7,7 @@ const ButtonRating = styled.button`
   margin: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: 0.2rem;
-  min-width: 3rem;
-  max-width: 6rem;
+  max-width: 10rem;
   text-decoration: none;
   text-shadow: ${({ theme }) => theme.boxShadow.default};
   box-shadow: ${({ theme }) => theme.boxShadow.default};

@@ -139,14 +139,28 @@ const fetchUserRating = async (data, token) =>
     })
   ).json();
 
+const fetchUserRatingUpdate = async (data, token, id) => {
+  const res = await fetch(`/api/v1/users/ratings`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  const resJSON = await res.json();
+  return resJSON;
+};
+
 export {
-  fetchRegister,
-  fetchLogin,
-  fetchUser,
-  fetchUserVerification,
   fetchAuthData,
   fetchAuthDataPost,
+  fetchLogin,
+  fetchRegister,
   fetchUpdateUser,
-  fetchYourUser,
+  fetchUser,
   fetchUserRating,
+  fetchUserRatingUpdate,
+  fetchUserVerification,
+  fetchYourUser,
 };
