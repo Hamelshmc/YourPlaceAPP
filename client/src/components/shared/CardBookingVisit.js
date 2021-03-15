@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import LinkShowMore from '../Publication/styles/Publication/LinkShowMore';
 
-function CardBookingVisit({ item }) {
+function CardBookingVisit({ item, aceptButtons }) {
   const {
     city,
     deposit,
@@ -59,20 +59,22 @@ function CardBookingVisit({ item }) {
         ) : (
           <></>
         )}
-        <CardDateContent>
-          {acepted === 1 ? (
-            'Booking acepted'
-          ) : (
-            <>
-              <CardLink to="/" success>
-                Accept
-              </CardLink>
-              <CardLink to="/" error>
-                Deny
-              </CardLink>
-            </>
-          )}
-        </CardDateContent>
+        {aceptButtons && (
+          <CardDateContent>
+            {acepted === 1 ? (
+              'Booking acepted'
+            ) : (
+              <>
+                <CardLink to="/" success>
+                  Accept
+                </CardLink>
+                <CardLink to="/" error>
+                  Deny
+                </CardLink>
+              </>
+            )}
+          </CardDateContent>
+        )}
         {start_date && end_date ? (
           <>
             <CardDateContent>
