@@ -1,10 +1,23 @@
+/* eslint-disable complexity */
 /* eslint-disable camelcase */
 import React from 'react';
 import styled from 'styled-components';
 import LinkShowMore from '../Publication/styles/Publication/LinkShowMore';
 
-function CardBookingVisit({ item }) {
-  const { city, deposit, end_date, price, start_date, street, id_publication, id } = item;
+function CardBookingVisit({ item, aceptButtons }) {
+  const {
+    city,
+    deposit,
+    end_date,
+    price,
+    start_date,
+    street,
+    id_publication,
+    id,
+    acepted,
+    visit_date,
+    visit_hour,
+  } = item;
   return (
     item && (
       <CardWrapper>
@@ -12,33 +25,71 @@ function CardBookingVisit({ item }) {
           {street} • {city}
         </CardDirection>
         <CardDateContent>
-          <CardDate>
-            Start date <Date>{start_date}</Date>
-          </CardDate>
-          <CardDate>
-            End date <Date>{end_date}</Date>
-          </CardDate>
+          {start_date && end_date ? (
+            <>
+              <CardDate>
+                Start date <Date>{start_date}</Date>
+              </CardDate>
+              <CardDate>
+                End date <Date>{end_date}</Date>
+              </CardDate>
+            </>
+          ) : (
+            <>
+              <CardDate>
+                Visit date <Date>{visit_date}</Date>
+              </CardDate>
+              <CardDate>
+                Visit hour <Date>{visit_hour}</Date>
+              </CardDate>
+            </>
+          )}
         </CardDateContent>
-        <CardDateContent>
-          <CardDate>
-            Price:<Date>{price}€</Date>
-          </CardDate>
-          <CardDate>
-            deposit:<Date>{deposit}€</Date>
-          </CardDate>
-        </CardDateContent>
-        <CardDateContent>
-          <CardLink to="/" success>
-            Accept
-          </CardLink>
-          <CardLink to="/" error>
-            Deny
-          </CardLink>
-        </CardDateContent>
-        <CardDateContent>
-          <CardLink to="">Show publication</CardLink>
-          <CardLink to="">Edit your booking</CardLink>
-        </CardDateContent>
+        {start_date && end_date ? (
+          <>
+            <CardDateContent>
+              <CardDate>
+                Price:<Date>{price}€</Date>
+              </CardDate>
+              <CardDate>
+                Deposit:<Date>{deposit}€</Date>
+              </CardDate>
+            </CardDateContent>
+          </>
+        ) : (
+          <></>
+        )}
+        {aceptButtons && (
+          <CardDateContent>
+            {acepted === 1 ? (
+              'Booking acepted'
+            ) : (
+              <>
+                <CardLink to="/" success>
+                  Accept
+                </CardLink>
+                <CardLink to="/" error>
+                  Deny
+                </CardLink>
+              </>
+            )}
+          </CardDateContent>
+        )}
+        {start_date && end_date ? (
+          <>
+            <CardDateContent>
+              <CardLink to={`/publication/${id_publication}`}>Show publication</CardLink>
+              {!aceptButtons && <CardLink to={`/booking/edit/${id}`}>Edit your booking</CardLink>}
+            </CardDateContent>
+          </>
+        ) : (
+          <>
+            <CardDateContent>
+              <CardLink to={`/publication/${id_publication}`}>Show publication</CardLink>
+              {!aceptButtons && <CardLink to={`/visit/edit/${id}`}>Edit your visit</CardLink>}
+            </CardDateContent>
+          </>
+        )}
       </CardWrapper>
     )
   );
@@ -79,6 +130,7 @@ const CardDate = styled.p`
   color: #4a5568;
   text-transform: uppercase;
 `;
-const Date = styled.p`
+const Date = styled.span`
+  display: block;
   color: #333333;
 `;

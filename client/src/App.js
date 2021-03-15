@@ -23,6 +23,7 @@ const EditPublication = React.lazy(() => import('./pages/EditPublication'));
 const NewBooking = React.lazy(() => import('./pages/NewBooking'));
 const EditBooking = React.lazy(() => import('./pages/EditBooking'));
 const NewVisit = React.lazy(() => import('./pages/NewVisit'));
+const EditVisit = React.lazy(() => import('./pages/EditVisit'));
 const NewPublication = React.lazy(() => import('./pages/NewPublication'));
 const YourProfile = React.lazy(() => import('./pages/YourProfile'));
 // Create a client
@@ -47,6 +48,7 @@ function App() {
             <PrivateRoute path="/booking/add/:id" component={NewBooking} exact />
             <PrivateRoute path="/booking/edit/:id" component={EditBooking} exact />
             <PrivateRoute path="/visit/add/:id" component={NewVisit} exact />
+            <PrivateRoute path="/visit/edit/:id" component={EditVisit} exact />
             <PrivateRoute path="/profile" component={Profile} exact />
             <PrivateRoute path="/profile/edit" component={EditProfile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />

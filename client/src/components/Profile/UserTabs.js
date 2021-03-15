@@ -2,13 +2,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import ListPublication from '../Publication/ListPublication';
-import LinkShowMore from '../Publication/styles/Publication/LinkShowMore';
 import CardBookingVisit from '../shared/CardBookingVisit';
 import TabItem from '../Tabs/styles/TabItem';
 import Tabs from '../Tabs/Tabs';
 import TabSectionReverse from './styles/TabSectionReverse';
 
-const UserTabs = ({ publicationsUser, publicationsHistoryUser, bookings, requestBookings }) => (
+const UserTabs = ({
+  publicationsUser,
+  publicationsHistoryUser,
+  bookings,
+  requestBookings,
+  visits,
+  requestVisits,
+}) => (
   <TabSectionReverse>
     <Tabs defaultIndex="1" onTabClick="1">
       <TabItem label="Publications" index="1">
@@ -32,38 +38,37 @@ const UserTabs = ({ publicationsUser, publicationsHistoryUser, bookings, request
               <ListCard>
                 {requestBookings &&
                   requestBookings.map((reqBooking) => (
-                    <CardBookingVisit key={reqBooking.id} item={reqBooking} />
+                    <CardBookingVisit aceptButtons key={reqBooking.id} item={reqBooking} />
                   ))}
               </ListCard>
             </TabItem>
             <TabItem label="My bookings" index="2">
-              {bookings &&
-                bookings.map((booking) => (
-                  <div key={booking.id}>
-                    <p>Start date: {booking.start_date}</p>
-                    <p>End date: {booking.end_date}</p>
-                    <p>Acepted: {booking.acepted ? '✨ ¡Acepted! 🎉🎉' : 'Not acepted yet...'}</p>
-                    {booking.acepted ? (
-                      <LinkShowMore to={`/payment?/${booking.id_publication}`}>
-                        Proceed to payment
-                      </LinkShowMore>
-                    ) : (
-                      <></>
-                    )}
-                    <LinkShowMore to={`/publication/${booking.id_publication}`}>
-                      Show publication
-                    </LinkShowMore>
-                    <LinkShowMore to={`/booking/edit/${booking.id}`}>
-                      Edit your booking
-                    </LinkShowMore>
-                  </div>
-                ))}
+              <ListCard>
+                {bookings &&
+                  bookings.map((booking) => <CardBookingVisit key={booking.id} item={booking} />)}
+              </ListCard>
             </TabItem>
           </Tabs>
         </TabSectionReverse>
       </TabItem>
       <TabItem label="Visits" index="4">
-        <h2>You dont have a visits history...</h2>
+        <TabSectionReverse>
+          <Tabs defaultIndex="1" onTabClick="1">
+            <TabItem label="Requests" index="1">
+              <ListCard>
+                {requestVisits &&
+                  requestVisits.map((reqVisit) => (
+                    <CardBookingVisit aceptButtons key={reqVisit.id} item={reqVisit} />
+                  ))}
+              </ListCard>
+            </TabItem>
+            <TabItem label="My visits" index="2">
+              <ListCard>
+                {visits && visits.map((visit) => <CardBookingVisit key={visit.id} item={visit} />)}
+              </ListCard>
+            </TabItem>
+          </Tabs>
+        </TabSectionReverse>
       </TabItem>
     </Tabs>
   </TabSectionReverse>

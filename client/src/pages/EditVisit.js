@@ -6,7 +6,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchAuthDataPost } from '../api/User';
-import { fetchAddVisit } from '../api/Visit';
+import { fetchUpdateVisit } from '../api/Visit';
 import InputForm from '../components/shared/Form/InputForm';
 import Form from '../components/shared/Form/styles/Form';
 import FormContainer from '../components/shared/Form/styles/FormContainer';
@@ -15,16 +15,16 @@ import SubmitButton from '../components/shared/Form/styles/SubmitButton';
 import visitSchema from '../components/Visit/validations/visitSchema';
 import { UserContext } from '../hooks/UserContext';
 
-const NewVisit = () => {
+const EditVisit = () => {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
 
   const mutation = useMutation(
-    async (data) => await fetchAuthDataPost(fetchAddVisit, user, setUser, data),
+    async (data) => await fetchAuthDataPost(fetchUpdateVisit, user, setUser, data),
     {
       onSuccess: (result) => {
-        if (result.status === 201) {
-          toast.success(`¡Visit added! 😄`);
+        if (result.status === 200) {
+          toast.success(` ¡Visit updated! 😄`);
         } else {
           toast.error(`🙈  ${result.data}  🙈 `);
         }
@@ -41,7 +41,7 @@ const NewVisit = () => {
     try {
       const { visit_date: date, visit_hour: visitHour } = data;
       const visitDate = new Date(date).toISOString().split('T')[0];
-      await mutation.mutateAsync({ visitDate, visitHour, idPublication: id });
+      await mutation.mutateAsync({ visitDate, visitHour, id });
     } catch (error) {
       toast.error(`${error.message} 🙈 Ooops! Connection error 🙈 `);
     }
@@ -51,7 +51,7 @@ const NewVisit = () => {
     <BookingContainer>
       <FormContainer>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <FormTitle>New visit</FormTitle>
+          <FormTitle>Edit your visit</FormTitle>
           <InputForm
             id="visit_date"
             name="visit_date"
@@ -82,7 +82,7 @@ const NewVisit = () => {
                 ) : mutation.isSuccess ? (
                   <Redirect to="/profile" />
                 ) : (
-                  '¡Book a visit!'
+                  '¡Update your visit!'
                 )}
               </>
             )}
@@ -102,4 +102,4 @@ const BookingContainer = styled.section`
   width: clamp(15.5rem, 50%, 25rem);
 `;
 
-export default NewVisit;
+export default EditVisit;
