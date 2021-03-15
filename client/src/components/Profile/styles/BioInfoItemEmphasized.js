@@ -8,5 +8,8 @@ const BioInfoItemEmphasized = styled(BioInfoItem)`
   display: flex;
   align-items: center;
   font-size: 0.9rem;
+  span {
+    margin-right: 0.3rem;
+  }
 `;
 export default BioInfoItemEmphasized;

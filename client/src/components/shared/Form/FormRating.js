@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import styled from 'styled-components';
 import { fetchPublicationRating } from '../../../api/Publication';
 import { UserContext } from '../../../hooks/UserContext';
 import StartRating from '../StartRating';
+import  ButtonRating  from './styles/ButtonRating';
+import FormRatingWrapper  from './styles/FormRatingWrapper';
+import Textarea  from './styles/Textarea';
 
 function FormRating({ id }) {
   const [user, setUser] = useContext(UserContext);
@@ -45,49 +47,5 @@ function FormRating({ id }) {
     </section>
   );
 }
-
-const FormRatingWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  margin: 0.5rem;
-`;
-
-const ButtonRating = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.2rem;
-  min-width: 3rem;
-  max-width: 6rem;
-  text-decoration: none;
-  text-shadow: ${({ theme }) => theme.boxShadow.default};
-  box-shadow: ${({ theme }) => theme.boxShadow.default};
-  border-width: 0.2rem;
-  border-style: solid;
-  background-color: #1679c5;
-  color: white;
-  border-image: linear-gradient(to bottom, #1679c5, rgba(0, 0, 0, 0)) 1 100%;
-  width: 100%;
-  &:hover {
-    background-color: #153b5b;
-    color: white;
-  }
-`;
-
-const Textarea = styled.textarea`
-  resize: none;
-  height: 11rem;
-  width: clamp(18rem, 60%, 30rem);
-  box-shadow: ${({ theme }) => theme.boxShadow.default};
-  border: none;
-  padding: 1rem;
-  &::focus {
-    outline: 1px solid tomato;
-  }
-`;
 
 export default FormRating;

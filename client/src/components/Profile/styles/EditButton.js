@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const EditButton = ({ children }) => (
-  <EditProfileButton to="/profile/edit">{children}</EditProfileButton>
-);
+// const EditButton = ({ children }) => (
+//   <EditProfileButton to="/profile/edit">{children}</EditProfileButton>
+// );
 
-const EditProfileButton = styled(Link)`
+const EditButton = styled(Link)`
   display: inline-flex;
   justify-content: center;
   align-items: center;
   height: auto;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 3rem;
   text-decoration: none;
   color: white;
   background-color: ${({ theme }) => theme.colors.primary['600']};

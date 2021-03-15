@@ -18,7 +18,6 @@ const UserTabs = ({
   id,
 }) => {
   const [user, setUser] = useContext(UserContext);
-  console.log(user.id, id);
   return (
     <TabSectionReverse>
       <Tabs defaultIndex="1" onTabClick="1">
