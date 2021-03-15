@@ -10,7 +10,7 @@ async function insertBooking(booking) {
 
 async function updateBooking(booking, id) {
   const { columnSet, values } = await columnBuilder(booking);
-  const sql = `UPDATE ${tableNames.BOOKING} SET ${columnSet} WHERE id = ?`;
+  const sql = `UPDATE ${tableNames.BOOKING} SET ${columnSet} , acepted = 0 WHERE id = ?`;
   return await repositoryManager.executeQuery(sql, [...values, id]);
 }
 
