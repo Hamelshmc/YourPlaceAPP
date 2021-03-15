@@ -38,7 +38,7 @@ const UserTabs = ({
               <ListCard>
                 {requestBookings &&
                   requestBookings.map((reqBooking) => (
-                    <CardBookingVisit key={reqBooking.id} item={reqBooking} />
+                    <CardBookingVisit aceptButtons key={reqBooking.id} item={reqBooking} />
                   ))}
               </ListCard>
             </TabItem>
@@ -58,7 +58,7 @@ const UserTabs = ({
               <ListCard>
                 {requestVisits &&
                   requestVisits.map((reqVisit) => (
-                    <CardBookingVisit key={reqVisit.id} item={reqVisit} />
+                    <CardBookingVisit aceptButtons key={reqVisit.id} item={reqVisit} />
                   ))}
               </ListCard>
             </TabItem>

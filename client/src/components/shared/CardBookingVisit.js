@@ -79,14 +79,14 @@ function CardBookingVisit({ item, aceptButtons }) {
           <>
             <CardDateContent>
               <CardLink to={`/publication/${id_publication}`}>Show publication</CardLink>
-              <CardLink to={`/booking/edit/${id}`}>Edit your booking</CardLink>
+              {!aceptButtons && <CardLink to={`/booking/edit/${id}`}>Edit your booking</CardLink>}
             </CardDateContent>
           </>
         ) : (
           <>
             <CardDateContent>
               <CardLink to={`/publication/${id_publication}`}>Show publication</CardLink>
-              <CardLink to={`/visit/edit/${id}`}>Edit your visit</CardLink>
+              {!aceptButtons && <CardLink to={`/visit/edit/${id}`}>Edit your visit</CardLink>}
             </CardDateContent>
           </>
         )}
