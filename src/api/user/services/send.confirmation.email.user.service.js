@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 /* eslint-disable max-lines-per-function */
 /* eslint-disable max-lines */
 
@@ -5,15 +6,15 @@
 
 const sgMail = require('@sendgrid/mail');
 
-const { SENDGRID_API_KEY, SENDGRID_MAIL_TO, SENDGRID_MAIL_FROM, HTTP_CLIENT_NAME } = process.env;
+const { SENDGRID_API_KEY, SENDGRID_MAIL_TO, SENDGRID_MAIL_FROM } = process.env;
 
-async function sendEmail(id, code, email) {
+async function sendEmail(id, email, subject, title, message, confirmationUrl, buttonText) {
   sgMail.setApiKey(SENDGRID_API_KEY);
   const msg = {
     to: email,
     from: SENDGRID_MAIL_FROM,
-    subject: 'TEST',
-    text: 'TEST',
+    subject,
+    text: subject,
     html: `<!DOCTYPE html
           PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2"
@@ -275,8 +276,7 @@ async function sendEmail(id, code, email) {
                                         bgcolor="#ffffff">
                                       <div>
                                         <div style="font-family: inherit; text-align: center"><span
-                                                style="color: #516775; font-size: 28px; font-family: georgia, serif"><strong>Welcome
-                                              to Yourplace!</strong></span></div>
+                                                style="color: #516775; font-size: 28px; font-family: georgia, serif"><strong>${title}</strong></span></div>
                                         <div></div>
                                       </div>
                                     </td>
@@ -301,8 +301,7 @@ async function sendEmail(id, code, email) {
                                         bgcolor="#ffffff">
                                       <div>
                                         <div style="font-family: inherit; text-align: center"><span
-                                                style="font-family: verdana, geneva, sans-serif">Thanks for signing up
-                                            to our web! We hope you will find your place.</span></div>
+                                                style="font-family: verdana, geneva, sans-serif">${message}</span></div>
                                         <div></div>
                                       </div>
                                     </td>
@@ -433,8 +432,8 @@ async function sendEmail(id, code, email) {
                                                 class="inner-td"
                                                 style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
                                               <a style="background-color:#066ec0; border:1px solid #066EC0; border-color:#066EC0; border-radius:0px; border-width:1px; color:#ffffff; display:inline-block; font-family:verdana,geneva,sans-serif; font-size:16px; font-weight:normal; letter-spacing:1px; line-height:30px; padding:12px 20px 12px 20px; text-align:center; text-decoration:none; border-style:solid;"
-                                                 href="${HTTP_CLIENT_NAME}/verify/${id}/${code}"
-                                                 target="_blank">Verify your account here</a></td>
+                                                 href="${confirmationUrl}"
+                                                 target="_blank">${buttonText}</a></td>
                                           </tr>
                                         </tbody>
                                       </table>
