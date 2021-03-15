@@ -47,7 +47,7 @@ const UserTabs = ({
                   <ListCard>
                     {requestBookings &&
                       requestBookings.map((reqBooking) => (
-                        <CardBookingVisit aceptButtons  key={reqBooking.id} item={reqBooking} />
+                        <CardBookingVisit aceptButtons key={reqBooking.id} item={reqBooking} />
                       ))}
                   </ListCard>
                 </TabItem>
@@ -73,7 +73,7 @@ const UserTabs = ({
                   <ListCard>
                     {requestVisits &&
                       requestVisits.map((reqVisit) => (
-                        <CardBookingVisit aceptButtons  key={reqVisit.id} item={reqVisit} />
+                        <CardBookingVisit aceptButtons key={reqVisit.id} item={reqVisit} />
                       ))}
                   </ListCard>
                 </TabItem>
@@ -96,6 +96,17 @@ const UserTabs = ({
 export default UserTabs;
 
 const ListCard = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+  grid-gap: 1rem;
+  list-style-type: none;
+  margin: 1rem;
   padding: 0;
-  margin: 0;
+  @media (min-width: 1281px) {
+    justify-content: center;
+    align-items: center;
+    grid-gap: 1.5rem;
+    margin: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  }
 `;

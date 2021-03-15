@@ -22,7 +22,7 @@ function Publication({ publication }) {
     pictures,
     publication_type,
     price,
-    rating,
+    publicationRating,
     bathrooms,
     rooms,
     area,
@@ -46,7 +46,7 @@ function Publication({ publication }) {
         </Container>
         <Container>
           <Ubicacion>{publication_type}</Ubicacion>
-          <StartRating value={rating} disabled={false} />
+          <StartRating value={publicationRating} disabled />
         </Container>
       </PublicationModule>
       <Features>

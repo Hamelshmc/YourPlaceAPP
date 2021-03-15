@@ -4,6 +4,7 @@ const SearchContainer = styled.section`
   display: flex;
   position: relative;
   justify-content: center;
+  height: 1rem;
 `;
 
 export default SearchContainer;
