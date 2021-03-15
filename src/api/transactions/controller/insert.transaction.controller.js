@@ -14,7 +14,7 @@ async function insertTransaction(request, response) {
       .send(new ResponseJson(httpStatus.CREATED, 'TRANSACTION COMPLETED'));
   } catch (error) {
     return response
-      .status(error.status)
+      .status(error.status || httpStatus.BAD_REQUEST)
       .send(new ResponseError(error.status, error, error.message));
   }
 }

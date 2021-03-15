@@ -88,7 +88,10 @@ function CardBookingVisit({ item, aceptButtons }) {
         ) : acepted === 0 && start_date ? (
           'Booking pending to been aproved'
         ) : acepted === 1 && start_date ? (
-          'Acepted booking'
+          <div>
+            <p>Acepted booking</p>
+            <CardLink to={`/checkout/${id}`}>Proceed to payment</CardLink>
+          </div>
         ) : acepted === 0 && visit_date ? (
           'Visit pending to been aproved'
         ) : acepted === 1 && visit_date ? (

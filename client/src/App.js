@@ -1,3 +1,5 @@
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
 import Confetti from 'react-confetti';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -27,8 +29,15 @@ const EditVisit = React.lazy(() => import('./pages/EditVisit'));
 const NewPublication = React.lazy(() => import('./pages/NewPublication'));
 const YourProfile = React.lazy(() => import('./pages/YourProfile'));
 const RatingUser = React.lazy(() => import('./pages/RatingUser'));
+const CheckoutForm = React.lazy(() => import('./pages/CheckoutForm'));
 // Create a client
 const queryClient = new QueryClient();
+// Make sure to call loadStripe outside of a component’s render to avoid
+// recreating the Stripe object on every render.
+// loadStripe is initialized with your real test publishable API key.
+const promise = loadStripe(
+  'pk_test_51IEZpBJ20ftkdaeqexYP8vQ85DcU6fTOdlCb7aCTuSkI8i3avmxw1Aux7CnWVQffOGOnfvpMFSUY5t8BueVZ0Vag00louJ6dWB'
+);
 
 function App() {
   return (
@@ -55,7 +64,9 @@ function App() {
             <PrivateRoute path="/profile/edit" component={EditProfile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />
             <PrivateRoute path="/messages" component={Messages} exact />
-
+            <Elements stripe={promise}>
+              <PrivateRoute path="/checkout/:id" component={CheckoutForm} exact />
+            </Elements>
             <Redirect to="/search" />
           </Switch>
           <Footer />

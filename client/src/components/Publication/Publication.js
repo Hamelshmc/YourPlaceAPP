@@ -53,7 +53,7 @@ function Publication({ publication }) {
         <Item number={bathrooms} type="bathroom" />
         <Item number={rooms} type="bedroom" />
         <Item number={area} type="area" />
-        <Item number={availability_date.split('T')[0]} type="availability" />
+        <Item number={availability_date} type="availability" />
       </Features>
       {user.id !== id_user ? <Lessor lessor={publication} /> : <></>}
     </PublicationContainer>

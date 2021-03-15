@@ -7,7 +7,7 @@ const insertTransactionSchema = Joi.object({
   timestamp: Joi.date().required(),
   amount: Joi.number().required(),
   success: Joi.boolean().required(),
-  id_booking: Joi.string().required(),
+  idBooking: Joi.string().required(),
 });
 
 const insertTransactionValidation = async (transaction) => {
