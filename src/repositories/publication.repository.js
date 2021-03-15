@@ -90,7 +90,12 @@ async function getPublicationSearch(parametros) {
 }
 
 async function existPublicationEnabled(idPublication) {
-  const query = `SELECT * FROM ${tableNames.PUBLICATION} WHERE id = ?  AND disabled = FALSE`;
+  const query = `SELECT * FROM ${tableNames.PUBLICATION} WHERE id = ? AND disabled = FALSE`;
+  return await repositoryManager.executeQuery(query, [idPublication]);
+}
+
+async function findPublicationOwner(idPublication) {
+  const query = `SELECT u.email FROM ${tableNames.PUBLICATION} p LEFT JOIN ${tableNames.USER} u ON p.id_user = u.id WHERE p.id = ?`;
   return await repositoryManager.executeQuery(query, [idPublication]);
 }
 
@@ -101,6 +106,7 @@ module.exports = {
   findAllPicturesByPublicationId,
   findPublicationAddressById,
   findPublicationById,
+  findPublicationOwner,
   getPublicationSearch,
   insertPicture,
   insertRating,
