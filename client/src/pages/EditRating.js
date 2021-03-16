@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchUserRatingUpdate } from '../api/User';
 import FormUserRating from '../components/shared/Form/FormUserRating';
@@ -44,4 +44,4 @@ function EditRating() {
   );
 }
 
-export default EditRating;
+export default withRouter(EditRating);

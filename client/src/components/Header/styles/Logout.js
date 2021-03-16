@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useQueryClient } from 'react-query';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../../hooks/UserContext';
 import LogoutButton from './LogoutButton';
@@ -24,4 +24,4 @@ const Logout = () => {
   );
 };
 
-export default Logout;
+export default withRouter(Logout);

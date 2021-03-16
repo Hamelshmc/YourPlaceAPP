@@ -6,7 +6,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage, fetchPublicationById, fetchUpdatePublication } from '../api/Publication';
@@ -369,4 +369,4 @@ const InputWrapper = styled.section`
   }
 `;
 
-export default EditPublication;
+export default withRouter(EditPublication);
