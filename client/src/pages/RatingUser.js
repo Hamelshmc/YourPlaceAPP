@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchUserRating } from '../api/User';
 import FormUserRating from '../components/shared/Form/FormUserRating';
@@ -33,4 +33,4 @@ function RatingUser() {
   return <FormUserRating handleSubmit={handleSubmit} onSubmit={onSubmit} register={register} />;
 }
 
-export default RatingUser;
+export default withRouter(RatingUser);

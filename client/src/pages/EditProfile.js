@@ -4,7 +4,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-query';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage } from '../api/Publication';
@@ -346,4 +346,4 @@ const TextArea = styled.textarea`
   }
 `;
 
-export default EditProfile;
+export default withRouter(EditProfile);

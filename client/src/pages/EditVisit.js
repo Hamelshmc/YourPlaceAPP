@@ -2,7 +2,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchAuthDataPost } from '../api/User';
@@ -104,4 +104,4 @@ const BookingContainer = styled.section`
   width: clamp(15.5rem, 50%, 25rem);
 `;
 
-export default EditVisit;
+export default withRouter(EditVisit);

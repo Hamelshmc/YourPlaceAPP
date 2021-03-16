@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import fetchCreateTransaction from '../api/Transaction';
 import { UserContext } from '../hooks/UserContext';
@@ -16,6 +16,7 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     window
@@ -73,17 +74,9 @@ const CheckoutForm = () => {
           toast.error(`🙈 ${result.error} ¡Ooops! Error with the transaction`);
         } else {
           toast.success(`¡Payment successful! 🎉🎉🎇`);
+          history.push('/profile');
         }
       });
-
-    /* if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`);
-      setProcessing(false);
-    } else {
-      setError(null);
-      setProcessing(false);
-      setSucceeded(true);
-    } */
   };
 
   return (
@@ -98,4 +91,4 @@ const CheckoutForm = () => {
   );
 };
 
-export default CheckoutForm;
+export default withRouter(CheckoutForm);
