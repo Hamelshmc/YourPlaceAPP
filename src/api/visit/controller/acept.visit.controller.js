@@ -11,7 +11,7 @@ async function aceptVisit(request, response) {
     return response.status(httpStatus.OK).send(new ResponseJson(httpStatus.OK, 'Booking Acepted'));
   } catch (error) {
     return response
-      .status(error.status)
+      .status(error.status || 500)
       .send(new ResponseError(error.status, error, error.message));
   }
 }
