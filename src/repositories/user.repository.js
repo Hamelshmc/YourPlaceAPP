@@ -126,7 +126,7 @@ async function findUserBookings(id) {
 }
 
 async function findUserRequestBookings(id) {
-  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city, p.id as id_publication FROM ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
+  const query = `SELECT b.id, DATE_FORMAT( b.start_date, '%d-%c-%Y') as start_date, DATE_FORMAT( b.end_date, '%d-%c-%Y') as end_date, b.acepted, p.price, p.deposit, pa.street, pa.city, p.id as id_publication, t.success FROM ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
   LEFT JOIN ${tableNames.TRANSACTIONS} t ON b.id = t.id_booking
   WHERE p.id_user = ? GROUP BY b.id`;
   const values = [id];

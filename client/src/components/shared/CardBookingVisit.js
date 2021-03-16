@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable complexity */
 /* eslint-disable camelcase */
 import React from 'react';
@@ -63,7 +64,10 @@ function CardBookingVisit({ item, aceptButtons }) {
           <></>
         )}
         {success ? (
-          'This booking is already paid'
+          <div>
+            <p>This booking is already paid</p>
+            <CardLink to={`/contract/${id}`}>Show contract</CardLink>
+          </div>
         ) : aceptButtons ? (
           <CardDateContent>
             {acepted === 1 ? (

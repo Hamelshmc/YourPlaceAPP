@@ -30,8 +30,8 @@ async function getBookingAndPublicationWithAddress(idBooking, idUser) {
   LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = b.id_publication
   LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
   WHERE b.id = ?
-  AND b.id_user_payer = ?
-  GROUP BY p.id;`;
+  AND b.id_user_payer OR p.id_user = ?
+  GROUP BY b.id LIMIT 1;`;
   return await repositoryManager.executeQuery(query, [idBooking, idUser]);
 }
 
