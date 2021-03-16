@@ -7,8 +7,10 @@ const publicationServices = require('../services');
 const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
 async function postFavoritePublication(request, response) {
-  const { id_publication, user: token } = request;
+  const { body, user: token } = request;
   const { id } = token;
+  const { id_publication } = body;
+  console.log(id_publication);
   try {
     const setUser = await publicationServices.insertPublicationFavorite(id_publication, id);
     return response.status(httpStatus.CREATED).send(new ResponseJson(httpStatus.CREATED, setUser));

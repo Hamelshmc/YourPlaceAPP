@@ -5,8 +5,8 @@ const publicationServices = require('../services');
 
 async function deleteFavoritePublication(request, response) {
   try {
-    const { id: idNotification } = request.params;
-    await publicationServices.removePublicationFavorite(idNotification);
+    const { id } = request.params;
+    await publicationServices.removePublicationFavorite(id);
     return response
       .status(httpStatus.OK)
       .send(new ResponseJson(httpStatus.OK, 'Publication Favorite DELETED'));

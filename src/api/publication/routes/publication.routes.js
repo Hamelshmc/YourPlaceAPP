@@ -42,15 +42,15 @@ publicationsRouter
   );
 
 publicationsRouter
-  .route('/publication/favorite')
+  .route('/favorite')
   .all(auth, verified)
   .post(
     async (request, response) =>
-      await publicationControllers.insertRatingByPublicationId(request, response)
+      await publicationControllers.postFavoritePublication(request, response)
   );
 
 publicationsRouter
-  .route('/publication/favorite/:id')
+  .route('/favorite/:id')
   .all(auth, verified)
   .delete(
     async (request, response) =>

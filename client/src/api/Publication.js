@@ -74,15 +74,14 @@ const fetchPublicationFavorite = async (data, token) =>
     })
   ).json();
 
-const fetchPublicationFavoriteDelete = async (data, token, idPublication) =>
+const fetchPublicationFavoriteDelete = async (idPublication, token) =>
   await (
-    await fetch(`/api/v1/publications/favorite/${idPublication}`, {
-      method: 'POST',
+    await fetch(`/api/v1/publications/favorite/${idPublication.id_publication}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
     })
   ).json();
 

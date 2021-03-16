@@ -1,6 +1,9 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable camelcase */
 import { useContext, useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
+import { fetchPublicationFavorite, fetchPublicationFavoriteDelete } from '../../api/Publication';
 import { UserContext } from '../../hooks/UserContext';
 import Slider from '../shared/Slider/Slider';
 import StartRating from '../shared/StartRating';
@@ -34,18 +37,48 @@ function Publication({ publication, newData, data }) {
     id_user,
   } = publication;
 
-  const handleOnclick = async () => {
+  const mutation = useMutation(
+    async (newTodo) => await fetchPublicationFavorite(newTodo, user.token),
+    {
+      onSuccess: async (result) => {
+        if (result.status === 200 || result.status === 201) {
+          toast.success(`😄 ¡Rating added! 😄`);
+        } else {
+          toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
+        }
+      },
+    }
+  );
+
+  const mutationDelete = useMutation(
+    async (newTodo) => await fetchPublicationFavoriteDelete(newTodo, user.token),
+    {
+      onSuccess: async (result) => {
+        if (result.status === 200 || result.status === 201) {
+          toast.success(`😄 ¡Rating Delete! 😄`);
+        } else {
+          toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
+        }
+      },
+    }
+  );
+
+  const handleOnclick = async (event) => {
+    event.preventDefault();
     if (data.length === 0) {
       newData([publication]);
       setFavorite(true);
+      await mutation.mutateAsync({ id_publication: id });
     }
     if (data.every((item) => item.id !== publication.id)) {
       newData([...data, publication]);
+      await mutation.mutateAsync({ id_publication: id });
       setFavorite(true);
     } else {
       const result = data.filter((item) => item.id !== publication.id);
       newData([...result]);
       setFavorite(false);
+      await mutationDelete.mutateAsync({ id_publication: id });
     }
   };
 
