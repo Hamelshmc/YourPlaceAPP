@@ -18,10 +18,10 @@ async function findMyTalks(idUser) {
 
 async function findOurTalk(sender, receiver) {
   const query = `
-SELECT u.email AS user_sender, m.message , m.timestamp
+SELECT u.email AS user_sender, u.id AS id_user_sender, m.message , m.timestamp, m.id as id_message
 FROM  users u LEFT JOIN messages m ON m.id_user_sender = u.id  WHERE u.id = ? AND  m.id_user_receiver = ?
 UNION
-SELECT u.email AS user_sender, m.message , m.timestamp
+SELECT u.email AS user_sender, m.message , u.id AS id_user_sender, m.timestamp, m.id as id_message
 FROM  users u LEFT JOIN messages m ON m.id_user_sender = u.id  WHERE u.id = ?  AND  m.id_user_receiver = ? ORDER BY timestamp;`;
   return await repositoryManager.executeQuery(query, [sender, receiver, receiver, sender]);
 }

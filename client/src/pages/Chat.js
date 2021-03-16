@@ -16,26 +16,26 @@ import Message from '../components/Chat/styles/Message';
 import MessageBox from '../components/Chat/styles/MessageBox';
 import MessageList from '../components/Chat/styles/MessageList';
 import SendButton from '../components/Chat/styles/SendButton';
+import SendedMessage from '../components/Chat/styles/SendedMessage';
 import TextBox from '../components/Chat/styles/TextBox';
 import { UserContext } from '../hooks/UserContext';
 
 function Chat() {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
+
   const { register, handleSubmit, errors } = useForm({
     mode: 'onChange',
   });
-  console.log(errors);
+
   const mutation = useMutation(
     async (mutationData) => await fetchAuthDataPost(fetchPostMessage, user, setUser, mutationData),
     {
       onSuccess: async (result) => {
-        console.log({ result });
-        if (result.status === 200) {
-          toast.success(`😄 ¡Your profile has been updated! 😄`);
-          toast.info(`Remember to verify your account 👼`);
+        if (result.status === 201) {
+          toast.info(`¡Message sended!`);
         } else {
-          toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
+          toast.error(`🙈 Ooops! Can you try again please? 🙈 `);
         }
       },
     }
@@ -54,19 +54,14 @@ function Chat() {
   }
 
   const onSubmit = async (submitData) => {
-    console.log('sadsad');
     try {
-      console.log('submitdata', submitData, id);
-      // await mutation.mutateAsync(submitData);
+      await mutation.mutateAsync({ message: submitData.message, idUserReceiver: id });
     } catch (error) {
-      toast.error(` ${error.message} 🙈 Ooops! Can you try again please? 🙈 `);
+      toast.error(` 🙈 ${error.message} 🙈 `);
     }
   };
 
-  if (errors.message) {
-    console.log({ errors });
-    toast.error(` ${errors.message} 🙈 Ooops! Can you try again please? 🙈 `);
-  }
+  console.log(data);
 
   return (
     <ChatSection>
@@ -79,7 +74,24 @@ function Chat() {
         </ChatHeader>
         <ChatBody>
           <MessageList>
-            {data && data.length === 0 && <Message>You have no messages with this user</Message>}
+            {data && data.data && data.data.length === 0 && (
+              <Message>You have no messages with this user</Message>
+            )}
+            {data && data.data && data.data.length > 0 ? (
+              data.data.map((msg) =>
+                msg.id_user_sender === user.id ? (
+                  <SendedMessage key={msg.id_message}>
+                    {msg.message} # {msg.timestamp}
+                  </SendedMessage>
+                ) : (
+                  <Message key={msg.id_message}>
+                    {msg.message} # {msg.timestamp}
+                  </Message>
+                )
+              )
+            ) : (
+              <></>
+            )}
           </MessageList>
         </ChatBody>
         <MessageBox onSubmit={handleSubmit(onSubmit)}>
