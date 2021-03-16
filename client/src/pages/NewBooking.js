@@ -2,7 +2,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchAddBooking } from '../api/Booking';
@@ -18,6 +18,7 @@ import { UserContext } from '../hooks/UserContext';
 const NewBooking = () => {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
+  const history = useHistory();
 
   const mutation = useMutation(
     async (data) => await fetchAuthDataPost(fetchAddBooking, user, setUser, data),
@@ -25,6 +26,7 @@ const NewBooking = () => {
       onSuccess: (result) => {
         if (result.status === 201) {
           toast.success(`¡Booking added! 😄`);
+          history.push('/profile');
         } else {
           toast.error(`🙈  ${result.data}  🙈 `);
         }

@@ -2,7 +2,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchAuthDataPost } from '../api/User';
@@ -18,6 +18,7 @@ import { UserContext } from '../hooks/UserContext';
 const EditVisit = () => {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
+  const history = useHistory();
 
   const mutation = useMutation(
     async (data) => await fetchAuthDataPost(fetchUpdateVisit, user, setUser, data),
@@ -25,6 +26,7 @@ const EditVisit = () => {
       onSuccess: (result) => {
         if (result.status === 200) {
           toast.success(` ¡Visit updated! 😄`);
+          history.push('/profile');
         } else {
           toast.error(`🙈  ${result.data}  🙈 `);
         }

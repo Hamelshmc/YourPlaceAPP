@@ -6,7 +6,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage, fetchPublication } from '../api/Publication';
@@ -26,6 +26,8 @@ import { UserContext } from '../hooks/UserContext';
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
   const queryClient = useQueryClient();
+  const history = useHistory();
+
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(publicationSchema),
     mode: 'onChange',
@@ -38,6 +40,7 @@ function NewPublication() {
         if (result.status === 201) {
           toast.success(`😄 ¡Publication added! 😄`);
           await queryClient.refetchQueries(['data'], { active: true });
+          history.push('/profile');
         } else {
           toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
         }
