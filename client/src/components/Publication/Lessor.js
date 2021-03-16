@@ -51,7 +51,7 @@ function Lessor({ lessor }) {
           <LessorLink href={`tel:+34${telephone}`}>
             <IconLessor>phone</IconLessor>
           </LessorLink>
-          <LessorLinkRouter to="/messages/:id">
+          <LessorLinkRouter to={`/chat/${id_user}`}>
             <IconLessor>chat</IconLessor>
           </LessorLinkRouter>
           <LessorLink href={`https://wa.me/${telephone}`}>
