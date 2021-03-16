@@ -64,7 +64,6 @@ const Chat = () => {
 
   const onSubmit = async (submitData) => {
     try {
-      console.log({ mutation });
       console.log('submitdata', submitData, id);
       // await mutation.mutateAsync(submitData);
     } catch (error) {
@@ -97,13 +96,7 @@ const Chat = () => {
             placeholder="Type here your message..."
             required
           />
-          <SendButton
-            ref={register}
-            value="Send"
-            id="sendMessage"
-            name="sendMessage"
-            type="submit"
-          />
+          <SendButton id="sendMessage">Send</SendButton>
         </MessageBox>
       </ChatBox>
     </ChatSection>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SendButton = styled.input`
+const SendButton = styled.button`
   border: none;
   background: ${({ theme }) => theme.colors.primary[600]};
   color: ${({ theme }) => theme.colors.primary[50]};
