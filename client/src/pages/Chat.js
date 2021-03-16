@@ -1,4 +1,3 @@
-import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-query';
@@ -18,13 +17,15 @@ import MessageBox from '../components/Chat/styles/MessageBox';
 import MessageList from '../components/Chat/styles/MessageList';
 import SendButton from '../components/Chat/styles/SendButton';
 import TextBox from '../components/Chat/styles/TextBox';
-import messageSchema from '../components/Chat/validation/messageSchema';
 import { UserContext } from '../hooks/UserContext';
 
-const Chat = () => {
+function Chat() {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
-
+  const { register, handleSubmit, errors } = useForm({
+    mode: 'onChange',
+  });
+  console.log(errors);
   const mutation = useMutation(
     async (mutationData) => await fetchAuthDataPost(fetchPostMessage, user, setUser, mutationData),
     {
@@ -40,11 +41,6 @@ const Chat = () => {
     }
   );
 
-  const { register, handleSubmit, errors } = useForm({
-    resolver: joiResolver(messageSchema),
-    mode: 'onChange',
-  });
-
   const { isError, data } = useQuery(
     ['userMessages', fetchMessages, user, setUser, id],
     async () => await fetchAuthDataWithParam(fetchMessages, user, setUser, id),
@@ -57,12 +53,8 @@ const Chat = () => {
     toast.error('🙈 ¡Ooops! Error fetching your messages ');
   }
 
-  if (errors.message) {
-    console.log({ errors });
-    toast.error(` ${errors.message} 🙈 Ooops! Can you try again please? 🙈 `);
-  }
-
   const onSubmit = async (submitData) => {
+    console.log('sadsad');
     try {
       console.log('submitdata', submitData, id);
       // await mutation.mutateAsync(submitData);
@@ -71,7 +63,11 @@ const Chat = () => {
     }
   };
 
-  console.log({ data });
+  if (errors.message) {
+    console.log({ errors });
+    toast.error(` ${errors.message} 🙈 Ooops! Can you try again please? 🙈 `);
+  }
+
   return (
     <ChatSection>
       <ChatBox>
@@ -92,15 +88,16 @@ const Chat = () => {
             name="message"
             aria-describedby="message"
             autoComplete="off"
-            ref={register}
+            ref={register({ required: true, minLength: 1, maxLength: 180 })}
             placeholder="Type here your message..."
-            required
           />
-          <SendButton id="sendMessage">Send</SendButton>
+          <SendButton type="submit" value="Send">
+            Send
+          </SendButton>
         </MessageBox>
       </ChatBox>
     </ChatSection>
   );
-};
+}
 
 export default Chat;

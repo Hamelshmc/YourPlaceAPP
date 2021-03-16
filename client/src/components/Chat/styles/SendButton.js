@@ -9,7 +9,10 @@ const SendButton = styled.button`
   line-height: 1;
   padding: 0.5rem 1rem;
   outline: none;
-  transition: background 1s ease;
+  transition: background 300ms ease;
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary[900]};
+  }
 `;
 
 export default SendButton;
