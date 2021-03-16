@@ -14,7 +14,7 @@ function Search() {
 
   const { isLoading, isError, error, data, isPreviousData } = useQuery(
     ['data', page, search, filter],
-    async () => await fetchPublicationSearchV2(page, search, filter)
+    async () => await fetchPublicationSearchV2(page, search.trim(), filter)
   );
 
   const previousPage = async () => {
