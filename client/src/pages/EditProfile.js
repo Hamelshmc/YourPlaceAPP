@@ -4,7 +4,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-query';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage } from '../api/Publication';
@@ -23,6 +23,7 @@ import { UserContext } from '../hooks/UserContext';
 
 const EditProfile = () => {
   const [user, setUser] = useContext(UserContext);
+  const history = useHistory();
 
   const mutation = useMutation(
     async (mutationData) => await fetchAuthDataPost(fetchUpdateUser, user, setUser, mutationData),
@@ -34,6 +35,7 @@ const EditProfile = () => {
             picture: result.data.user.picture,
           });
           toast.success(`😄 ¡Your profile has been updated! 😄`);
+          history.push('/profile');
           if (result.data.user.verified === 0) {
             toast.info(`Remember to verify your account 👼`);
           }
