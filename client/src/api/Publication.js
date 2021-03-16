@@ -50,7 +50,7 @@ const fetchPublicationById = async (id) => await (await fetch(`/api/v1/publicati
 
 const fetchPublicationSearch = async (pageParam, value, filter) => {
   const res = await (
-    await fetch(`/api/v1/publications/?limit=10&page=${pageParam * 10}&search=${value}${filter}`)
+    await fetch(`/api/v1/publications/?search=${value}&limit=10&page=${pageParam * 10}${filter}`)
   ).json();
   return res.data;
 };

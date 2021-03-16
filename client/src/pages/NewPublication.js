@@ -39,7 +39,7 @@ function NewPublication() {
       onSuccess: async (result) => {
         if (result.status === 201) {
           toast.success(`😄 ¡Publication added! 😄`);
-          await queryClient.refetchQueries(['data'], { active: true });
+          await queryClient.refetchQueries('data', { active: true });
           history.push('/profile');
         } else {
           toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);

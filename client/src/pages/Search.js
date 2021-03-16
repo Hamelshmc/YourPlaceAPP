@@ -14,9 +14,10 @@ function Search() {
   const fetchProjects = async (size = 0, value, query) =>
     await fetchPublicationSearch(size, value, query);
 
-  const { isLoading, isError, error, data,  isPreviousData } = useQuery(
+  const { isLoading, isError, error, data, isPreviousData } = useQuery(
     ['data', page, search, filter],
-    async () => await fetchProjects(page, search, filter)
+    async () => await fetchProjects(page, search, filter),
+    { refetchInterval: 500 }
   );
 
   const previousPage = async () => {
@@ -33,6 +34,8 @@ function Search() {
     setFilter('');
     setPage(0);
   };
+
+  console.log(data);
 
   return (
     <SearchWrapper>

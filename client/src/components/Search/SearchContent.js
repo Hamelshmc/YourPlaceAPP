@@ -32,6 +32,9 @@ function SearchContent({ search, setSearch, setFilter, setReset }) {
       setFilter(query);
     }
   };
+
+
+
   return (
     <SearchContainer>
       <SearchForm method="POST" onSubmit={handleSubmit(onSubmit)}>

@@ -82,7 +82,7 @@ async function getPublicationSearch(parametros) {
   LEFT JOIN ${tableNames.USER} u ON p.id_user = u.id
   LEFT JOIN ${tableNames.USER_RATING} ur ON ur.id_user_voted = p.id_user
   LEFT JOIN ${tableNames.PUBLICATION_RATINGS} pr ON pr.id_publication = p.id
-  WHERE p.disabled = 0 AND Concat(city, '', country, '', zipcode,'',street) LIKE ? ${result} GROUP BY p.id ORDER BY p.timestamp ASC LIMIT ?,? `;
+  WHERE p.disabled = 0 AND Concat(city, '', country, '', zipcode,'',street) LIKE ? ${result} GROUP BY p.id ORDER BY p.timestamp DESC LIMIT ?,? `;
   return await repositoryManager.executeQuery(query, [
     valueSearch,
     ...values,

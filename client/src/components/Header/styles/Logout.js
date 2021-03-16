@@ -10,8 +10,8 @@ const Logout = () => {
   const [user, setUser] = useContext(UserContext);
   const history = useHistory();
 
-  const handleLogout = (e) => {
-    queryClient.invalidateQueries('userProfile', { exact: true });
+  const handleLogout = async () => {
+    await queryClient.invalidateQueries('userProfile', { exact: true });
     setUser({});
     toast.success(`Bye bye! 😄👋👋`);
     history.push('/join');
