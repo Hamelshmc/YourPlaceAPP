@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import { fetchUserVerification } from '../api/User';
 import { UserContext } from '../hooks/UserContext';
 
@@ -8,14 +8,16 @@ const Verification = () => {
   const location = useLocation();
   const history = useHistory();
 
-  (async () => {
-    const res = await fetchUserVerification(location.pathname);
-    if (res.status === 201) {
-      const { token, refreshToken } = res.data;
-      setUser({ ...user, token, refreshToken });
-      history.pus('/search');
-    }
-  })();
+  useEffect(() => {
+    (async () => {
+      const res = await fetchUserVerification(location.pathname);
+      if (res.status === 201) {
+        const { token, refreshToken } = res.data;
+        setUser({ ...user, token, refreshToken });
+        history.push('/search');
+      }
+    })();
+  }, [user]);
 
   return (
     <div>
@@ -24,4 +26,4 @@ const Verification = () => {
   );
 };
 
-export default Verification;
+export default withRouter(Verification);
