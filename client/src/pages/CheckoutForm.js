@@ -3,7 +3,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import fetchCreateTransaction from '../api/Transaction';
 import { UserContext } from '../hooks/UserContext';
 
@@ -212,7 +212,7 @@ const SubmitButtonStyle = styled.button`
   ${({ error }) => error && 'transform: translateY(15px)'}
 `;
 
-const fade = keyframes`
+const fade = styled.keyframes`
   from {
     opacity: 0;
     transform: scale3D(0.95, 0.95, 0.95);
