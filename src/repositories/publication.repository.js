@@ -65,6 +65,23 @@ async function insertRating(rating) {
   return await repositoryManager.executeQuery(query, values);
 }
 
+async function insertFavoritePublication(publication) {
+  const { query, values } = await queryBuilder(tableNames.USER_PUBLICATIONS_FAVORITES, publication);
+  return await repositoryManager.executeQuery(query, values);
+}
+
+async function deletePublication(idPublication) {
+  const query = `DELETE FROM ${tableNames.USER_PUBLICATIONS_FAVORITES} WHERE id_publication = ?`;
+  const value = [idPublication];
+  return await repositoryManager.executeQuery(query, value);
+}
+
+async function existPublicationFavorite(idPublication) {
+  const query = `SELECT * FROM ${tableNames.NOTIFICATIONS} WHERE id_publication = ?`;
+  const value = [idPublication];
+  return await repositoryManager.valueExists(query, value);
+}
+
 async function existsPublication(id) {
   const query = `SELECT * FROM ${tableNames.PUBLICATION} WHERE id = ? LIMIT 1`;
   return await repositoryManager.valueExists(query, [id]);
@@ -116,4 +133,7 @@ module.exports = {
   updatePublicationAddress,
   existPublicationEnabled,
   findAllRatingByPublicationId,
+  insertFavoritePublication,
+  deletePublication,
+  existPublicationFavorite,
 };

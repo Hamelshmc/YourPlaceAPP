@@ -10,6 +10,7 @@ const FavoriteIcon = styled(Icon)`
   color: ${({ theme, favorite }) => (favorite ? theme.colors.like : '#333')};
   text-shadow: ${({ theme }) => theme.boxShadow.default};
   cursor: pointer;
+  transition: 0.3ms;
   &:hover {
     font-size: 2rem;
     color: ${({ theme }) => theme.colors.like};
