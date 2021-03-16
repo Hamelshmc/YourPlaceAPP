@@ -48,9 +48,16 @@ const fetchUpdatePublication = async (data, token) => {
 
 const fetchPublicationById = async (id) => await (await fetch(`/api/v1/publications/${id}`)).json();
 
-const fetchPublicationSearch = async (pageParam, value, filter) => {
+const fetchPublicationSearchV2 = async (pageParam, value, filter) => {
+  if (value !== '') {
+    const data = `&search=${value}`;
+    const res = await (
+      await fetch(`/api/v1/publications/?limit=10&page=${pageParam * 10}${filter}${data}`)
+    ).json();
+    return res.data;
+  }
   const res = await (
-    await fetch(`/api/v1/publications/?limit=10&page=${pageParam * 10}${filter}&search=${value}`)
+    await fetch(`/api/v1/publications/?limit=10&page=${pageParam * 10}${filter}`)
   ).json();
   return res.data;
 };
@@ -58,7 +65,7 @@ const fetchPublicationSearch = async (pageParam, value, filter) => {
 export {
   fetchImage,
   fetchPublication,
-  fetchPublicationSearch,
+  fetchPublicationSearchV2,
   fetchPublicationById,
   fetchUpdatePublication,
   fetchPublicationRating,

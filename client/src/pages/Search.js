@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { fetchPublicationSearch } from '../api/Publication';
+import { fetchPublicationSearchV2 } from '../api/Publication';
 import Publication from '../components/Publication/Publication';
 import ListPublicationWrapper from '../components/Publication/styles/Publication/ListPublicationWrapper';
 import SearchContent from '../components/Search/SearchContent';
@@ -11,13 +11,10 @@ function Search() {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
-  const fetchProjects = async (size = 0, value, query) =>
-    await fetchPublicationSearch(size, value, query);
 
   const { isLoading, isError, error, data, isPreviousData } = useQuery(
     ['data', page, search, filter],
-    async () => await fetchProjects(page, search, filter),
-    { refetchInterval: 500 }
+    async () => await fetchPublicationSearchV2(page, search, filter)
   );
 
   const previousPage = async () => {
