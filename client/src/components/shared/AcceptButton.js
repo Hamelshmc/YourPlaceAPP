@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useMutation } from 'react-query';
+import { useHistory, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchAceptBooking } from '../../api/Booking';
 import { fetchAuthDataPost } from '../../api/User';
@@ -9,6 +10,7 @@ import CardLink from './CardLink';
 
 const AcceptButton = ({ id, booking, visit }) => {
   const [user, setUser] = useContext(UserContext);
+  const history = useHistory();
 
   const mutation = useMutation(
     async (mutationData) => {
@@ -24,6 +26,7 @@ const AcceptButton = ({ id, booking, visit }) => {
       onSuccess: async (result) => {
         if (result.status === 200) {
           toast.success(`😄 ¡ACEPTED! 😄`);
+          history.push('/profile');
         } else {
           toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
         }
@@ -49,4 +52,4 @@ const AcceptButton = ({ id, booking, visit }) => {
   );
 };
 
-export default AcceptButton;
+export default withRouter(AcceptButton);

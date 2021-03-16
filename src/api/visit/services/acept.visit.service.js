@@ -8,12 +8,12 @@ const { httpStatus, ResponseError } = require('../../../helpers');
 const { HTTP_CLIENT_NAME } = process.env;
 
 async function aceptVisit(idVisit, idUser) {
-  const [visit] = await visitRepository.findById(idVisit);
+  const [visit] = await visitRepository.getVisityById(idVisit);
   await visitRepository.aceptVisit(idUser, idVisit);
   const [user] = await userRepository.findById(visit.id_user_visitant);
   await userServices.sendConfirmationEmail(
     user.email,
-    'YourPlace your booking has been acepted!',
+    'YourPlace your visit has been acepted!',
     '¡Now you can continue the payment process!',
     '¡Please anwser him as soon as posible!',
     `${HTTP_CLIENT_NAME}/profile`,
