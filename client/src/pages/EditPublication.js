@@ -48,7 +48,7 @@ function EditPublication() {
     {
       onSuccess: async (result) => {
         if (result.status === 200) {
-          toast.success(`😄 ¡Publication added! 😄`);
+          toast.success(`😄 ¡Publication edited! 😄`);
           await queryClient.refetchQueries(['data'], { active: true });
           history.push('/profile');
         } else {
@@ -72,6 +72,15 @@ function EditPublication() {
   };
 
   const onSubmit = async (dataPublication) => {
+    toast.info(
+      `
+    Uploading information 💭
+            Wait!
+    `,
+      {
+        autoClose: 6000,
+      }
+    );
     try {
       const { files, availability_date, ...datos } = dataPublication;
       const { street, door, floor, city, zipcode, ...rest } = datos;

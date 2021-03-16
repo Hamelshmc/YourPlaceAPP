@@ -5,7 +5,7 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { QueryCache, useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Redirect, useHistory, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -39,7 +39,6 @@ function NewPublication() {
       onSuccess: async (result) => {
         if (result.status === 201) {
           toast.success(`😄 ¡Publication added! 😄`);
-          await QueryCache.refetchQueries(['data'], { force: true });
           history.push('/profile');
         } else {
           toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
@@ -62,6 +61,15 @@ function NewPublication() {
   };
 
   const onSubmit = async (data) => {
+    toast.info(
+      `
+    Uploading information 💭
+            Wait!
+    `,
+      {
+        autoClose: 6000,
+      }
+    );
     try {
       const { files, availability_date, ...datos } = data;
       const { street, door, floor, city, zipcode, ...rest } = datos;
@@ -302,9 +310,15 @@ function NewPublication() {
             error={errors.files}
           />
           <SubmitButton id="register">
-            {mutation.isLoading ? 'Doing interesting things...' : 'Upload here your publication'}
-            {mutation.isError && 'An error occurred'}
-            {mutation.isSuccess && <Redirect to="/profile" />}
+            {mutation.isLoading ? (
+              'Doing interesting things...'
+            ) : mutation.isError ? (
+              'An error occurreed'
+            ) : mutation.isSuccess ? (
+              <Redirect to="/profile" />
+            ) : (
+              'Upload here your publication'
+            )}
           </SubmitButton>
         </Form>
       </FormContainer>

@@ -33,8 +33,6 @@ function SearchContent({ search, setSearch, setFilter, setReset }) {
     }
   };
 
-
-
   return (
     <SearchContainer>
       <SearchForm method="POST" onSubmit={handleSubmit(onSubmit)}>
@@ -44,7 +42,7 @@ function SearchContent({ search, setSearch, setFilter, setReset }) {
           </SearchButton>
           <SearchInput
             id="search"
-            value={search}
+            value={search || ' '}
             name="search"
             type="search"
             onChange={handleSearchChange}
