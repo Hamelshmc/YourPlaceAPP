@@ -1,6 +1,7 @@
-import { useContext } from 'react';
+/* eslint-disable complexity */
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchMessages, fetchPostMessage } from '../api/Message';
@@ -23,9 +24,11 @@ import { UserContext } from '../hooks/UserContext';
 function Chat() {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
+  const [messageControl, setMessageControl] = useState('');
+  const queryClient = useQueryClient();
 
   const { register, handleSubmit, errors } = useForm({
-    mode: 'onChange',
+    mode: 'onSubmit',
   });
 
   const mutation = useMutation(
@@ -33,8 +36,10 @@ function Chat() {
     {
       onSuccess: async (result) => {
         if (result.status === 201) {
+          await queryClient.invalidateQueries('userMessages');
           toast.info(`¡Message sended!`);
         } else {
+          await queryClient.invalidateQueries('userMessages');
           toast.error(`🙈 Ooops! Can you try again please? 🙈 `);
         }
       },
@@ -44,9 +49,7 @@ function Chat() {
   const { isError, data } = useQuery(
     ['userMessages', fetchMessages, user, setUser, id],
     async () => await fetchAuthDataWithParam(fetchMessages, user, setUser, id),
-    {
-      refetchOnWindowFocus: false,
-    }
+    { refetchInterval: 1000 }
   );
 
   if (isError) {
@@ -56,10 +59,21 @@ function Chat() {
   const onSubmit = async (submitData) => {
     try {
       await mutation.mutateAsync({ message: submitData.message, idUserReceiver: id });
+      setMessageControl('');
     } catch (error) {
       toast.error(` 🙈 ${error.message} 🙈 `);
     }
   };
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [data && data.data]);
 
   console.log(data);
 
@@ -73,7 +87,7 @@ function Chat() {
           <ChatUsername>Username</ChatUsername>
         </ChatHeader>
         <ChatBody>
-          <MessageList>
+          <MessageList ref={messagesEndRef}>
             {data && data.data && data.data.length === 0 && (
               <Message>You have no messages with this user</Message>
             )}
@@ -100,6 +114,10 @@ function Chat() {
             name="message"
             aria-describedby="message"
             autoComplete="off"
+            onChange={(e) => {
+              setMessageControl(e.target.value);
+            }}
+            value={messageControl}
             ref={register({ required: true, minLength: 1, maxLength: 180 })}
             placeholder="Type here your message..."
           />
