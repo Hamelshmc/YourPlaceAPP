@@ -1,5 +1,6 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable camelcase */
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../hooks/UserContext';
 import Slider from '../shared/Slider/Slider';
 import StartRating from '../shared/StartRating';
@@ -15,8 +16,9 @@ import PublicationModule from './styles/Publication/PublicationModule';
 import Tipo from './styles/Publication/Tipo';
 import Ubicacion from './styles/Publication/Ubicacion';
 
-function Publication({ publication }) {
+function Publication({ publication, newData, data }) {
   const [user, setUser] = useContext(UserContext);
+  const [favorite, setFavorite] = useState(false);
   const {
     id,
     pictures,
@@ -32,10 +34,32 @@ function Publication({ publication }) {
     id_user,
   } = publication;
 
+  const handleOnclick = async () => {
+    if (data.length === 0) {
+      newData([publication]);
+      setFavorite(true);
+    }
+    if (data.every((item) => item.id !== publication.id)) {
+      newData([...data, publication]);
+      setFavorite(true);
+    } else {
+      const result = data.filter((item) => item.id !== publication.id);
+      newData([...result]);
+      setFavorite(false);
+    }
+  };
+
+  useEffect(() => {
+    if (data && data.find((item) => item.id === id)) {
+      return setFavorite(true);
+    }
+    return setFavorite(false);
+  }, [favorite]);
+
   return (
     <PublicationContainer>
       <Slider slides={pictures} />
-      <Favorite />
+      <Favorite handleOnclick={handleOnclick} favorite={favorite} />
       <PublicationModule>
         <Tipo>
           {street} • {city}
