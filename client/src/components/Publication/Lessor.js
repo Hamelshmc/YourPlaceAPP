@@ -66,6 +66,9 @@ function Lessor({ lessor }) {
 const LinkLessor = styled(Link)`
   display: flex;
   text-decoration: none;
+  border-radius: 0.2rem;
+  padding: 0.2rem;
+  border: 0.1rem solid transparent;
   &:link {
     color: inherit;
   }
@@ -75,7 +78,7 @@ const LinkLessor = styled(Link)`
   }
 
   &:hover {
-    color: inherit;
+    border: 0.1rem solid #0f58aa;
   }
 
   &:active {

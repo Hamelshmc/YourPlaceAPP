@@ -21,11 +21,14 @@ const HeaderTitle = styled(Link)`
   }
 
   &:hover {
-    color: inherit;
+    color: #1d9cdb;
   }
 
   &:active {
     color: inherit;
+  }
+  svg:hover {
+    fill: #1d9cdb;
   }
 `;
 export default HeaderTitle;

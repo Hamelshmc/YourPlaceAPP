@@ -33,7 +33,7 @@ const StyledLink = styled(NavLink)`
   }
 
   &:hover {
-    color: inherit;
+    color: #1679c5;
   }
 
   &:active {

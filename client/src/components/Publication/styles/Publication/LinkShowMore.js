@@ -17,11 +17,13 @@ const LinkShowMore = styled(Link)`
     color: white;
   }
 
+
   &:visited {
     color: white;
   }
 
   &:hover {
+    background-color:#0f58aa;
     color: white;
   }
 
