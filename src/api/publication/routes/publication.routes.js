@@ -15,7 +15,6 @@ publicationsRouter
 publicationsRouter
   .route('/')
   .get(
-    cache(cacheTime.ONE_HOUR),
     async (request, response) =>
       await publicationControllers.getPublicationSearch(request, response)
   )
