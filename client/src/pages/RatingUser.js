@@ -18,8 +18,12 @@ function RatingUser() {
     onSuccess: async (result) => {
       if (result.status === 200 || result.status === 201) {
         toast.success(`😄 ¡Rating added! 😄`);
+        await queryClient.invalidateQueries(['userNotificationsCount']);
+        await queryClient.refetchQueries(['userNotificationsCount'], { active: true });
         history.push('/profile');
       } else {
+        await queryClient.invalidateQueries(['userNotificationsCount']);
+        await queryClient.refetchQueries(['userNotificationsCount'], { active: true });
         toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
       }
     },

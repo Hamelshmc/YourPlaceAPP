@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 import { fetchPublicationRating } from '../../../api/Publication';
 import { UserContext } from '../../../hooks/UserContext';
 import StartRating from '../StartRating';
-import  ButtonRating  from './styles/ButtonRating';
-import FormRatingWrapper  from './styles/FormRatingWrapper';
-import Textarea  from './styles/Textarea';
+import ButtonRating from './styles/ButtonRating';
+import FormRatingWrapper from './styles/FormRatingWrapper';
+import Textarea from './styles/Textarea';
 
 function FormRating({ id }) {
   const [user, setUser] = useContext(UserContext);
@@ -19,6 +19,8 @@ function FormRating({ id }) {
       onSuccess: async (result) => {
         if (result.status === 200 || result.status === 201) {
           toast.success(`😄 ¡Rating added! 😄`);
+          await queryClient.invalidateQueries(['userNotificationsCount']);
+          await queryClient.refetchQueries(['userNotificationsCount'], { active: true });
           await queryClient.refetchQueries(['publicationByID'], { active: true });
         } else {
           toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);

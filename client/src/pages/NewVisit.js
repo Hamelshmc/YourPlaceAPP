@@ -1,7 +1,7 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Redirect, useHistory, useParams, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -19,13 +19,15 @@ const NewVisit = () => {
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
   const history = useHistory();
-
+  const queryClient = useQueryClient();
   const mutation = useMutation(
     async (data) => await fetchAuthDataPost(fetchAddVisit, user, setUser, data),
     {
-      onSuccess: (result) => {
+      onSuccess: async (result) => {
         if (result.status === 201) {
           toast.success(`¡Visit added! 😄`);
+          await queryClient.invalidateQueries(['userNotificationsCount']);
+          await queryClient.refetchQueries(['userNotificationsCount'], { active: true });
           history.push('/profile');
         } else {
           toast.error(`🙈  ${result.data}  🙈 `);
