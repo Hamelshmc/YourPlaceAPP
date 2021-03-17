@@ -1,20 +1,34 @@
-/* eslint-disable max-params */
-/* eslint-disable max-lines-per-function */
 /* eslint-disable max-lines */
+/* eslint-disable max-lines-per-function */
+/* eslint-disable no-console */
+/* eslint-disable max-params */
 
 'use strict';
 
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
 
-const { SENDGRID_API_KEY, SENDGRID_MAIL_FROM } = process.env;
-
+// async..await is not allowed in global scope, must use a wrapper
 async function sendEmail(email, subject, title, message, confirmationUrl, buttonText) {
-  sgMail.setApiKey(SENDGRID_API_KEY);
-  const msg = {
-    to: email,
-    from: SENDGRID_MAIL_FROM,
-    subject,
-    text: subject,
+  // Generate test SMTP service account from ethereal.email
+  // Only needed if you don't have a real mail account for testing
+  const testAccount = await nodemailer.createTestAccount();
+
+  // create reusable transporter object using the default SMTP transport
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass, // generated ethereal password
+    },
+  });
+
+  // send mail with defined transport object
+  const info = await transporter.sendMail({
+    from: '"YourPlace" <yourplacemh@gmail.com>', // sender address
+    to: email, // list of receivers
+    subject, // Subject line
     html: `<!DOCTYPE html
           PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2"
@@ -536,17 +550,11 @@ async function sendEmail(email, subject, title, message, confirmationUrl, button
   </center>
 </body>
 
-</html>
-`,
-  };
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.info('Email sent');
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+</html>`, // html body
+  });
+
+  console.log('Message sent: %s', info.messageId);
+  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 }
 
 module.exports = sendEmail;
