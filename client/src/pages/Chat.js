@@ -50,7 +50,7 @@ function Chat() {
   const { isError, data } = useQuery(
     ['userMessages', fetchMessages, user, setUser, id],
     async () => await fetchAuthDataWithParam(fetchMessages, user, setUser, id),
-    { refetchInterval: 1000 }
+    { refetchInterval: 2000 }
   );
 
   if (isError) {
@@ -81,23 +81,21 @@ function Chat() {
       const userData =
         data && data.data && data.data.filter((msg) => msg.id_user_sender !== user.id)[0];
       const userNName =
-        userData && userData.fullname ? userData.fullname : userData && userData.email;
+        userData && userData.fullname ? userData.fullname : userData && userData.user_sender;
       setUsername(userNName);
       const userPict = userData && userData.picture;
       setUserPicture(userPict);
     }
   }, [data && data.data]);
 
-  console.log({ data });
-
   return (
     <ChatSection>
       <ChatBox>
         <ChatHeader>
           <ChatAvatar>
-            <AvatarImg src={userPicture && userPicture} alt="avatar" />
+            <AvatarImg src={userPicture || '/assets/User.svg'} alt="avatar" />
           </ChatAvatar>
-          <ChatUsername>{username && username}</ChatUsername>
+          <ChatUsername>{username || 'User'}</ChatUsername>
         </ChatHeader>
         <ChatBody>
           <MessageList ref={messagesEndRef}>
