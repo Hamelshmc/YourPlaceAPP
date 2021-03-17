@@ -18,14 +18,15 @@ import MessageBox from '../components/Chat/styles/MessageBox';
 import MessageList from '../components/Chat/styles/MessageList';
 import SendButton from '../components/Chat/styles/SendButton';
 import SendedMessage from '../components/Chat/styles/SendedMessage';
-import TextBox from '../components/Chat/styles/TextBox';
 import { UserContext } from '../hooks/UserContext';
 
 function Chat() {
+  const queryClient = useQueryClient();
   const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
   const [messageControl, setMessageControl] = useState('');
-  const queryClient = useQueryClient();
+  const [username, setUsername] = useState('Username');
+  const [userPicture, setUserPicture] = useState('/assets/User.svg');
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onSubmit',
@@ -75,16 +76,28 @@ function Chat() {
     scrollToBottom();
   }, [data && data.data]);
 
-  console.log(data);
+  useEffect(() => {
+    if (data && data.data) {
+      const userData =
+        data && data.data && data.data.filter((msg) => msg.id_user_sender !== user.id)[0];
+      const userNName =
+        userData && userData.fullname ? userData.fullname : userData && userData.email;
+      setUsername(userNName);
+      const userPict = userData && userData.picture;
+      setUserPicture(userPict);
+    }
+  }, [data && data.data]);
+
+  console.log({ data });
 
   return (
     <ChatSection>
       <ChatBox>
         <ChatHeader>
           <ChatAvatar>
-            <AvatarImg src="/assets/User.svg" alt="avatar" />
+            <AvatarImg src={userPicture && userPicture} alt="avatar" />
           </ChatAvatar>
-          <ChatUsername>Username</ChatUsername>
+          <ChatUsername>{username && username}</ChatUsername>
         </ChatHeader>
         <ChatBody>
           <MessageList ref={messagesEndRef}>
@@ -109,7 +122,9 @@ function Chat() {
           </MessageList>
         </ChatBody>
         <MessageBox onSubmit={handleSubmit(onSubmit)}>
-          <TextBox
+          <input
+            type="text"
+            style={{ width: '100%' }}
             id="message"
             name="message"
             aria-describedby="message"
