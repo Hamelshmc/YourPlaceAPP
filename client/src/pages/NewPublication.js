@@ -40,6 +40,7 @@ function NewPublication() {
       onSuccess: async (result) => {
         if (result.status === 201) {
           setLoadingData(false);
+          await queryClient.refetchQueries(['data'], { active: true });
           toast.success(`😄 ¡Publication added! 😄`);
           history.push('/profile');
         } else {
