@@ -37,7 +37,7 @@ async function registerUser(request, response) {
       'YourPlace confirm your sign up',
       '¡Welcome to Yourplace!',
       '¡Thanks for signing up to our web! We hope you will find your place.',
-      `${HTTP_CLIENT_NAME}/verify/${userRegistered.id}/${verificationCode}`,
+      `${HTTP_CLIENT_NAME}verify/${userRegistered.id}/${verificationCode}`,
       '¡Verify your account here!'
     );
 
