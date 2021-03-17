@@ -26,10 +26,14 @@ function Notification() {
       onSuccess: async (result) => {
         if (result.status === 200) {
           toast.success(`¡Notification deleted! 😄`);
+          await queryClient.invalidateQueries(['userNotificationsCount']);
+          await queryClient.refetchQueries(['userNotificationsCount'], { active: true });
           await queryClient.invalidateQueries('userNotifications');
           await queryClient.refetchQueries('userNotifications');
         } else {
           toast.error(`🙈  ${result.data}  🙈 `);
+          await queryClient.invalidateQueries(['userNotificationsCount']);
+          await queryClient.refetchQueries(['userNotificationsCount'], { active: true });
           await queryClient.invalidateQueries('userNotifications');
           await queryClient.refetchQueries('userNotifications');
         }

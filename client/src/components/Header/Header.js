@@ -29,12 +29,10 @@ function HeaderNav() {
     ['userNotificationsCount', fetchUserNotificationsCount, user, setUser],
     async () => await fetchAuthData(fetchUserNotificationsCount, user, setUser),
     {
-      refetchOnWindowFocus: false,
       cacheTime: 3000,
     }
   );
 
-  console.log(data, data?.notification_count);
 
   return (
     <HeaderContainer>
@@ -73,8 +71,8 @@ function HeaderNav() {
                     color: '#1679c5',
                   }}>
                   <StyledIcon>notifications</StyledIcon>
-                  {data && data?.notification_count ? (
-                    <CountNotification>{data?.notification_count}</CountNotification>
+                  {data && data.data?.notification_count ? (
+                    <CountNotification>{data.data?.notification_count}</CountNotification>
                   ) : (
                     <></>
                   )}
