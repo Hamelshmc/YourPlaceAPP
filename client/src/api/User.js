@@ -168,6 +168,8 @@ const fetchUserRatingUpdate = async (data, token, id) => {
   return resJSON;
 };
 
+
+
 export {
   fetchAuthData,
   fetchAuthDataPost,

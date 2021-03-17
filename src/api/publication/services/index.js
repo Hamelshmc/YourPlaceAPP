@@ -7,4 +7,6 @@ module.exports = {
   insertRatingByPublicationId: require('./insert.rating.by.publication.id.service'),
   getPublicationSearch: require('./search.publication.service'),
   uploadImagePublication: require('./upload.image.publication.service'),
+  insertPublicationFavorite: require('./insert.publication.favorite'),
+  removePublicationFavorite: require('./remove.publication.favorite'),
 };

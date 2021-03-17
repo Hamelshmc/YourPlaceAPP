@@ -32,6 +32,7 @@ const YourProfile = React.lazy(() => import('./pages/YourProfile'));
 const RatingUser = React.lazy(() => import('./pages/RatingUser'));
 const CheckoutForm = React.lazy(() => import('./pages/CheckoutForm'));
 const Contract = React.lazy(() => import('./pages/Contract'));
+const Chat = React.lazy(() => import('./pages/Chat'));
 // Create a client
 const queryClient = new QueryClient();
 // Make sure to call loadStripe outside of a component’s render to avoid
@@ -67,6 +68,7 @@ function App() {
             <PrivateRoute path="/profile" component={Profile} exact />
             <PrivateRoute path="/profile/edit" component={EditProfile} exact />
             <PrivateRoute path="/notification" component={Notification} exact />
+            <PrivateRoute path="/chat/:id" component={Chat} exact />
             <PrivateRoute path="/messages" component={Messages} exact />
             <PrivateRoute path="/contract/:id" component={Contract} exact />
             <Elements stripe={promise}>

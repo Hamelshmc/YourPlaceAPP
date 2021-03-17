@@ -5,9 +5,12 @@ const messageServices = require('../services');
 
 async function newMessage(request, response) {
   try {
+    console.log(request.body);
     const { message, idUserReceiver } = request.body;
     const { id: idUser } = request.user;
     const messageBody = { message, idUserReceiver };
+
+    console.log(messageBody);
     await messageServices.insertMessage(messageBody, idUser);
     return response
       .status(httpStatus.CREATED)

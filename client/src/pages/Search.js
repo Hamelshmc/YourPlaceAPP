@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { fetchPublicationSearchV2 } from '../api/Publication';
+import ListPublication from '../components/Publication/ListPublication';
 import Publication from '../components/Publication/Publication';
 import ListPublicationWrapper from '../components/Publication/styles/Publication/ListPublicationWrapper';
 import SearchContent from '../components/Search/SearchContent';
@@ -47,9 +48,7 @@ function Search() {
       ) : isError ? (
         <div>Error: {error.message}</div>
       ) : (
-        <ListPublicationWrapper>
-          {data && data.map((item) => <Publication key={item.id} publication={item} />)}
-        </ListPublicationWrapper>
+         <ListPublication publications={data} />
       )}
       <FlexContainer>
         <CurrentPage>Current Page: {page + 1}</CurrentPage>

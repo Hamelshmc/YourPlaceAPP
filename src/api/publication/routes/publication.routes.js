@@ -41,4 +41,20 @@ publicationsRouter
       await publicationControllers.insertRatingByPublicationId(request, response)
   );
 
+publicationsRouter
+  .route('/favorite')
+  .all(auth, verified)
+  .post(
+    async (request, response) =>
+      await publicationControllers.postFavoritePublication(request, response)
+  );
+
+publicationsRouter
+  .route('/favorite/:id')
+  .all(auth, verified)
+  .delete(
+    async (request, response) =>
+      await publicationControllers.deleteFavoritePublication(request, response)
+  );
+
 module.exports = publicationsRouter;

@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-function Icon({ children, className }) {
-  return <Span className={`${className} material-icons-round`}>{children}</Span>;
+function Icon({ children, className, onClick }) {
+  return (
+    <Span className={`${className} material-icons-round`} onClick={onClick}>
+      {children}
+    </Span>
+  );
 }
 
 const Span = styled.span`
