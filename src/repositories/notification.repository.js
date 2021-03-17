@@ -9,7 +9,7 @@ async function insertNotification(notification) {
 }
 async function findAllNotification(idUser) {
   const query = `
-  SELECT  id,timestamp,notification_type,seen,id_user
+  SELECT  id,DATE_FORMAT( timestamp, '%m-%d-%Y  %T') as timestamp,notification_type,seen,id_user
   FROM ${tableNames.NOTIFICATIONS} WHERE id_user = ? ORDER BY timestamp`;
   const value = [idUser];
   return await repositoryManager.executeQuery(query, value);
