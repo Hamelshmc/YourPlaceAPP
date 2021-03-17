@@ -106,11 +106,13 @@ function Chat() {
               data.data.map((msg) =>
                 msg.id_user_sender === user.id ? (
                   <SendedMessage key={msg.id_message}>
-                    {msg.message} # {msg.timestamp}
+                    <span>{msg.timestamp}</span>
+                    {msg.message}
                   </SendedMessage>
                 ) : (
                   <Message key={msg.id_message}>
-                    {msg.message} # {msg.timestamp}
+                    <span>{msg.timestamp}</span>
+                    {msg.message}
                   </Message>
                 )
               )
