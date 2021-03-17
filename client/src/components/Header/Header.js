@@ -1,7 +1,8 @@
 import { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserContext } from '../../hooks/UserContext';
+import Icon from '../shared/Icon';
 import IconLink from '../shared/IconLink';
 import IconSvg from '../shared/IconSvg/IconSVG';
 import Menu from '../shared/Menu';
@@ -51,7 +52,14 @@ function HeaderNav() {
                 <IconLink to="/messages">email</IconLink>
               </MenuItem>
               <MenuItem>
-                <IconLink to="/notification">notifications</IconLink>
+                <StyledLink
+                  to="/notification"
+                  activeStyle={{
+                    color: '#1679c5',
+                  }}>
+                  <StyledIcon>notifications</StyledIcon>
+                  <CountNotification>5</CountNotification>
+                </StyledLink>
               </MenuItem>
             </Menu>
           </div>
@@ -70,6 +78,50 @@ function HeaderNav() {
 const IconLogo = styled(IconSvg)`
   width: auto;
   height: 1.2rem;
+`;
+
+const CountNotification = styled.p`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 0.813rem;
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  text-align: center;
+`;
+
+const StyledLink = styled(NavLink)`
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding: 1rem;
+  text-decoration: none;
+  text-shadow: ${({ theme }) => theme.boxShadow.default};
+  width: 100%;
+  &:link {
+    color: inherit;
+  }
+
+  &:visited {
+    color: inherit;
+  }
+
+  &:hover {
+    color: #1679c5;
+  }
+
+  &:active {
+    color: inherit;
+  }
+`;
+
+const StyledIcon = styled(Icon)`
+  letter-spacing: 0.06rem;
 `;
 
 export default HeaderNav;
