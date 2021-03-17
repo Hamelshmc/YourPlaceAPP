@@ -1,6 +1,10 @@
+/* eslint-disable complexity */
 import { useContext } from 'react';
+import { useQuery } from 'react-query';
 import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { fetchUserNotificationsCount } from '../../api/Notification';
+import { fetchAuthData } from '../../api/User';
 import { UserContext } from '../../hooks/UserContext';
 import Icon from '../shared/Icon';
 import IconLink from '../shared/IconLink';
@@ -20,6 +24,18 @@ import UserAvatar from './styles/UserAvatar';
 function HeaderNav() {
   const [user, setUser] = useContext(UserContext);
   const location = useLocation();
+
+  const { isError, data } = useQuery(
+    ['userNotificationsCount', fetchUserNotificationsCount, user, setUser],
+    async () => await fetchAuthData(fetchUserNotificationsCount, user, setUser),
+    {
+      refetchOnWindowFocus: false,
+      cacheTime: 3000,
+    }
+  );
+
+  console.log(data, data?.notification_count);
+
   return (
     <HeaderContainer>
       <Header>
@@ -27,7 +43,6 @@ function HeaderNav() {
           <HeaderIcon>
             <IconLogo svg="logo" />
           </HeaderIcon>
-
           <Title>Your Space</Title>
         </HeaderTitle>
         <HeaderNavBar>
@@ -58,7 +73,11 @@ function HeaderNav() {
                     color: '#1679c5',
                   }}>
                   <StyledIcon>notifications</StyledIcon>
-                  <CountNotification>5</CountNotification>
+                  {data && data?.notification_count ? (
+                    <CountNotification>{data?.notification_count}</CountNotification>
+                  ) : (
+                    <></>
+                  )}
                 </StyledLink>
               </MenuItem>
             </Menu>

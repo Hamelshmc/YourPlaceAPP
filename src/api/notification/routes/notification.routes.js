@@ -10,6 +10,14 @@ notificationRouter
   );
 
 notificationRouter
+  .route('/count')
+  .all(auth, verified)
+  .get(
+    async (request, response) =>
+      await notificationController.getNotificationCount(request, response)
+  );
+
+notificationRouter
   .route('/:id')
   .all(auth, verified)
   .delete(
