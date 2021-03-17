@@ -20,4 +20,15 @@ const fetchDeleteUserNotification = async (id, token) =>
     })
   ).json();
 
-export { fetchUserNotifications, fetchDeleteUserNotification };
+const fetchUserNotificationsCount = async (token) =>
+  await (
+    await fetch('/api/v1/notification/count', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).json();
+
+export { fetchUserNotifications, fetchDeleteUserNotification, fetchUserNotificationsCount };

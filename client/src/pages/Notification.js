@@ -113,6 +113,9 @@ const NotificationSection = styled.div`
 
 const NotificationContainer = styled.div`
   padding: 0.5rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const NotificationBox = styled.div`
