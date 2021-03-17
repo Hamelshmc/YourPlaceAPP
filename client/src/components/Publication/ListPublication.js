@@ -3,7 +3,7 @@ import { FavoriteContext } from '../../hooks/FavoriteContext';
 import Publication from './Publication';
 import ListPublicationWrapper from './styles/Publication/ListPublicationWrapper';
 
-function ListPublication({ publications   }) {
+function ListPublication({ publications }) {
   const [favorite, setFavorite] = useContext(FavoriteContext);
   return (
     <ListPublicationWrapper>

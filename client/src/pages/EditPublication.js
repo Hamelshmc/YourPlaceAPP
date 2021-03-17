@@ -3,7 +3,7 @@
 /* eslint-disable complexity */
 /* eslint-disable no-magic-numbers */
 import { joiResolver } from '@hookform/resolvers/joi';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Redirect, useHistory, useParams, withRouter } from 'react-router-dom';
@@ -25,6 +25,7 @@ import { UserContext } from '../hooks/UserContext';
 
 function EditPublication() {
   const [user, setUser] = useContext(UserContext);
+  const [loadingData, setLoadingData] = useState(false);
   const queryClient = useQueryClient();
   const { id } = useParams();
   const history = useHistory();
@@ -48,6 +49,7 @@ function EditPublication() {
     {
       onSuccess: async (result) => {
         if (result.status === 200) {
+          setLoadingData(false);
           toast.success(`😄 ¡Publication edited! 😄`);
           await queryClient.refetchQueries(['data'], { active: true });
           history.push('/profile');
@@ -62,23 +64,27 @@ function EditPublication() {
     const image = {
       data: [],
     };
-    for (let i = 0; i < dataImage.files.length; i += 1) {
-      image.data.push(fileToDataUri(dataImage.files[i]));
+    if (dataImage.files.length) {
+      for (let i = 0; i < dataImage.files.length; i += 1) {
+        image.data.push(fileToDataUri(dataImage.files[i]));
+      }
+      const newImages = await Promise.all(image.data);
+      image.data = newImages;
+      const res = await fetchImage(image);
+      return res.data;
     }
-    const newImages = await Promise.all(image.data);
-    image.data = newImages;
-    const res = await fetchImage(image);
-    return res.data;
+    return [];
   };
 
   const onSubmit = async (dataPublication) => {
+    setLoadingData(true);
     toast.info(
       `
     Uploading information 💭
             Wait!
     `,
       {
-        autoClose: 6000,
+        autoClose: 3000,
       }
     );
     try {
@@ -328,9 +334,12 @@ function EditPublication() {
             reference={register}
             errorMsg={errors.files && errors.files.message}
             error={errors.files}
+            required={false}
           />
           <SubmitButton id="register">
-            {mutation.isLoading ? 'Doing interesting things...' : 'Upload here your publication'}
+            {loadingData || mutation.isLoading
+              ? 'Doing interesting things...'
+              : 'Upload here your publication'}
             {mutation.isError && 'An error occurred'}
             {mutation.isSuccess && <Redirect to="/profile" />}
           </SubmitButton>

@@ -3,7 +3,7 @@
 /* eslint-disable complexity */
 /* eslint-disable no-magic-numbers */
 import { joiResolver } from '@hookform/resolvers/joi';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { Redirect, useHistory, withRouter } from 'react-router-dom';
@@ -25,6 +25,7 @@ import { UserContext } from '../hooks/UserContext';
 
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
+  const [loadingData, setLoadingData] = useState(false);
   const queryClient = useQueryClient();
   const history = useHistory();
 
@@ -38,6 +39,7 @@ function NewPublication() {
     {
       onSuccess: async (result) => {
         if (result.status === 201) {
+          setLoadingData(false);
           toast.success(`😄 ¡Publication added! 😄`);
           history.push('/profile');
         } else {
@@ -61,13 +63,14 @@ function NewPublication() {
   };
 
   const onSubmit = async (data) => {
+    setLoadingData(true);
     toast.info(
       `
     Uploading information 💭
             Wait!
     `,
       {
-        autoClose: 6000,
+        autoClose: 3000,
       }
     );
     try {
@@ -310,7 +313,7 @@ function NewPublication() {
             error={errors.files}
           />
           <SubmitButton id="register">
-            {mutation.isLoading ? (
+            {loadingData || mutation.isLoading ? (
               'Doing interesting things...'
             ) : mutation.isError ? (
               'An error occurreed'

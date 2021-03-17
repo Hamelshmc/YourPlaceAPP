@@ -8,6 +8,7 @@ const ListPublicationWrapper = styled.ul`
   list-style-type: none;
   margin: 1rem;
   padding: 0;
+  transition: all 300ms;
   @media (min-width: 1281px) {
     justify-content: center;
     align-items: center;
