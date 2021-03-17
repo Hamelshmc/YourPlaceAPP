@@ -38,14 +38,15 @@ async function findPublicationUser(id) {
 
 async function findPublicationFavoriteUser(id) {
   const selectUserId = `
-  SELECT
-  p.id, area, rooms, bathrooms, garage, elevator, furnished, parking, pets, garden, pool, terrace, storage_room, heating,
-  publication_type, deposit,price,DATE_FORMAT( availability_date, '%d-%c-%Y') as availability_date , p.disabled,
-  AVG(pr.rating) as publicationRating
+  SELECT  p.id, p.area, p.rooms, p.bathrooms, p.garage, p.elevator, p.furnished, p.parking, p.pets, p.garden, p.pool, p.terrace, p.storage_room,p.heating,
+  p.publication_type, p.deposit,p.price,DATE_FORMAT( p.availability_date, '%d-%c-%Y') as availability_date , street, floor ,city, country, zipcode,p.id_user,u.telephone,u.email,u.fullname,u.picture,AVG(ur.rating) as userRating,AVG(pr.rating) as publicationRating
   FROM ${tableNames.USER} u
   LEFT JOIN ${tableNames.USER_PUBLICATIONS_FAVORITES} upf ON u.id = upf.id_user
-  LEFT JOIN ${tableNames.PUBLICATION} p ON  upf.id_publication = p.id
-  LEFT JOIN ${tableNames.PUBLICATION_RATINGS} pr ON pr.id_publication = p.id where u.id = ? GROUP BY p.id ORDER BY p.timestamp`;
+  INNER JOIN ${tableNames.PUBLICATION} p ON  upf.id_publication = p.id
+  LEFT JOIN ${tableNames.USER_RATING} ur ON ur.id_user_voted = p.id_user
+  LEFT JOIN ${tableNames.PUBLICATION_RATINGS} pr ON pr.id_publication = p.id
+  LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON p.id_publication_address = pa.id where u.id = ? GROUP BY p.id ORDER BY p.timestamp`;
+
   const values = [id];
   return await repositoryManager.executeQuery(selectUserId, values);
 }

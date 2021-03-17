@@ -1,5 +1,9 @@
+/* eslint-disable complexity */
+/* eslint-disable array-callback-return */
 /* eslint-disable camelcase */
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { fetchPublicationFavorite, fetchPublicationFavoriteDelete } from '../../api/Publication';
 import { UserContext } from '../../hooks/UserContext';
 import Slider from '../shared/Slider/Slider';
 import StartRating from '../shared/StartRating';
@@ -15,8 +19,10 @@ import PublicationModule from './styles/Publication/PublicationModule';
 import Tipo from './styles/Publication/Tipo';
 import Ubicacion from './styles/Publication/Ubicacion';
 
-function Publication({ publication }) {
+function Publication({ publication, newData, data }) {
   const [user, setUser] = useContext(UserContext);
+  const queryClient = useQueryClient();
+  const [favorite, setFavorite] = useState(false);
   const {
     id,
     pictures,
@@ -32,10 +38,62 @@ function Publication({ publication }) {
     id_user,
   } = publication;
 
+  const mutation = useMutation(
+    async (newTodo) => await fetchPublicationFavorite(newTodo, user.token),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('userFavorite');
+        queryClient.refetchQueries('userFavorite');
+      },
+    }
+  );
+
+  const mutationDelete = useMutation(
+    async (newTodo) => await fetchPublicationFavoriteDelete(newTodo, user.token),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('userFavorite');
+        queryClient.refetchQueries('userFavorite');
+      },
+    }
+  );
+
+  const handleOnclick = async (event) => {
+    event.preventDefault();
+    if (data.length === 0) {
+      newData([publication]);
+      setFavorite(true);
+      if (user && user.token) {
+        await mutation.mutateAsync({ id_publication: id });
+      }
+    }
+    if (data.every((item) => item.id !== publication.id)) {
+      newData([...data, publication]);
+      setFavorite(true);
+      if (user && user.token) {
+        await mutation.mutateAsync({ id_publication: id });
+      }
+    } else {
+      const result = data.filter((item) => item.id !== publication.id);
+      newData([...result]);
+      setFavorite(false);
+      if (user && user.token) {
+        await mutationDelete.mutateAsync({ id_publication: id });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (data && data.find((item) => item.id === id)) {
+      return setFavorite(true);
+    }
+    return setFavorite(false);
+  }, []);
+
   return (
     <PublicationContainer>
       <Slider slides={pictures} />
-      <Favorite />
+      {user.id !== id_user ? <Favorite handleOnclick={handleOnclick} favorite={favorite} /> : <></>}
       <PublicationModule>
         <Tipo>
           {street} • {city}

@@ -62,6 +62,29 @@ const fetchPublicationSearchV2 = async (pageParam, value, filter) => {
   return res.data;
 };
 
+const fetchPublicationFavorite = async (data, token) =>
+  await (
+    await fetch(`/api/v1/publications/favorite`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+  ).json();
+
+const fetchPublicationFavoriteDelete = async (idPublication, token) =>
+  await (
+    await fetch(`/api/v1/publications/favorite/${idPublication.id_publication}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  ).json();
+
 export {
   fetchImage,
   fetchPublication,
@@ -69,4 +92,6 @@ export {
   fetchPublicationById,
   fetchUpdatePublication,
   fetchPublicationRating,
+  fetchPublicationFavorite,
+  fetchPublicationFavoriteDelete,
 };
