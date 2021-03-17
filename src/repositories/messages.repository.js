@@ -9,9 +9,9 @@ async function insertMessage(Message) {
 }
 
 async function findMyTalks(idUser) {
-  const query = `SELECT m.id_user_receiver, u.email, u.fullname FROM users u
-  LEFT JOIN messages m ON u.id = m.id_user_receiver
-  WHERE m.id_user_sender = ? GROUP BY m.id_user_receiver`;
+  const query = `SELECT u.id, u.email, u.fullname, u.picture FROM messages m
+  LEFT JOIN users u ON u.id = m.id_user_sender
+  WHERE m.id_user_receiver = ? GROUP BY m.id_user_sender`;
   const id = [idUser];
   return await repositoryManager.executeQuery(query, id);
 }
