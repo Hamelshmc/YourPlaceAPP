@@ -4,8 +4,6 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { fetchPublicationSearchV2 } from '../api/Publication';
 import ListPublication from '../components/Publication/ListPublication';
-import Publication from '../components/Publication/Publication';
-import ListPublicationWrapper from '../components/Publication/styles/Publication/ListPublicationWrapper';
 import SearchContent from '../components/Search/SearchContent';
 
 function Search() {
@@ -15,7 +13,7 @@ function Search() {
 
   const { isLoading, isError, error, data, isPreviousData } = useQuery(
     ['data', page, search, filter],
-    async () => await fetchPublicationSearchV2(page, search.trim(), filter)
+    async () => await fetchPublicationSearchV2(page, search, filter)
   );
 
   const previousPage = async () => {
@@ -48,7 +46,7 @@ function Search() {
       ) : isError ? (
         <div>Error: {error.message}</div>
       ) : (
-         <ListPublication publications={data} />
+        <ListPublication publications={data} />
       )}
       <FlexContainer>
         <CurrentPage>Current Page: {page + 1}</CurrentPage>

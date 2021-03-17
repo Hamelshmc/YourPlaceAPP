@@ -42,7 +42,7 @@ function SearchContent({ search, setSearch, setFilter, setReset }) {
           </SearchButton>
           <SearchInput
             id="search"
-            value={search || ' '}
+            value={search}
             name="search"
             type="search"
             onChange={handleSearchChange}
