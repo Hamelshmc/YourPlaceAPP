@@ -6,7 +6,7 @@ const notificationRepository = require('../../../repositories/notification.repos
 async function removeNotification(idNotification) {
   const existNotification = await notificationRepository.existNotification(idNotification);
   if (existNotification) {
-    await notificationRepository.deleteNotification(idNotification);
+    return await notificationRepository.deleteNotification(idNotification);
   }
   throw new ResponseError(httpStatus.NOT_FOUND, 'NOTIFICATION NOT FOUND');
 }
