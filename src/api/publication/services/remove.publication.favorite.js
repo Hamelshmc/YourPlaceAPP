@@ -1,16 +1,14 @@
 'use strict';
 
 const { ResponseError, httpStatus } = require('../../../helpers');
-const publicationRepository = require('../../../repositories/notification.repository');
+const publicationRepository = require('../../../repositories/publication.repository');
 
 async function removePublicationFavorite(idPublication) {
-  const existPublicationFavorite = await publicationRepository.existPublicationFavorite(
-    idPublication
-  );
-  if (existPublicationFavorite) {
+  try {
     await publicationRepository.deletePublication(idPublication);
+  } catch (error) {
+    throw new ResponseError(httpStatus.NOT_FOUND, 'Publication favorite NOT FOUND');
   }
-  throw new ResponseError(httpStatus.NOT_FOUND, 'Publication favorite NOT FOUND');
 }
 
 module.exports = removePublicationFavorite;

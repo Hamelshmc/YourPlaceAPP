@@ -77,7 +77,7 @@ async function deletePublication(idPublication) {
 }
 
 async function existPublicationFavorite(idPublication) {
-  const query = `SELECT * FROM ${tableNames.NOTIFICATIONS} WHERE id_publication = ?`;
+  const query = `SELECT * FROM ${tableNames.USER_PUBLICATIONS_FAVORITES} WHERE id_publication = ?`;
   const value = [idPublication];
   return await repositoryManager.valueExists(query, value);
 }

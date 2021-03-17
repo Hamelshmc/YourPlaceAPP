@@ -4,9 +4,9 @@ const { httpStatus } = require('../../../helpers');
 const ResponseError = require('../../../helpers/responseError.helper');
 const publicationRepository = require('../../../repositories/publication.repository');
 
-async function insertPublicationFavorite(id, idUser) {
+async function insertPublicationFavorite(idPublication, idUser) {
   const publication = {
-    id_publication: id,
+    id_publication: idPublication,
     id_user: idUser,
   };
 
