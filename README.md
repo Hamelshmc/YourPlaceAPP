@@ -13,12 +13,7 @@
 
 ### 📌 Tecnologías:
 
-<img  alt="HTML5"  height="50px" src="https://cdn.svgporn.com/logos/html-5.svg" />
-<img alt="css" height="50px" src="https://cdn.svgporn.com/logos/css-3.svg" />
-<img  alt="JavaScript" height="50px" src="https://cdn.svgporn.com/logos/javascript.svg" />
-<img  alt="React" height="50px" src="https://cdn.svgporn.com/logos/react.svg" />
-<img  alt="Node.js" height="50px" src="https://cdn.svgporn.com/logos/nodejs.svg" />
-<img alt="SQL" height="50px" src="https://cdn.svgporn.com/logos/mysql.svg" />
+<img  alt="HTML5"  height="50px" src="https://cdn.svgporn.com/logos/html-5.svg" /> <img alt="css" height="50px" src="https://cdn.svgporn.com/logos/css-3.svg" /> <img  alt="JavaScript" height="50px" src="https://cdn.svgporn.com/logos/javascript.svg" /> <img  alt="React" height="50px" src="https://cdn.svgporn.com/logos/react.svg" /> <img  alt="Node.js" height="50px" src="https://cdn.svgporn.com/logos/nodejs.svg" /> <img alt="SQL" height="50px" src="https://cdn.svgporn.com/logos/mysql.svg" />
 
 <br />
 
