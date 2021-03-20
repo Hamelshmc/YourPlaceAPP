@@ -41,5 +41,5 @@ APP es una aplicación que te permitirá:
 - Notificaciones
 - Dar Me gusta 
 
-#### Esto es nuestro proyecto final del BOOTCAMP de HACKABOSS
+### Esto es nuestro proyecto final del BOOTCAMP de HACKABOSS
 
