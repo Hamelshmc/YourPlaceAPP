@@ -1,19 +1,34 @@
-/* eslint-disable max-lines-per-function */
 /* eslint-disable max-lines */
+/* eslint-disable max-lines-per-function */
+/* eslint-disable no-console */
+/* eslint-disable max-params */
 
 'use strict';
 
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
 
-const { SENDGRID_API_KEY, SENDGRID_MAIL_TO, SENDGRID_MAIL_FROM, HTTP_CLIENT_NAME } = process.env;
+// async..await is not allowed in global scope, must use a wrapper
+async function sendEmail(email, subject, title, message, confirmationUrl, buttonText) {
+  // Generate test SMTP service account from ethereal.email
+  // Only needed if you don't have a real mail account for testing
+  const testAccount = await nodemailer.createTestAccount();
 
-async function sendEmail(id, code, email) {
-  sgMail.setApiKey(SENDGRID_API_KEY);
-  const msg = {
-    to: email,
-    from: SENDGRID_MAIL_FROM,
-    subject: 'TEST',
-    text: 'TEST',
+  // create reusable transporter object using the default SMTP transport
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass, // generated ethereal password
+    },
+  });
+
+  // send mail with defined transport object
+  const info = await transporter.sendMail({
+    from: '"YourPlace" <yourplacemh@gmail.com>', // sender address
+    to: email, // list of receivers
+    subject, // Subject line
     html: `<!DOCTYPE html
           PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2"
@@ -249,7 +264,6 @@ async function sendEmail(id, code, email) {
                                              class="max-width"
                                              border="0"
                                              style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:100% !important; width:100%; height:auto !important;"
-                                             src="http://cdn.mcauto-images-production.sendgrid.net/e5ea3b6d3222de45/582ca81d-54e4-4dda-99a3-b11a674aa1d5/2560x1440.jpeg"
                                              alt=""
                                              width="600"
                                              data-responsive="true"
@@ -264,9 +278,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="gNWHzBzkFeWH4JDKd2Aikk"
-                                     data-mc-module-version="2019-10-22">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="background-color:#ffffff; padding:50px 0px 10px 0px; line-height:30px; text-align:inherit;"
@@ -275,8 +287,7 @@ async function sendEmail(id, code, email) {
                                         bgcolor="#ffffff">
                                       <div>
                                         <div style="font-family: inherit; text-align: center"><span
-                                                style="color: #516775; font-size: 28px; font-family: georgia, serif"><strong>Welcome
-                                              to Yourplace!</strong></span></div>
+                                                style="color: #516775; font-size: 28px; font-family: georgia, serif"><strong>${title}</strong></span></div>
                                         <div></div>
                                       </div>
                                     </td>
@@ -290,9 +301,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="bA2FfEE6abadx6yKoMr3F9"
-                                     data-mc-module-version="2019-10-22">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="background-color:#ffffff; padding:10px 40px 50px 40px; line-height:22px; text-align:inherit;"
@@ -301,8 +310,7 @@ async function sendEmail(id, code, email) {
                                         bgcolor="#ffffff">
                                       <div>
                                         <div style="font-family: inherit; text-align: center"><span
-                                                style="font-family: verdana, geneva, sans-serif">Thanks for signing up
-                                            to our web! We hope you will find your place.</span></div>
+                                                style="font-family: verdana, geneva, sans-serif">${message}</span></div>
                                         <div></div>
                                       </div>
                                     </td>
@@ -316,8 +324,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="dnNq8YR2nu8DNzse1aZUWt">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="padding:0px 0px 30px 0px;"
@@ -334,8 +341,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="ei2zeSTvjHYmn1YhKSUfaB">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="padding:0px 0px 0px 0px;"
@@ -368,8 +374,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="vFfA6A3u2gVDK2QbpXDqPo">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="padding:0px 0px 30px 0px;"
@@ -386,9 +391,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="2q8x8zTfLywQieSSYmZbus"
-                                     data-mc-module-version="2019-10-22">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="padding:18px 0px 18px 0px; line-height:30px; text-align:inherit;"
@@ -413,8 +416,7 @@ async function sendEmail(id, code, email) {
                                      data-type="button"
                                      role="module"
                                      style="table-layout:fixed"
-                                     width="100%"
-                                     data-muid="bKHWQMgPkL5opYCkxiM6aS">
+                                     width="100%">
                                 <tbody>
                                   <tr>
                                     <td align="center"
@@ -433,8 +435,8 @@ async function sendEmail(id, code, email) {
                                                 class="inner-td"
                                                 style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
                                               <a style="background-color:#066ec0; border:1px solid #066EC0; border-color:#066EC0; border-radius:0px; border-width:1px; color:#ffffff; display:inline-block; font-family:verdana,geneva,sans-serif; font-size:16px; font-weight:normal; letter-spacing:1px; line-height:30px; padding:12px 20px 12px 20px; text-align:center; text-decoration:none; border-style:solid;"
-                                                 href="${HTTP_CLIENT_NAME}/verify/${id}/${code}"
-                                                 target="_blank">Go!</a></td>
+                                                 href="${confirmationUrl}"
+                                                 target="_blank">${buttonText}</a></td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -449,8 +451,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="qkfYAswHNSwNpwb1p7m4gC">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="padding:0px 0px 30px 0px;"
@@ -467,8 +468,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="qkG1GEG4EZSwoAzbwgoD8v">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="padding:0px 0px 0px 0px;"
@@ -501,8 +501,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="vqDDw7scxs521qMEgEyyuF">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="padding:0px 0px 40px 0px;"
@@ -512,22 +511,6 @@ async function sendEmail(id, code, email) {
                                   </tr>
                                 </tbody>
                               </table>
-                              <div data-role="module-unsubscribe"
-                                   class="module unsubscribe-css__unsubscribe___2CDlR"
-                                   role="module"
-                                   data-type="unsubscribe"
-                                   style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:center;"
-                                   data-muid="GRteXBNz7UevhwJ6u6GXE">
-                                <div class="Unsubscribe--addressLine"></div>
-                                <p style="font-family:arial,helvetica,sans-serif; font-size:12px; line-height:20px;"><a
-                                     target="_blank"
-                                     class="Unsubscribe--unsubscribeLink zzzzzzz"
-                                     href="{{{unsubscribe}}}"
-                                     style="">Unsubscribe</a> - <a href="{{{unsubscribe_preferences}}}"
-                                     target="_blank"
-                                     class="Unsubscribe--unsubscribePreferences"
-                                     style="">Unsubscribe Preferences</a></p>
-                              </div>
                               <table class="module"
                                      role="module"
                                      data-type="spacer"
@@ -535,8 +518,7 @@ async function sendEmail(id, code, email) {
                                      cellpadding="0"
                                      cellspacing="0"
                                      width="100%"
-                                     style="table-layout: fixed;"
-                                     data-muid="f5F8P1n4pQyU8o7DNMMEyW">
+                                     style="table-layout: fixed;">
                                 <tbody>
                                   <tr>
                                     <td style="padding:0px 0px 30px 0px;"
@@ -568,17 +550,11 @@ async function sendEmail(id, code, email) {
   </center>
 </body>
 
-</html>
-`,
-  };
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.info('Email sent');
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+</html>`, // html body
+  });
+
+  console.log('Message sent: %s', info.messageId);
+  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 }
 
 module.exports = sendEmail;

@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Slider from '../Slider/Slider';
+import fileToDataUri from '../../../helper/FileToDataUri';
+import SliderFormPreview from '../SliderFormPreview/SliderFormPreview';
 import Constraints from './styles/Constraints';
 
-function InputImage({ reference, previewSource, error, errorMsg }) {
+function InputImage({
+  id = 'files',
+  name = 'files',
+  label = 'Upload Image',
+  reference,
+  error,
+  errorMsg,
+  required = true,
+}) {
+  const [previewPhoto, setPreviewPhoto] = useState('');
+
+  const handleFileInputChange = async (e) => {
+    const result = [];
+    for (let i = 0; i < e.target.files.length; i += 1) {
+      result.push(fileToDataUri(e.target.files[i]));
+    }
+    const newImages = await Promise.all(result);
+    setPreviewPhoto(newImages);
+  };
   return (
-    <div>
+    <InputImageContainer>
       <ButtonWrapper>
-        <LabelUpload>{error ? errorMsg : 'Upload Image'}</LabelUpload>
+        <LabelUpload>{error ? errorMsg : label}</LabelUpload>
         <InputUpload
           type="file"
-          id="files"
-          name="files"
+          id={id}
+          name={name}
           multiple
           ref={reference}
           focus={error}
-          required
+          required={required}
+          onChange={handleFileInputChange}
         />
       </ButtonWrapper>
       <Constraints id="file">{errorMsg}</Constraints>
-      {previewSource && <Slider slides={previewSource} />}
-    </div>
+      {previewPhoto && <SliderFormPreview slides={previewPhoto} />}
+    </InputImageContainer>
   );
 }
 
@@ -30,6 +50,7 @@ const ButtonWrapper = styled.div`
   width: 100%;
   text-align: center;
   position: relative;
+  margin-bottom: 0.5rem;
 `;
 
 const LabelUpload = styled.label`
@@ -55,4 +76,8 @@ const InputUpload = styled.input`
   left: 0;
   opacity: 0;
   cursor: pointer;
+`;
+
+const InputImageContainer = styled.div`
+  width: 100%;
 `;

@@ -1,12 +1,18 @@
+/* eslint-disable max-lines-per-function */
+
 'use strict';
 
 const { add, format } = require('date-fns');
 const { idChecker, tableNames, httpStatus, ResponseError } = require('../../../helpers');
 const { insertBookingValidator } = require('../validations');
 const bookingRepository = require('../../../repositories/booking.repository');
+const userRepository = require('../../../repositories/user.repository');
 const notificationServices = require('../../notification/services');
+const userServices = require('../../user/services');
 const publicationRepository = require('../../../repositories/publication.repository');
 const typeNotifications = require('../../notification/helper/type.notification');
+
+const { HTTP_CLIENT_NAME } = process.env;
 
 async function insertBooking({ startDate, months, idPublication }, idUser) {
   await insertBookingValidator({ startDate, months, idPublication });
@@ -29,6 +35,16 @@ async function insertBooking({ startDate, months, idPublication }, idUser) {
         type: typeNotifications.BOOKING,
         idUser,
       });
+      const userEmail = await publicationRepository.findPublicationOwner(idPublication);
+
+      await userServices.sendConfirmationEmail(
+        userEmail,
+        'YourPlace new request booking',
+        '¡Somebody want yourplace!',
+        '¡Please anwser him as soon as posible!',
+        `${HTTP_CLIENT_NAME}/profile`,
+        '¡Go to my profile!'
+      );
 
       return await bookingRepository.insertBooking(booking);
     }

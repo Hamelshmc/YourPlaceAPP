@@ -23,11 +23,14 @@ const LessorLink = styled.a`
   }
 
   &:hover {
-    color: inherit;
+    color: #1d9cdb;
   }
 
   &:active {
     color: inherit;
+  }
+  svg :hover {
+    fill: green;
   }
 `;
 

@@ -11,8 +11,9 @@ async function getPublicationById(id) {
   }
 
   const pics = await publicationRepository.findAllPicturesByPublicationId(id);
+  const rating = await publicationRepository.findAllRatingByPublicationId(id);
   const picUrls = pics.map((pic) => pic.url);
-  const publicationCopy = { ...publication, pictures: picUrls };
+  const publicationCopy = { ...publication, pictures: picUrls, rating };
 
   return publicationCopy;
 }

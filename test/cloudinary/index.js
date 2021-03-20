@@ -32,7 +32,7 @@ const uploadImage = async (base64EncodedImage) => {
     })
       .then((response) => response.text())
       .then((data) => {
-        console.log(JSON.parse(data));
+        /* console.log(JSON.parse(data)); */
         document.getElementById('data').innerHTML += JSON.parse(data);
       });
   } catch (err) {

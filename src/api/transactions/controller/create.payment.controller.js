@@ -13,7 +13,7 @@ async function createPayment(request, response) {
     });
   } catch (error) {
     return response
-      .status(error.status)
+      .status(error.status || 500)
       .send(new ResponseError(error.status, error, error.message));
   }
 }

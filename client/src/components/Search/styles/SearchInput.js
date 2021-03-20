@@ -9,6 +9,7 @@ const SearchInput = styled.input`
   border: none;
   outline: none;
   &::-webkit-search-cancel-button {
+    display: none;
     opacity: 0.6;
     filter: saturate(300%);
     font-size: 1.3rem;

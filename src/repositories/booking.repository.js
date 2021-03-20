@@ -10,7 +10,7 @@ async function insertBooking(booking) {
 
 async function updateBooking(booking, id) {
   const { columnSet, values } = await columnBuilder(booking);
-  const sql = `UPDATE ${tableNames.BOOKING} SET ${columnSet} WHERE id = ?`;
+  const sql = `UPDATE ${tableNames.BOOKING} SET ${columnSet} , acepted = 0 WHERE id = ?`;
   return await repositoryManager.executeQuery(sql, [...values, id]);
 }
 
@@ -30,8 +30,8 @@ async function getBookingAndPublicationWithAddress(idBooking, idUser) {
   LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = b.id_publication
   LEFT JOIN ${tableNames.PUBLICATION_ADDRESSES} pa ON pa.id = p.id_publication_address
   WHERE b.id = ?
-  AND b.id_user_payer = ?
-  GROUP BY p.id;`;
+  AND p.id_user OR b.id_user_payer = ?
+  GROUP BY b.id LIMIT 1;`;
   return await repositoryManager.executeQuery(query, [idBooking, idUser]);
 }
 
@@ -45,8 +45,20 @@ async function haveBooking(idUser, idPublication) {
   return await repositoryManager.valueExists(query, [idUser, idPublication]);
 }
 
+async function aceptBooking(idUser, idBooking) {
+  const query = `UPDATE ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = b.id_publication SET b.acepted = 1 WHERE p.id_user = ? AND b.id = ?`;
+  return await repositoryManager.valueExists(query, [idUser, idBooking]);
+}
+// DELETE t1 FROM t1 LEFT JOIN t2 ON t1.id=t2.id WHERE t2.id IS NULL;
+async function denyBooking(idUser, idBooking) {
+  const query = `DELETE b FROM ${tableNames.BOOKING} b LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id WHERE p.id_user = ? AND b.id = ?`;
+  return await repositoryManager.valueExists(query, [idUser, idBooking]);
+}
+
 module.exports = {
+  aceptBooking,
   deleteBooking,
+  denyBooking,
   findBookingById,
   insertBooking,
   updateBooking,

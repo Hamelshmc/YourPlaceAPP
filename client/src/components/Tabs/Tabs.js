@@ -18,24 +18,33 @@ const Tabs = ({ defaultIndex = 0, onTabClick, children }) => {
     <>
       <div>
         {items &&
-          items.map(({ props }) => (
-            <TabContent
-              {...props}
-              className={`tab-content ${bindIndex === props.index ? 'selected' : ''}`}
-              key={`tab-content-${props.index}`}
-            />
-          ))}
+          items.map(({ props }) => {
+            if (Object.keys(props).length !== 0) {
+              return (
+                <TabContent
+                  {...props}
+                  className={`tab-content ${bindIndex === props.index ? 'selected' : ''}`}
+                  key={`tab-content-${props.index}`}
+                />
+              );
+            } return '';
+          })}
       </div>
       <TabMenu>
         {items &&
-          items.map(({ props: { index, label } }) => (
-            <TabButton
-              key={`tab-btn-${index}`}
-              onClick={() => changeTab(index)}
-              className={bindIndex === index ? 'focus' : ''}>
-              {label}
-            </TabButton>
-          ))}
+          items.map(({ props: { index, label }, props }) => {
+            if (Object.keys(props).length !== 0) {
+              return (
+                <TabButton
+                  key={`tab-btn-${index}`}
+                  onClick={() => changeTab(index)}
+                  className={bindIndex === index ? 'focus' : ''}>
+                  {label}
+                </TabButton>
+              );
+            }
+            return '';
+          })}
       </TabMenu>
     </>
   );

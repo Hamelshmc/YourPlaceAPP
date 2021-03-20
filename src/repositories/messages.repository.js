@@ -9,19 +9,19 @@ async function insertMessage(Message) {
 }
 
 async function findMyTalks(idUser) {
-  const query = `SELECT m.id_user_receiver, u.email, u.fullname FROM users u
-  LEFT JOIN messages m ON u.id = m.id_user_receiver
-  WHERE m.id_user_sender = ? GROUP BY m.id_user_receiver`;
+  const query = `SELECT u.id, u.email, u.fullname, u.picture FROM messages m
+  LEFT JOIN users u ON u.id = m.id_user_sender
+  WHERE m.id_user_receiver = ? GROUP BY m.id_user_sender`;
   const id = [idUser];
   return await repositoryManager.executeQuery(query, id);
 }
 
 async function findOurTalk(sender, receiver) {
   const query = `
-SELECT u.email AS user_sender, m.message , m.timestamp
+SELECT u.email AS user_sender,u.fullname AS fullname,u.picture AS picture, u.id AS id_user_sender, m.message , DATE_FORMAT( m.timestamp, '%m-%d-%Y  %T') as  timestamp, m.id as id_message
 FROM  users u LEFT JOIN messages m ON m.id_user_sender = u.id  WHERE u.id = ? AND  m.id_user_receiver = ?
 UNION
-SELECT u.email AS user_sender, m.message , m.timestamp
+SELECT u.email AS user_sender,u.fullname AS fullname,u.picture AS picture,u.id AS id_user_sender,  m.message , DATE_FORMAT( m.timestamp, '%m-%d-%Y  %T') as  timestamp, m.id as id_message
 FROM  users u LEFT JOIN messages m ON m.id_user_sender = u.id  WHERE u.id = ?  AND  m.id_user_receiver = ? ORDER BY timestamp;`;
   return await repositoryManager.executeQuery(query, [sender, receiver, receiver, sender]);
 }

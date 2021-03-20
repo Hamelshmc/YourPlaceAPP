@@ -1,3 +1,4 @@
+/* eslint-disable max-depth */
 'use strict';
 
 const { fromUnixTime } = require('date-fns');

@@ -5,10 +5,13 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
+import { Redirect, useHistory, withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { fetchImage, fetchPublication } from '../api/Publication';
 import { fetchAuthDataPost } from '../api/User';
+import publicationSchema from '../components/Publication/validations/Publication';
 import InputCheckBox from '../components/shared/Form/InputCheckBox';
 import InputForm from '../components/shared/Form/InputForm';
 import InputImage from '../components/shared/Form/InputImage';
@@ -17,37 +20,37 @@ import Form from '../components/shared/Form/styles/Form';
 import FormContainer from '../components/shared/Form/styles/FormContainer';
 import FormTitle from '../components/shared/Form/styles/FormTitle';
 import SubmitButton from '../components/shared/Form/styles/SubmitButton';
+import fileToDataUri from '../helper/FileToDataUri';
 import { UserContext } from '../hooks/UserContext';
-import publicationSchema from '../Validations/Publication';
 
 function NewPublication() {
   const [user, setUser] = useContext(UserContext);
-  const [previewSource, setPreviewSource] = useState([]);
-  const [response, setResponse] = useState(false);
-  const mutation = useMutation(
-    async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo)
-  );
+  const [loadingData, setLoadingData] = useState(false);
+  const queryClient = useQueryClient();
+  const history = useHistory();
+
   const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(publicationSchema),
     mode: 'onChange',
   });
-  const fileToDataUri = (image) =>
-    new Promise((res) => {
-      const reader = new FileReader();
-      const { type, name, size } = image;
-      reader.addEventListener('load', () => {
-        res({
-          base64: reader.result,
-          name,
-          type,
-          size,
-        });
-      });
-      reader.readAsDataURL(image);
-    });
+
+  const mutation = useMutation(
+    async (newTodo) => await fetchAuthDataPost(fetchPublication, user, setUser, newTodo),
+    {
+      onSuccess: async (result) => {
+        if (result.status === 201) {
+          setLoadingData(false);
+          await queryClient.refetchQueries(['data'], { active: true });
+          toast.success(`😄 ¡Publication added! 😄`);
+          history.push('/profile');
+        } else {
+          toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
+        }
+      },
+    }
+  );
 
   const handleFileInput = async (data) => {
-    setResponse(true);
     const image = {
       data: [],
     };
@@ -61,30 +64,37 @@ function NewPublication() {
   };
 
   const onSubmit = async (data) => {
-    const { files, availability_date, ...datos } = data;
-    const { street, door, floor, city, zipcode, ...rest } = datos;
-    const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
-    let pictures = await handleFileInput(data);
-    pictures = pictures.map((item) => item.url);
-    setPreviewSource(pictures);
-    const publication = { availability_date, ...rest };
-    const body = { publication, publication_address, pictures };
+    setLoadingData(true);
+    toast.info(
+      `
+    Uploading information 💭
+            Wait!
+    `,
+      {
+        autoClose: 3000,
+      }
+    );
     try {
+      const { files, availability_date, ...datos } = data;
+      const { street, door, floor, city, zipcode, ...rest } = datos;
+      const publication_address = { street, door, floor, city, zipcode, country: 'Spain' };
+      let pictures = await handleFileInput(data);
+      pictures = pictures.map((item) => item.url);
+      const publication = { availability_date, ...rest };
+      const body = { publication, publication_address, pictures };
       await mutation.mutateAsync(body);
     } catch (error) {
       console.error('[ERROR]', error);
       if (mutation.isError) {
         console.log(`An error occurred: ${mutation.error.message}`);
       }
-    } finally {
-      setResponse(false);
     }
   };
 
   return (
     <SectionNewPublication>
       <FormContainer>
-        <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <FormTitle>Publication</FormTitle>
           <InputForm
             type="text"
@@ -93,7 +103,7 @@ function NewPublication() {
             label="Street"
             errorMsg={errors.street && errors.street.message}
             error={errors.street}
-            placeholder="Calle Juan Florez"
+            placeholder="Calle Juan Florez 10"
             reference={register}
           />
           <InputWrapper>
@@ -300,21 +310,18 @@ function NewPublication() {
           </InputWrapper>
           <InputImage
             reference={register}
-            previewSource={previewSource}
             errorMsg={errors.files && errors.files.message}
             error={errors.files}
           />
           <SubmitButton id="register">
-            {response || mutation.isLoading ? (
-              'Adding Publication...'
+            {loadingData || mutation.isLoading ? (
+              'Doing interesting things...'
+            ) : mutation.isError ? (
+              'An error occurreed'
+            ) : mutation.isSuccess ? (
+              <Redirect to="/profile" />
             ) : (
-              <>
-                {mutation.data && mutation.data.status >= 400
-                  ? `Try again!`
-                  : mutation.isSuccess
-                  ? `Publication added!`
-                  : 'Create New Publication'}
-              </>
+              'Upload here your publication'
             )}
           </SubmitButton>
         </Form>
@@ -361,4 +368,4 @@ const InputWrapper = styled.section`
   }
 `;
 
-export default NewPublication;
+export default withRouter(NewPublication);

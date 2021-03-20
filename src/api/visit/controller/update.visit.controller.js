@@ -5,7 +5,7 @@ const visitServices = require('../services');
 
 async function updateVisit(request, response) {
   try {
-    const { id, visit_date: visitDate, visit_hour: visitHour } = request.body;
+    const { id, visitDate, visitHour } = request.body;
     const { id: idUser } = request.user;
 
     await visitServices.updateVisit(id, visitDate, visitHour, idUser);

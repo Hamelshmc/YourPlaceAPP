@@ -6,7 +6,7 @@ const { httpStatus, ResponseError } = require('../../../helpers');
 const visitRegex = '^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$';
 
 const updateVisitSchema = Joi.object({
-  visitDate: Joi.date().min('now').required(),
+  visitDate: Joi.date().required(),
   visitHour: Joi.string().pattern(new RegExp(visitRegex, 'm')).required(),
 });
 

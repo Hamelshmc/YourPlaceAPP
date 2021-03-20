@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable no-return-assign */
+
 const { differenceInMonths } = require('date-fns');
 const { ResponseError, httpStatus } = require('../../../helpers');
 const bookingRepository = require('../../../repositories/booking.repository');
@@ -10,7 +12,6 @@ const CURRENCY_CENTS = 100;
 async function calculatePayment(idBooking, idUser) {
   if (idBooking) {
     const [booking] = await bookingRepository.findBookingById(idBooking);
-    console.log({ idUser }, booking.id_user_payer);
     if (booking.id_user_payer === idUser && booking.acepted) {
       const [publication] = await publicationRepository.findPublicationById(booking.id_publication);
       const months = differenceInMonths(booking.end_date, booking.start_date);

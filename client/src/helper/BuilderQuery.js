@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 function builderQuery(object) {
   if (typeof object !== 'object') {
     throw new Error('Invalid input column builder');
@@ -11,6 +12,9 @@ function builderQuery(object) {
     .filter((key) => {
       if (object[key] === '' || object[key] === null || object[key] === false) {
         return '';
+      }
+      if (key === 'garage' || key === 'storage_room') {
+        object[key] = object[key] === true ? 1 : 0;
       }
       return key;
     })

@@ -4,24 +4,28 @@ const createTransaction = require('./create.transaction.service');
 const { ResponseError, httpStatus } = require('../../../helpers');
 
 async function insertTransaction(transactionData, idBooking, idUser) {
-  if (transactionData.paymentIntent) {
-    await createTransaction(
-      transactionData.paymentIntent.created,
-      transactionData.paymentIntent.amount,
+  const { paymentIntent, error } = transactionData;
+
+  if (paymentIntent) {
+    return await createTransaction(
+      paymentIntent.created,
+      paymentIntent.amount,
       true,
       idBooking,
       idUser
     );
   }
-
-  await createTransaction(
-    transactionData.error.payment_intent.created,
-    transactionData.error.payment_intent.amount,
-    false,
-    idBooking,
-    idUser
-  );
-  throw new ResponseError(httpStatus.BAD_REQUEST, transactionData.error.message);
+  if (error) {
+    await createTransaction(
+      error.payment_intent.created,
+      error.payment_intent.amount,
+      false,
+      idBooking,
+      idUser
+    );
+    throw new ResponseError(httpStatus.BAD_REQUEST, paymentIntent.error.message);
+  }
+  throw new ResponseError(httpStatus.BAD_REQUEST, 'TRANSACTION WITHOUT DATA');
 }
 
 module.exports = insertTransaction;

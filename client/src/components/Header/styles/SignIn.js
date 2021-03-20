@@ -8,6 +8,9 @@ const SignIn = styled(Link)`
   height: auto;
   padding: 1rem;
   text-decoration: none;
+  color: white !important;
+  background-color: ${({ theme }) => theme.colors.primary['600']};
+  align-self: stretch !important;
   text-shadow: ${({ theme }) => theme.boxShadow.default};
   align-self: center;
   font-size: ${({ theme }) => theme.fontSizes.default};
@@ -24,7 +27,7 @@ const SignIn = styled(Link)`
   }
 
   &:hover {
-    color: inherit;
+    background-color: ${({ theme }) => theme.colors.primary['800']};
   }
 
   &:active {

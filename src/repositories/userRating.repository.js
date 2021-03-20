@@ -11,15 +11,12 @@ async function valueExists(idVoter, idVoted) {
 
 async function insertUserRating(rating) {
   const { query, values } = await queryBuilder(tableNames.USER_RATING, rating);
-  console.log('[INSERT]', rating);
-  console.log(values);
   return await repositoryManager.executeQuery(query, values);
 }
 
 async function updateUserRating(rating, id) {
   const { columnSet, values } = await columnBuilder(rating);
   const query = `UPDATE ${tableNames.USER_RATING} SET ${columnSet} WHERE id_user_voter = ?`;
-  console.log('[UPDATE]', rating);
   return await repositoryManager.executeQuery(query, [...values, id]);
 }
 

@@ -27,7 +27,7 @@ async function registerUser(user, code) {
   const emailUserExist = await userRepository.valueExists(email, tableValue.EMAIL);
 
   if (emailUserExist) {
-    throw new ResponseError(httpStatus.NOT_FOUND, 'User not found');
+    throw new ResponseError(httpStatus.NOT_FOUND, 'THE EMAIL IS ALREADY REGISTERED');
   }
 
   const salt = await bcrypt.genSalt(15);
@@ -41,7 +41,7 @@ async function registerUser(user, code) {
   const [userdb] = await userRepository.findByEmail(email);
 
   if (!userdb) {
-    throw new ResponseError(httpStatus.NOT_FOUND, 'User not found');
+    throw new ResponseError(httpStatus.NOT_FOUND, 'ERROR SIGNING UP');
   }
 
   return userdb;

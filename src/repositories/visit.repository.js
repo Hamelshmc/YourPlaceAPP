@@ -35,8 +35,20 @@ async function haveVisit(idUser, idPublication) {
   return await repositoryManager.valueExists(query, [idUser, idPublication]);
 }
 
+async function aceptVisit(idUser, idVisit) {
+  const query = `UPDATE ${tableNames.VISIT} b LEFT JOIN ${tableNames.PUBLICATION} p ON p.id = b.id_publication SET b.acepted = 1 WHERE p.id_user = ? AND b.id = ?`;
+  return await repositoryManager.valueExists(query, [idUser, idVisit]);
+}
+
+async function denyVisit(idUser, idVisit) {
+  const query = `DELETE b FROM ${tableNames.VISIT} b LEFT JOIN ${tableNames.PUBLICATION} p ON b.id_publication = p.id WHERE p.id_user = ? AND b.id = ?`;
+  return await repositoryManager.valueExists(query, [idUser, idVisit]);
+}
+
 module.exports = {
+  aceptVisit,
   deleteVisit,
+  denyVisit,
   getVisityById,
   insertVisit,
   updateVisit,

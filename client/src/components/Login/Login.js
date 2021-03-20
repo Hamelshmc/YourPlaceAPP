@@ -19,7 +19,6 @@ const Login = () => {
 
   const mutation = useMutation(async (data) => await fetchLogin(data), {
     onSuccess: (result) => {
-      console.log({ result });
       if (result.status === 200) {
         setUser({
           id: result.data.user.id,
@@ -28,6 +27,9 @@ const Login = () => {
           picture: result.data.user.picture,
         });
         toast.success(`😄 Welcome! 😄`);
+        if (result.data.user.verified === 0) {
+          toast.info(`Remember to verify your account 👼`);
+        }
       } else {
         toast.error(` ${result.data} 🙈 Ooops! Can you try again please? 🙈 `);
       }
@@ -49,7 +51,7 @@ const Login = () => {
 
   return (
     <FormContainer>
-      <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <FormTitle>Login</FormTitle>
         <InputForm
           id="emailLogin"

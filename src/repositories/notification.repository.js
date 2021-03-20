@@ -9,7 +9,7 @@ async function insertNotification(notification) {
 }
 async function findAllNotification(idUser) {
   const query = `
-  SELECT  id,timestamp,notification_type,seen,id_user
+  SELECT  id,DATE_FORMAT( timestamp, '%m-%d-%Y  %T') as timestamp,notification_type,seen,id_user
   FROM ${tableNames.NOTIFICATIONS} WHERE id_user = ? ORDER BY timestamp`;
   const value = [idUser];
   return await repositoryManager.executeQuery(query, value);
@@ -27,9 +27,17 @@ async function existNotification(idNotification) {
   return await repositoryManager.valueExists(query, value);
 }
 
+async function findNotificationCount(idUser) {
+  const query = `
+  SELECT COUNT(*) as notification_count FROM ${tableNames.NOTIFICATIONS} WHERE id_user = ?`;
+  const value = [idUser];
+  return await repositoryManager.executeQuery(query, value);
+}
+
 module.exports = {
   insertNotification,
   findAllNotification,
+  findNotificationCount,
   deleteNotification,
   existNotification,
 };

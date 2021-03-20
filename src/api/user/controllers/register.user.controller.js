@@ -1,10 +1,12 @@
+/* eslint-disable max-lines-per-function */
+
 'use strict';
 
 const jwt = require('jsonwebtoken');
 const cryptoRandomString = require('crypto-random-string');
 const userServices = require('../services');
 
-const { TOKEN_SECRET } = process.env;
+const { TOKEN_SECRET, HTTP_CLIENT_NAME } = process.env;
 
 const { httpStatus, ResponseError, ResponseJson } = require('../../../helpers');
 
@@ -19,7 +21,7 @@ async function registerUser(request, response) {
       { id: userRegistered.id, verified: userRegistered.verified },
       TOKEN_SECRET,
       {
-        expiresIn: '1m',
+        expiresIn: '1h',
       }
     );
     const refreshToken = jwt.sign(
@@ -29,18 +31,23 @@ async function registerUser(request, response) {
         expiresIn: '24h',
       }
     );
-    await userServices.sendEmail(userRegistered.id, verificationCode, email);
 
-    return response
-      .header('Authorization', `Bearer ${token}`)
-      .status(httpStatus.CREATED)
-      .send(
-        new ResponseJson(httpStatus.CREATED, {
-          user: userRegistered,
-          authorization: token,
-          refreshToken,
-        })
-      );
+    await userServices.sendConfirmationEmail(
+      email,
+      'YourPlace confirm your sign up',
+      '¡Welcome to Yourplace!',
+      '¡Thanks for signing up to our web! We hope you will find your place.',
+      `${HTTP_CLIENT_NAME}/verify/${userRegistered.id}/${verificationCode}`,
+      '¡Verify your account here!'
+    );
+
+    return response.status(httpStatus.CREATED).send(
+      new ResponseJson(httpStatus.CREATED, {
+        user: userRegistered,
+        authorization: token,
+        refreshToken,
+      })
+    );
   } catch (error) {
     return response
       .status(error.status)

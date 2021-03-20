@@ -6,9 +6,12 @@ const LessorLinkRouter = styled(Link)`
   justify-content: center;
   align-items: center;
   height: auto;
+  text-align: center;
   padding: 0.5rem;
   text-decoration: none;
   text-shadow: ${({ theme }) => theme.boxShadow.default};
+  border-radius: 50%;
+
   &:link {
     color: inherit;
   }
@@ -18,7 +21,8 @@ const LessorLinkRouter = styled(Link)`
   }
 
   &:hover {
-    color: inherit;
+    background-color: #fff;
+    color: #0f58aa;
   }
 
   &:active {
