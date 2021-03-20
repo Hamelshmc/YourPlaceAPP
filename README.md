@@ -27,7 +27,7 @@ Aqui ensañamos nuestras habiladades de programación y trabajo en grupo
 
 
 
-## ⚙️ Detalles
+
 
 ## Descripción general del proyecto
 
