@@ -1,6 +1,5 @@
-# 🏠 YourPLace
+# 🏠 YourPlace
 
-## YourPlace
 
 [![Your place](https://www.herokucdn.com/deploy/button.svg)](https://yourplaceapp.herokuapp.com/)
 
