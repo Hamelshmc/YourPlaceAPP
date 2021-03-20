@@ -3,12 +3,12 @@
 ## YourPlace
 
 [![Your place](https://www.herokucdn.com/deploy/button.svg)](https://yourplaceapp.herokuapp.com/)
-
+<br />
 ## [<img align="center" alt="POSTMAN"  height="50px" src="https://cdn.svgporn.com/logos/postman.svg" /> POSTMAN DOCS](https://documenter.getpostman.com/view/7853831/TVza9Yby "POSTMAN DOCS")
-
+<br />
 
 ## <span style="color:#66bb6a">Hamilton Mercado Cuellar & Martín Sieiro Gutiérrez</span>.
-
+<br />
 
 
 ### 📌 Tecnologías:
@@ -20,7 +20,7 @@
 <img  alt="Node.js" height="50px" src="https://cdn.svgporn.com/logos/nodejs.svg" />
 <img alt="SQL" height="50px" src="https://cdn.svgporn.com/logos/mysql.svg" />
 
-
+<br />
 
 ## ⚙️ Herramientas
 
