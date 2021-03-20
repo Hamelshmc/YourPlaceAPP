@@ -8,7 +8,11 @@
 
 ## <span style="color:#66bb6a">Hamilton Mercado Cuellar & Martín Sieiro Gutiérrez</span>.
 
-## 
+## Esto es una parte, la trayectoria completa de este mini-proyecto se encuentra https://gitlab.com/team-mh. 
+
+Aqui ensañamos nuestras habiladades de programación y trabajo en grupo 
+
+
 ![YourPlaceAPP](https://user-images.githubusercontent.com/53625178/111871542-01e24e80-898b-11eb-887c-086eb132a0d0.png)
 
 
