@@ -20,3 +20,18 @@
 <img align="left" alt="Visual Studio Code" height="50px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />
 
 
+
+## ⚙️ Detalles
+
+## Descripción general del proyecto
+
+APP es una aplicación que te permitirá:
+
+- Registrarte en la app.
+- Publicar un alquiler
+- Buscar & Filtrar
+- Valorar al inquilino o casero.
+- Chatear
+- Notificaciones
+- Dar Me gusta 
+
