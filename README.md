@@ -9,8 +9,6 @@
 
 ## <span style="color:#66bb6a">Hamilton Mercado Cuellar & Martín Sieiro Gutiérrez</span>.
 
-<img  alt="YourPlace" src="https://imgur.com/xf65nkt" />
-
 
 
 ### 📌 Tecnologías:
