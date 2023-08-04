@@ -6,6 +6,9 @@
         "name": "Team-MH",
         "url": "https://gitlab.com/team-mh"
     },
+    "engines": {
+        "node": ">=14.0.0"
+    },
     "main": "server.js",
     "scripts": {
         "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -15,7 +18,7 @@
         "updates": "ncu -u",
         "build": "cd client && npm install && npm run build",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
+        "start": "npm install && node server.js"
     },
     "license": "MIT",
     "private": true,
