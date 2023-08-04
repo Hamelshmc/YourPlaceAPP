@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 function builderQuery(object) {
   if (typeof object !== 'object') {
     throw new Error('Invalid input column builder');
