@@ -25,4 +25,7 @@ export default defineConfig({
       src: path.resolve(__dirname, 'src'),
     },
   },
+  build: {
+    outDir: 'build', // Cambia el directorio de salida a 'build'
+  },
 });

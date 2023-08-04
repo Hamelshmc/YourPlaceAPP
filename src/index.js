@@ -43,11 +43,11 @@ app.all('/api/*', (req, res, next) => {
 });
 
 // Servir los archivos estáticos de la aplicación React
-app.use(express.static(path.resolve(__dirname, '../client/dist')));
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 // Manejar todas las demás rutas con la aplicación React
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 // Error middleware
