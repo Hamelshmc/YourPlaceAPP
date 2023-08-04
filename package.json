@@ -16,7 +16,7 @@
         "client": "node start-client.js",
         "format": "prettier --write \"./**/*.js\"",
         "updates": "ncu -u",
-        "heroku-postbuild": "cd client && npm install && npm run build",
+        "build": "cd client && npm install && npm run build",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js"
     },
