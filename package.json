@@ -7,7 +7,7 @@
         "url": "https://gitlab.com/team-mh"
     },
     "engines": {
-        "node": ">=14.0.0"
+        "node": "19.9.0"
     },
     "main": "server.js",
     "scripts": {
@@ -39,6 +39,7 @@
         "node-fetch": "^2.6.1",
         "nodemailer": "^6.5.0",
         "pdf-lib": "^1.16.0",
+        "pg": "^8.11.2",
         "serve-favicon": "^2.5.0",
         "stripe": "^8.138.0",
         "uuid": "^8.3.2"

@@ -1,21 +1,26 @@
-const mysql = require('mysql2/promise');
+const { Pool } = require('pg');
 
-const { MYSQL_HOST, MYSQL_DBNAME, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD } = process.env;
+const {
+  PGHOST,
+  PGDATABASE,
+  PGPORT,
+  PGUSER,
+  PGPASSWORD,
+} = process.env;
 
 let pool;
 
 async function getPool() {
   try {
     if (!pool) {
-      pool = await mysql.createPool({
-        host: MYSQL_HOST,
-        port: MYSQL_PORT,
-        user: MYSQL_USER,
-        password: MYSQL_PASSWORD,
-        database: MYSQL_DBNAME,
-        waitForConnections: true,
-        connectionLimit: 1,
-        queueLimit: 0,
+      pool = new Pool({
+        host: PGHOST,
+        port: PGPORT,
+        user: PGUSER,
+        password: PGPASSWORD,
+        database: PGDATABASE,
+        max: 1, // max number of clients in the pool
+        idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
       });
     }
     return pool;
