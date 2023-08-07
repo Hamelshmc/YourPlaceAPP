@@ -6,6 +6,7 @@ const allowList = [
   'http://localhost:8080',
   'https://yourplaceapp.herokuapp.com',
   'https://yourplaceappdev.herokuapp.com',
+  'https://yourplace-app-7a5v-dev.fl0.io',
 ];
 // const corsOptions = {
 //   origin: (origin, callback) => {
