@@ -1,47 +1,13 @@
-const fetchAddVisit = async (data, token) =>
-  await (
-    await fetch('/api/v1/visits/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-  ).json();
+import { meFetch } from './ApiClient';
 
-const fetchUpdateVisit = async (data, token) =>
-  await (
-    await fetch('/api/v1/visits/', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-  ).json();
+export const fetchAddVisit = async (data, token) =>
+  await meFetch.request('/api/v1/visits/', 'POST', data, token);
 
-const fetchAceptVisit = async (data, token) =>
-  await (
-    await fetch(`/api/v1/visits/acept/${data.idVisit}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const fetchUpdateVisit = async (data, token) =>
+  await meFetch.request('/api/v1/visits/', 'PUT', data, token);
 
-const fetchDenyVisit = async (data, token) =>
-  await (
-    await fetch(`/api/v1/visits/deny/${data.idVisit}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const fetchAceptVisit = async (data, token) =>
+  await meFetch.request(`/api/v1/visits/acept/${data.idVisit}`, 'POST', null, token);
 
-export { fetchUpdateVisit, fetchAddVisit, fetchAceptVisit, fetchDenyVisit };
+export const fetchDenyVisit = async (data, token) =>
+  await meFetch.request(`/api/v1/visits/deny/${data.idVisit}`, 'POST', null, token);

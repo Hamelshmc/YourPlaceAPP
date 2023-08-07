@@ -1,13 +1,4 @@
-const fetchContract = async (id, token) => {
-  const res = await fetch(`/api/v1/contracts/${id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const responseJSON = await res.json();
-  return responseJSON;
-};
+import { meFetch } from './ApiClient';
 
-export default fetchContract;
+export const fetchContract = async (id, token) =>
+  await meFetch.request(`/api/v1/contracts/${id}`, 'POST', null, token);

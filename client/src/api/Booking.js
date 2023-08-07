@@ -1,47 +1,13 @@
-const fetchAddBooking = async (data, token) =>
-  await (
-    await fetch('/api/v1/bookings/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-  ).json();
+import { meFetch } from './ApiClient';
 
-const fetchUpdateBooking = async (data, token) =>
-  await (
-    await fetch('/api/v1/bookings/', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-  ).json();
+export const fetchAddBooking = async (data, token) =>
+  await meFetch.request('/api/v1/bookings/', 'POST', data, token);
 
-const fetchAceptBooking = async (data, token) =>
-  await (
-    await fetch(`/api/v1/bookings/acept/${data.idBooking}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const fetchUpdateBooking = async (data, token) =>
+  await meFetch.request('/api/v1/bookings/', 'PUT', data, token);
 
-const fetchDenyBooking = async (data, token) =>
-  await (
-    await fetch(`/api/v1/bookings/deny/${data.idBooking}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const fetchAcceptBooking = async (data, token) =>
+  await meFetch.request(`/api/v1/bookings/accept/${data.idBooking}`, 'POST', null, token);
 
-export { fetchUpdateBooking, fetchAddBooking, fetchAceptBooking, fetchDenyBooking };
+export const fetchDenyBooking = async (data, token) =>
+  await meFetch.request(`/api/v1/bookings/deny/${data.idBooking}`, 'POST', null, token);

@@ -1,38 +1,10 @@
-const fetchConversations = async (token) => {
-  const res = await fetch(`/api/v1/messages/`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const responseJSON = await res.json();
-  return responseJSON;
-};
+import { meFetch } from './ApiClient';
 
-const fetchMessages = async (id, token) => {
-  const res = await fetch(`/api/v1/messages/${id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const responseJSON = await res.json();
-  return responseJSON;
-};
+export const fetchConversations = async (token) =>
+  await meFetch.request('/api/v1/messages/', 'GET', null, token);
 
-const fetchPostMessage = async (data, token) => {
-  const res = await fetch(`/api/v1/messages/`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-  const responseJSON = await res.json();
-  return responseJSON;
-};
+export const fetchMessages = async (id, token) =>
+  await meFetch.request(`/api/v1/messages/${id}`, 'GET', null, token);
 
-export { fetchConversations, fetchMessages, fetchPostMessage };
+export const fetchPostMessage = async (data, token) =>
+  await meFetch.request('/api/v1/messages/', 'POST', data, token);

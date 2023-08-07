@@ -1,34 +1,10 @@
-const fetchUserNotifications = async (token) =>
-  await (
-    await fetch('/api/v1/notification/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+import { meFetch } from './ApiClient';
 
-const fetchDeleteUserNotification = async (id, token) =>
-  await (
-    await fetch(`/api/v1/notification/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const fetchUserNotifications = async (token) =>
+  await meFetch.request('/api/v1/notification/', 'GET', null, token);
 
-const fetchUserNotificationsCount = async (token) =>
-  await (
-    await fetch('/api/v1/notification/count', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const fetchDeleteUserNotification = async (id, token) =>
+  await meFetch.request(`/api/v1/notification/${id}`, 'DELETE', null, token);
 
-export { fetchUserNotifications, fetchDeleteUserNotification, fetchUserNotificationsCount };
+export const fetchUserNotificationsCount = async (token) =>
+  await meFetch.request('/api/v1/notification/count', 'GET', null, token);

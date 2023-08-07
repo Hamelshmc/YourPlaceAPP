@@ -1,76 +1,30 @@
-const fetchRegister = async (data) => {
+import { meFetch } from './ApiClient';
+
+export const fetchRegister = async (data) => {
   const { emailRegister: email, password } = data;
   const user = { email, password };
-  return await (
-    await fetch('/api/v1/users/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-  ).json();
+  return await meFetch.request('/api/v1/users/register', 'POST', user, null);
 };
 
-const fetchLogin = async (data) => {
+export const fetchLogin = async (data) => {
   const { emailLogin: email, passwordLogin: password } = data;
   const user = { email, password };
-  return await (
-    await fetch('/api/v1/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-  ).json();
+  return await meFetch.request('/api/v1/users/login', 'POST', user, null);
 };
 
-const checkToken = async (token) =>
-  await (
-    await fetch('/api/v1/users/checkToken', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const checkToken = async (token) =>
+  await meFetch.request('/api/v1/users/checkToken', 'GET', null, token);
 
-const generateTokens = async (token) =>
-  await (
-    await fetch('/api/v1/users/generateTokens', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const generateTokens = async (token) =>
+  await meFetch.request('/api/v1/users/generateTokens', 'GET', null, token);
 
-const fetchUser = async (token) =>
-  await (
-    await fetch('/api/v1/users/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const fetchUser = async (token) =>
+  await meFetch.request('/api/v1/users/', 'GET', null, token);
 
-const fetchYourUser = async (id, token) =>
-  await (
-    await fetch(`/api/v1/users/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).json();
+export const fetchYourUser = async (id, token) =>
+  await meFetch.request(`/api/v1/users/${id}`, 'GET', null, token);
 
-const fetchAuthData = async (fetchFn, user, setUser) => {
+export const fetchAuthData = async (fetchFn, user, setUser) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
     return await fetchFn(user.token);
@@ -86,7 +40,7 @@ const fetchAuthData = async (fetchFn, user, setUser) => {
   }
 };
 
-const fetchAuthDataWithParam = async (fetchFn, user, setUser, param) => {
+export const fetchAuthDataWithParam = async (fetchFn, user, setUser, param) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
     return await fetchFn(param, user.token);
@@ -102,7 +56,7 @@ const fetchAuthDataWithParam = async (fetchFn, user, setUser, param) => {
   }
 };
 
-const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
+export const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
   const tokenResponse = await checkToken(user.token);
   if (tokenResponse.status === 200) {
     return await fetchFn(data, user.token);
@@ -118,64 +72,14 @@ const fetchAuthDataPost = async (fetchFn, user, setUser, data) => {
   }
 };
 
-const fetchUserVerification = async (url) =>
-  await (
-    await fetch(`/api/v1/users${url}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-  ).json();
+export const fetchUserVerification = async (url) =>
+  await meFetch.request(`/api/v1/users${url}`, 'GET', null, null);
 
-const fetchUpdateUser = async (data, token) => {
-  const res = await fetch('/api/v1/users/', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-  const resJSON = await res.json();
-  return resJSON;
-};
+export const fetchUpdateUser = async (data, token) =>
+  await meFetch.request('/api/v1/users/', 'PUT', data, token);
 
-const fetchUserRating = async (data, token) =>
-  await (
-    await fetch(`/api/v1/users/ratings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-  ).json();
+export const fetchUserRating = async (data, token) =>
+  await meFetch.request(`/api/v1/users/ratings`, 'POST', data, token);
 
-const fetchUserRatingUpdate = async (data, token, id) => {
-  const res = await fetch(`/api/v1/users/ratings`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  });
-  const resJSON = await res.json();
-  return resJSON;
-};
-
-export {
-  fetchAuthData,
-  fetchAuthDataPost,
-  fetchAuthDataWithParam,
-  fetchLogin,
-  fetchRegister,
-  fetchUpdateUser,
-  fetchUser,
-  fetchUserRating,
-  fetchUserRatingUpdate,
-  fetchUserVerification,
-  fetchYourUser,
-};
+export const fetchUserRatingUpdate = async (data, token, id) =>
+  await meFetch.request(`/api/v1/users/ratings`, 'PUT', data, token);
