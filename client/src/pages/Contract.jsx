@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import fetchContract from '../api/Contract';
+
+import { fetchContract } from '../api/Contract';
 import { UserContext } from '../hooks/UserContext';
 
 const Contract = () => {

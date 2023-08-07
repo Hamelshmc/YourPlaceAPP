@@ -4,7 +4,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled, { keyframes } from 'styled-components';
-import fetchCreateTransaction from '../api/Transaction';
+import { meFetch } from '../api/ApiClient';
+import { fetchCreateTransaction } from '../api/Transaction';
 import { UserContext } from '../hooks/UserContext';
 
 const cardStyle = {
@@ -47,15 +48,8 @@ const CheckoutForm = () => {
   const history = useHistory();
 
   useEffect(() => {
-    window
-      .fetch(`/api/v1/transactions/create-payment-intent/${id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((res) => res.json())
+    meFetch
+      .request(`/api/v1/transactions/create-payment-intent/${id}`, 'POST', null, user.token)
       .then((data) => {
         setClientSecret(data.clientSecret);
       });
@@ -196,7 +190,10 @@ const SubmitButtonStyle = styled.button`
   height: 40px;
   margin: 40px 15px 0;
   background-color: #7d1735;
-  box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 #ffb9f6;
+  box-shadow:
+    0 6px 9px rgba(50, 50, 93, 0.06),
+    0 2px 5px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 #ffb9f6;
   border-radius: 4px;
   color: #fff;
   font-weight: 600;
@@ -205,7 +202,9 @@ const SubmitButtonStyle = styled.button`
   will-change: transform, background-color, box-shadow;
   &:active {
     background-color: #d782d9;
-    box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+    box-shadow:
+      0 6px 9px rgba(50, 50, 93, 0.06),
+      0 2px 5px rgba(0, 0, 0, 0.08),
       inset 0 1px 0 #e298d8;
     ${({ error }) => (error ? 'transform: translateY(15px)' : 'transform: scale(0.99)')}
   }
@@ -233,7 +232,10 @@ const FormGroup = styled.fieldset`
   border-style: none;
   background-color: #0f58aa;
   will-change: opacity, transform;
-  box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 #829fff;
+  box-shadow:
+    0 6px 9px rgba(50, 50, 93, 0.06),
+    0 2px 5px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 #829fff;
   border-radius: 4px;
 `;
 const SectionStyle = styled.section`
