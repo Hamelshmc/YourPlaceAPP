@@ -1,5 +1,3 @@
-/* eslint-disable complexity */
-/* eslint-disable react/jsx-no-undef */
 import React from 'react';
 import styled from 'styled-components';
 import StartRating from '../shared/StartRating';

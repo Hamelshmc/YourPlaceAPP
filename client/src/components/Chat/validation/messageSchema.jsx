@@ -1,4 +1,4 @@
-const Joi = require('joi');
+import Joi from 'joi';
 
 const messageSchema = Joi.string().min(1).max(180).required().messages({
   'string.empty': 'Message cant be void',

@@ -1,7 +1,7 @@
+const path = require('path');
 const compression = require('compression');
 const cors = require('cors');
 const express = require('express');
-const path = require('path');
 const favicon = require('serve-favicon');
 const errorMiddleware = require('./middleware/error.middleware');
 const { httpStatus, ResponseError } = require('./helpers');
@@ -24,8 +24,8 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors(corsOptions));
 app.use(configureLog());
 
-app.use(express.static(path.join(__dirname, '../client/build')));
-app.use(favicon(path.join(__dirname, '../client/public/favicon', 'favicon.ico')));
+// app.use(express.static(path.join(__dirname, '../client/build')));
+// app.use(favicon(path.join(__dirname, '../client/public/favicon', 'favicon.ico')));
 
 app.use('/api/v1/bookings', bookingsRouter);
 app.use('/api/v1/contracts', contractsRouter);
@@ -42,10 +42,13 @@ app.all('/api/*', (req, res, next) => {
   next(err);
 });
 
-// Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
+// // Servir los archivos estáticos de la aplicación React
+// app.use(express.static(path.resolve(__dirname, '../client/build')));
+
+// // Manejar todas las demás rutas con la aplicación React
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+// });
 
 // Error middleware
 app.use(errorMiddleware);

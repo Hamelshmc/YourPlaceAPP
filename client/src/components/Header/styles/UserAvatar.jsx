@@ -3,9 +3,9 @@ import IconLink from '../../shared/IconLink';
 
 const UserAvatar = styled(IconLink)`
   width: auto;
-  display:none;
+  display: none;
   @media (min-width: 768px) {
-    display:inline-flex;
+    display: inline-flex;
   }
 `;
 

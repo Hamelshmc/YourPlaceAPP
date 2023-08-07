@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-
 const fetchRegister = async (data) => {
   const { emailRegister: email, password } = data;
   const user = { email, password };
@@ -167,8 +165,6 @@ const fetchUserRatingUpdate = async (data, token, id) => {
   const resJSON = await res.json();
   return resJSON;
 };
-
-
 
 export {
   fetchAuthData,
