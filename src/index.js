@@ -24,8 +24,8 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors(corsOptions));
 app.use(configureLog());
 
-app.use(express.static(path.join(__dirname, '../client/build')));
-app.use(favicon(path.join(__dirname, '../client/public/favicon', 'favicon.ico')));
+// app.use(express.static(path.join(__dirname, '../client/build')));
+// app.use(favicon(path.join(__dirname, '../client/public/favicon', 'favicon.ico')));
 
 app.use('/api/v1/bookings', bookingsRouter);
 app.use('/api/v1/contracts', contractsRouter);
