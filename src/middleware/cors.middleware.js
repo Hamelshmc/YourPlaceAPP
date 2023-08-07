@@ -1,34 +1,39 @@
 /* eslint-disable no-shadow */
 const { ResponseError, httpStatus } = require('../helpers');
 
+// Define la lista de orígenes permitidos
 const allowList = [
   'http://localhost:3000',
   'http://localhost:8080',
   'https://yourplaceapp.herokuapp.com',
   'https://yourplaceappdev.herokuapp.com',
   'https://yourplace-app-7a5v-dev.fl0.io',
+  'https://yourplace-app.vercel.app',
 ];
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     console.log(`** Origin of request ${origin}`);
-//     if (whitelist.indexOf(origin) !== -1 || !origin) {
-//       console.log('Origin acceptable');
-//       callback(null, true);
-//     } else {
-//       console.log('Origin rejected');
-//       callback(new ResponseError(httpStatus.BAD_REQUEST, 'Not allowed by CORS'));
-//     }
-//   },
-// };
 
+/**
+ * Middleware CORS
+ * @param req - La solicitud entrante
+ * @param callback - La función de retrollamada que se ejecutará después de comprobar la solicitud
+ */
 const corsOptions = (req, callback) => {
   let corsOptions = {};
-  if (allowList.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  // Asegúrate de que exista el encabezado 'Origin'
+  if (req.header('Origin')) {
+    // Si el 'Origin' está en la lista de permitidos, habilita CORS para esta solicitud
+    if (allowList.includes(req.header('Origin'))) {
+      corsOptions = { origin: true };
+    } else {
+      // De lo contrario, deshabilita CORS para esta solicitud
+      corsOptions = { origin: false };
+    }
   } else {
-    corsOptions = { origin: false }; // disable CORS for this request
+    // Si el encabezado 'Origin' no existe, deshabilita CORS para esta solicitud
+    corsOptions = { origin: false };
   }
-  callback(null, corsOptions); // callback expects two parameters: error and options
+
+  // La función de retrollamada espera dos parámetros: error y opciones
+  callback(null, corsOptions);
 };
 
 module.exports = corsOptions;
