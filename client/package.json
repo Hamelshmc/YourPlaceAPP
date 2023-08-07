@@ -9,6 +9,7 @@
         "cloudinary-react": "^1.7.0",
         "joi": "^17.4.0",
         "mapbox-gl": "^2.1.1",
+        "million": "^2.5.4",
         "react": "^17.0.1",
         "react-confetti": "^6.0.1",
         "react-dom": "^17.0.1",
