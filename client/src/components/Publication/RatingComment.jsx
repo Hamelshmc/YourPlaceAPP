@@ -1,9 +1,9 @@
 import React from 'react';
 import StartRating from '../shared/StartRating';
-import RatingCommentDate from '../shared/Rating/RatingCommentDate';
-import RatingCommentItem from '../shared/Rating/RatingCommentItem';
-import RatingCommentUser from '../shared/Rating/RatingCommentUser';
-import RatingCommentWrapper from '../shared/Rating/RatingCommentWrapper';
+import  RatingCommentDate  from '../shared/Rating/RatingCommentDate';
+import  RatingCommentItem  from '../shared/Rating/RatingCommentItem';
+import  RatingCommentUser  from '../shared/Rating/RatingCommentUser';
+import  RatingCommentWrapper  from '../shared/Rating/RatingCommentWrapper';
 
 function RatingComment({ publication }) {
   return (

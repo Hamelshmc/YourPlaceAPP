@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React from 'react';
 
 export default function useIntersectionObserver({
@@ -33,5 +34,5 @@ export default function useIntersectionObserver({
     return () => {
       observer.unobserve(el);
     };
-  }, [enabled, root, rootMargin, threshold, target, onIntersect]);
+  }, [target.current, enabled]);
 }

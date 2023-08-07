@@ -1,3 +1,6 @@
+/* eslint-disable complexity */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-constant-condition */
 import { Transformation } from 'cloudinary-react';
 import { useContext } from 'react';
 import { UserContext } from '../../hooks/UserContext';

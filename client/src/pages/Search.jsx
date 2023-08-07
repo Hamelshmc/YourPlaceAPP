@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
@@ -30,6 +31,7 @@ function Search() {
     setPage(0);
   };
 
+  console.log(data);
 
   return (
     <SearchWrapper>

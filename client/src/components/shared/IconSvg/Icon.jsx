@@ -16,6 +16,8 @@ const svgs = {
           id="SvgjsG1281"
           className="tUuhoZcoAC"
           transform="translate(109.72572426479451, 0.000002112950355126486) scale(0.9404912460379016)"
+          light-content="false"
+          non-strokable="false"
           fill="#333333">
           <g>
             <path d="M97.642 33.692s5.121 4.716.27 9.569c-4.853 4.851-9.434-.137-9.434-.137l-38.52-24.796-38.52 24.796s-4.448 5.255-9.3.404c-4.851-4.852.067-9.636.067-9.636L49.958 0l47.684 33.692z" />
@@ -27,6 +29,7 @@ const svgs = {
           id="SvgjsG1282"
           className="text"
           transform="translate(158.5800018310547, 130.07930406152073) scale(1)"
+          light-content="false"
           fill="#0f58aa"
         />
       </g>

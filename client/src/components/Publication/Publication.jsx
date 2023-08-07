@@ -1,3 +1,6 @@
+/* eslint-disable complexity */
+/* eslint-disable array-callback-return */
+/* eslint-disable camelcase */
 import { useContext, useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { fetchPublicationFavorite, fetchPublicationFavoriteDelete } from '../../api/Publication';

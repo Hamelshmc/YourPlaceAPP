@@ -8,10 +8,10 @@ import FormUserRating from '../components/shared/Form/FormUserRating';
 import { UserContext } from '../hooks/UserContext';
 
 function RatingUser() {
-  const [user] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
   const queryClient = useQueryClient();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
 
   const mutation = useMutation(async (newTodo) => await fetchUserRating(newTodo, user.token), {
@@ -34,14 +34,7 @@ function RatingUser() {
     await mutation.mutateAsync(body);
   };
 
-  return (
-    <FormUserRating
-      handleSubmit={handleSubmit}
-      onSubmit={onSubmit}
-      register={register}
-      mutation={undefined}
-    />
-  );
+  return <FormUserRating handleSubmit={handleSubmit} onSubmit={onSubmit} register={register} />;
 }
 
 export default withRouter(RatingUser);

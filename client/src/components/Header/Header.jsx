@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { useContext } from 'react';
 import { useQuery } from 'react-query';
 import { NavLink, useLocation } from 'react-router-dom';

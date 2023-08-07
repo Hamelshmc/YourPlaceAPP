@@ -19,7 +19,7 @@ function Like() {
     if (user && user.token && data && data.data.publicationsFavoritesUser) {
       setFavorite(data.data?.publicationsFavoritesUser);
     }
-  }, [data, setFavorite, user]);
+  }, [data]);
 
   return favorite.length ? (
     <ListPublication publications={favorite} />

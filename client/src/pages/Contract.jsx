@@ -8,16 +8,12 @@ const Contract = () => {
   const { id } = useParams();
   const [contract, setContract] = useState('');
 
-  useEffect(
-    (async) => {
-      const res = fetchContract(id, user.token).then((res) => {
-        if (res.status === 200) {
-          setContract(res.data);
-        }
-      });
-    },
-    [id, user.token]
-  );
+  useEffect(async () => {
+    const res = await fetchContract(id, user.token);
+    if (res.status === 200) {
+      setContract(res.data);
+    }
+  }, []);
 
   return contract ? (
     <iframe src={contract} height="100%" width="100%" title="pdf" />

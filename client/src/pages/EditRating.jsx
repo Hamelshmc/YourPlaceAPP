@@ -30,6 +30,7 @@ function EditRating() {
 
   const onSubmit = async (data) => {
     const body = { ...data, idUserVoted: id };
+    console.log(body);
     await mutation.mutateAsync(body);
   };
 

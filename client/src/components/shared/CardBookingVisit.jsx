@@ -1,3 +1,6 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable complexity */
+/* eslint-disable camelcase */
 import React from 'react';
 import styled from 'styled-components';
 import AcceptButton from './AcceptButton';
@@ -134,9 +137,7 @@ const CardWrapper = styled.li`
   padding: 1rem;
   text-align: center;
   border-radius: 0.2rem;
-  box-shadow:
-    0 1px 3px 0 rgba(15, 87, 170, 0.6),
-    0 1px 2px 0 rgba(15, 87, 170, 0.3);
+  box-shadow: 0 1px 3px 0 rgba(15, 87, 170, 0.6), 0 1px 2px 0 rgba(15, 87, 170, 0.3);
   margin: 0.5rem;
 `;
 

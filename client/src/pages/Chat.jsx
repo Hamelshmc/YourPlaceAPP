@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+/* eslint-disable complexity */
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -85,7 +86,7 @@ function Chat() {
       const userPict = userData && userData.picture;
       setUserPicture(userPict);
     }
-  }, [data, data.data]);
+  }, [data && data.data]);
 
   return (
     <ChatSection>

@@ -22,7 +22,7 @@ const useContainerDimensions = (myRef) => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [getDimensions, myRef]);
+  }, [myRef]);
 
   return dimensions;
 };

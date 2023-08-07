@@ -103,7 +103,7 @@ function EditPublication() {
       await mutation.mutateAsync(body);
     } catch (e) {
       if (mutation.isError) {
-        console.error(`An error occurred: ${mutation.error.message}`);
+        console.log(`An error occurred: ${mutation.error.message}`);
       }
     }
   };

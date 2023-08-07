@@ -1,5 +1,7 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable complexity */
 import { joiResolver } from '@hookform/resolvers/joi';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-query';
 import { Redirect, useHistory, withRouter } from 'react-router-dom';

@@ -21,6 +21,8 @@ const YourProfile = () => {
     toast.error('🙈 ¡Ooops! Error fetching your profile data');
   }
 
+  console.log({ data });
+
   return data ? (
     <ProfileContainer>
       <div>
@@ -35,8 +37,6 @@ const YourProfile = () => {
         bookings={data.data?.bookings}
         requestBookings={data.data?.requestBookings}
         rating={data.data?.ratings}
-        visits={undefined}
-        requestVisits={undefined}
       />
     </ProfileContainer>
   ) : (

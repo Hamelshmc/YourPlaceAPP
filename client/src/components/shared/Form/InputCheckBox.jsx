@@ -209,14 +209,7 @@ const Check = styled.span`
     margin-left: 6px;
     width: 0;
     height: 0;
-    box-shadow:
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0,
-      0 0 0 0 inset;
+    box-shadow: 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0 inset;
     animation: ${CheckboxOff} 0.3s forwards ease-out;
   }
 `;
@@ -237,12 +230,7 @@ const InputCheckBoxStyle = styled.input`
     opacity: 0.2;
   }
   &[type='checkbox']:checked + span span:before {
-    box-shadow:
-      0 0 0 10px,
-      10px -10px 0 10px,
-      32px 0px 0 20px,
-      0px 32px 0 20px,
-      -5px 5px 0 10px,
+    box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0px 0 20px, 0px 32px 0 20px, -5px 5px 0 10px,
       20px -12px 0 11px;
     animation: ${CheckboxOn} 0.3s forwards ease-out;
   }

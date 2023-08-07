@@ -10,7 +10,7 @@ function Notification() {
   const [user, setUser] = useContext(UserContext);
   const queryClient = useQueryClient();
 
-  const { data } = useQuery(
+  const { isError, data } = useQuery(
     ['userNotifications', fetchUserNotifications, user, setUser],
     async () => await fetchAuthData(fetchUserNotifications, user, setUser),
     {
@@ -43,6 +43,7 @@ function Notification() {
 
   const handleNotificationClick = async (event) => {
     const idNotification = event.target.id;
+    console.log({ idNotification });
     try {
       await mutation.mutateAsync(idNotification);
     } catch (error) {
@@ -100,6 +101,7 @@ function Notification() {
     );
   };
 
+  console.log({ data });
   return (
     <NotificationSection>
       {data && data.data && data.data.map((msg) => checkNotificationType(msg))}
@@ -155,3 +157,5 @@ const NotificationContent = styled.div`
 `;
 
 const NotificationBody = styled.span``;
+
+const NotificationDefaultText = styled.span``;

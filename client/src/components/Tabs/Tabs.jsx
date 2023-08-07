@@ -27,8 +27,7 @@ const Tabs = ({ defaultIndex = 0, onTabClick, children }) => {
                   key={`tab-content-${props.index}`}
                 />
               );
-            }
-            return '';
+            } return '';
           })}
       </div>
       <TabMenu>

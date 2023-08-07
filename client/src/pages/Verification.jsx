@@ -1,4 +1,3 @@
-import React from 'react';
 import { useContext, useEffect } from 'react';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import { fetchUserVerification } from '../api/User';
@@ -18,7 +17,7 @@ const Verification = () => {
         history.push('/search');
       }
     })();
-  }, [history, location.pathname, setUser, user]);
+  }, [user]);
 
   return (
     <div>

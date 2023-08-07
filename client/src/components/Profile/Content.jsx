@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import Icon from '../shared/Icon';
 import StartRating from '../shared/StartRating';
 import BioInfoContainer from './styles/BioInfoContainer';

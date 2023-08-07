@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable complexity */
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
@@ -13,7 +15,7 @@ import Slider from '../components/shared/Slider/Slider';
 import { UserContext } from '../hooks/UserContext';
 
 function Publication() {
-  const [user] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext);
   const { id } = useParams();
   const { isLoading, isError, data, error } = useQuery(
     ['publicationByID', id],
@@ -24,6 +26,7 @@ function Publication() {
   );
 
   const publication = data && data.data;
+  console.log(publication);
 
   if (isLoading) {
     return <span>Loading...</span>;

@@ -1,4 +1,4 @@
-import Joi from 'joi';
+const Joi = require('joi');
 
 const publicationSchema = Joi.object({
   area: Joi.number().integer().positive().required(),

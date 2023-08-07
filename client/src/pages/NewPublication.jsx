@@ -1,3 +1,7 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable camelcase */
+/* eslint-disable complexity */
+/* eslint-disable no-magic-numbers */
 import { joiResolver } from '@hookform/resolvers/joi';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -82,7 +86,7 @@ function NewPublication() {
     } catch (error) {
       console.error('[ERROR]', error);
       if (mutation.isError) {
-        console.error(`An error occurred: ${mutation.error.message}`);
+        console.log(`An error occurred: ${mutation.error.message}`);
       }
     }
   };
