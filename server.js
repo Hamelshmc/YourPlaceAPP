@@ -1,4 +1,6 @@
 require('dotenv').config();
+const https = require('https');
+const fs = require('fs');
 const app = require('./src');
 
 process.on('unhandledRejection', (reason, promise) => {
@@ -6,5 +8,11 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 const PORT = process.env.PORT || 8080;
-// starting the server
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}!`));
+
+const privateKey = fs.readFileSync('./key.pem', 'utf8');
+const certificate = fs.readFileSync('./cert.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+
+const server = https.createServer(credentials, app);
+
+server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}!`));
