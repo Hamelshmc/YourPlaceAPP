@@ -18,7 +18,7 @@
         "updates": "ncu -u",
         "build": "cd client && npm install && npm run build",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
+        "start": "npm ci && node server.js"
     },
     "license": "MIT",
     "private": true,
